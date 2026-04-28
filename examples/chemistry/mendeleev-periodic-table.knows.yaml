@@ -1,0 +1,571 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:examples/mendeleev-periodic-table/1.0.0
+profile: paper@1
+subject_ref: art:paper
+title: The Relation between the Properties and Atomic Weights of the Elements
+summary: 'Agent-facing sidecar for Mendeleev''s 1869 paper proposing the periodic
+  law and the first systematic periodic table of elements. Covers the central claim
+  of periodicity in elemental properties when arranged by atomic weight, the prediction
+  of undiscovered elements (eka-aluminium, eka-silicon), and the known limitation
+  of atomic weight ordering anomalies later resolved by Moseley''s atomic number.
+
+  '
+coverage:
+  statements: main_claims_only
+  evidence: key_evidence_only
+license: CC-BY-4.0
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: zhurnal-russkogo-khimicheskogo-obshchestva-1869
+freshness:
+  as_of: '2026-03-19T00:00:00Z'
+  update_policy: immutable
+provenance:
+  origin: author
+  actor:
+    name: Knows Example Authors
+    type: org
+  generated_at: '2026-03-19T00:00:00Z'
+  method: manual_curation
+artifacts:
+- id: art:paper
+  artifact_type: paper
+  role: subject
+  title: The Relation between the Properties and Atomic Weights of the Elements
+  identifiers:
+    custom:
+      original_russian: Sootnoshenie svoistv s atomnym vesom elementov
+      journal: Zhurnal Russkogo Khimicheskogo Obshchestva (Journal of the Russian
+        Chemical Society)
+      volume: '1'
+      pages: 60-77
+      year: '1869'
+  representations:
+  - id: rep:pdf
+    media_type: application/pdf
+    locator:
+      type: url
+      value: https://www.biodiversitylibrary.org/item/25064
+- id: art:newlands-octaves
+  artifact_type: paper
+  role: cited
+  title: Newlands' Law of Octaves (1865) — periodicity in groups of eight
+  identifiers:
+    custom:
+      reference: Newlands 1865, Chemical News
+  representations: []
+- id: art:lothar-meyer
+  artifact_type: paper
+  role: cited
+  title: Lothar Meyer's atomic volume curve and element classification
+  identifiers:
+    custom:
+      reference: Meyer 1870, Die modernen Theorien der Chemie
+  representations: []
+- id: art:lecoq-gallium
+  artifact_type: paper
+  role: cited
+  title: Lecoq de Boisbaudran's discovery of gallium (1875)
+  identifiers:
+    custom:
+      reference: Lecoq de Boisbaudran 1875, Comptes Rendus
+  representations: []
+- id: art:winkler-germanium
+  artifact_type: paper
+  role: cited
+  title: Winkler's discovery of germanium (1886)
+  identifiers:
+    custom:
+      reference: Winkler 1886, Journal fuer praktische Chemie
+  representations: []
+- id: art:moseley-atomic-number
+  artifact_type: paper
+  role: cited
+  title: Moseley's determination of atomic number from X-ray spectra (1913)
+  identifiers:
+    custom:
+      reference: Moseley 1913, Philosophical Magazine
+  representations: []
+statements:
+- id: stmt:c1
+  statement_type: claim
+  modality: empirical
+  text: 'Elements arranged according to the magnitude of their atomic weights show
+    a clear periodicity of properties. Physical and chemical characteristics of elements
+    (valence, density, melting point, oxide formulae, atomic volume) recur at regular
+    intervals when elements are listed in order of increasing atomic weight.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: main text
+    quote: Elements which are similar as regards their chemical properties have atomic
+      weights which are either of nearly the same value or which increase regularly
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c2
+  statement_type: claim
+  modality: empirical
+  text: 'Gaps in the periodic table correspond to undiscovered elements whose properties
+    can be predicted from the positions of their neighbours. Mendeleev predicted three
+    elements in detail: eka-aluminium (later gallium, discovered 1875), eka-boron
+    (later scandium, discovered 1879), and eka-silicon (later germanium, discovered
+    1886).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: main text, table
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c3
+  statement_type: claim
+  modality: empirical
+  text: 'Some accepted atomic weights must be corrected based on the periodic system.
+    Mendeleev proposed corrections to the atomic weights of several elements (e.g.,
+    adjusting beryllium from ~13.5 to ~9.4, indium from ~75.6 to ~113) to fit the
+    periodic pattern, corrections that were subsequently validated.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: main text
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c4
+  statement_type: claim
+  modality: empirical
+  text: 'The magnitude of the atomic weight determines the character of the element.
+    Elements within the same group (column) share similar chemical properties and
+    valence patterns, forming natural families (e.g., alkali metals Li-Na-K-Rb-Cs,
+    halogens F-Cl-Br-I).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: main text
+    quote: The magnitude of the atomic weight determines the character of the element
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:m1
+  statement_type: method
+  modality: descriptive
+  text: 'Systematic tabulation and comparison of all known elements (63 at the time)
+    arranged by increasing atomic weight, examining periodicity in valence, oxide
+    formulae, physical properties (density, melting point, atomic volume), and chemical
+    reactivity. The method is inductive: patterns are extracted from comprehensive
+    data compilation rather than derived from first principles.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: table and main text
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:a1
+  statement_type: assumption
+  modality: descriptive
+  text: 'The periodic system assumes that atomic weight is the fundamental ordering
+    parameter for elements. Mendeleev treated atomic weight as an intrinsic, defining
+    property. This assumption is approximately correct but not exact — the true ordering
+    parameter is atomic number (proton count), as established by Moseley in 1913.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: main text
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:l1
+  statement_type: limitation
+  modality: descriptive
+  text: 'Ordering by atomic weight produces anomalies where the periodic pattern requires
+    reversing the weight order. Notable cases: tellurium (127.6) and iodine (126.9)
+    must be swapped; cobalt (58.93) and nickel (58.69) must be swapped. Mendeleev
+    acknowledged these anomalies but attributed them to inaccurate atomic weight measurements.
+    The true resolution came from Moseley (1913), who showed atomic number (not weight)
+    is the correct ordering parameter.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: main text
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+evidence:
+- id: ev:periodic-table
+  evidence_type: observation
+  summary: 'Mendeleev''s original table arranging 63 known elements by atomic weight
+    reveals clear periodic patterns. Elements in columns share similar valence and
+    chemical properties. The table contains explicit gaps marked with predicted atomic
+    weights for undiscovered elements.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: table
+  observations:
+  - metric: elements_catalogued
+    value: 63
+    qualifiers:
+      note: all elements known as of 1869
+  - metric: periodicity_pattern
+    qualitative_value: Properties recur with periods of approximately 7 (short periods)
+      and 17 (long periods) elements
+    qualifiers:
+      type: pattern recognition
+  - metric: groups_identified
+    qualitative_value: 8 groups (I-VIII) with sub-groups, corresponding to valence
+      patterns
+    qualifiers:
+      type: systematic classification
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:eka-aluminium-prediction
+  evidence_type: observation
+  summary: 'Mendeleev predicted eka-aluminium (gap below aluminium) with atomic weight
+    ~68, density ~6.0 g/cm3, low melting point, and the ability to form an oxide of
+    formula El2O3. In 1875, Lecoq de Boisbaudran discovered gallium: atomic weight
+    69.72, density 5.91 g/cm3, melting point 29.76 C, oxide Ga2O3. The match is striking.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: main text, table gaps
+  observations:
+  - metric: predicted_atomic_weight
+    value: 68
+    unit: amu
+    qualifiers:
+      element: eka-aluminium
+      type: prediction (1871)
+  - metric: actual_atomic_weight
+    value: 69.72
+    unit: amu
+    qualifiers:
+      element: gallium (Ga)
+      type: measured (1875)
+      discoverer: Lecoq de Boisbaudran
+  - metric: predicted_density
+    value: 6.0
+    unit: g/cm3
+    qualifiers:
+      element: eka-aluminium
+      type: prediction
+  - metric: actual_density
+    value: 5.91
+    unit: g/cm3
+    qualifiers:
+      element: gallium (Ga)
+      type: measured
+  - metric: predicted_oxide
+    qualitative_value: El2O3
+    qualifiers:
+      element: eka-aluminium
+      type: prediction
+  - metric: actual_oxide
+    qualitative_value: Ga2O3
+    qualifiers:
+      element: gallium
+      type: confirmed
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:eka-silicon-prediction
+  evidence_type: observation
+  summary: 'Mendeleev predicted eka-silicon (gap below silicon) with atomic weight
+    ~72, density ~5.5 g/cm3, oxide of formula EsO2, and a chloride EsCl4 with boiling
+    point below 100 C. In 1886, Winkler discovered germanium: atomic weight 72.63,
+    density 5.35 g/cm3, oxide GeO2, chloride GeCl4 boiling at 86 C.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: main text, table gaps
+  observations:
+  - metric: predicted_atomic_weight
+    value: 72
+    unit: amu
+    qualifiers:
+      element: eka-silicon
+      type: prediction (1871)
+  - metric: actual_atomic_weight
+    value: 72.63
+    unit: amu
+    qualifiers:
+      element: germanium (Ge)
+      type: measured (1886)
+      discoverer: Winkler
+  - metric: predicted_density
+    value: 5.5
+    unit: g/cm3
+    qualifiers:
+      element: eka-silicon
+      type: prediction
+  - metric: actual_density
+    value: 5.35
+    unit: g/cm3
+    qualifiers:
+      element: germanium (Ge)
+      type: measured
+  - metric: predicted_chloride_bp
+    qualitative_value: below 100 C
+    qualifiers:
+      compound: EsCl4
+      type: prediction
+  - metric: actual_chloride_bp
+    value: 86
+    unit: celsius
+    qualifiers:
+      compound: GeCl4
+      type: measured
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:atomic-weight-corrections
+  evidence_type: observation
+  summary: 'Mendeleev used the periodic system to challenge accepted atomic weights.
+    He proposed beryllium''s atomic weight should be ~9.4 (not ~13.5 as then accepted),
+    changing its valence from III to II and placing it above magnesium. This correction
+    was confirmed by later measurements. Similarly, he corrected indium from ~75.6
+    (valence II) to ~113 (valence III).
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: main text
+  observations:
+  - metric: beryllium_old_weight
+    value: 13.5
+    unit: amu
+    qualifiers:
+      status: pre-Mendeleev accepted value
+      valence_assumed: III
+  - metric: beryllium_corrected_weight
+    value: 9.4
+    unit: amu
+    qualifiers:
+      status: Mendeleev's correction
+      valence_corrected: II
+      confirmed: true
+  - metric: indium_old_weight
+    value: 75.6
+    unit: amu
+    qualifiers:
+      status: pre-Mendeleev accepted value
+  - metric: indium_corrected_weight
+    value: 113
+    unit: amu
+    qualifiers:
+      status: Mendeleev's correction
+      confirmed: true
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+relations:
+- id: rel:1
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:periodic-table
+- id: rel:2
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:eka-aluminium-prediction
+- id: rel:3
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:eka-silicon-prediction
+- id: rel:4
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:atomic-weight-corrections
+- id: rel:5
+  subject_ref: stmt:c4
+  predicate: supported_by
+  object_ref: ev:periodic-table
+- id: rel:6
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:7
+  subject_ref: stmt:c3
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:8
+  subject_ref: stmt:c4
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:9
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:10
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:11
+  subject_ref: stmt:c1
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:12
+  subject_ref: stmt:a1
+  predicate: challenged_by
+  object_ref: art:moseley-atomic-number
+- id: rel:13
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:newlands-octaves
+  citation_intent: other
+- id: rel:14
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:lothar-meyer
+  citation_intent: other
+- id: rel:15
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: art:lecoq-gallium
+- id: rel:16
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: art:winkler-germanium
+actions: []
+extensions:
+  paper:
+    venue: Zhurnal Russkogo Khimicheskogo Obshchestva (Journal of the Russian Chemical
+      Society)
+    year: 1869
+    discipline: Chemistry / Physical Chemistry
+    sections:
+      main_text: pp. 60-77
+    methodology_type: systematic_tabulation_and_induction
+    evidence_type_distribution:
+      quantitative: 8
+      qualitative: 10
+      note: 'This is fundamentally an inductive, pattern-recognition paper. The primary
+        evidence is the periodic table itself — a systematic arrangement revealing
+        hidden regularity in nature. The most powerful evidence came after publication:
+        the successful prediction of gallium (1875), scandium (1879), and germanium
+        (1886) with properties matching Mendeleev''s predictions to remarkable accuracy.
+        The atomic weight anomalies (Te/I, Co/Ni) were resolved 44 years later when
+        Moseley showed atomic number, not weight, is the true ordering parameter.
+
+        '
+abstract: Arranging the elements by their atomic weights in vertical columns so that
+  the horizontal rows contain analogous elements, still sorted by increasing atomic
+  weight, one obtains a periodic repetition of properties. Elements with similar chemical
+  and physical properties either have similar atomic weights or show a uniform increase
+  in atomic weight.
+venue: Zeitschrift fur Chemie
+year: 1869
+keywords:
+- periodic table
+- elements
+- atomic weight
+- periodicity
+- chemical properties
+- eka-aluminium
+- gallium
+- prediction
+- classification
+- valence
+authors:
+- name: Dmitri Mendeleev
+  affiliation: Saint Petersburg University
+  role: first
+venue_type: published
+resources:
+  facilities:
+  - Chemistry laboratory, Saint Petersburg University
+language: de
+access: open
+record_status: active

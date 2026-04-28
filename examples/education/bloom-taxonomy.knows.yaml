@@ -1,0 +1,512 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:examples/bloom-taxonomy/1.0.0
+profile: paper@1
+subject_ref: art:paper
+title: 'Taxonomy of Educational Objectives: The Classification of Educational Goals.
+  Handbook I: Cognitive Domain'
+summary: 'Agent-facing sidecar for Bloom et al.''s 1956 taxonomy of cognitive learning
+  objectives. Documents the six-level hierarchy (Knowledge, Comprehension, Application,
+  Analysis, Synthesis, Evaluation), the expert consensus methodology, and the framework''s
+  assumptions and limitations including the 2001 Anderson & Krathwohl revision.
+
+  '
+coverage:
+  statements: main_claims_only
+  evidence: key_evidence_only
+license: CC-BY-4.0
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: bloom-1956-handbook
+freshness:
+  as_of: '2026-03-19T00:00:00Z'
+  update_policy: immutable
+provenance:
+  origin: author
+  actor:
+    name: Knows Example Authors
+    type: org
+  generated_at: '2026-03-19T00:00:00Z'
+  method: manual_curation
+artifacts:
+- id: art:paper
+  artifact_type: paper
+  role: subject
+  title: 'Taxonomy of Educational Objectives: The Classification of Educational Goals.
+    Handbook I: Cognitive Domain'
+  identifiers:
+    custom:
+      isbn: 978-0-582-28010-6
+      reference: Bloom et al. 1956
+      publisher: David McKay Company
+  representations:
+  - id: rep:book
+    media_type: text/plain
+    locator:
+      type: url
+      value: https://archive.org/details/taxonomyofeducat0000unse
+- id: art:anderson-revision
+  artifact_type: paper
+  role: cited
+  title: 'A Taxonomy for Learning, Teaching, and Assessing: A Revision of Bloom''s
+    Taxonomy of Educational Objectives'
+  identifiers:
+    custom:
+      isbn: 978-0-321-08405-7
+      reference: Anderson & Krathwohl 2001
+  representations: []
+- id: art:krathwohl-affective
+  artifact_type: paper
+  role: cited
+  title: 'Taxonomy of Educational Objectives, Handbook II: Affective Domain'
+  identifiers:
+    custom:
+      reference: Krathwohl, Bloom, & Masia 1964
+  representations: []
+- id: art:apa-conventions
+  artifact_type: paper
+  role: supporting
+  title: APA Convention discussions on educational objective classification (1948-1953)
+  identifiers:
+    custom:
+      reference: American Psychological Association annual conventions
+  representations: []
+- id: art:exam-corpus
+  artifact_type: dataset
+  role: supporting
+  title: College examination questions used for classification analysis
+  identifiers:
+    custom:
+      reference: Exam items from multiple US universities, 1948-1953
+  representations: []
+statements:
+- id: stmt:c1
+  statement_type: claim
+  modality: theoretical
+  text: 'Cognitive learning objectives can be systematically classified into a hierarchical
+    taxonomy of six levels of increasing complexity: (1) Knowledge, (2) Comprehension,
+    (3) Application, (4) Analysis, (5) Synthesis, and (6) Evaluation. Each level subsumes
+    the cognitive processes of lower levels.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Chapter 2
+    quote: a classification of the goals of our educational system
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c2
+  statement_type: claim
+  modality: theoretical
+  text: 'Higher-order thinking skills (Analysis, Synthesis, Evaluation) build upon
+    and require mastery of lower-order skills (Knowledge, Comprehension, Application).
+    The taxonomy represents a cumulative hierarchy where each level incorporates the
+    competencies of all preceding levels.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Chapter 2
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c3
+  statement_type: claim
+  modality: theoretical
+  text: 'The taxonomy provides a common language and framework for educators to communicate
+    about educational objectives, design curricula, construct assessments, and evaluate
+    whether instructional goals emphasize appropriate levels of cognitive complexity.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Chapter 1
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:m1
+  statement_type: method
+  modality: descriptive
+  text: 'The taxonomy was developed through expert consensus among a committee of
+    college and university examiners who met at the American Psychological Association
+    conventions from 1948 to 1953. The committee analyzed thousands of educational
+    objectives and examination questions from US universities, iteratively classifying
+    them into categories and refining the hierarchical structure through multi-year
+    discussion and pilot testing.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Chapter 1, Preface
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:a1
+  statement_type: assumption
+  modality: descriptive
+  text: 'Cognitive processes are inherently hierarchical and can be meaningfully ordered
+    by complexity. The taxonomy assumes a cumulative model where higher categories
+    necessarily depend on mastery of lower categories — one cannot analyze without
+    first knowing and comprehending. This strict ordering is a deliberate simplification
+    of cognitive reality.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Chapter 2
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:l1
+  statement_type: limitation
+  modality: descriptive
+  text: 'The original taxonomy has been criticized for its rigid hierarchy. Empirical
+    studies have questioned whether the six levels form a strict cumulative sequence.
+    Anderson & Krathwohl (2001) revised the taxonomy into a two-dimensional framework
+    (cognitive process dimension x knowledge dimension), renamed the levels to verb
+    forms (Remember, Understand, Apply, Analyze, Evaluate, Create), and reordered
+    the top two levels (Synthesis/Create moved above Evaluation/Evaluate).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Chapter 2
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:l2
+  statement_type: limitation
+  modality: descriptive
+  text: 'The taxonomy addresses only the cognitive domain. Affective (emotions, attitudes,
+    values) and psychomotor (physical skills) domains were planned as separate handbooks.
+    The affective domain was published by Krathwohl, Bloom & Masia (1964); a psychomotor
+    taxonomy was never completed by the original committee.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Chapter 1
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+evidence:
+- id: ev:six-levels
+  evidence_type: observation
+  summary: 'The taxonomy defines six hierarchical levels of cognitive objectives with
+    detailed sub-categories and illustrative educational objectives for each. Each
+    level is characterized by specific cognitive behaviors that distinguish it from
+    adjacent levels.
+
+    '
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Chapters 3-8
+  observations:
+  - metric: taxonomy_level_1
+    qualitative_value: Knowledge — recall of specifics, universals, methods, processes,
+      patterns, structures, or settings
+    qualifiers:
+      level: 1
+      type: lower-order
+  - metric: taxonomy_level_2
+    qualitative_value: Comprehension — understanding meaning; translation, interpretation,
+      extrapolation
+    qualifiers:
+      level: 2
+      type: lower-order
+  - metric: taxonomy_level_3
+    qualitative_value: Application — use of abstractions in particular and concrete
+      situations
+    qualifiers:
+      level: 3
+      type: lower-order
+  - metric: taxonomy_level_4
+    qualitative_value: Analysis — breakdown into constituent elements; relationships,
+      organizational principles
+    qualifiers:
+      level: 4
+      type: higher-order
+  - metric: taxonomy_level_5
+    qualitative_value: Synthesis — putting elements together to form a new whole;
+      unique communication, plan, or set of abstract relations
+    qualifiers:
+      level: 5
+      type: higher-order
+  - metric: taxonomy_level_6
+    qualitative_value: Evaluation — judgments about the value of material and methods
+      for given purposes
+    qualifiers:
+      level: 6
+      type: higher-order
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:expert-consensus
+  evidence_type: observation
+  summary: 'The classification framework was developed over five years (1948-1953)
+    by a committee of college examiners led by Benjamin Bloom. The committee reviewed
+    and classified educational objectives and test items from multiple US institutions,
+    using iterative rounds of categorization and inter-rater discussion to achieve
+    consensus on the hierarchical structure.
+
+    '
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Preface, Chapter 1
+  observations:
+  - metric: development_period
+    qualitative_value: Five years of committee work (1948-1953)
+    qualifiers:
+      method: expert consensus
+  - metric: committee_composition
+    qualitative_value: College and university examiners from multiple US institutions
+    qualifiers:
+      leader: Benjamin S. Bloom
+  - metric: data_source
+    qualitative_value: Educational objectives and examination questions from US universities
+    qualifiers:
+      type: qualitative classification
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:exam-classification
+  evidence_type: observation
+  summary: 'The committee demonstrated the taxonomy''s applicability by classifying
+    real examination questions into the six levels. Each chapter provides illustrative
+    test items showing how assessment questions can target different cognitive levels
+    on the same subject matter, from factual recall (Knowledge) to making judgments
+    with criteria (Evaluation).
+
+    '
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Chapters 3-8
+  observations:
+  - metric: classification_validity
+    qualitative_value: Committee members achieved consensus on classification of exam
+      items into the six levels
+    qualifiers:
+      method: expert rating with iterative discussion
+  - metric: illustrative_items
+    qualitative_value: Each taxonomy level includes multiple example test items demonstrating
+      that level's cognitive demand
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:anderson-revision
+  evidence_type: citation_backed
+  summary: 'Anderson & Krathwohl (2001) revised the original taxonomy after 45 years
+    of use and critique. Key changes: (1) renamed categories from nouns to verbs (Knowledge→Remember,
+    Comprehension→Understand, etc.), (2) swapped the top two levels (Create above
+    Evaluate), (3) added a second dimension (Knowledge types: factual, conceptual,
+    procedural, metacognitive), creating a two-dimensional taxonomy table.
+
+    '
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: external
+  observations:
+  - metric: revision_scope
+    qualitative_value: Six noun categories → six verb categories; added Knowledge
+      dimension (4 types); Synthesis renamed Create and moved to top
+    qualifiers:
+      year: 2001
+      authors: Anderson & Krathwohl
+  - metric: hierarchy_modification
+    qualitative_value: 'Original: Knowledge < Comprehension < Application < Analysis
+      < Synthesis < Evaluation → Revised: Remember < Understand < Apply < Analyze
+      < Evaluate < Create'
+    qualifiers:
+      note: Top two levels reordered
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+relations:
+- id: rel:1
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:six-levels
+- id: rel:2
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:expert-consensus
+- id: rel:3
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:six-levels
+- id: rel:4
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:exam-classification
+- id: rel:5
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:6
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:7
+  subject_ref: stmt:c1
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:8
+  subject_ref: stmt:c2
+  predicate: challenged_by
+  object_ref: ev:anderson-revision
+- id: rel:9
+  subject_ref: stmt:c1
+  predicate: limited_by
+  object_ref: stmt:l2
+- id: rel:10
+  subject_ref: art:paper
+  predicate: uses
+  object_ref: art:exam-corpus
+- id: rel:11
+  subject_ref: art:paper
+  predicate: uses
+  object_ref: art:apa-conventions
+- id: rel:12
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:anderson-revision
+  citation_intent: other
+- id: rel:13
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:krathwohl-affective
+  citation_intent: other
+actions: []
+extensions:
+  paper:
+    venue: Monograph (David McKay Company, New York)
+    year: 1956
+    discipline: Education / Educational Psychology
+    sections:
+      chapter_1: Nature and development of the taxonomy
+      chapter_2: Condensed version of the taxonomy
+      chapters_3_8: Detailed taxonomy levels with illustrative objectives and test
+        items
+      appendix: Condensed version of the taxonomy with examples
+    methodology_type: expert_consensus_classification
+    evidence_type_distribution:
+      quantitative: 0
+      qualitative: 10
+      note: 'Bloom''s Taxonomy is a purely qualitative classification framework derived
+        from expert consensus, not from empirical experiment. There are no numeric
+        benchmarks, statistical tests, or experimental comparisons. The evidence consists
+        of the classification system itself and its demonstrated applicability to
+        real examination questions. Knows handles this entirely through qualitative_value
+        fields in observations.
+
+        '
+abstract: 'This handbook provides a classification of educational goals which teachers
+  and examiners use in constructing curricula and examinations. The cognitive domain
+  taxonomy contains six major classes: Knowledge, Comprehension, Application, Analysis,
+  Synthesis, and Evaluation, ordered from simple to complex cognitive processes.'
+venue: David McKay Company (book)
+year: 1956
+keywords:
+- Bloom taxonomy
+- educational objectives
+- cognitive domain
+- learning outcomes
+- knowledge
+- comprehension
+- application
+- analysis
+- synthesis
+- evaluation
+- higher-order thinking
+authors:
+- name: Benjamin S. Bloom
+  affiliation: University of Chicago
+  role: first
+venue_type: published
+resources:
+  human:
+    annotators: 34
+language: en
+access: open
+record_status: active

@@ -1,0 +1,519 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:examples/kahneman-prospect-theory/1.0.0
+profile: paper@1
+subject_ref: art:paper
+title: 'Prospect Theory: An Analysis of Decision under Risk'
+summary: 'Agent-facing sidecar for Kahneman & Tversky''s 1979 Econometrica paper on
+  prospect theory. Covers the reference-dependent value function, loss aversion (losses
+  loom ~2x larger than gains), probability weighting (overweighting small probabilities,
+  underweighting large ones), and the S-shaped value function (concave for gains,
+  convex for losses). Evidence is from survey/choice experiments with hypothetical
+  gambles.
+
+  '
+coverage:
+  statements: main_claims_only
+  evidence: key_evidence_only
+license: CC-BY-4.0
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: econometrica-1979-camera-ready
+freshness:
+  as_of: '2026-03-19T00:00:00Z'
+  update_policy: immutable
+provenance:
+  origin: author
+  actor:
+    name: Knows Example Authors
+    type: org
+  generated_at: '2026-03-19T00:00:00Z'
+  method: manual_curation
+artifacts:
+- id: art:paper
+  artifact_type: paper
+  role: subject
+  title: 'Prospect Theory: An Analysis of Decision under Risk'
+  identifiers:
+    doi: 10.2307/1914185
+  representations:
+  - id: rep:pdf
+    media_type: application/pdf
+    locator:
+      type: url
+      value: https://doi.org/10.2307/1914185
+- id: art:expected-utility
+  artifact_type: paper
+  role: cited
+  title: Theory of Games and Economic Behavior (von Neumann & Morgenstern 1944)
+  identifiers:
+    custom:
+      reference: von Neumann and Morgenstern 1944
+  representations: []
+- id: art:allais-paradox
+  artifact_type: paper
+  role: cited
+  title: Le Comportement de l'Homme Rationnel devant le Risque (Allais 1953)
+  identifiers:
+    doi: 10.2307/1907921
+  representations: []
+- id: art:savage
+  artifact_type: paper
+  role: cited
+  title: The Foundations of Statistics (Savage 1954)
+  identifiers:
+    custom:
+      reference: Savage 1954
+  representations: []
+- id: art:markowitz-utility
+  artifact_type: paper
+  role: cited
+  title: The Utility of Wealth (Markowitz 1952)
+  identifiers:
+    doi: 10.1086/257177
+  representations: []
+statements:
+- id: stmt:c1
+  statement_type: claim
+  modality: empirical
+  text: 'People evaluate outcomes as gains or losses relative to a reference point
+    (typically the status quo), rather than as final states of wealth. This reference-dependent
+    framing causes systematically different choices for objectively identical problems
+    presented as gains vs. losses.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 274-277
+    quote: the carriers of value are changes in wealth or welfare, rather than final
+      states
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c2
+  statement_type: claim
+  modality: empirical
+  text: 'Loss aversion: losses loom larger than equivalent gains. The disutility of
+    losing a given amount is roughly twice the utility of gaining the same amount
+    (approximately 2:1 loss-to-gain ratio). People are risk-averse for gains but risk-seeking
+    for losses.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '279'
+    quote: the aggravation that one experiences in losing a sum of money appears to
+      be greater than the pleasure associated with gaining the same amount
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c3
+  statement_type: claim
+  modality: empirical
+  text: 'People systematically overweight small probabilities and underweight moderate-to-large
+    probabilities. The decision weight function pi(p) is not linear in probability:
+    pi(p) > p for small p (explaining lottery ticket purchases), and pi(p) < p for
+    moderate-to-high p (explaining insurance purchases beyond actuarial value).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 280-284
+    quote: low probabilities are overweighted
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c4
+  statement_type: claim
+  modality: empirical
+  text: 'The value function v(x) is concave for gains and convex for losses, producing
+    an S-shaped curve. This implies diminishing sensitivity: the marginal value of
+    both gains and losses decreases with their magnitude. The function is steeper
+    for losses than for gains (loss aversion).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 278-280
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:m1
+  statement_type: method
+  modality: descriptive
+  text: 'The authors conducted a series of choice experiments presenting hypothetical
+    gambles to university students and faculty. Subjects chose between pairs of prospects
+    (gambles with stated probabilities and payoffs). Modal choices were used to identify
+    systematic violations of expected utility theory. The prospect theory model (editing
+    + evaluation phases) was then proposed to explain these patterns.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 265-269
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:a1
+  statement_type: assumption
+  modality: descriptive
+  text: 'Hypothetical choices in survey experiments are assumed to reflect genuine
+    decision-making preferences. Subjects were told there were no "correct" answers
+    and asked to indicate their true preferences. No real money was at stake.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '265'
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:l1
+  statement_type: limitation
+  modality: descriptive
+  text: 'All experiments used hypothetical gambles with no real monetary stakes. Hypothetical
+    bias — the possibility that real-stakes decisions may differ systematically from
+    hypothetical choices — is acknowledged but not tested. The sample consists primarily
+    of university students and faculty, limiting demographic generalizability.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '265'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+evidence:
+- id: ev:certainty-effect
+  evidence_type: survey_result
+  summary: 'Problem 1 vs Problem 2 (certainty effect): 80% of subjects prefer (4000,
+    .80) over (3000, 1.0) is reversed — actually 80% prefer the certain 3000 over
+    (4000, .80), demonstrating risk aversion for gains. But in Problem 3 (loss domain),
+    92% prefer (-4000, .80) over (-3000, 1.0), showing risk seeking for losses. This
+    "reflection effect" systematically violates expected utility theory.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 265-268
+  observations:
+  - metric: choice_pct_certain_gain
+    value: 80
+    unit: percent
+    qualifiers:
+      problem: '1'
+      n: 72
+      preferred: (3000, 1.0) over (4000, 0.80)
+      domain: gains
+      note: risk aversion for gains
+  - metric: choice_pct_risky_loss
+    value: 92
+    unit: percent
+    qualifiers:
+      problem: '3'
+      n: 95
+      preferred: (-4000, 0.80) over (-3000, 1.0)
+      domain: losses
+      note: risk seeking for losses — reflection effect
+  - metric: expected_value_risky
+    value: 3200
+    unit: Israeli pounds
+    qualifiers:
+      problem: '1'
+      computation: 4000 * 0.80
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:probability-weighting
+  evidence_type: survey_result
+  summary: 'Problem 7 and 8 demonstrate overweighting of small probabilities. In Problem
+    7, 72% prefer (6000, .001) over (3000, .002) even though the expected values are
+    equal. For Problem 8 (loss domain), the pattern reverses. Problem 14 shows the
+    Allais paradox: preferences between (2500, .33; 2400, .66; 0, .01) and (2400,
+    1.0) shift when common components are removed.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 267-271
+  observations:
+  - metric: choice_pct_overweight_small_p
+    value: 72
+    unit: percent
+    qualifiers:
+      problem: '7'
+      n: 66
+      preferred: (6000, 0.001) over (3000, 0.002)
+      note: overweighting of small probability despite equal EV
+  - metric: certainty_equivalent_ratio
+    qualitative_value: pi(0.001)/pi(0.002) > 1/2, implying overweighting of the smaller
+      probability
+    qualifiers:
+      derived: from choice pattern
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:isolation-effect
+  evidence_type: survey_result
+  summary: 'Problem 10 (two-stage gamble): 78% prefer a sure 3000 in the second stage
+    over (4000, .80), identical in compound probability to Problem 4 where 65% prefer
+    (4000, .20) over (3000, .25). The shift demonstrates the isolation effect — people
+    decompose prospects differently depending on framing, ignoring components shared
+    by both options.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 271-273
+  observations:
+  - metric: choice_pct_sure_second_stage
+    value: 78
+    unit: percent
+    qualifiers:
+      problem: '10'
+      n: 141
+      preferred: sure 3000 in stage 2
+      note: isolation effect — same compound probability as Problem 4
+  - metric: choice_pct_risky_single_stage
+    value: 65
+    unit: percent
+    qualifiers:
+      problem: '4'
+      n: 95
+      preferred: (4000, 0.20) over (3000, 0.25)
+      note: preference reversal from Problem 10 despite identical compound probabilities
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:value-function-shape
+  evidence_type: survey_result
+  summary: 'The aggregate choice patterns across all problems support an S-shaped
+    value function: concave for gains (risk aversion), convex for losses (risk seeking),
+    with a steeper slope for losses than gains. The loss aversion coefficient (ratio
+    of loss slope to gain slope at the reference point) is approximately 2 to 2.5,
+    later refined in subsequent work.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 278-280
+  observations:
+  - metric: value_function_shape_gains
+    qualitative_value: Concave — diminishing marginal value for increasing gains
+  - metric: value_function_shape_losses
+    qualitative_value: Convex — diminishing marginal disvalue for increasing losses
+  - metric: loss_aversion_ratio
+    qualitative_value: Approximately 2:1 — losses roughly twice as impactful as equivalent
+      gains
+    qualifiers:
+      note: Approximate ratio inferred from choice patterns; later quantified precisely
+        as lambda ~= 2.25 in Tversky & Kahneman 1992
+  - metric: value_function_symmetry
+    qualitative_value: 'Asymmetric S-shape: steeper for losses, flatter for gains'
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+relations:
+- id: rel:1
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:certainty-effect
+- id: rel:2
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:certainty-effect
+- id: rel:3
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:value-function-shape
+- id: rel:4
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:probability-weighting
+- id: rel:5
+  subject_ref: stmt:c4
+  predicate: supported_by
+  object_ref: ev:value-function-shape
+- id: rel:6
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:isolation-effect
+- id: rel:7
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:8
+  subject_ref: stmt:c4
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:9
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:10
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:11
+  subject_ref: stmt:c1
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:12
+  subject_ref: stmt:c3
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:13
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:expected-utility
+  citation_intent: contradicts
+- id: rel:14
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:allais-paradox
+  citation_intent: supports
+- id: rel:15
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:savage
+  citation_intent: contradicts
+- id: rel:16
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:markowitz-utility
+  citation_intent: extends
+actions: []
+extensions:
+  paper:
+    venue: Econometrica
+    year: 1979
+    discipline: Behavioral Psychology / Behavioral Economics
+    nobel_prize: Daniel Kahneman — Nobel Prize in Economics 2002 (Tversky deceased
+      1996)
+    sections:
+      introduction: Section 1, pages 263-265
+      critique_of_expected_utility: Section 2, pages 265-274
+      prospect_theory_model: Section 3, pages 274-284
+      discussion: Section 4, pages 284-291
+    methodology_type: experimental_survey
+    evidence_type_distribution:
+      quantitative: 6
+      qualitative: 5
+      note: 'Evidence combines numeric choice percentages and sample sizes from hypothetical
+        gamble experiments with qualitative characterizations of the value function
+        shape and probability weighting behavior. No real monetary stakes were used.
+
+        '
+abstract: This paper presents a critique of expected utility theory as a descriptive
+  model of decision making under risk, and develops an alternative model, called prospect
+  theory. Choices among risky prospects exhibit several pervasive effects that are
+  inconsistent with the basic tenets of utility theory. People underweight outcomes
+  that are merely probable in comparison with outcomes that are obtained with certainty.
+venue: Econometrica
+year: 1979
+keywords:
+- prospect theory
+- decision making
+- risk
+- loss aversion
+- probability weighting
+- reference point
+- value function
+- certainty effect
+- framing
+- behavioral economics
+authors:
+- name: Daniel Kahneman
+  affiliation: Hebrew University of Jerusalem
+  role: first
+- name: Amos Tversky
+  affiliation: Stanford University
+  role: first
+venue_type: published
+resources:
+  human:
+    participants: 72
+    annotators: 0
+language: en
+access: open
+record_status: active

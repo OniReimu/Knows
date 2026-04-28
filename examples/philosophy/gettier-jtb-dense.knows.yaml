@@ -1,0 +1,989 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:examples/gettier-jtb-dense/1.0.0
+profile: paper@1
+subject_ref: art:paper
+title: Is Justified True Belief Knowledge?
+summary: 'Dense agent-facing sidecar for Gettier''s 1963 Analysis paper. In three pages
+  with two thought-experiment counterexamples, Gettier refutes the classical analysis
+  of knowledge as justified true belief (JTB), which had stood since Plato''s Theaetetus.
+  No data, no experiments -- just two devastating cases showing that a person can have
+  a justified true belief that is clearly not knowledge. This paper launched 60+ years
+  of epistemological debate. This dense variant provides fine-grained coverage of every
+  argument step, counterexample detail, and assumption.
+
+  '
+coverage:
+  statements: exhaustive
+  evidence: exhaustive
+license: CC-BY-4.0
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: analysis-1963-vol23-no6
+freshness:
+  as_of: '2026-03-27T00:00:00Z'
+  update_policy: immutable
+provenance:
+  origin: author
+  actor:
+    name: Knows Example Authors
+    type: org
+  generated_at: '2026-03-27T00:00:00Z'
+  method: manual_curation
+artifacts:
+- id: art:paper
+  artifact_type: paper
+  role: subject
+  title: Is Justified True Belief Knowledge?
+  identifiers:
+    doi: 10.2307/3326922
+  representations:
+  - id: rep:pdf
+    media_type: application/pdf
+    locator:
+      type: url
+      value: https://www.jstor.org/stable/3326922
+  - id: rep:fulltext
+    media_type: text/markdown
+    locator:
+      type: path
+      value: examples/philosophy/gettier-fulltext.md
+- id: art:plato-theaetetus
+  artifact_type: paper
+  role: cited
+  title: Theaetetus (Plato) -- classical source of the JTB analysis of knowledge
+  identifiers:
+    custom:
+      reference: Plato, Theaetetus 201c-210b
+  representations: []
+- id: art:chisholm-1957
+  artifact_type: paper
+  role: cited
+  title: 'Perceiving: A Philosophical Study (Chisholm 1957)'
+  identifiers:
+    custom:
+      reference: 'Chisholm, R. M., Perceiving: A Philosophical Study, Cornell, 1957'
+  representations: []
+- id: art:ayer-1956
+  artifact_type: paper
+  role: cited
+  title: The Problem of Knowledge (Ayer 1956)
+  identifiers:
+    custom:
+      reference: Ayer, A. J., The Problem of Knowledge, Macmillan, 1956
+  representations: []
+- id: art:nozick-tracking
+  artifact_type: paper
+  role: cited
+  title: Philosophical Explanations (Nozick 1981) -- tracking theory of knowledge
+  identifiers:
+    custom:
+      reference: Nozick, R., Philosophical Explanations, Harvard, 1981
+  representations: []
+statements:
+- id: stmt:c1
+  statement_type: claim
+  modality: theoretical
+  text: 'Justified true belief is NOT sufficient for knowledge. The classical JTB
+    analysis -- S knows that P if and only if (i) P is true, (ii) S believes that P,
+    and (iii) S is justified in believing that P -- is shown to be inadequate by counterexample.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: 121-123
+    quote: I shall argue that the conditions stated therein do not constitute a sufficient
+      condition for the truth of the proposition that S knows that P
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c2
+  statement_type: claim
+  modality: theoretical
+  text: 'Case I demonstrates JTB without knowledge: Smith has justified belief that
+    "the man who will get the job has ten coins in his pocket" (based on strong evidence
+    about Jones), and this belief is true (because Smith himself, who unexpectedly
+    gets the job, happens to have ten coins). Smith has justified true belief, yet
+    does not know it, because the truth-maker is entirely different from the justification-maker.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '122'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c3
+  statement_type: claim
+  modality: theoretical
+  text: 'Case II demonstrates JTB without knowledge: Smith has justified belief that
+    "either Jones owns a Ford or Brown is in Barcelona." The disjunction is true only
+    because Brown happens to be in Barcelona (unknown to Smith), while Jones (the
+    justificatory basis) does not actually own a Ford. Again, justified true belief
+    without knowledge.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: 122-123
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c4
+  statement_type: claim
+  modality: theoretical
+  text: 'The JTB analysis states that S knows that P if and only if three conditions
+    hold: (i) P is true, (ii) S believes that P, and (iii) S is justified in believing
+    that P. This tripartite analysis is the target of Gettier''s refutation.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '121'
+    quote: S knows that P IFF (i) P is true, (ii) S believes that P, and (iii) S
+      is justified in believing that P
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c5
+  statement_type: claim
+  modality: theoretical
+  text: 'Chisholm''s formulation of knowledge is also refuted: S knows that P iff
+    (i) S accepts P, (ii) S has adequate evidence for P, and (iii) P is true. The
+    same counterexamples apply by substituting "has adequate evidence for" in place
+    of "is justified in believing that".
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '121'
+    quote: The same argument will show that (b) and (c) fail if has adequate evidence
+      for or has the right to be sure that is substituted
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c6
+  statement_type: claim
+  modality: theoretical
+  text: 'Ayer''s formulation of knowledge is also refuted: S knows that P iff (i) P
+    is true, (ii) S is sure that P is true, and (iii) S has the right to be sure
+    that P is true. The same counterexamples apply by substituting "has the right to
+    be sure that" in place of "is justified in believing that".
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '121'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c7
+  statement_type: claim
+  modality: theoretical
+  text: 'In Case I, Smith''s evidence for proposition (d) -- "Jones is the man who
+    will get the job, and Jones has ten coins in his pocket" -- comes from the president
+    of the company assuring him that Jones would be selected, and from Smith''s own
+    count of the coins in Jones''s pocket ten minutes ago.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '122'
+    quote: the president of the company assured him that Jones would in the end be
+      selected, and that he, Smith, had counted the coins in Jones's pocket ten minutes
+      ago
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c8
+  statement_type: claim
+  modality: theoretical
+  text: 'In Case I, the truth of proposition (e) -- "the man who will get the job
+    has ten coins in his pocket" -- depends on Smith himself having ten coins and
+    getting the job, facts entirely unknown to Smith. The truth-maker (Smith''s coins)
+    is completely disconnected from the justification (Jones''s coins and job prospect).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '122'
+    quote: (e) is true in virtue of the number of coins in Smith's pocket, while Smith
+      does not know how many coins are in Smith's pocket
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c9
+  statement_type: claim
+  modality: theoretical
+  text: 'In Case II, Smith has strong evidence for (f) "Jones owns a Ford" based on
+    Jones''s history of always owning Fords and just offering Smith a ride in a Ford.
+    Smith constructs three disjunctions with arbitrary locations for Brown: (g) Either
+    Jones owns a Ford, or Brown is in Boston; (h) Either Jones owns a Ford, or Brown
+    is in Barcelona; (i) Either Jones owns a Ford, or Brown is in Brest-Litovsk.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: 122-123
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c10
+  statement_type: claim
+  modality: theoretical
+  text: 'In Case II, Jones does not actually own a Ford -- he is driving a rented
+    car. But Brown happens to be in Barcelona, making proposition (h) true by sheer
+    coincidence. Smith has justified true belief in (h) but lacks knowledge because
+    the justificatory leg (Jones''s Ford) is false and the truth-making leg (Brown
+    in Barcelona) is unjustified.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '123'
+    quote: Jones does not own a Ford, but is at present driving a rented car. And secondly,
+      by the sheerest coincidence, and entirely unknown to Smith, the place mentioned
+      in proposition (h) happens really to be the place where Brown is
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c11
+  statement_type: claim
+  modality: theoretical
+  text: 'Both counterexamples refute JTB as a set of sufficient conditions for knowledge.
+    They also suffice (with appropriate changes) to refute the alternative formulations
+    of Chisholm (b) and Ayer (c).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '123'
+    quote: These two examples show that definition (a) does not state a sufficient
+      condition for someone's knowing a given proposition. The same cases, with appropriate
+      changes, will suffice to show that neither definition (b) nor definition (c)
+      do so either
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:m1
+  statement_type: method
+  modality: descriptive
+  text: 'The method is counterexample-based philosophical argumentation: Gettier constructs
+    two thought experiments (Cases I and II) in which all three JTB conditions are
+    satisfied but the intuitive verdict is clearly that the subject lacks knowledge.
+    This suffices to refute the JTB analysis as a set of sufficient conditions.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '121'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:a1
+  statement_type: assumption
+  modality: descriptive
+  text: 'First background assumption (fallibilism about justification): It is possible
+    for a person to be justified in believing a proposition that is in fact false.
+    Justification does not guarantee truth.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '121'
+    quote: it is possible for a person to be justified in believing a proposition
+      that is in fact false
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:a2
+  statement_type: assumption
+  modality: descriptive
+  text: 'Second background assumption (closure under known entailment): If S is justified
+    in believing P, and P entails Q, and S deduces Q from P and accepts Q as a result
+    of this deduction, then S is justified in believing Q. This principle allows justified
+    belief to transfer across valid inferences.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '121'
+    quote: if S is justified in believing P, and P entails Q, and S deduces Q from
+      P and accepts Q as a result of this deduction, then S is justified in believing Q
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c12
+  statement_type: claim
+  modality: theoretical
+  text: 'The logical structure of Case I uses entailment from a conjunctive to an
+    existentially quantified proposition: (d) "Jones is the man who will get the job,
+    and Jones has ten coins" entails (e) "The man who will get the job has ten coins."
+    Smith sees this entailment and accepts (e) on the grounds of (d).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '122'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c13
+  statement_type: claim
+  modality: theoretical
+  text: 'The logical structure of Case II uses disjunction introduction: (f) "Jones
+    owns a Ford" entails each disjunction (g), (h), (i) because any proposition P
+    entails "P or Q" for arbitrary Q. Smith uses this valid entailment to extend his
+    justified belief.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: 122-123
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c14
+  statement_type: claim
+  modality: theoretical
+  text: 'Both cases share the "Gettier recipe": (1) S is justified in believing a
+    false proposition P; (2) S deduces or infers Q from P via valid entailment (closure);
+    (3) Q happens to be true for reasons entirely unrelated to P. This recipe generates
+    indefinitely many Gettier cases, showing the refutation is systematic, not ad hoc.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: 121-123
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:l1
+  statement_type: limitation
+  modality: descriptive
+  text: 'The paper is purely destructive: it refutes the JTB analysis but does not
+    propose any alternative account of knowledge. It identifies what knowledge is
+    NOT, leaving the positive question ("what IS knowledge?") entirely open. This
+    gap launched decades of post-Gettier epistemology.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '123'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:l2
+  statement_type: limitation
+  modality: descriptive
+  text: 'The counterexamples rely on shared epistemic intuitions -- the judgment that
+    Smith "does not know" in each case is presented as obvious, not argued for. Readers
+    who do not share these intuitions (e.g., certain contextualists or radical pragmatists)
+    may not find the cases compelling.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: 122-123
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c15
+  statement_type: claim
+  modality: theoretical
+  text: 'The JTB conditions are stated as necessary conditions for knowledge, and
+    the paper targets their claimed sufficiency. Gettier does not dispute that the
+    JTB conditions are necessary -- only that satisfying all three is not enough.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '121'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+evidence:
+- id: ev:case-i
+  evidence_type: case_study
+  summary: 'Case I (the ten-coins case): Smith and Jones have applied for a job. Smith
+    has strong evidence that (a) Jones will get the job, and (b) Jones has ten coins
+    in his pocket. Smith infers "the man who will get the job has ten coins in his
+    pocket." Unknown to Smith, he himself will get the job, and he himself has ten
+    coins. All JTB conditions are met, but Smith does not know the proposition -- his
+    justification traces through the false belief that Jones will get the job.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '122'
+  observations:
+  - metric: justified
+    qualitative_value: Yes -- strong evidence that Jones will get the job + Jones has
+      ten coins
+  - metric: 'true'
+    qualitative_value: Yes -- the man who gets the job (Smith) does have ten coins
+  - metric: believed
+    qualitative_value: Yes -- Smith believes the proposition based on his evidence
+  - metric: knowledge
+    qualitative_value: No -- the truth-maker (Smith's coins) is entirely disconnected
+      from the justification (Jones's coins)
+  - metric: evidence_source
+    qualitative_value: Company president assured Smith that Jones would be selected;
+      Smith counted coins in Jones's pocket ten minutes ago
+  - metric: false_intermediate_belief
+    qualitative_value: Smith falsely believes Jones will get the job
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:case-ii
+  evidence_type: case_study
+  summary: 'Case II (the Ford-or-Barcelona case): Smith has strong evidence that Jones
+    owns a Ford. Smith constructs the disjunction "either Jones owns a Ford or Brown
+    is in Barcelona" (for arbitrary Brown and location). By closure, this disjunction
+    is justified. It turns out Jones does NOT own a Ford (he is driving a rented car),
+    but Brown happens to be in Barcelona, making the disjunction true. Smith has justified
+    true belief but lacks knowledge -- the justificatory leg (Jones''s Ford) is false,
+    and the truth-making leg (Brown in Barcelona) is unjustified.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: 122-123
+  observations:
+  - metric: justified
+    qualitative_value: Yes -- justified belief in Jones owning a Ford, extended by
+      entailment to the disjunction
+  - metric: 'true'
+    qualitative_value: Yes -- Brown is (by coincidence) in Barcelona, making the disjunction
+      true
+  - metric: believed
+    qualitative_value: Yes -- Smith believes the disjunction on the basis of his evidence
+      about Jones
+  - metric: knowledge
+    qualitative_value: No -- the true disjunct (Brown in Barcelona) plays no role in
+      Smith's justification
+  - metric: evidence_source_for_ford
+    qualitative_value: Jones has always owned Fords in Smith's memory and just offered
+      Smith a ride in a Ford
+  - metric: jones_ford_status
+    qualitative_value: False -- Jones does not own a Ford; he is driving a rented car
+  - metric: brown_location
+    qualitative_value: Brown is in Barcelona by sheerest coincidence, unknown to Smith
+  - metric: three_disjunctions
+    qualitative_value: (g) Jones owns a Ford or Brown is in Boston; (h) Jones owns
+      a Ford or Brown is in Barcelona; (i) Jones owns a Ford or Brown is in Brest-Litovsk
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:structural-pattern
+  evidence_type: case_study
+  summary: 'Both cases share the same logical structure (the "Gettier recipe"): (1)
+    S is justified in believing a false proposition P; (2) S deduces or infers Q from
+    P (closure); (3) Q happens to be true for reasons unrelated to P. This recipe
+    generates indefinitely many Gettier cases, showing the problem is systematic,
+    not ad hoc.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: 121-123
+  observations:
+  - metric: common_structure
+    qualitative_value: Justified false belief serves as inferential basis for a proposition
+      that is accidentally true
+  - metric: generalizability
+    qualitative_value: The recipe produces unboundedly many counterexamples -- the
+      refutation is not case-specific
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:jtb-definition
+  evidence_type: case_study
+  summary: 'The paper presents three formulations of the JTB analysis from different
+    philosophers: (a) the generic JTB analysis, (b) Chisholm''s formulation requiring
+    acceptance and adequate evidence, and (c) Ayer''s formulation requiring surety
+    and the right to be sure. All three are shown to be equivalent in vulnerability
+    to the counterexamples.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '121'
+  observations:
+  - metric: formulation_a
+    qualitative_value: S knows P iff P is true, S believes P, S is justified in believing P
+  - metric: formulation_b_chisholm
+    qualitative_value: S knows P iff S accepts P, S has adequate evidence for P, P is true
+  - metric: formulation_c_ayer
+    qualitative_value: S knows P iff P is true, S is sure P is true, S has the right
+      to be sure P is true
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:case-i-entailment
+  evidence_type: case_study
+  summary: 'The inferential step in Case I is from conjunction to existential generalization:
+    (d) "Jones is the man who will get the job, and Jones has ten coins" entails (e)
+    "The man who will get the job has ten coins." Smith sees this entailment, accepts
+    (e) on grounds of (d), and is clearly justified in believing (e).
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '122'
+    quote: Proposition (d) entails (e) The man who will get the job has ten coins in
+      his pocket
+  observations:
+  - metric: logical_rule
+    qualitative_value: Existential generalization from conjunction
+  - metric: valid
+    qualitative_value: Yes -- the entailment is logically valid
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:case-ii-entailment
+  evidence_type: case_study
+  summary: 'The inferential step in Case II is disjunction introduction: (f) "Jones
+    owns a Ford" entails each of (g), (h), (i) because P entails "P or Q" for any
+    Q. Smith constructs three disjunctions with randomly chosen locations for Brown.
+    Each is validly entailed by (f).
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: 122-123
+    quote: Each of these propositions is entailed by (f)
+  observations:
+  - metric: logical_rule
+    qualitative_value: Disjunction introduction (addition)
+  - metric: valid
+    qualitative_value: Yes -- P entails P-or-Q is a tautology
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:paper-context
+  evidence_type: citation_backed
+  summary: 'Gettier''s paper is only three pages long (pages 121-123 of Analysis,
+    vol. 23, no. 6, 1963). Despite its brevity, it overturned an analysis of knowledge
+    that had stood since Plato''s Theaetetus (201c-210b) and generated an enormous
+    literature in epistemology.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: 121-123
+  observations:
+  - metric: paper_length
+    qualitative_value: 3 pages
+  - metric: venue
+    qualitative_value: Analysis, vol. 23, no. 6, June 1963
+  - metric: author_affiliation
+    qualitative_value: Wayne State University
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+relations:
+- id: rel:1
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:case-i
+- id: rel:2
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:case-ii
+- id: rel:3
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:case-i
+- id: rel:4
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:case-ii
+- id: rel:5
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:structural-pattern
+- id: rel:6
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:7
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:8
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:a2
+- id: rel:9
+  subject_ref: stmt:c3
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:10
+  subject_ref: stmt:c3
+  predicate: depends_on
+  object_ref: stmt:a2
+- id: rel:11
+  subject_ref: stmt:c1
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:12
+  subject_ref: stmt:c1
+  predicate: limited_by
+  object_ref: stmt:l2
+- id: rel:13
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:plato-theaetetus
+  citation_intent: contradicts
+- id: rel:14
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:chisholm-1957
+  citation_intent: contradicts
+- id: rel:15
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:ayer-1956
+  citation_intent: contradicts
+- id: rel:16
+  subject_ref: ev:case-ii
+  predicate: depends_on
+  object_ref: stmt:a2
+- id: rel:17
+  subject_ref: stmt:l1
+  predicate: challenged_by
+  object_ref: art:nozick-tracking
+- id: rel:18
+  subject_ref: stmt:c4
+  predicate: supported_by
+  object_ref: ev:jtb-definition
+- id: rel:19
+  subject_ref: stmt:c5
+  predicate: supported_by
+  object_ref: ev:jtb-definition
+- id: rel:20
+  subject_ref: stmt:c6
+  predicate: supported_by
+  object_ref: ev:jtb-definition
+- id: rel:21
+  subject_ref: stmt:c7
+  predicate: supported_by
+  object_ref: ev:case-i
+- id: rel:22
+  subject_ref: stmt:c8
+  predicate: supported_by
+  object_ref: ev:case-i
+- id: rel:23
+  subject_ref: stmt:c9
+  predicate: supported_by
+  object_ref: ev:case-ii
+- id: rel:24
+  subject_ref: stmt:c10
+  predicate: supported_by
+  object_ref: ev:case-ii
+- id: rel:25
+  subject_ref: stmt:c11
+  predicate: depends_on
+  object_ref: stmt:c2
+- id: rel:26
+  subject_ref: stmt:c11
+  predicate: depends_on
+  object_ref: stmt:c3
+- id: rel:27
+  subject_ref: stmt:c12
+  predicate: supported_by
+  object_ref: ev:case-i-entailment
+- id: rel:28
+  subject_ref: stmt:c13
+  predicate: supported_by
+  object_ref: ev:case-ii-entailment
+- id: rel:29
+  subject_ref: stmt:c14
+  predicate: supported_by
+  object_ref: ev:structural-pattern
+- id: rel:30
+  subject_ref: stmt:c12
+  predicate: depends_on
+  object_ref: stmt:a2
+- id: rel:31
+  subject_ref: stmt:c13
+  predicate: depends_on
+  object_ref: stmt:a2
+- id: rel:32
+  subject_ref: stmt:c15
+  predicate: depends_on
+  object_ref: stmt:c4
+- id: rel:33
+  subject_ref: stmt:c5
+  predicate: depends_on
+  object_ref: stmt:c11
+- id: rel:34
+  subject_ref: stmt:c6
+  predicate: depends_on
+  object_ref: stmt:c11
+- id: rel:35
+  subject_ref: ev:case-i
+  predicate: depends_on
+  object_ref: stmt:a1
+actions: []
+extensions:
+  paper:
+    venue: Analysis
+    year: 1963
+    volume: 23
+    issue: 6
+    pages: 121-123
+    discipline: Analytic Philosophy
+    sections:
+      full_text: pages 121-123 (3 pages total)
+    methodology_type: counterexample_argumentation
+    evidence_type_distribution:
+      case_studies: 7
+      quantitative: 0
+      proofs: 0
+      note: 'This paper contains zero data, zero formal proofs, and zero experiments.
+        Evidence consists entirely of two thought-experiment counterexamples, their
+        shared structural analysis, the JTB definition variants, and their entailment
+        patterns.
+
+        '
+abstract: Various attempts have been made in recent years to state necessary and sufficient
+  conditions for someone's knowing a given proposition. I shall argue that the conditions
+  stated therein do not constitute a sufficient condition for the truth of the proposition
+  that S knows that P, by presenting two cases in which the conditions are met but
+  which are not cases of knowledge.
+venue: Analysis
+year: 1963
+keywords:
+- justified true belief
+- knowledge
+- epistemology
+- counterexample
+- Gettier problem
+- JTB analysis
+- Plato
+- analytic philosophy
+- thought experiment
+- Chisholm
+- Ayer
+- closure under entailment
+- disjunction introduction
+- existential generalization
+authors:
+- name: Edmund L. Gettier
+  affiliation: Wayne State University
+  role: first
+venue_type: published
+language: en
+access: open
+record_status: active

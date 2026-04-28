@@ -1,0 +1,553 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:examples/resnet/1.0.0
+profile: paper@1
+subject_ref: art:paper
+title: Deep Residual Learning for Image Recognition
+summary: 'Agent-facing sidecar for the ResNet paper (He et al., CVPR 2016). Covers
+  the residual learning framework, degradation problem analysis, ImageNet classification
+  results (3.57% top-5 ensemble), CIFAR-10 results (6.43% with 110 layers), and object
+  detection improvements.
+
+  '
+coverage:
+  statements: main_claims_only
+  evidence: key_evidence_only
+license: CC-BY-4.0
+keywords:
+- deep learning
+- residual learning
+- image classification
+- convolutional neural network
+- ImageNet
+- CIFAR-10
+- object detection
+- COCO
+- shortcut connections
+- degradation problem
+- batch normalization
+- ILSVRC 2015
+authors:
+- name: Kaiming He
+  affiliation: Microsoft Research
+  role: first
+- name: Xiangyu Zhang
+  affiliation: Microsoft Research
+  role: contributor
+- name: Shaoqing Ren
+  affiliation: Microsoft Research
+  role: contributor
+- name: Jian Sun
+  affiliation: Microsoft Research
+  role: senior
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: cvpr-2016-camera-ready
+freshness:
+  as_of: '2026-03-19T00:00:00Z'
+  update_policy: immutable
+provenance:
+  origin: author
+  actor:
+    name: Knows Example Authors
+    type: org
+  generated_at: '2026-03-19T00:00:00Z'
+  method: manual_curation
+artifacts:
+- id: art:paper
+  artifact_type: paper
+  role: subject
+  title: Deep Residual Learning for Image Recognition
+  identifiers:
+    arxiv: '1512.03385'
+    doi: 10.1109/CVPR.2016.90
+  representations:
+  - id: rep:pdf
+    media_type: application/pdf
+    locator:
+      type: url
+      value: https://openaccess.thecvf.com/content_cvpr_2016/papers/He_Deep_Residual_Learning_CVPR_2016_paper.pdf
+- id: art:imagenet
+  artifact_type: dataset
+  role: supporting
+  title: ImageNet (ILSVRC 2012)
+  identifiers:
+    url: https://image-net.org/
+  representations: []
+- id: art:cifar10
+  artifact_type: dataset
+  role: supporting
+  title: CIFAR-10
+  identifiers:
+    url: https://www.cs.toronto.edu/~kriz/cifar.html
+  representations: []
+- id: art:vgg
+  artifact_type: paper
+  role: cited
+  title: Very Deep Convolutional Networks for Large-Scale Image Recognition (VGGNet)
+  identifiers:
+    arxiv: '1409.1556'
+  representations: []
+- id: art:googlenet
+  artifact_type: paper
+  role: cited
+  title: Going Deeper with Convolutions (GoogLeNet)
+  identifiers:
+    arxiv: '1409.4842'
+  representations: []
+- id: art:bn
+  artifact_type: paper
+  role: cited
+  title: 'Batch Normalization: Accelerating Deep Network Training'
+  identifiers:
+    arxiv: '1502.03167'
+  representations: []
+statements:
+- id: stmt:c1
+  statement_type: claim
+  modality: empirical
+  text: 'Deeper plain networks suffer from a degradation problem where increased depth
+    leads to higher training error, not caused by overfitting. Residual learning with
+    identity shortcut connections addresses this degradation and enables accuracy
+    gains from considerably increased depth.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 1-2
+    quote: adding more layers to a suitably deep model leads to higher training error
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c2
+  statement_type: claim
+  modality: empirical
+  text: 'A 152-layer ResNet achieves 19.38% top-1 and 4.49% top-5 error on ImageNet
+    validation (single model, single crop). An ensemble of ResNets achieves 3.57%
+    top-5 error on the test set, winning 1st place in ILSVRC 2015 classification.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '6'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c3
+  statement_type: claim
+  modality: empirical
+  text: 'ResNets scale to over 1000 layers on CIFAR-10 without optimization difficulty.
+    A 110-layer ResNet achieves 6.43% test error with 1.7M parameters.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '7'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c4
+  statement_type: claim
+  modality: empirical
+  text: 'Deep residual representations generalize well to object detection. Replacing
+    VGG-16 with ResNet-101 in Faster R-CNN yields a 28% relative improvement on COCO
+    (mAP@[.5,.95] from 21.2 to 27.2).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '8'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:m1
+  statement_type: method
+  modality: descriptive
+  text: 'The residual learning framework reformulates layers as learning residual
+    functions F(x) = H(x) - x with reference to the layer input, rather than learning
+    unreferenced functions H(x). The original mapping becomes F(x) + x, realized by
+    shortcut connections that perform identity mapping.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 2-3
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:a1
+  statement_type: assumption
+  modality: theoretical
+  text: 'If identity mappings are optimal, it is easier to push the residual to zero
+    than to fit an identity mapping with a stack of nonlinear layers. This hypothesis
+    motivates the residual learning formulation.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '3'
+    quote: it is easier to optimize the residual mapping than to optimize the original,
+      unreferenced mapping
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:l1
+  statement_type: limitation
+  modality: descriptive
+  text: 'The 1202-layer ResNet on CIFAR-10 (7.93% error) is worse than the 110-layer
+    version (6.43%), likely due to overfitting on the small dataset. The paper does
+    not use regularization techniques like maxout or dropout.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 7-8
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+evidence:
+- id: ev:degradation
+  evidence_type: table_result
+  summary: 'Table 2: 34-layer plain net (28.54% top-1) has higher validation error
+    than 18-layer plain net (27.94%), demonstrating degradation. 34-layer ResNet (25.03%)
+    reverses this, outperforming 18-layer ResNet (27.88%).
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '5'
+  observations:
+  - metric: top1_error
+    value: 28.54
+    unit: percent
+    qualifiers:
+      model: plain-34
+      dataset: ImageNet val
+      testing: 10-crop
+  - metric: top1_error
+    value: 27.94
+    unit: percent
+    qualifiers:
+      model: plain-18
+      dataset: ImageNet val
+      testing: 10-crop
+  - metric: top1_error
+    value: 25.03
+    unit: percent
+    qualifiers:
+      model: ResNet-34
+      dataset: ImageNet val
+      testing: 10-crop
+  - metric: top1_error
+    value: 27.88
+    unit: percent
+    qualifiers:
+      model: ResNet-18
+      dataset: ImageNet val
+      testing: 10-crop
+  - metric: flops
+    value: 3.6
+    unit: billion
+    qualifiers:
+      model: ResNet-34
+      note: 3.6 billion FLOPs (multiply-adds)
+  - metric: flops
+    value: 19.6
+    unit: billion
+    qualifiers:
+      model: VGG-19
+      note: 19.6 billion FLOPs
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:imagenet-single
+  evidence_type: table_result
+  summary: 'Table 4: Single-model results on ImageNet validation. ResNet-152 achieves
+    19.38% top-1 and 4.49% top-5 error, outperforming VGG (24.4/7.1) and BN-inception
+    (21.99/5.81).
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '6'
+  observations:
+  - metric: top1_error
+    value: 19.38
+    unit: percent
+    qualifiers:
+      model: ResNet-152
+      dataset: ImageNet val
+  - metric: top5_error
+    value: 4.49
+    unit: percent
+    qualifiers:
+      model: ResNet-152
+      dataset: ImageNet val
+  - metric: top5_error
+    value: 5.71
+    unit: percent
+    qualifiers:
+      model: ResNet-34
+      dataset: ImageNet val
+  - metric: top1_error
+    value: 21.43
+    unit: percent
+    qualifiers:
+      model: ResNet-152
+      dataset: ImageNet val
+      note: Table 3, 10-crop
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:ensemble
+  evidence_type: table_result
+  summary: 'Table 5: Ensemble of 6 ResNets achieves 3.57% top-5 error on the ImageNet
+    test set, winning 1st place in ILSVRC 2015.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '6'
+  observations:
+  - metric: top5_error
+    value: 3.57
+    unit: percent
+    qualifiers:
+      model: ResNet ensemble
+      dataset: ImageNet test
+      note: 1st place ILSVRC 2015
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:cifar10
+  evidence_type: table_result
+  summary: 'Table 6: ResNet-110 achieves 6.43% (6.61±0.16 mean±std over 5 runs) on
+    CIFAR-10 test set with 1.7M parameters. ResNet-1202 achieves 7.93% (possible overfitting).
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '7'
+  observations:
+  - metric: test_error
+    value: 6.43
+    unit: percent
+    error: 0.16
+    error_type: std
+    n_runs: 5
+    qualifiers:
+      model: ResNet-110
+      dataset: CIFAR-10
+      params: 1.7M
+  - metric: test_error
+    value: 7.93
+    unit: percent
+    qualifiers:
+      model: ResNet-1202
+      dataset: CIFAR-10
+      params: 19.4M
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:coco
+  evidence_type: table_result
+  summary: 'Table 8: Replacing VGG-16 with ResNet-101 in Faster R-CNN on COCO. mAP@.5
+    improves from 41.5 to 48.4, mAP@[.5,.95] from 21.2 to 27.2 (28% relative improvement).
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '8'
+  observations:
+  - metric: mAP@.5
+    value: 48.4
+    unit: percent
+    qualifiers:
+      model: ResNet-101 + Faster R-CNN
+      dataset: COCO val
+  - metric: mAP@[.5,.95]
+    value: 27.2
+    unit: percent
+    qualifiers:
+      model: ResNet-101 + Faster R-CNN
+      dataset: COCO val
+      compared_to_value: 21.2
+      compared_to_ref: art:vgg
+      relative_improvement_pct: 28
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+relations:
+- id: rel:1
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:degradation
+- id: rel:2
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:imagenet-single
+- id: rel:3
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:ensemble
+- id: rel:4
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:cifar10
+- id: rel:5
+  subject_ref: stmt:c4
+  predicate: supported_by
+  object_ref: ev:coco
+- id: rel:6
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:7
+  subject_ref: stmt:c3
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:8
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:9
+  subject_ref: art:paper
+  predicate: evaluates_on
+  object_ref: art:imagenet
+- id: rel:10
+  subject_ref: art:paper
+  predicate: evaluates_on
+  object_ref: art:cifar10
+- id: rel:11
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:vgg
+  citation_intent: compares_to
+- id: rel:12
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:googlenet
+  citation_intent: compares_to
+- id: rel:13
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:bn
+  citation_intent: uses_method
+actions: []
+extensions:
+  paper:
+    venue: CVPR 2016
+    sections:
+      abstract: page 1
+      introduction: Section 1, pages 1-2
+      related_work: Section 2, page 2
+      method: Section 3, pages 3-4
+      experiments: Section 4, pages 4-8
+abstract: Deeper neural networks are more difficult to train. We present a residual
+  learning framework to ease the training of networks that are substantially deeper
+  than those used previously. We explicitly reformulate the layers as learning residual
+  functions with reference to the layer inputs, instead of learning unreferenced functions.
+  We provide comprehensive empirical evidence showing that these residual networks
+  are easier to optimize, and can gain accuracy from considerably increased depth.
+  On the ImageNet dataset we evaluate residual nets with a depth of up to 152 layers,
+  8x deeper than VGG nets but still having lower complexity. An ensemble of these
+  residual nets achieves 3.57% error on the ImageNet test set, winning the 1st place
+  on the ILSVRC 2015 classification task.
+venue: CVPR 2016
+year: 2016
+venue_type: published
+resources:
+  compute:
+  - type: GPU
+    model: NVIDIA (unspecified)
+    provider: Microsoft Research
+  software:
+  - name: Caffe
+    url: https://caffe.berkeleyvision.org/
+language: en
+access: open
+record_status: active

@@ -1,0 +1,473 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:examples/akerlof-lemons/1.0.0
+profile: paper@1
+subject_ref: art:paper
+title: 'The Market for ''Lemons'': Quality Uncertainty and the Market Mechanism'
+summary: 'Agent-facing sidecar for Akerlof''s 1970 QJE paper on adverse selection.
+  Covers the theoretical model of quality uncertainty in used car markets, the mechanism
+  by which information asymmetry drives market collapse, and the role of institutions
+  (warranties, brands, licensing) as counteracting devices. All evidence is theoretical
+  (proofs, model-based reasoning).
+
+  '
+coverage:
+  statements: main_claims_only
+  evidence: key_evidence_only
+license: CC-BY-4.0
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: qje-1970-camera-ready
+freshness:
+  as_of: '2026-03-19T00:00:00Z'
+  update_policy: immutable
+provenance:
+  origin: author
+  actor:
+    name: Knows Example Authors
+    type: org
+  generated_at: '2026-03-19T00:00:00Z'
+  method: manual_curation
+artifacts:
+- id: art:paper
+  artifact_type: paper
+  role: subject
+  title: 'The Market for ''Lemons'': Quality Uncertainty and the Market Mechanism'
+  identifiers:
+    doi: 10.2307/1879431
+  representations:
+  - id: rep:pdf
+    media_type: application/pdf
+    locator:
+      type: url
+      value: https://doi.org/10.2307/1879431
+- id: art:arrow-uncertainty
+  artifact_type: paper
+  role: cited
+  title: Uncertainty and the Welfare Economics of Medical Care (Arrow 1963)
+  identifiers:
+    doi: 10.1257/aer.53.5.941
+  representations: []
+- id: art:stigler-information
+  artifact_type: paper
+  role: cited
+  title: The Economics of Information (Stigler 1961)
+  identifiers:
+    custom:
+      reference: Stigler 1961, JPE
+  representations: []
+- id: art:spence-signaling
+  artifact_type: paper
+  role: cited
+  title: Job Market Signaling (Spence 1973)
+  identifiers:
+    doi: 10.2307/1882010
+  representations: []
+- id: art:rothschild-stiglitz
+  artifact_type: paper
+  role: cited
+  title: Equilibrium in Competitive Insurance Markets (Rothschild & Stiglitz 1976)
+  identifiers:
+    doi: 10.2307/1885326
+  representations: []
+statements:
+- id: stmt:c1
+  statement_type: claim
+  modality: theoretical
+  text: 'Information asymmetry between buyers and sellers regarding product quality
+    can lead to adverse selection, where the market disproportionately retains low-quality
+    goods ("lemons"). In the extreme case, the market may collapse entirely as high-quality
+    goods are driven out.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 489-492
+    quote: the bad cars tend to drive out the good
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c2
+  statement_type: claim
+  modality: theoretical
+  text: 'In the used car market, sellers possess private information about the quality
+    of their vehicle while buyers can only observe the average quality. Buyers therefore
+    offer a price reflecting average quality, which is below the reservation price
+    of high-quality sellers. This drives high-quality sellers out, lowering average
+    quality further in a self-reinforcing spiral.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 489-490
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c3
+  statement_type: claim
+  modality: theoretical
+  text: 'Market institutions such as warranties, brand-name reputation, professional
+    licensing, and chains (e.g., restaurant franchises) exist as counteracting mechanisms
+    to information asymmetry. They serve to reduce quality uncertainty and restore
+    market function by providing credible quality signals.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 499-500
+    quote: there are many institutions which counteract the effects of quality uncertainty
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c4
+  statement_type: claim
+  modality: theoretical
+  text: 'The lemons principle generalizes beyond used cars to insurance markets (adverse
+    selection of high-risk individuals), credit markets in developing countries (high
+    interest rates due to default uncertainty), and labor markets (discrimination
+    as a proxy for unobservable productivity).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 492-499
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:m1
+  statement_type: method
+  modality: theoretical
+  text: 'The model uses a theoretical framework with utility functions for two trader
+    groups. Sellers'' utility depends on quality (known) and money; buyers'' utility
+    depends on expected quality (unknown) and money. Market equilibrium is derived
+    by equating supply and demand as functions of price, where supply depends on quality
+    distribution conditional on sellers'' willingness to trade at a given price.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 489-491
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:a1
+  statement_type: assumption
+  modality: theoretical
+  text: 'Buyers cannot distinguish high-quality from low-quality goods before purchase.
+    They observe only the statistical distribution of quality, not the quality of
+    any individual unit. Sellers have full knowledge of the quality of their own goods.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '489'
+    quote: the buyer... must estimate the quality of a car on the basis of some market
+      statistic
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:l1
+  statement_type: limitation
+  modality: descriptive
+  text: 'The model is purely theoretical with no empirical validation. Utility functions
+    are linear, quality is uniformly distributed on [0,2], and only two types of traders
+    are considered. The paper provides no quantitative data, econometric estimation,
+    or controlled experiment.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 489-491
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+evidence:
+- id: ev:lemons-model
+  evidence_type: proof
+  summary: 'Section II symmetric model: With quality uniformly distributed on [0,2]
+    and buyers valuing quality at 3/2 of seller valuation, the demand function D(p)
+    = D(3p/2) and supply S(p) = p (average quality is p/2 when sellers of quality
+    <= p offer). For any positive price p, average quality offered is p/2, so buyer
+    willingness-to-pay is 3/2 * p/2 = 3p/4 < p. No trade occurs at any positive price
+    — complete market collapse.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 490-491
+  observations:
+  - metric: equilibrium_outcome
+    qualitative_value: No trade at any positive price — complete market unraveling
+    qualifiers:
+      model: symmetric information
+      distribution: uniform [0,2]
+  - metric: buyer_valuation_multiplier
+    qualitative_value: Buyers value quality at 3/2 of seller valuation
+    qualifiers:
+      assumption: linear utility
+  - metric: average_quality_offered
+    qualitative_value: p/2 when all sellers with quality <= p offer their goods
+    qualifiers:
+      derived: from uniform distribution
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:insurance-application
+  evidence_type: proof
+  summary: 'Section III insurance application: As insurance premiums rise to reflect
+    average risk, the lowest-risk individuals drop out (their expected cost of coverage
+    exceeds their expected loss). This raises the average risk of the insured pool,
+    requiring further premium increases — a death spiral analogous to the lemons mechanism
+    in goods markets.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 492-495
+  observations:
+  - metric: adverse_selection_mechanism
+    qualitative_value: Low-risk individuals exit as premiums rise, increasing average
+      risk — self-reinforcing spiral
+    qualifiers:
+      market: insurance
+  - metric: welfare_implication
+    qualitative_value: 'Socially suboptimal: individuals who would benefit from insurance
+      at actuarially fair rates cannot obtain it'
+    qualifiers:
+      type: market failure
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:institutions
+  evidence_type: citation_backed
+  summary: 'Section IV argues that real-world institutions serve as counteracting
+    devices: (1) guarantees/warranties transfer risk from buyer to seller who has
+    quality information, (2) brand names and chains provide reputational capital at
+    stake, (3) professional licensing certifies minimum quality standards. These institutions
+    are most prevalent in markets where quality uncertainty is highest.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 499-500
+  observations:
+  - metric: institution_warranty
+    qualitative_value: Warranties transfer quality risk to the informed party (seller),
+      reducing buyer uncertainty
+  - metric: institution_reputation
+    qualitative_value: Brand names and chains create reputational capital; quality
+      shirking destroys long-term value
+  - metric: institution_licensing
+    qualitative_value: Professional licensing (e.g., medical) certifies minimum quality,
+      preventing worst-case adverse selection
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:credit-markets
+  evidence_type: proof
+  summary: 'Section III.D applies the lemons model to credit markets in developing
+    countries. Lenders face adverse selection because borrowers who accept high interest
+    rates are disproportionately those with high default risk. This explains persistently
+    high interest rates and credit rationing in underdeveloped economies.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 497-499
+  observations:
+  - metric: credit_market_effect
+    qualitative_value: Higher interest rates attract riskier borrowers, creating adverse
+      selection in credit markets
+    qualifiers:
+      context: developing countries
+  - metric: policy_implication
+    qualitative_value: Credit rationing is a rational response to quality uncertainty,
+      not a market imperfection amenable to simple deregulation
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+relations:
+- id: rel:1
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:lemons-model
+- id: rel:2
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:lemons-model
+- id: rel:3
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:institutions
+- id: rel:4
+  subject_ref: stmt:c4
+  predicate: supported_by
+  object_ref: ev:insurance-application
+- id: rel:5
+  subject_ref: stmt:c4
+  predicate: supported_by
+  object_ref: ev:credit-markets
+- id: rel:6
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:7
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:8
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:9
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:10
+  subject_ref: stmt:c1
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:11
+  subject_ref: stmt:c3
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:12
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:arrow-uncertainty
+  citation_intent: background
+- id: rel:13
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:stigler-information
+  citation_intent: background
+actions: []
+extensions:
+  paper:
+    venue: Quarterly Journal of Economics (QJE)
+    year: 1970
+    discipline: Microeconomics / Information Economics
+    nobel_prize: George A. Akerlof — Nobel Prize in Economics 2001 (shared with Spence
+      and Stiglitz)
+    sections:
+      introduction: Section I, pages 488-489
+      model: Section II, pages 489-492
+      applications: Section III, pages 492-499
+      counteracting_institutions: Section IV, pages 499-500
+    methodology_type: theoretical_model
+    evidence_type_distribution:
+      quantitative: 0
+      qualitative: 9
+      note: 'This paper is purely theoretical. There are no empirical tables, regressions,
+        or experimental data. All evidence comes from mathematical model derivations
+        and qualitative economic reasoning. Knows handles this through qualitative_value
+        fields and the evidence_type "proof".
+
+        '
+abstract: 'This paper relates quality and uncertainty. The existence of goods of many
+  grades poses interesting and important problems for the theory of markets. On the
+  one hand, the interaction of quality differences and uncertainty may explain important
+  institutions of the labor market. On the other hand, this paper presents a struggling
+  attempt to give structure to the statement: Business in underdeveloped countries
+  is difficult.'
+venue: Quarterly Journal of Economics
+year: 1970
+keywords:
+- information asymmetry
+- adverse selection
+- market failure
+- lemons problem
+- used cars
+- quality uncertainty
+- moral hazard
+- insurance
+- warranty
+- market mechanisms
+authors:
+- name: George A. Akerlof
+  affiliation: University of California, Berkeley
+  role: first
+venue_type: published
+language: en
+access: open
+record_status: active

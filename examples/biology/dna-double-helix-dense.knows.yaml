@@ -1,0 +1,1002 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:examples/dna-double-helix-dense/1.0.0
+profile: paper@1
+subject_ref: art:paper
+title: 'Molecular Structure of Nucleic Acids: A Structure for Deoxyribose Nucleic
+  Acid'
+summary: 'Dense agent-facing sidecar for Watson & Crick''s 1953 Nature paper proposing
+  the double helix structure of DNA. This dense variant provides fine-grained coverage
+  of all structural dimensions, specific base-pairing rules with chemical constraints,
+  the tautomeric form argument, Chargaff''s ratios, X-ray diffraction evidence details,
+  the ribose exclusion argument, refutation of the Pauling-Corey model, the replication
+  hint, and stereochemical constraints.
+
+  '
+coverage:
+  statements: exhaustive
+  evidence: exhaustive
+license: CC-BY-4.0
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: nature-1953-04-25
+freshness:
+  as_of: '2026-03-27T00:00:00Z'
+  update_policy: immutable
+provenance:
+  origin: author
+  actor:
+    name: Knows Example Authors
+    type: org
+  generated_at: '2026-03-27T00:00:00Z'
+  method: manual_curation
+artifacts:
+- id: art:paper
+  artifact_type: paper
+  role: subject
+  title: 'Molecular Structure of Nucleic Acids: A Structure for Deoxyribose Nucleic
+    Acid'
+  identifiers:
+    doi: 10.1038/171737a0
+  representations:
+  - id: rep:pdf
+    media_type: application/pdf
+    locator:
+      type: url
+      value: https://www.nature.com/articles/171737a0
+  - id: rep:fulltext
+    media_type: text/markdown
+    locator:
+      type: path
+      value: examples/biology/watson-crick-fulltext.md
+- id: art:xray-data
+  artifact_type: dataset
+  role: supporting
+  title: X-ray crystallography data of DNA fibres (Franklin & Gosling)
+  identifiers:
+    doi: 10.1038/171740a0
+  representations: []
+- id: art:chargaff
+  artifact_type: paper
+  role: cited
+  title: Chargaff's rules on base composition of DNA
+  identifiers:
+    custom:
+      reference: Chargaff 1950
+  representations: []
+- id: art:pauling-model
+  artifact_type: paper
+  role: cited
+  title: Pauling & Corey three-chain helical model
+  identifiers:
+    custom:
+      reference: Pauling and Corey 1953
+  representations: []
+- id: art:wilkins-franklin
+  artifact_type: paper
+  role: cited
+  title: Wilkins, Stokes & Wilson -- Helical structure of crystalline deoxypentose
+    nucleic acid
+  identifiers:
+    doi: 10.1038/171738a0
+  representations: []
+- id: art:furberg
+  artifact_type: paper
+  role: cited
+  title: Furberg's model of nucleoside conformation
+  identifiers:
+    custom:
+      reference: Furberg, S., Acta Chem. Scand., 6, 634 (1952)
+  representations: []
+- id: art:fraser
+  artifact_type: paper
+  role: cited
+  title: Fraser's three-chain model with bases inside
+  identifiers:
+    custom:
+      reference: Fraser (in the press)
+  representations: []
+- id: art:donohue
+  artifact_type: paper
+  role: cited
+  title: Jerry Donohue -- advice on interatomic distances and tautomeric forms
+  identifiers:
+    custom:
+      reference: Dr. Jerry Donohue, personal communication
+  representations: []
+statements:
+- id: stmt:c1
+  statement_type: claim
+  modality: theoretical
+  text: 'DNA has a structure of two helical chains wound around the same axis to form
+    a right-handed double helix. The two chains run in opposite directions (antiparallel).
+    Both chains follow right-handed helices, but owing to the dyad perpendicular to
+    the fibre axis, the sequences of atoms in the two chains run in opposite directions.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+    quote: two helical chains each coiled round the same axis
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c2
+  statement_type: claim
+  modality: theoretical
+  text: 'The bases are on the inside of the helix, with the phosphate-sugar backbone
+    on the outside. Bases pair specifically: adenine (a purine) with thymine (a pyrimidine),
+    and guanine (a purine) with cytosine (a pyrimidine), joined by hydrogen bonds.
+    One member of each pair must be a purine and the other a pyrimidine for bonding
+    to occur.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+    quote: the bases are on the inside of the helix and the phosphates on the outside
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c3
+  statement_type: claim
+  modality: theoretical
+  text: 'The specific base pairing immediately suggests a possible copying mechanism
+    for the genetic material. If the sequence of bases on one chain is known, the
+    sequence on the other chain is automatically determined.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+    quote: It has not escaped our notice that the specific pairing we have postulated
+      immediately suggests a possible copying mechanism
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c4
+  statement_type: claim
+  modality: theoretical
+  text: 'The specific base-pairing is constrained by tautomeric form: if bases occur
+    only in their most plausible tautomeric forms (keto rather than enol configurations),
+    then only specific pairs can bond together. These pairs are adenine with thymine,
+    and guanine with cytosine. No other combinations are stereochemically possible
+    under the keto assumption.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+    quote: If it is assumed that the bases only occur in the structure in the most
+      plausible tautomeric forms (that is, with the keto rather than the enol configurations)
+      it is found that only specific pairs of bases can bond together
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c5
+  statement_type: claim
+  modality: theoretical
+  text: 'The structural dimensions: there is a residue on each chain every 3.4 Angstroms
+    in the z-direction. The angle between adjacent residues in the same chain is 36
+    degrees. The structure repeats after 10 residues on each chain, i.e., after 34
+    Angstroms. The distance of a phosphorus atom from the fibre axis is 10 Angstroms.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c6
+  statement_type: claim
+  modality: theoretical
+  text: 'The hydrogen bonds between base pairs are made as follows: purine position
+    1 to pyrimidine position 1, and purine position 6 to pyrimidine position 6. The
+    planes of the bases are perpendicular to the fibre axis. Each pair consists of
+    a single base from one chain hydrogen-bonded to a single base from the other chain,
+    lying side by side with identical z-coordinates.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+    quote: purine position 1 to pyrimidine position 1; purine position 6 to pyrimidine
+      position 6
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c7
+  statement_type: claim
+  modality: theoretical
+  text: 'Each chain consists of phosphate diester groups joining beta-D-deoxyribofuranose
+    residues with 3'',5'' linkages. The configuration of the sugar and atoms near it
+    is close to Furberg''s "standard configuration," with the sugar being roughly
+    perpendicular to the attached base.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c8
+  statement_type: claim
+  modality: theoretical
+  text: 'The sequence of bases on a single chain does not appear to be restricted
+    in any way. However, because only specific base pairs can form, knowing the sequence
+    on one chain automatically determines the sequence on the other chain.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+    quote: The sequence of bases on a single chain does not appear to be restricted
+      in any way. However, if only specific pairs of bases can be formed, it follows
+      that if the sequence of bases on one chain is given, then the sequence on the
+      other chain is automatically determined
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c9
+  statement_type: claim
+  modality: theoretical
+  text: 'It is probably impossible to build this structure with a ribose sugar in place
+    of deoxyribose, because the extra oxygen atom would make too close a van der Waals
+    contact. This explains why the structure is specific to DNA (deoxyribose) rather
+    than RNA (ribose).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+    quote: It is probably impossible to build this structure with a ribose sugar in
+      place of the deoxyribose, as the extra oxygen atom would make too close a van
+      der Waals contact
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c10
+  statement_type: claim
+  modality: theoretical
+  text: 'The Pauling and Corey three-chain model is unsatisfactory for two reasons:
+    (1) The material giving X-ray diagrams is the salt, not the free acid, and without
+    acidic hydrogen atoms it is unclear what forces hold the structure together --
+    the negatively charged phosphates near the axis would repel each other. (2) Some
+    van der Waals distances appear to be too small.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c11
+  statement_type: claim
+  modality: theoretical
+  text: 'The structure is an open one with a rather high water content. At lower water
+    contents the bases would be expected to tilt so that the structure could become
+    more compact. Since the phosphates are on the outside, cations have easy access
+    to them.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c12
+  statement_type: claim
+  modality: theoretical
+  text: 'The two chains (but not their bases) are related by a dyad perpendicular
+    to the fibre axis. Each chain loosely resembles Furberg''s model No. 1 with bases
+    on the inside and phosphates on the outside.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c13
+  statement_type: claim
+  modality: theoretical
+  text: 'The previously published X-ray data on deoxyribose nucleic acid are insufficient
+    for a rigorous test of the structure. The structure is roughly compatible with
+    experimental data but must be regarded as unproved until checked against more exact
+    results.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+    quote: The previously published X-ray data on deoxyribose nucleic acid are insufficient
+      for a rigorous test of our structure
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c14
+  statement_type: claim
+  modality: theoretical
+  text: 'The ratio of adenine to thymine, and the ratio of guanine to cytosine, are
+    experimentally always very close to unity for deoxyribose nucleic acid (Chargaff''s
+    rules). The proposed base-pairing scheme perfectly satisfies these stoichiometric
+    constraints.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+    quote: It has been found experimentally that the ratio of the amounts of adenine
+      to thymine, and the ratio of guanine to cytosine, are always very close to unity
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c15
+  statement_type: claim
+  modality: theoretical
+  text: 'Fraser proposed another three-chain structure with phosphates on the outside
+    and bases on the inside linked by hydrogen bonds, but Watson and Crick describe
+    it as "rather ill-defined" and decline to comment further.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:m1
+  statement_type: method
+  modality: descriptive
+  text: 'The structure was determined by physical model building constrained by X-ray
+    crystallography data. The model satisfies stereochemical constraints (bond angles,
+    van der Waals distances) and is consistent with the observed X-ray diffraction
+    pattern. The structure rests mainly though not entirely on published experimental
+    data and stereochemical arguments.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:a1
+  statement_type: assumption
+  modality: descriptive
+  text: 'The structure assumes the B form of DNA (high humidity). The authors note
+    they have no direct evidence for their proposed base pairing scheme from X-ray
+    data alone -- the pairing follows from chemical and stereochemical reasoning.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:a2
+  statement_type: assumption
+  modality: descriptive
+  text: 'Key chemical assumption: each chain consists of phosphate diester groups
+    joining beta-D-deoxyribofuranose residues with 3'',5'' linkages. Standard bond
+    angles and van der Waals distances are assumed throughout.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:l1
+  statement_type: limitation
+  modality: descriptive
+  text: 'The proposed structure is a model, not a direct experimental determination.
+    Full atomic coordinates are not provided. The paper is 1 page long with no quantitative
+    data tables. The structure must be regarded as unproved until checked against more
+    exact X-ray results.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+evidence:
+- id: ev:xray
+  evidence_type: observation
+  summary: 'X-ray crystallography data from Franklin and Gosling shows a helical diffraction
+    pattern consistent with a helical structure with a period of 34 Angstroms along
+    the fibre axis and a diameter of about 20 Angstroms. There is a residue every
+    3.4 Angstroms.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+  observations:
+  - metric: helix_period
+    value: 34
+    unit: angstroms
+    qualifiers:
+      method: X-ray diffraction
+      source: Franklin & Gosling
+  - metric: helix_diameter
+    value: 20
+    unit: angstroms
+    qualifiers:
+      note: approximate
+  - metric: bases_per_turn
+    value: 10
+    qualifiers:
+      derived_from: period / base spacing (3.4 A)
+  - metric: residue_spacing
+    value: 3.4
+    unit: angstroms
+    qualifiers:
+      direction: along fibre axis (z-direction)
+  - metric: rotation_per_residue
+    value: 36
+    unit: degrees
+    qualifiers:
+      derived_from: 360 / 10 residues per turn
+  - metric: phosphorus_distance_from_axis
+    value: 10
+    unit: angstroms
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:chargaff-rule
+  evidence_type: citation_backed
+  summary: 'Chargaff''s rules establish that in DNA, the amount of adenine equals
+    thymine, and guanine equals cytosine (A=T, G=C). This stoichiometric constraint
+    is satisfied by the proposed base pairing scheme. The ratios are always very close
+    to unity for deoxyribose nucleic acid.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+  observations:
+  - metric: base_ratio_AT
+    qualitative_value: A = T (Chargaff's first parity rule)
+    qualifiers:
+      type: stoichiometric constraint
+  - metric: base_ratio_GC
+    qualitative_value: G = C (Chargaff's first parity rule)
+    qualifiers:
+      type: stoichiometric constraint
+  - metric: experimental_status
+    qualitative_value: Found experimentally to be always very close to unity
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:model-fit
+  evidence_type: observation
+  summary: 'The physical model satisfies stereochemical constraints: standard bond
+    angles, acceptable van der Waals contacts, and the sugar-phosphate backbone can
+    adopt the required conformation without strain.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+  observations:
+  - metric: stereochemical_validity
+    qualitative_value: All bond angles and van der Waals distances within acceptable
+      ranges
+  - metric: backbone_conformation
+    qualitative_value: Sugar-phosphate backbone adopts required geometry without strain
+  - metric: helix_handedness
+    qualitative_value: right-handed
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:pauling-refutation
+  evidence_type: citation_backed
+  summary: 'The previously proposed Pauling & Corey three-chain model is shown to
+    be unsatisfactory for two specific reasons: (1) The material is the salt, not free
+    acid -- without acidic hydrogen atoms, negatively charged phosphates near the axis
+    would repel each other with no clear force holding the structure together. (2)
+    Some van der Waals distances appear too small.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+  observations:
+  - metric: reason_1
+    qualitative_value: Phosphate repulsion near the axis -- no forces to hold salt
+      form together
+  - metric: reason_2
+    qualitative_value: Some van der Waals distances too small
+  - metric: pauling_model_structure
+    qualitative_value: Three intertwined chains with phosphates near axis, bases on outside
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:tautomeric-constraint
+  evidence_type: observation
+  summary: 'The base pairing specificity follows from the assumption that bases occur
+    in their most plausible tautomeric forms (keto rather than enol). Under this
+    assumption, only adenine-thymine and guanine-cytosine pairs can form, with hydrogen
+    bonds at purine position 1 to pyrimidine position 1, and purine position 6 to
+    pyrimidine position 6.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+  observations:
+  - metric: tautomeric_form
+    qualitative_value: Keto form assumed as most plausible (not enol)
+  - metric: allowed_pairs
+    qualitative_value: Only A-T and G-C pairs can form under keto assumption
+  - metric: hydrogen_bond_positions
+    qualitative_value: Purine pos 1 to pyrimidine pos 1; purine pos 6 to pyrimidine pos 6
+  - metric: advisor
+    qualitative_value: Dr. Jerry Donohue advised on interatomic distances and tautomeric forms
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:ribose-exclusion
+  evidence_type: observation
+  summary: 'Watson and Crick argue it is probably impossible to build their structure
+    with ribose sugar in place of deoxyribose because the extra oxygen atom in ribose
+    would create too close a van der Waals contact, causing steric clashes.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+  observations:
+  - metric: ribose_problem
+    qualitative_value: Extra oxygen atom in ribose creates steric clash via too-close
+      van der Waals contact
+  - metric: implication
+    qualitative_value: Structure is specific to DNA (deoxyribose), not RNA (ribose)
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:replication-hint
+  evidence_type: observation
+  summary: 'The famous concluding observation: "It has not escaped our notice that
+    the specific pairing we have postulated immediately suggests a possible copying
+    mechanism for the genetic material." Because one chain''s sequence determines the
+    other''s, the double helix can serve as a template for its own replication.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+  observations:
+  - metric: mechanism
+    qualitative_value: Complementary base pairing allows each chain to serve as template
+  - metric: significance
+    qualitative_value: Implies DNA can replicate itself, explaining genetic inheritance
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:acknowledgments
+  evidence_type: citation_backed
+  summary: 'Watson and Crick acknowledge Dr. Jerry Donohue for advice on interatomic
+    distances (especially tautomeric forms), and note they were stimulated by knowledge
+    of unpublished results from Dr. M.H.F. Wilkins and Dr. R.E. Franklin at King''s
+    College London. Watson was aided by a fellowship from the National Foundation for
+    Infantile Paralysis.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: page_range
+    locator: '1'
+  observations:
+  - metric: donohue_contribution
+    qualitative_value: Constant advice on interatomic distances, especially tautomeric forms
+  - metric: kings_college
+    qualitative_value: Wilkins and Franklin provided unpublished experimental results
+  - metric: watson_fellowship
+    qualitative_value: National Foundation for Infantile Paralysis
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+relations:
+- id: rel:1
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:xray
+- id: rel:2
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:model-fit
+- id: rel:3
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:chargaff-rule
+- id: rel:4
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:model-fit
+- id: rel:5
+  subject_ref: stmt:c3
+  predicate: depends_on
+  object_ref: stmt:c2
+- id: rel:6
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:7
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:8
+  subject_ref: stmt:c1
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:9
+  subject_ref: art:paper
+  predicate: uses
+  object_ref: art:xray-data
+- id: rel:10
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:chargaff
+  citation_intent: supports
+- id: rel:11
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:pauling-model
+  citation_intent: contradicts
+- id: rel:12
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:wilkins-franklin
+  citation_intent: uses_method
+- id: rel:13
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:pauling-refutation
+- id: rel:14
+  subject_ref: stmt:c4
+  predicate: supported_by
+  object_ref: ev:tautomeric-constraint
+- id: rel:15
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:tautomeric-constraint
+- id: rel:16
+  subject_ref: stmt:c5
+  predicate: supported_by
+  object_ref: ev:xray
+- id: rel:17
+  subject_ref: stmt:c6
+  predicate: supported_by
+  object_ref: ev:tautomeric-constraint
+- id: rel:18
+  subject_ref: stmt:c7
+  predicate: depends_on
+  object_ref: stmt:a2
+- id: rel:19
+  subject_ref: stmt:c8
+  predicate: depends_on
+  object_ref: stmt:c4
+- id: rel:20
+  subject_ref: stmt:c9
+  predicate: supported_by
+  object_ref: ev:ribose-exclusion
+- id: rel:21
+  subject_ref: stmt:c10
+  predicate: supported_by
+  object_ref: ev:pauling-refutation
+- id: rel:22
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:replication-hint
+- id: rel:23
+  subject_ref: stmt:c14
+  predicate: supported_by
+  object_ref: ev:chargaff-rule
+- id: rel:24
+  subject_ref: stmt:c13
+  predicate: depends_on
+  object_ref: stmt:l1
+- id: rel:25
+  subject_ref: stmt:c12
+  predicate: supported_by
+  object_ref: ev:model-fit
+- id: rel:26
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:furberg
+  citation_intent: uses_method
+- id: rel:27
+  subject_ref: stmt:c11
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:28
+  subject_ref: stmt:c15
+  predicate: depends_on
+  object_ref: stmt:c10
+- id: rel:29
+  subject_ref: stmt:c4
+  predicate: depends_on
+  object_ref: stmt:a2
+- id: rel:30
+  subject_ref: ev:tautomeric-constraint
+  predicate: supported_by
+  object_ref: art:donohue
+- id: rel:31
+  subject_ref: stmt:c14
+  predicate: depends_on
+  object_ref: stmt:c4
+actions: []
+extensions:
+  paper:
+    venue: Nature
+    year: 1953
+    discipline: Molecular Biology / Structural Biology
+    sections:
+      full_text: page 1 (single page)
+    methodology_type: model_building
+    evidence_type_distribution:
+      quantitative: 6
+      qualitative: 10
+      note: 'This paper has no tables, no benchmarks, no p-values. Evidence is primarily
+        qualitative (model consistency, crystallographic compatibility, tautomeric
+        reasoning, refutation of prior models).
+
+        '
+abstract: We wish to suggest a structure for the salt of deoxyribose nucleic acid
+  (D.N.A.). This structure has novel features which are of considerable biological
+  interest. A structure for nucleic acid has already been proposed by Pauling and
+  Corey. They kindly made their manuscript available to us in advance of publication.
+  Their model consists of three intertwined chains, with the phosphates near the fibre
+  axis, and the bases on the outside. In our opinion, this structure is unsatisfactory.
+venue: Nature
+year: 1953
+keywords:
+- DNA
+- double helix
+- molecular structure
+- nucleic acid
+- base pairing
+- X-ray crystallography
+- adenine
+- thymine
+- guanine
+- cytosine
+- Watson
+- Crick
+- Chargaff's rules
+- tautomeric form
+- keto configuration
+- hydrogen bonds
+- deoxyribose
+- ribose exclusion
+- Pauling-Corey model
+- replication mechanism
+authors:
+- name: James D. Watson
+  affiliation: Cavendish Laboratory, Cambridge
+  role: first
+- name: Francis H. C. Crick
+  affiliation: Cavendish Laboratory, Cambridge
+  role: first
+venue_type: published
+resources:
+  facilities:
+  - Cavendish Laboratory, Cambridge
+  - X-ray crystallography equipment
+language: en
+access: open
+record_status: active

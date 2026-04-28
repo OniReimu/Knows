@@ -1,0 +1,1313 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://knows.dev/schema/record-0.9.json",
+  "title": "KnowsRecord",
+  "description": "A minimal, verifiable companion sidecar record for research artifacts. Binds author-asserted statements, evidence, provenance, and optional action hooks to an existing human artifact in a form agents can consume directly.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "knows_version",
+    "record_id",
+    "profile",
+    "subject_ref",
+    "title",
+    "authors",
+    "summary",
+    "coverage",
+    "license",
+    "artifacts",
+    "statements",
+    "evidence",
+    "relations",
+    "provenance",
+    "version",
+    "freshness"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "const": "https://knows.dev/schema/record-0.9.json",
+      "description": "JSON Schema URI for this record."
+    },
+    "knows_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Knows spec version this record conforms to (semver)."
+    },
+    "record_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Globally unique identifier for this sidecar record. Recommended format: DOI-based or URL-based."
+    },
+    "profile": {
+      "type": "string",
+      "pattern": "^[a-z_]+@\\d+$",
+      "description": "Domain-specific extension profile and version. E.g., 'paper@1', 'repo@1', 'dataset@1', 'model@1', 'benchmark@1'."
+    },
+    "subject_ref": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Local ID referencing the primary artifact this record describes. MUST reference an id from the artifacts array. JSON Schema cannot enforce this cross-reference; use knows-lint for validation."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable title for this sidecar record."
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Brief description of what this sidecar covers."
+    },
+    "coverage": {
+      "$ref": "#/$defs/Coverage",
+      "description": "Declares the scope of this record's coverage."
+    },
+    "license": {
+      "type": "string",
+      "minLength": 1,
+      "description": "SPDX license identifier for this sidecar record. E.g., 'CC-BY-4.0'."
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Artifact"
+      },
+      "description": "The things being described: paper, repo, dataset, model, benchmark, cited work. Present even if empty."
+    },
+    "statements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Statement"
+      },
+      "description": "Claims, assumptions, limitations, methods, questions, definitions. Present even if empty."
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Evidence"
+      },
+      "description": "Table cells, figures, experiment results, citation-backed support. Present even if empty."
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Relation"
+      },
+      "description": "Typed edges across artifacts, statements, and evidence. Present even if empty."
+    },
+    "abstract": {
+      "type": "string",
+      "description": "Full abstract of the paper. Agents use this for L0 discovery (decide whether to read further). Complements 'summary' which describes the sidecar; 'abstract' describes the paper itself."
+    },
+    "venue": {
+      "type": "string",
+      "description": "Publication venue. E.g., 'CVPR 2016', 'Nature', 'arXiv preprint', 'ACM CCS 2016'. Agents use this to assess credibility and domain. Common values for non-published work: 'arXiv preprint', 'under review', 'submitted to [venue]', 'in preparation', 'technical report'."
+    },
+    "venue_type": {
+      "type": "string",
+      "enum": [
+        "published",
+        "preprint",
+        "under_review",
+        "in_preparation",
+        "technical_report",
+        "thesis",
+        "book",
+        "other"
+      ],
+      "description": "Publication status. Agents use this to calibrate trust: 'published' > 'preprint' > 'under_review' > 'in_preparation'."
+    },
+    "year": {
+      "type": "integer",
+      "minimum": 1800,
+      "maximum": 2100,
+      "description": "Publication year of the primary artifact. Distinct from freshness.as_of (sidecar creation time)."
+    },
+    "language": {
+      "type": "string",
+      "pattern": "^[a-z]{2}$",
+      "description": "Primary language of the artifact. ISO 639-1 code. Defaults to 'en' if omitted. Agents use this for multilingual filtering."
+    },
+    "access": {
+      "type": "string",
+      "enum": [
+        "open",
+        "embargoed",
+        "closed",
+        "login_required",
+        "subscription"
+      ],
+      "description": "Access level of the primary artifact. Distinct from license: a CC-BY paper may still be behind a paywall. Agents use this to determine if they can retrieve the full text."
+    },
+    "record_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "retracted",
+        "superseded",
+        "deprecated"
+      ],
+      "description": "Lifecycle status of THIS SIDECAR RECORD. 'retracted' = the described artifact has been retracted. 'superseded' = a newer sidecar version exists. Agents should check this before trusting the record. Distinct from Statement.status which is per-claim."
+    },
+    "replaces": {
+      "type": "string",
+      "description": "record_id of the previous version this record supersedes. Forms a singly-linked version chain: agents follow replaces pointers to traverse history. The referenced record SHOULD set record_status to 'superseded'."
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Search keywords for agent discovery. Include: domain terms, method names, dataset names, task names. Agents use these for L0 (discovery) tasks. Aim for 5-15 terms covering topic, method, and application."
+    },
+    "authors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Author"
+      },
+      "description": "Authors of the primary artifact. Includes name, affiliation, and optional identifiers (ORCID, email, homepage)."
+    },
+    "funding": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/FundingSource"
+      },
+      "description": "Funding sources. Agents use this for conflict-of-interest assessment and grant tracking."
+    },
+    "resources": {
+      "$ref": "#/$defs/Resources",
+      "description": "Computational, human, and material resources used. Critical for reproducibility assessment."
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Action"
+      },
+      "description": "Optional machine-invokable affordances. A valid record may have zero actions."
+    },
+    "provenance": {
+      "$ref": "#/$defs/Provenance",
+      "description": "Who/what produced this sidecar record. Serves as DEFAULT provenance for all statements and evidence that do not specify their own. Per-item provenance overrides this when present."
+    },
+    "version": {
+      "$ref": "#/$defs/VersionInfo",
+      "description": "Three-layer version: spec, record, source."
+    },
+    "freshness": {
+      "$ref": "#/$defs/Freshness",
+      "description": "Temporal validity metadata."
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Domain-specific extension data. Structure depends on profile.",
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "Coverage": {
+      "type": "object",
+      "required": [
+        "statements",
+        "evidence"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "statements": {
+          "type": "string",
+          "enum": [
+            "exhaustive",
+            "main_claims_only",
+            "key_claims_and_limitations",
+            "partial"
+          ],
+          "description": "How complete. exhaustive='every claim in the paper', main_claims_only='top-level claims', key_claims_and_limitations='claims + known limitations', partial='selected subset'."
+        },
+        "evidence": {
+          "type": "string",
+          "enum": [
+            "exhaustive",
+            "key_evidence_only",
+            "partial"
+          ],
+          "description": "How complete. exhaustive='all evidence', key_evidence_only='main tables/figures', partial='selected subset'."
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Extension point for forward-compatible custom fields."
+        }
+      }
+    },
+    "Artifact": {
+      "type": "object",
+      "required": [
+        "id",
+        "artifact_type",
+        "role",
+        "title"
+      ],
+      "additionalProperties": false,
+      "description": "A research artifact being described. Must have at least one of identifiers, locators, or representations to be discoverable. Cited external works (role='cited') may have only identifiers.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^art:",
+          "description": "Local ID prefixed with 'art:'."
+        },
+        "artifact_type": {
+          "type": "string",
+          "enum": [
+            "paper",
+            "repository",
+            "dataset",
+            "model",
+            "benchmark",
+            "software",
+            "website",
+            "other"
+          ],
+          "description": "Type of research artifact. paper='journal/conference paper', repository='code repo', dataset='training/eval data', model='ML model or pretrained weights', benchmark='evaluation suite', software='tool or library'."
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "subject",
+            "supporting",
+            "cited"
+          ],
+          "description": "Role relative to this sidecar. subject='the main artifact described', supporting='used by the main artifact', cited='referenced but external'."
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "identifiers": {
+          "$ref": "#/$defs/Identifiers",
+          "description": "Persistent identifiers (DOI, arXiv ID, etc.)."
+        },
+        "locators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Locator"
+          },
+          "description": "Where to find this artifact."
+        },
+        "representations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Representation"
+          },
+          "description": "Concrete surfaces of this artifact (HTML, PDF, file, API). Can be empty for cited external works."
+        },
+        "external_metadata_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ExternalMetadataRef"
+          },
+          "description": "Pointers to existing metadata standards (CodeMeta, CITATION.cff, Croissant, model card)."
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Extension point for Artifact-level custom fields. Forward-compatible: new fields can be added here without breaking schema validation."
+        }
+      }
+    },
+    "Identifiers": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "doi": {
+          "type": "string"
+        },
+        "arxiv": {
+          "type": "string"
+        },
+        "isbn": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "custom": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Additional identifier systems."
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Extension point for forward-compatible custom fields."
+        }
+      }
+    },
+    "Locator": {
+      "type": "object",
+      "required": [
+        "type",
+        "value"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "url",
+            "git",
+            "path",
+            "doi",
+            "other"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "description": "Git commit hash, tag, or version identifier."
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Extension point for forward-compatible custom fields."
+        }
+      }
+    },
+    "Representation": {
+      "type": "object",
+      "required": [
+        "id",
+        "media_type",
+        "locator"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^rep:",
+          "description": "Local ID prefixed with 'rep:'."
+        },
+        "media_type": {
+          "type": "string",
+          "description": "IANA media type. E.g., 'text/html', 'application/pdf'."
+        },
+        "locator": {
+          "$ref": "#/$defs/Locator"
+        },
+        "hash": {
+          "type": "string",
+          "pattern": "^(sha256|sha1|md5):",
+          "description": "Content hash for integrity verification."
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Extension point for forward-compatible custom fields."
+        }
+      }
+    },
+    "ExternalMetadataRef": {
+      "type": "object",
+      "required": [
+        "standard",
+        "locator"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "standard": {
+          "type": "string",
+          "enum": [
+            "codemeta",
+            "citation_cff",
+            "croissant",
+            "model_card",
+            "datacite",
+            "ro_crate",
+            "other"
+          ],
+          "description": "Which metadata standard this points to."
+        },
+        "locator": {
+          "$ref": "#/$defs/Locator"
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Extension point for forward-compatible custom fields."
+        }
+      }
+    },
+    "Statement": {
+      "type": "object",
+      "required": [
+        "id",
+        "statement_type",
+        "text",
+        "about_ref",
+        "status"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^stmt:",
+          "description": "Local ID prefixed with 'stmt:'."
+        },
+        "statement_type": {
+          "type": "string",
+          "enum": [
+            "claim",
+            "assumption",
+            "limitation",
+            "method",
+            "question",
+            "definition"
+          ],
+          "description": "What kind of statement. E.g., claim='Our method achieves SOTA', assumption='We assume IID data', limitation='Only tested on English', method='We use SGD with momentum', question='Can this scale to 1B params?', definition='We define X as...'."
+        },
+        "modality": {
+          "type": "string",
+          "enum": [
+            "empirical",
+            "theoretical",
+            "descriptive",
+            "normative"
+          ],
+          "description": "How the statement is grounded. empirical='backed by experiments/data', theoretical='derived from theory/proof', descriptive='states a fact without judgment', normative='prescribes what should be done or is good/bad'."
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The statement content in natural language."
+        },
+        "about_ref": {
+          "type": "string",
+          "description": "Local ID of the artifact this statement is about."
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "asserted",
+            "retracted",
+            "superseded",
+            "under_review"
+          ],
+          "description": "Current lifecycle status. asserted='active claim', retracted='withdrawn by authors', superseded='replaced by newer version', under_review='not yet finalized'."
+        },
+        "source_anchors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Anchor"
+          },
+          "description": "Where in the human artifact this statement appears."
+        },
+        "confidence": {
+          "$ref": "#/$defs/Confidence",
+          "description": "Two-dimensional confidence: epistemic (science strength) x encoding (sidecar fidelity)."
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "citation_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Local IDs of cited artifacts relevant to this statement."
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Extension point for Statement-level custom fields. Forward-compatible: new fields can be added here without breaking schema validation."
+        }
+      }
+    },
+    "Evidence": {
+      "type": "object",
+      "required": [
+        "id",
+        "evidence_type",
+        "summary"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^ev:",
+          "description": "Local ID prefixed with 'ev:'."
+        },
+        "evidence_type": {
+          "type": "string",
+          "enum": [
+            "table_result",
+            "figure",
+            "experiment_run",
+            "citation_backed",
+            "artifact_run",
+            "proof",
+            "case_study",
+            "clinical_trial",
+            "survey_result",
+            "qualitative_analysis",
+            "statistical_test",
+            "observation",
+            "simulation",
+            "other"
+          ],
+          "description": "What kind of evidence. table_result='data from a table', figure='chart or diagram', experiment_run='executed experiment', proof='formal mathematical proof', case_study='detailed case analysis', clinical_trial='medical trial', survey_result='questionnaire/interview data', qualitative_analysis='thematic/content analysis', observation='direct observation', simulation='computational simulation'."
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human-readable summary of the evidence."
+        },
+        "source_anchors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Anchor"
+          },
+          "description": "Where in the human artifact this evidence appears."
+        },
+        "observations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Observation"
+          },
+          "description": "Structured numeric measurements extracted from the evidence."
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Extension point for Evidence-level custom fields. Forward-compatible: new fields can be added here without breaking schema validation."
+        }
+      }
+    },
+    "Observation": {
+      "type": "object",
+      "required": [
+        "metric"
+      ],
+      "additionalProperties": false,
+      "description": "A structured measurement or qualitative finding. Use 'value' for numeric data (e.g., accuracy=0.95) or 'qualitative_value' for non-numeric findings (e.g., crystal_structure='hexagonal', theme='participant autonomy'). At least one of value or qualitative_value should be present.",
+      "properties": {
+        "metric": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Name of the metric or observation dimension. E.g., 'accuracy', 'crystal_structure', 'theme', 'ruling', 'p_value'."
+        },
+        "value": {
+          "type": "number",
+          "description": "Numeric value. Use for quantitative observations."
+        },
+        "qualitative_value": {
+          "type": "string",
+          "description": "Non-numeric value. Use for qualitative observations (e.g., 'hexagonal', 'double helix', 'statistically significant', 'guilty'). For disciplines where evidence is not numeric."
+        },
+        "unit": {
+          "type": "string",
+          "description": "Unit of the metric. E.g., 'percent', 'seconds', 'nats'."
+        },
+        "error": {
+          "type": "number",
+          "description": "Standard deviation or confidence interval half-width."
+        },
+        "error_type": {
+          "type": "string",
+          "enum": [
+            "std",
+            "stderr",
+            "ci95",
+            "ci99"
+          ],
+          "description": "Type of error measurement."
+        },
+        "n_runs": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of runs used to compute this measurement."
+        },
+        "qualifiers": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Additional context: benchmark_ref, split, compared_to_ref, compared_to_value, seed, etc."
+        }
+      }
+    },
+    "Relation": {
+      "type": "object",
+      "required": [
+        "id",
+        "subject_ref",
+        "predicate",
+        "object_ref"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^rel:",
+          "description": "Local ID prefixed with 'rel:'."
+        },
+        "subject_ref": {
+          "type": "string",
+          "description": "Local ID of the subject entity."
+        },
+        "predicate": {
+          "type": "string",
+          "enum": [
+            "supported_by",
+            "challenged_by",
+            "depends_on",
+            "limited_by",
+            "uses",
+            "evaluates_on",
+            "implements",
+            "documents",
+            "cites",
+            "same_as",
+            "supersedes",
+            "retracts"
+          ],
+          "description": "Relationship type. supported_by='claim backed by evidence', challenged_by='claim questioned by evidence/review', depends_on='claim requires this assumption', limited_by='claim constrained by this limitation', cites='references another work', uses='employs a tool/dataset', evaluates_on='tested on a benchmark'."
+        },
+        "object_ref": {
+          "type": "string",
+          "description": "Local ID of the object entity. For cross-record references, use 'record_id#local_id'."
+        },
+        "citation_intent": {
+          "type": "string",
+          "enum": [
+            "supports",
+            "extends",
+            "uses_method",
+            "compares_to",
+            "contradicts",
+            "reviews",
+            "cites_data",
+            "background",
+            "other"
+          ],
+          "description": "Why cited (only with predicate='cites'). supports='cited work backs this claim', extends='builds on cited work', uses_method='borrows technique from cited work', compares_to='benchmarked against cited work', contradicts='disagrees with cited work'."
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Extension point for Relation-level custom fields. Forward-compatible: new fields can be added here without breaking schema validation."
+        }
+      }
+    },
+    "Action": {
+      "type": "object",
+      "required": [
+        "id",
+        "action_type",
+        "label",
+        "target_ref",
+        "interface",
+        "safety"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^act:",
+          "description": "Local ID prefixed with 'act:'."
+        },
+        "action_type": {
+          "type": "string",
+          "enum": [
+            "download",
+            "run",
+            "query",
+            "deploy",
+            "other"
+          ],
+          "description": "Kind of action."
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human-readable label for this action."
+        },
+        "target_ref": {
+          "type": "string",
+          "description": "Local ID of the artifact this action operates on."
+        },
+        "interface": {
+          "$ref": "#/$defs/ActionInterface",
+          "description": "How to invoke this action."
+        },
+        "safety": {
+          "$ref": "#/$defs/SafetyPolicy",
+          "description": "Safety constraints for this action. MANDATORY when action is present."
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Extension point for Action-level custom fields. Forward-compatible: new fields can be added here without breaking schema validation."
+        }
+      }
+    },
+    "ActionInterface": {
+      "type": "object",
+      "required": [
+        "kind"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "mcp_tool",
+            "git",
+            "http",
+            "shell",
+            "openapi",
+            "other"
+          ],
+          "description": "Interface protocol."
+        },
+        "server": {
+          "type": "string",
+          "description": "Server URL (for mcp_tool, http, openapi)."
+        },
+        "tool_name": {
+          "type": "string",
+          "description": "Tool name (for mcp_tool)."
+        },
+        "locator": {
+          "type": "string",
+          "description": "URI or path (for git, http)."
+        },
+        "input_schema": {
+          "type": "object",
+          "description": "JSON Schema describing the input parameters."
+        },
+        "output_schema": {
+          "type": "object",
+          "description": "JSON Schema describing the expected output."
+        }
+      }
+    },
+    "SafetyPolicy": {
+      "type": "object",
+      "required": [
+        "side_effects"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "sandbox_required": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether execution requires sandboxing."
+        },
+        "network": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the action requires network access."
+        },
+        "secrets_required": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether API keys or credentials are needed."
+        },
+        "side_effects": {
+          "type": "string",
+          "enum": [
+            "none",
+            "temporary_files_only",
+            "persistent",
+            "external"
+          ],
+          "description": "Level of side effects produced."
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Extension point for forward-compatible custom fields."
+        }
+      }
+    },
+    "Anchor": {
+      "type": "object",
+      "required": [
+        "representation_ref",
+        "locator_type",
+        "locator"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "representation_ref": {
+          "type": "string",
+          "description": "Local ID of the representation this anchor points into."
+        },
+        "locator_type": {
+          "type": "string",
+          "enum": [
+            "fragment",
+            "xpath",
+            "css",
+            "line_range",
+            "page_range",
+            "table",
+            "figure",
+            "section",
+            "paragraph",
+            "other"
+          ],
+          "description": "How to find content. page_range='e.g., pages 3-5', section='e.g., Section 3.1', table='e.g., Table 2', figure='e.g., Figure 1', paragraph='specific paragraph', line_range='e.g., lines 45-60'."
+        },
+        "locator": {
+          "type": "string",
+          "description": "The locator value. E.g., '#main-result', 'table-2', 'lines:45-60'."
+        },
+        "quote": {
+          "type": "string",
+          "description": "Optional verbatim quote from the source for verification."
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Extension point for forward-compatible custom fields."
+        }
+      }
+    },
+    "Provenance": {
+      "type": "object",
+      "required": [
+        "origin",
+        "actor",
+        "generated_at"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "origin": {
+          "type": "string",
+          "enum": [
+            "author",
+            "machine",
+            "imported"
+          ],
+          "description": "Who originally produced this content."
+        },
+        "actor": {
+          "$ref": "#/$defs/Actor"
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp of generation."
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "manual_curation",
+            "extraction",
+            "conversion",
+            "import"
+          ],
+          "description": "How this content was produced."
+        },
+        "derived_from": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Local IDs or anchors this was derived from."
+        },
+        "attested_by": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Who attested to the correctness."
+        },
+        "verification": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/VerificationCheck"
+          },
+          "description": "Automated verification checks that have been run."
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Extension point for forward-compatible custom fields."
+        }
+      }
+    },
+    "Actor": {
+      "type": "object",
+      "required": [
+        "name",
+        "type"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "person",
+            "org",
+            "tool"
+          ]
+        },
+        "version": {
+          "type": "string",
+          "description": "Version of the tool (if type is 'tool')."
+        },
+        "orcid": {
+          "type": "string",
+          "description": "ORCID identifier (if type is 'person')."
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Extension point for forward-compatible custom fields."
+        }
+      }
+    },
+    "Author": {
+      "type": "object",
+      "required": [
+        "name",
+        "affiliation"
+      ],
+      "additionalProperties": false,
+      "description": "An author of the research artifact. Provides structured bio/affiliation for agent discovery and attribution. For double-blind submissions, set anonymous: true and omit identifying fields.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Full name. Use 'Anonymous' for double-blind, 'Independent Researcher' for unaffiliated authors."
+        },
+        "anonymous": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, author identity is withheld (double-blind review). Name may be 'Anonymous' or a pseudonym."
+        },
+        "affiliation": {
+          "type": "string",
+          "description": "Primary institutional affiliation. Use 'Independent' for independent researchers, omit for anonymous."
+        },
+        "orcid": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{4}-\\d{4}-\\d{3}[\\dX]$",
+          "description": "ORCID identifier. E.g., '0000-0002-1825-0097'."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Contact email (optional, may be omitted for privacy)."
+        },
+        "homepage": {
+          "type": "string",
+          "format": "uri",
+          "description": "Personal or lab homepage URL."
+        },
+        "scholar_id": {
+          "type": "string",
+          "description": "Google Scholar profile ID."
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "first",
+            "corresponding",
+            "senior",
+            "contributor"
+          ],
+          "description": "Role in the authorship. Helps agents identify who to contact or attribute."
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Extension point for forward-compatible custom fields."
+        }
+      }
+    },
+    "VerificationCheck": {
+      "type": "object",
+      "required": [
+        "check",
+        "status"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "check": {
+          "type": "string",
+          "enum": [
+            "schema",
+            "anchor_resolves",
+            "link_liveness",
+            "identifier_resolves",
+            "semantic_consistency",
+            "executable_runs"
+          ],
+          "description": "Type of verification check."
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "warning",
+            "skipped"
+          ]
+        },
+        "by": {
+          "type": "string",
+          "description": "Tool or person that performed the check."
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details about the check result."
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Extension point for forward-compatible custom fields."
+        }
+      }
+    },
+    "FundingSource": {
+      "type": "object",
+      "required": [
+        "funder"
+      ],
+      "additionalProperties": false,
+      "description": "A funding source for the research. Enables conflict-of-interest assessment and grant outcome tracking.",
+      "properties": {
+        "funder": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Funding organization. E.g., 'NSF', 'ERC', 'Google Research', 'DARPA'."
+        },
+        "grant_id": {
+          "type": "string",
+          "description": "Grant or award number."
+        },
+        "program": {
+          "type": "string",
+          "description": "Funding program name. E.g., 'CAREER Award', 'Horizon 2020'."
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Extension point for forward-compatible custom fields."
+        }
+      }
+    },
+    "Resources": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Computational, human, and material resources used. Critical for reproducibility: another researcher must know what is needed to replicate the work.",
+      "properties": {
+        "compute": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "E.g., 'GPU', 'CPU', 'TPU', 'HPC cluster'."
+              },
+              "model": {
+                "type": "string",
+                "description": "E.g., 'NVIDIA H100', 'Apple M2 Ultra', 'AMD EPYC 7742'."
+              },
+              "count": {
+                "type": "integer",
+                "description": "Number of units used."
+              },
+              "hours": {
+                "type": "number",
+                "description": "Total compute hours."
+              },
+              "provider": {
+                "type": "string",
+                "description": "E.g., 'AWS', 'Google Cloud', 'university HPC', 'local'."
+              }
+            }
+          },
+          "description": "Hardware compute resources used."
+        },
+        "software": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "E.g., 'PyTorch', 'TensorFlow', 'R', 'MATLAB'."
+              },
+              "version": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            }
+          },
+          "description": "Software frameworks and tools used."
+        },
+        "human": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "annotators": {
+              "type": "integer",
+              "description": "Number of human annotators."
+            },
+            "annotation_hours": {
+              "type": "number",
+              "description": "Total annotation hours."
+            },
+            "participants": {
+              "type": "integer",
+              "description": "Number of study participants (for user studies, clinical trials)."
+            },
+            "irb_approved": {
+              "type": "boolean",
+              "description": "Whether IRB/ethics approval was obtained."
+            }
+          },
+          "description": "Human resources: annotators, participants, reviewers."
+        },
+        "facilities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Physical facilities. E.g., 'wet lab', 'wind tunnel', 'synchrotron beamline', 'clean room'."
+        },
+        "estimated_cost": {
+          "type": "string",
+          "description": "Estimated total cost of the research. E.g., '$5,000 compute + $2,000 annotation'."
+        }
+      }
+    },
+    "Confidence": {
+      "type": "object",
+      "required": [
+        "claim_strength",
+        "extraction_fidelity"
+      ],
+      "additionalProperties": false,
+      "description": "Two-dimensional confidence. claim_strength = how strong is the science? extraction_fidelity = how accurately does this sidecar capture the source?",
+      "properties": {
+        "claim_strength": {
+          "type": "string",
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ],
+          "description": "How strong the underlying scientific statement is. High = well-supported by evidence, Medium = some support, Low = speculative or preliminary."
+        },
+        "extraction_fidelity": {
+          "type": "string",
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ],
+          "description": "How faithfully this sidecar field captures the original source. High = verbatim or very close, Medium = summarized, Low = loosely paraphrased."
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Extension point for forward-compatible custom fields."
+        }
+      }
+    },
+    "VersionInfo": {
+      "type": "object",
+      "required": [
+        "spec",
+        "record",
+        "source"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "spec": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+          "description": "Knows spec version."
+        },
+        "record": {
+          "type": "string",
+          "description": "This sidecar record's version."
+        },
+        "source": {
+          "type": "string",
+          "description": "Version of the human artifact this describes (git commit, DOI version, etc.)."
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Extension point for forward-compatible custom fields."
+        }
+      }
+    },
+    "Freshness": {
+      "type": "object",
+      "required": [
+        "as_of",
+        "update_policy"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "as_of": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this record was last verified as accurate."
+        },
+        "update_policy": {
+          "type": "string",
+          "enum": [
+            "immutable",
+            "versioned",
+            "rolling"
+          ],
+          "description": "How this record is expected to change over time."
+        },
+        "review_after": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Suggested date to re-verify this record."
+        },
+        "stale_after": {
+          "type": "string",
+          "format": "date-time",
+          "description": "After this date, the record should be considered potentially stale."
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Extension point for forward-compatible custom fields."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,521 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:examples/reynolds-turbulence/1.0.0
+profile: paper@1
+subject_ref: art:paper
+title: An Experimental Investigation of the Circumstances Which Determine Whether
+  the Motion of Water Shall Be Direct or Sinuous
+summary: 'Agent-facing sidecar for Reynolds'' 1883 paper in the Philosophical Transactions
+  of the Royal Society. Introduces the dimensionless ratio (now called Reynolds number
+  Re = rho*v*D/mu) governing the transition between laminar ("direct") and turbulent
+  ("sinuous") flow in pipes. Evidence is entirely experimental: dye injection visualization
+  in glass tubes with systematic variation of velocity, tube diameter, and fluid temperature
+  (viscosity).
+
+  '
+coverage:
+  statements: main_claims_only
+  evidence: key_evidence_only
+license: CC-BY-4.0
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: phil-trans-1883-vol174
+freshness:
+  as_of: '2026-03-19T00:00:00Z'
+  update_policy: immutable
+provenance:
+  origin: author
+  actor:
+    name: Knows Example Authors
+    type: org
+  generated_at: '2026-03-19T00:00:00Z'
+  method: manual_curation
+artifacts:
+- id: art:paper
+  artifact_type: paper
+  role: subject
+  title: An Experimental Investigation of the Circumstances Which Determine Whether
+    the Motion of Water Shall Be Direct or Sinuous, and of the Law of Resistance in
+    Parallel Channels
+  identifiers:
+    doi: 10.1098/rstl.1883.0029
+  representations:
+  - id: rep:pdf
+    media_type: application/pdf
+    locator:
+      type: url
+      value: https://doi.org/10.1098/rstl.1883.0029
+- id: art:stokes
+  artifact_type: paper
+  role: cited
+  title: On the Effect of the Internal Friction of Fluids on the Motion of Pendulums
+  identifiers:
+    custom:
+      reference: Stokes 1851, Trans. Cambridge Phil. Soc.
+  representations: []
+- id: art:hagen
+  artifact_type: paper
+  role: cited
+  title: Ueber die Bewegung des Wassers in engen cylindrischen Roehren
+  identifiers:
+    custom:
+      reference: Hagen 1839, Poggendorff's Annalen
+  representations: []
+- id: art:poiseuille
+  artifact_type: paper
+  role: cited
+  title: Recherches experimentales sur le mouvement des liquides dans les tubes de
+    tres petits diametres
+  identifiers:
+    custom:
+      reference: Poiseuille 1840, Comptes Rendus
+  representations: []
+- id: art:dye-apparatus
+  artifact_type: dataset
+  role: supporting
+  title: Dye injection apparatus and glass tube flow visualisation data
+  identifiers:
+    custom:
+      reference: Reynolds 1883, experimental apparatus at Owens College Manchester
+  representations: []
+statements:
+- id: stmt:c1
+  statement_type: claim
+  modality: empirical
+  text: 'The transition from laminar (direct) to turbulent (sinuous) flow in a pipe
+    occurs at a critical value of the dimensionless ratio Re = rho * v * D / mu, where
+    rho is the fluid density, v is the mean velocity, D is the pipe diameter, and
+    mu is the dynamic viscosity. This single dimensionless group governs the flow
+    regime regardless of the individual values of its constituent variables.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 935-942
+    quote: the general character of the motion of fluids... depends on the relation
+      between... the velocity, the density, the viscosity, and the dimensions
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c2
+  statement_type: claim
+  modality: empirical
+  text: 'The critical Reynolds number for the transition from laminar to turbulent
+    flow in pipe flow is approximately 2300. Below this value, dye streaks remain
+    coherent and straight (laminar flow); above it, dye rapidly mixes and disperses
+    throughout the cross-section (turbulent flow). The transition is reproducible
+    across different tube diameters and flow velocities when expressed in terms of
+    Re.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 942-950
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c3
+  statement_type: claim
+  modality: empirical
+  text: 'Two distinct flow regimes exhibit different resistance laws: in laminar flow
+    (below the critical velocity), the resistance is proportional to the first power
+    of velocity (consistent with Poiseuille''s law); in turbulent flow (above the
+    critical velocity), the resistance is proportional to approximately the 1.7th
+    power of velocity.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 955-970
+    quote: the resistance... varies as the first power of the velocity when the velocity
+      is below the critical value, and approximately as the 1.7 power when above
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:m1
+  statement_type: method
+  modality: descriptive
+  text: 'Dye injection experiments in glass tubes: a thin stream of coloured dye is
+    introduced into the centre of a flow of water through horizontal glass tubes.
+    The apparatus uses a large tank to ensure uniform head, tubes of three different
+    diameters (approximately 1/4, 1/2, and 1 inch), and careful temperature control
+    to vary viscosity. The critical velocity is determined by observing the velocity
+    at which the dye streak transitions from a steady filament to chaotic mixing.
+    Pressure drop measurements along the tube provide quantitative resistance data.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 935-942
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:a1
+  statement_type: assumption
+  modality: descriptive
+  text: 'The fluid is incompressible and Newtonian (constant density and viscosity
+    at a given temperature). Flow conditions are steady-state (constant pressure head).
+    The pipe is smooth, straight, and circular in cross-section with a well-defined
+    entrance region to minimize inlet disturbances.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 935-938
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:l1
+  statement_type: limitation
+  modality: descriptive
+  text: 'The critical Reynolds number of approximately 2300 represents the lower bound
+    for natural transition; with extreme care to minimize disturbances, laminar flow
+    can be maintained to Re values of 10,000 or higher. The transition is therefore
+    not a sharp threshold but depends on the level of ambient disturbances, inlet
+    conditions, and surface roughness. The 1.7-power resistance law for turbulent
+    flow is empirical and has since been refined by later investigators.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 960-975
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:l2
+  statement_type: limitation
+  modality: descriptive
+  text: 'Experiments are limited to water as the working fluid and to relatively small-diameter
+    glass tubes. Generalization to other fluids, pipe materials, and non-circular
+    cross-sections requires further investigation. The mechanism by which disturbances
+    grow and trigger transition is not explained theoretically.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 975-982
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+evidence:
+- id: ev:dye-visualisation
+  evidence_type: experiment_run
+  summary: 'Dye injection experiments across three tube diameters (approximately 6.35
+    mm, 12.7 mm, and 25.4 mm). At low velocities, the dye streak remains a coherent,
+    straight filament running along the centre of the tube (laminar flow). Upon exceeding
+    the critical velocity, the dye streak breaks up abruptly and mixes throughout
+    the cross-section (turbulent flow). The critical velocity scales inversely with
+    tube diameter, confirming the dimensionless grouping.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 940-950
+  observations:
+  - metric: critical_reynolds_number
+    value: 2300
+    qualifiers:
+      condition: natural transition, moderate disturbance level
+      note: approximate lower critical Re
+  - metric: tube_diameter_1
+    value: 6.35
+    unit: mm
+    qualifiers:
+      nominal: 1/4 inch
+  - metric: tube_diameter_2
+    value: 12.7
+    unit: mm
+    qualifiers:
+      nominal: 1/2 inch
+  - metric: tube_diameter_3
+    value: 25.4
+    unit: mm
+    qualifiers:
+      nominal: 1 inch
+  - metric: dye_behaviour_below_critical
+    qualitative_value: Coherent straight filament along tube centreline; no mixing
+  - metric: dye_behaviour_above_critical
+    qualitative_value: Abrupt breakup and rapid mixing across entire cross-section
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:resistance-measurements
+  evidence_type: experiment_run
+  summary: 'Pressure drop measurements along the glass tubes demonstrate two distinct
+    resistance regimes. Below the critical velocity, pressure drop is linear in velocity
+    (Poiseuille/Hagen regime). Above the critical velocity, pressure drop increases
+    approximately as v^1.7. The transition between regimes occurs at a consistent
+    dimensionless velocity ratio across different tube sizes.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 955-970
+  observations:
+  - metric: laminar_resistance_exponent
+    value: 1.0
+    qualifiers:
+      regime: laminar (below critical Re)
+      law: Poiseuille
+  - metric: turbulent_resistance_exponent
+    value: 1.7
+    qualifiers:
+      regime: turbulent (above critical Re)
+      note: empirical fit
+  - metric: regime_consistency
+    qualitative_value: Transition occurs at the same Re value regardless of tube diameter
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:temperature-variation
+  evidence_type: experiment_run
+  summary: 'By varying water temperature (and hence viscosity), Reynolds demonstrated
+    that the critical velocity shifts in exact proportion to the kinematic viscosity,
+    confirming that the dimensionless group rho*v*D/mu (not velocity alone) governs
+    the transition. Experiments at temperatures ranging from approximately 5 C to
+    22 C yielded consistent critical Re values.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 948-955
+  observations:
+  - metric: temperature_range_low
+    value: 5
+    unit: degrees_celsius
+    qualifiers:
+      note: higher viscosity, lower critical velocity
+  - metric: temperature_range_high
+    value: 22
+    unit: degrees_celsius
+    qualifiers:
+      note: lower viscosity, higher critical velocity
+  - metric: Re_consistency_across_temperatures
+    qualitative_value: Critical Re remains approximately 2300 regardless of temperature
+      when viscosity variation is accounted for
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:upper-critical-re
+  evidence_type: experiment_run
+  summary: 'Under carefully controlled conditions with minimized inlet disturbances,
+    Reynolds observed that laminar flow could be maintained well above Re = 2300,
+    reaching values up to approximately 13,000 before transition. This demonstrates
+    that the lower critical Re (~2300) is the value below which turbulence always
+    decays, while the upper critical Re depends on disturbance amplitude.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: 960-968
+  observations:
+  - metric: lower_critical_re
+    value: 2300
+    qualifiers:
+      condition: below this, all disturbances decay
+  - metric: upper_critical_re_observed
+    value: 13000
+    qualifiers:
+      condition: very careful disturbance suppression
+      note: approximate
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+relations:
+- id: rel:1
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:dye-visualisation
+- id: rel:2
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:temperature-variation
+- id: rel:3
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:dye-visualisation
+- id: rel:4
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:upper-critical-re
+- id: rel:5
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:resistance-measurements
+- id: rel:6
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:7
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:8
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:9
+  subject_ref: stmt:c2
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:10
+  subject_ref: stmt:c3
+  predicate: limited_by
+  object_ref: stmt:l2
+- id: rel:11
+  subject_ref: stmt:m1
+  predicate: limited_by
+  object_ref: stmt:l2
+- id: rel:12
+  subject_ref: stmt:m1
+  predicate: uses
+  object_ref: art:dye-apparatus
+- id: rel:13
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:stokes
+  citation_intent: background
+- id: rel:14
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:hagen
+  citation_intent: compares_to
+- id: rel:15
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:poiseuille
+  citation_intent: compares_to
+actions: []
+extensions:
+  paper:
+    venue: Philosophical Transactions of the Royal Society of London
+    year: 1883
+    discipline: Fluid Mechanics / Mechanical Engineering
+    sections:
+      introduction: pp. 935-938
+      experimental_apparatus: pp. 938-942
+      dye_experiments: pp. 942-955
+      resistance_measurements: pp. 955-970
+      discussion: pp. 970-982
+    methodology_type: experimental
+    evidence_type_distribution:
+      quantitative: 10
+      qualitative: 4
+      note: 'This paper is primarily experimental. The key contribution is the identification
+        of the dimensionless parameter governing flow transition, validated through
+        systematic dye-injection visualisation and pressure-drop measurements. No
+        theoretical derivation of the transition mechanism is provided; the Reynolds
+        number emerges purely from dimensional analysis and experimental observation.
+        Knows captures both the quantitative critical Re values and the qualitative
+        dye behaviour descriptions.
+
+        '
+abstract: The results of an investigation into the circumstances which determine whether
+  the motion of water shall be direct or sinuous, and of the law of resistance in
+  parallel channels. It was found that the critical velocity at which the motion changes
+  from one to the other depends on the relation between the velocity, the diameter
+  of the tube, and the viscosity of the fluid.
+venue: Philosophical Transactions of the Royal Society of London
+year: 1883
+keywords:
+- Reynolds number
+- turbulence
+- laminar flow
+- pipe flow
+- fluid mechanics
+- dye injection
+- critical velocity
+- viscosity
+- dimensionless number
+- flow transition
+authors:
+- name: Osborne Reynolds
+  affiliation: Owens College, Manchester
+  role: first
+venue_type: published
+resources:
+  facilities:
+  - Hydraulics laboratory, Owens College Manchester
+language: en
+access: open
+record_status: active

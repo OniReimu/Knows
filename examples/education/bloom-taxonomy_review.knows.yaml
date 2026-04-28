@@ -1,0 +1,195 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:reviews/education-review-agent-001/1.0.0
+profile: review@1
+subject_ref: art:reviewed-paper
+title: 'Agent Review of ''Taxonomy of Educational Objectives: The Classification of
+  Educational Goals. Handbook I: Cognitive Domain'''
+summary: 'Structured agent-generated review of Taxonomy of Educational Objectives:
+  The Classification of Educational Goals. Handbook I: Cognitive Domain. Contains
+  assessment of claims, identified strengths/weaknesses, and recommendation. Linked
+  to the original paper sidecar via cross-record relations.'
+coverage:
+  statements: exhaustive
+  evidence: key_evidence_only
+license: CC-BY-4.0
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: review-round-1
+freshness:
+  as_of: '2026-03-21T00:00:00Z'
+  update_policy: immutable
+provenance: &id001
+  origin: machine
+  actor:
+    name: knows-reviewer-agent
+    type: tool
+    version: 0.1.0
+  generated_at: '2026-03-21T00:00:00Z'
+  method: extraction
+artifacts:
+- id: art:reviewed-paper
+  artifact_type: paper
+  role: subject
+  title: 'Taxonomy of Educational Objectives: The Classification of Educational Goals.
+    Handbook I: Cognitive Domain'
+  identifiers: {}
+  representations: []
+  external_metadata_refs:
+  - standard: other
+    locator:
+      type: url
+      value: knows:examples/bloom-taxonomy/1.0.0
+- id: art:original-sidecar
+  artifact_type: other
+  role: supporting
+  title: Original KnowsRecord sidecar for education
+  identifiers:
+    custom:
+      knows_record_id: knows:examples/bloom-taxonomy/1.0.0
+  representations: []
+statements:
+- id: stmt:s1
+  statement_type: claim
+  modality: normative
+  text: The core claim (stmt:c1) — "Cognitive learning objectives can be systematically
+    classified into a hierarchical taxonomy of six levels of increasing" — is well-formulated
+    and clearly stated.
+  about_ref: art:reviewed-paper
+  status: asserted
+  source_anchors: []
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance: *id001
+- id: stmt:s2
+  statement_type: claim
+  modality: normative
+  text: Key evidence (ev:six-levels) provides concrete support with specific observations.
+  about_ref: art:reviewed-paper
+  status: asserted
+  source_anchors: []
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance: *id001
+- id: stmt:s3
+  statement_type: claim
+  modality: normative
+  text: The paper covers 7 statements across 4 types, demonstrating systematic analysis.
+  about_ref: art:reviewed-paper
+  status: asserted
+  source_anchors: []
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance: *id001
+- id: stmt:w1
+  statement_type: limitation
+  modality: normative
+  text: The assumption (stmt:a1) — "Cognitive processes are inherently hierarchical
+    and can be meaningfully ordered by complexity. The taxonomy assumes a cu" — is
+    not empirically validated within the paper.
+  about_ref: art:reviewed-paper
+  status: asserted
+  source_anchors: []
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance: *id001
+- id: stmt:w2
+  statement_type: limitation
+  modality: normative
+  text: The limitation (stmt:l1) — "The original taxonomy has been criticized for
+    its rigid hierarchy. Empirical studies have questioned whether the six lev" —
+    is acknowledged but not adequately addressed.
+  about_ref: art:reviewed-paper
+  status: asserted
+  source_anchors: []
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance: *id001
+- id: stmt:w3
+  statement_type: limitation
+  modality: normative
+  text: Evidence ev:six-levels reports results without error bars or confidence intervals
+    for its 6 observations.
+  about_ref: art:reviewed-paper
+  status: asserted
+  source_anchors: []
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance: *id001
+- id: stmt:repro
+  statement_type: method
+  modality: descriptive
+  text: 'Reproducibility assessment: method details provided but full replication
+    requirements unclear.'
+  about_ref: art:reviewed-paper
+  status: asserted
+  source_anchors: []
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance: *id001
+evidence:
+- id: ev:checklist
+  evidence_type: other
+  summary: 'Review checklist: 3 strengths, 3 weaknesses identified. Overall recommendation
+    based on assessment of 3 claims and 4 evidence items.'
+  source_anchors: []
+  provenance: *id001
+relations:
+- id: rel:1
+  subject_ref: stmt:s1
+  predicate: supported_by
+  object_ref: knows:examples/bloom-taxonomy/1.0.0#stmt:c1
+- id: rel:2
+  subject_ref: stmt:s2
+  predicate: supported_by
+  object_ref: knows:examples/bloom-taxonomy/1.0.0#ev:six-levels
+- id: rel:3
+  subject_ref: stmt:s3
+  predicate: supported_by
+  object_ref: knows:examples/bloom-taxonomy/1.0.0#stmt:c3
+- id: rel:4
+  subject_ref: knows:examples/bloom-taxonomy/1.0.0#stmt:a1
+  predicate: challenged_by
+  object_ref: stmt:w1
+- id: rel:5
+  subject_ref: knows:examples/bloom-taxonomy/1.0.0#stmt:l1
+  predicate: challenged_by
+  object_ref: stmt:w2
+- id: rel:6
+  subject_ref: knows:examples/bloom-taxonomy/1.0.0#ev:six-levels
+  predicate: challenged_by
+  object_ref: stmt:w3
+- id: rel:7
+  subject_ref: art:reviewed-paper
+  predicate: cites
+  object_ref: art:original-sidecar
+  citation_intent: reviews
+actions: []
+venue: David McKay Company (book) (review of)
+year: 1956
+venue_type: other
+language: en
+access: open
+record_status: active
+extensions:
+  review:
+    recommendation: accept
+    confidence: medium
+    summary_assessment: Paper presents 3 claims supported by 4 evidence items. Strengths
+      outweigh weaknesses. Some assumptions and limitations could be better addressed.
+    scores:
+      novelty: 4
+      significance: 4
+      clarity: 4
+      correctness: 3
+      reproducibility: 3
+    strengths_count: 3
+    weaknesses_count: 3

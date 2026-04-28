@@ -1,0 +1,434 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:examples/dna-double-helix/1.0.0
+profile: paper@1
+subject_ref: art:paper
+title: 'Molecular Structure of Nucleic Acids: A Structure for Deoxyribose Nucleic
+  Acid'
+summary: 'Agent-facing sidecar for Watson & Crick''s 1953 Nature paper proposing the
+  double helix structure of DNA. Demonstrates Knows with qualitative evidence (crystallographic
+  observations, model-based reasoning) rather than numeric benchmarks.
+
+  '
+coverage:
+  statements: main_claims_only
+  evidence: key_evidence_only
+license: CC-BY-4.0
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: nature-1953-04-25
+freshness:
+  as_of: '2026-03-19T00:00:00Z'
+  update_policy: immutable
+provenance:
+  origin: author
+  actor:
+    name: Knows Example Authors
+    type: org
+  generated_at: '2026-03-19T00:00:00Z'
+  method: manual_curation
+artifacts:
+- id: art:paper
+  artifact_type: paper
+  role: subject
+  title: 'Molecular Structure of Nucleic Acids: A Structure for Deoxyribose Nucleic
+    Acid'
+  identifiers:
+    doi: 10.1038/171737a0
+  representations:
+  - id: rep:pdf
+    media_type: application/pdf
+    locator:
+      type: url
+      value: https://www.nature.com/articles/171737a0
+- id: art:xray-data
+  artifact_type: dataset
+  role: supporting
+  title: X-ray crystallography data of DNA fibres (Franklin & Gosling)
+  identifiers:
+    doi: 10.1038/171740a0
+  representations: []
+- id: art:chargaff
+  artifact_type: paper
+  role: cited
+  title: Chargaff's rules on base composition of DNA
+  identifiers:
+    custom:
+      reference: Chargaff 1950
+  representations: []
+- id: art:pauling-model
+  artifact_type: paper
+  role: cited
+  title: Pauling & Corey three-chain helical model
+  identifiers:
+    custom:
+      reference: Pauling and Corey 1953
+  representations: []
+- id: art:wilkins-franklin
+  artifact_type: paper
+  role: cited
+  title: Wilkins, Stokes & Wilson — Helical structure of crystalline deoxypentose
+    nucleic acid
+  identifiers:
+    doi: 10.1038/171738a0
+  representations: []
+statements:
+- id: stmt:c1
+  statement_type: claim
+  modality: theoretical
+  text: 'DNA has a structure of two helical chains wound around the same axis to form
+    a right-handed double helix. The two chains run in opposite directions (antiparallel).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '1'
+    quote: two helical chains each coiled round the same axis
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c2
+  statement_type: claim
+  modality: theoretical
+  text: 'The bases are on the inside of the helix, with the phosphate-sugar backbone
+    on the outside. Bases pair specifically: adenine with thymine, guanine with cytosine,
+    joined by hydrogen bonds.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '1'
+    quote: the bases are on the inside of the helix and the phosphates on the outside
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c3
+  statement_type: claim
+  modality: theoretical
+  text: 'The specific base pairing immediately suggests a possible copying mechanism
+    for the genetic material. If the sequence of bases on one chain is known, the
+    sequence on the other chain is automatically determined.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '1'
+    quote: It has not escaped our notice that the specific pairing we have postulated
+      immediately suggests a possible copying mechanism
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:m1
+  statement_type: method
+  modality: descriptive
+  text: 'The structure was determined by physical model building constrained by X-ray
+    crystallography data. The model satisfies stereochemical constraints (bond angles,
+    van der Waals distances) and is consistent with the observed X-ray diffraction
+    pattern.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '1'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:a1
+  statement_type: assumption
+  modality: descriptive
+  text: 'The structure assumes the B form of DNA (high humidity). The authors note
+    they have no direct evidence for their proposed base pairing scheme from X-ray
+    data alone.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '1'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:l1
+  statement_type: limitation
+  modality: descriptive
+  text: 'The proposed structure is a model, not a direct experimental determination.
+    Full atomic coordinates are not provided. The paper is 1 page long with no quantitative
+    data tables.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '1'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+evidence:
+- id: ev:xray
+  evidence_type: observation
+  summary: 'X-ray crystallography data from Franklin and Gosling shows a helical diffraction
+    pattern consistent with a helical structure with a period of 34 Angstroms along
+    the fibre axis and a diameter of about 20 Angstroms.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '1'
+  observations:
+  - metric: helix_period
+    value: 34
+    unit: angstroms
+    qualifiers:
+      method: X-ray diffraction
+      source: Franklin & Gosling
+  - metric: helix_diameter
+    value: 20
+    unit: angstroms
+    qualifiers:
+      note: approximate
+  - metric: bases_per_turn
+    value: 10
+    qualifiers:
+      derived_from: period / base spacing (3.4 A)
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:chargaff-rule
+  evidence_type: citation_backed
+  summary: 'Chargaff''s rules establish that in DNA, the amount of adenine equals
+    thymine, and guanine equals cytosine (A=T, G=C). This stoichiometric constraint
+    is satisfied by the proposed base pairing scheme.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '1'
+  observations:
+  - metric: base_ratio_AT
+    qualitative_value: A = T (Chargaff's first parity rule)
+    qualifiers:
+      type: stoichiometric constraint
+  - metric: base_ratio_GC
+    qualitative_value: G = C (Chargaff's first parity rule)
+    qualifiers:
+      type: stoichiometric constraint
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:model-fit
+  evidence_type: observation
+  summary: 'The physical model satisfies stereochemical constraints: standard bond
+    angles, acceptable van der Waals contacts, and the sugar- phosphate backbone can
+    adopt the required conformation without strain.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '1'
+  observations:
+  - metric: stereochemical_validity
+    qualitative_value: All bond angles and van der Waals distances within acceptable
+      ranges
+  - metric: backbone_conformation
+    qualitative_value: Sugar-phosphate backbone adopts required geometry without strain
+  - metric: helix_handedness
+    qualitative_value: right-handed
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:pauling-refutation
+  evidence_type: citation_backed
+  summary: 'The previously proposed Pauling & Corey three-chain model is shown to
+    be unsatisfactory: it has the bases on the outside (contradicting X-ray data)
+    and the phosphates too close together with no apparent mechanism for charge neutralization.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: page_range
+    locator: '1'
+  observations:
+  - metric: pauling_model_validity
+    qualitative_value: unsatisfactory — bases on outside, phosphate distances too
+      close
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+relations:
+- id: rel:1
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:xray
+- id: rel:2
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:model-fit
+- id: rel:3
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:chargaff-rule
+- id: rel:4
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:model-fit
+- id: rel:5
+  subject_ref: stmt:c3
+  predicate: depends_on
+  object_ref: stmt:c2
+- id: rel:6
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:7
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:8
+  subject_ref: stmt:c1
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:9
+  subject_ref: art:paper
+  predicate: uses
+  object_ref: art:xray-data
+- id: rel:10
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:chargaff
+  citation_intent: supports
+- id: rel:11
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:pauling-model
+  citation_intent: contradicts
+- id: rel:12
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:wilkins-franklin
+  citation_intent: uses_method
+- id: rel:13
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:pauling-refutation
+actions: []
+extensions:
+  paper:
+    venue: Nature
+    year: 1953
+    discipline: Molecular Biology / Structural Biology
+    sections:
+      full_text: page 1 (single page)
+    methodology_type: model_building
+    evidence_type_distribution:
+      quantitative: 3
+      qualitative: 7
+      note: 'This paper has no tables, no benchmarks, no p-values. Evidence is primarily
+        qualitative (model consistency, crystallographic compatibility, refutation
+        of prior models). Knows handles this through the qualitative_value field in
+        observations.
+
+        '
+abstract: We wish to suggest a structure for the salt of deoxyribose nucleic acid
+  (D.N.A.). This structure has novel features which are of considerable biological
+  interest. A structure for nucleic acid has already been proposed by Pauling and
+  Corey. They kindly made their manuscript available to us in advance of publication.
+  Their model consists of three intertwined chains, with the phosphates near the fibre
+  axis, and the bases on the outside. In our opinion, this structure is unsatisfactory.
+venue: Nature
+year: 1953
+keywords:
+- DNA
+- double helix
+- molecular structure
+- nucleic acid
+- base pairing
+- X-ray crystallography
+- adenine
+- thymine
+- guanine
+- cytosine
+- Watson
+- Crick
+authors:
+- name: James D. Watson
+  affiliation: Cavendish Laboratory, Cambridge
+  role: first
+- name: Francis H. C. Crick
+  affiliation: Cavendish Laboratory, Cambridge
+  role: first
+venue_type: published
+resources:
+  facilities:
+  - Cavendish Laboratory, Cambridge
+  - X-ray crystallography equipment
+language: en
+access: open
+record_status: active

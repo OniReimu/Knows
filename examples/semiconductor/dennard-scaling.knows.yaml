@@ -1,0 +1,704 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:examples/dennard/1.0.0
+profile: paper@1
+subject_ref: art:paper
+title: Design of Ion-Implanted MOSFET's with Very Small Physical Dimensions
+summary: 'Agent-facing sidecar for Dennard et al.''s 1974 paper in IEEE JSSC, which
+  establishes the constant-field scaling theory for MOSFET transistors. The paper
+  shows that all linear dimensions, voltages, and currents of a MOSFET can be scaled
+  down by a dimensionless factor kappa while increasing substrate doping by the same
+  factor, preserving the electric field distribution and keeping power density constant.
+  This framework, known as Dennard scaling, complemented Moore''s Law by providing
+  the physical basis for simultaneously improving transistor speed and density without
+  increasing power dissipation. The paper also demonstrates an improved ion-implanted
+  device structure with a 350-angstrom gate insulator and shallow source/drain regions,
+  achieving channel lengths as short as 0.5 micron. Two-dimensional simulations and
+  experimental measurements validate the scaling predictions.
+
+  '
+coverage:
+  statements: main_claims_only
+  evidence: key_evidence_only
+license: CC-BY-4.0
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: ieee-jssc-1974
+freshness:
+  as_of: '2026-03-25T00:00:00Z'
+  update_policy: immutable
+provenance:
+  origin: author
+  actor:
+    name: Knows Example Authors
+    type: org
+  generated_at: '2026-03-25T00:00:00Z'
+  method: manual_curation
+artifacts:
+- id: art:paper
+  artifact_type: paper
+  role: subject
+  title: Design of Ion-Implanted MOSFET's with Very Small Physical Dimensions
+  identifiers:
+    doi: 10.1109/JSSC.1974.1050511
+  representations:
+  - id: rep:pdf
+    media_type: application/pdf
+    locator:
+      type: url
+      value: https://ieeexplore.ieee.org/document/1050511
+- id: art:moore-law
+  artifact_type: paper
+  role: cited
+  title: Cramming more components onto integrated circuits
+  identifiers:
+    doi: 10.1109/N-SSC.2006.4785860
+  representations: []
+- id: art:dennard-iedm1972
+  artifact_type: paper
+  role: cited
+  title: Design of micron MOS switching devices (Dennard et al., IEDM 1972)
+  identifiers:
+    custom:
+      reference: Dennard et al. 1972, IEEE IEDM
+  representations: []
+- id: art:kennedy-mock
+  artifact_type: paper
+  role: cited
+  title: Two-dimensional numerical current transport model (Kennedy and Mock)
+  identifiers:
+    custom:
+      reference: Kennedy & Mock, IBM J. Res. Develop., vol. 17, 1973
+  representations: []
+- id: art:critchlow-dennard
+  artifact_type: paper
+  role: cited
+  title: Design characteristics of n-channel insulated-gate field-effect transistors
+  identifiers:
+    custom:
+      reference: Critchlow, Dennard & Schuster, IBM J. Res. Develop., vol. 17, 1973
+  representations: []
+- id: art:rideout-gaensslen
+  artifact_type: paper
+  role: cited
+  title: Device design considerations for ion implanted n-channel MOSFET's
+  identifiers:
+    custom:
+      reference: Rideout, Gaensslen & LeBlanc, IBM J. Res. Develop., to be published
+  representations: []
+statements:
+- id: stmt:c1
+  statement_type: claim
+  modality: theoretical
+  text: 'Constant-field scaling: a conventional MOSFET can be systematically reduced
+    in size by a dimensionless scaling factor kappa applied simultaneously to three
+    variables. All linear dimensions (channel length L, channel width W, gate oxide
+    thickness t_ox, junction depth) are reduced by 1/kappa; all applied voltages are
+    reduced by 1/kappa; and the substrate doping concentration is increased by kappa.
+    Under this transformation, the electric field distribution is preserved at every
+    corresponding point in the device (E'' = V''/x'' = V/x = E), depletion layer widths
+    scale as 1/kappa, and the device functions correctly at the reduced voltage levels
+    because the threshold voltage also scales as V_t'' ~ V_t/kappa.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Device Scaling, pp. 256-258
+    quote: all linear dimensions are reduced by a unitless scaling factor kappa [...]
+      the voltages applied to the device are reduced by the same factor [...] the
+      substrate doping concentration is increased, again using the same scaling factor
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:c2
+  statement_type: claim
+  modality: theoretical
+  text: 'Device current scales as I_d'' = I_d/kappa. Since both the gate-to-source
+    overdrive voltage (V_g - V_t) and the drain voltage V_d are reduced by kappa,
+    while the W/L ratio is unchanged and the oxide capacitance per unit area increases
+    by kappa (thinner oxide), the net effect on the MOSFET current equation is a reduction
+    by exactly kappa. The channel current per unit width is unchanged because the
+    same sheet density of carriers moves at the same velocity (electric field is preserved).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Device Scaling, Eq. 3
+    quote: the device current [...] is seen to be reduced by a factor of kappa, for
+      any given set of applied voltages, assuming no change in mobility
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:c3
+  statement_type: claim
+  modality: theoretical
+  text: 'Circuit-level scaling consequences: capacitances scale as 1/kappa (area reduced
+    by kappa^2, spacing reduced by kappa, so C = epsilon*A/t scales as 1/kappa). Delay
+    time per circuit scales as 1/kappa (proportional to VC/I = (V/kappa)(C/kappa)/(I/kappa)
+    = delay/kappa). Power dissipation per circuit scales as 1/kappa^2 (V*I both reduced
+    by kappa). The power-delay product improves by kappa^3. Crucially, power density
+    (power per unit area) remains constant at 1, because power drops as 1/kappa^2
+    and circuit area drops as 1/kappa^2. This means more circuits can be packed on
+    a chip without worsening the cooling problem.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Circuit Performance, Table I
+    quote: the power density remains constant [...] even if many more circuits are
+      placed on a given integrated circuit chip, the cooling problem is essentially
+      unchanged
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:c4
+  statement_type: claim
+  modality: empirical
+  text: 'Ion implantation enables an improved scaled-down MOSFET design that relaxes
+    the stringent gate oxide thickness requirement. By implanting a controlled boron
+    surface layer (step-profile doping) into a lightly doped substrate, the substrate
+    sensitivity (threshold voltage variation with source-to-substrate bias) is reduced.
+    This allows using a 350-angstrom gate insulator instead of the 200-angstrom insulator
+    required by direct scaling (kappa=5), while maintaining adequate threshold control.
+    The shallow ion-implanted source/drain regions (~2000 angstrom depth) also reduce
+    short-channel effects and inter-electrode capacitances compared to conventional
+    diffused junctions.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Ion-Implanted Device Design, pp. 258-259
+    quote: the gate insulator thickness can be increased to as much as 350 angstroms
+      and still maintain a reasonable gate threshold voltage
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:c5
+  statement_type: claim
+  modality: empirical
+  text: 'A zero-substrate-bias design variant using a shallower boron implant offers
+    improved threshold control for short-channel devices. Two-dimensional simulations
+    show that the threshold voltage for an L=0.8 micron device with zero substrate
+    bias is comparable to that of an L=1.0 micron device with the basic -1V substrate
+    bias design. However, this improvement comes at the cost of a slower subthreshold
+    turn-on characteristic (wider subthreshold swing), making it less suitable for
+    dynamic memory applications where low off-state leakage is critical.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Zero Substrate Bias Design, pp. 261-262
+    quote: the threshold for this case for a device with L=0.8 micron is about the
+      same as for an L=1.0 micron device of the basic design
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:m1
+  statement_type: method
+  modality: descriptive
+  text: 'The paper uses a combination of analytical modeling, numerical simulation,
+    and experimental verification. A one-dimensional model based on piecewise solutions
+    of Poisson''s equation with a step-function doping profile predicts threshold
+    voltage and substrate sensitivity for long-channel devices. A two-dimensional
+    numerical current transport model (Kennedy-Mock, modified for abrupt doping profiles)
+    predicts short-channel effects, computing device current point-by-point for increasing
+    gate voltages. Experimental polysilicon-gate MOSFETs with channel lengths from
+    0.5 to 10 microns were fabricated using a four-mask process with ion implantation,
+    and their characteristics were measured and compared with predictions.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: One-Dimensional Analysis, Two-Dimensional Analysis, Fabrication
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:a1
+  statement_type: assumption
+  modality: descriptive
+  text: 'The scaling theory assumes that carrier mobility remains approximately constant
+    under scaling (the paper acknowledges a ~10% reduction due to increased impurity
+    scattering in the heavier-doped substrate). It also assumes that parasitic resistance
+    elements are either negligible or unchanged by scaling. The subthreshold slope
+    alpha (volts per decade) does not scale because it depends on kT/q which is fixed
+    at room temperature, and the paper explicitly states this is a limitation that
+    must be accepted for room-temperature operation.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Device Scaling, Eq. 4; Circuit Performance
+    quote: the mobility is reduced slightly due to increased impurity scattering [...]
+      one must accept the fact that the subthreshold behavior does not scale as desired
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:l1
+  statement_type: limitation
+  modality: descriptive
+  text: 'Interconnection lines do not scale favorably. Line resistance increases by
+    kappa (cross-section area decreases by kappa^2, length by kappa, so R = rho*L/(W*t)
+    scales as kappa). The IR voltage drop remains constant in absolute terms but is
+    kappa times larger relative to the reduced operating voltages. The RC time constant
+    of interconnect lines is unchanged by scaling, limiting the ability to exploit
+    faster device switching for long-distance signal propagation. Current density
+    in conductors increases by kappa, raising electromigration reliability concerns.
+    Dennard scaling eventually broke down around 2004-2006 when voltage scaling stalled
+    due to subthreshold leakage, causing power density to rise with continued dimensional
+    scaling.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Circuit Performance, Table II
+    quote: the resistance of a given line increases directly with the scaling factor
+      kappa [...] the current density in a scaled-down conductor is increased by kappa,
+      which causes a reliability concern
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+evidence:
+- id: ev:scaling-verification
+  evidence_type: observation
+  summary: 'Two sets of experimental devices were fabricated with gate insulators
+    of 1000 angstroms and 200 angstroms (kappa=5). When the voltage and current scales
+    of the smaller device were reduced by a factor of five, the drain voltage characteristics
+    were quite similar to those of the larger device, confirming the scaling predictions.
+    The threshold voltage also scaled correctly by a factor of five, as verified by
+    the sqrt(I_d) vs V_g turn-on characteristics. An approximate 10% reduction in
+    mobility was observed for devices with the heavier-doped substrate.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Device Scaling, Figs. 2-3
+  observations:
+  - metric: gate_oxide_conventional
+    value: 1000
+    unit: angstroms
+    qualifiers:
+      device: conventional MOSFET
+  - metric: gate_oxide_scaled
+    value: 200
+    unit: angstroms
+    qualifiers:
+      device: scaled-down MOSFET
+      kappa: 5
+  - metric: scaling_factor
+    value: 5
+    unit: dimensionless
+    qualifiers:
+      note: voltage and current characteristics match when reduced by factor of 5
+  - metric: mobility_reduction
+    value: 10
+    unit: percent
+    qualifiers:
+      cause: increased impurity scattering in heavier-doped substrate
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: ev:ion-implant-device-params
+  evidence_type: observation
+  summary: 'The ion-implanted device used a starting substrate resistivity of 2 ohm-cm
+    (~7.5e15 cm^-3), a 40 keV B11 channel implant with dose 6.7e11 atoms/cm^2, a 350-angstrom
+    gate insulator, and 100 keV As75 source/drain implant at 4e15 atoms/cm^2 giving
+    junction depth ~2000 angstroms. Sheet resistances were 50 ohm/sq for source/drain
+    and 40 ohm/sq for polysilicon. Gate-to-drain overlap was estimated at ~0.2 micron.
+    Maximum drain voltage was 4V (vs 3V for directly scaled device).
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Fabrication, pp. 259-260
+  observations:
+  - metric: substrate_resistivity
+    value: 2
+    unit: ohm-cm
+    qualifiers:
+      doping: ~7.5e15 cm^-3
+  - metric: channel_implant_energy
+    value: 40
+    unit: keV
+    qualifiers:
+      species: B11
+  - metric: channel_implant_dose
+    value: 670000000000.0
+    unit: atoms/cm^2
+  - metric: gate_oxide_thickness
+    value: 350
+    unit: angstroms
+  - metric: source_drain_implant_energy
+    value: 100
+    unit: keV
+    qualifiers:
+      species: As75
+  - metric: source_drain_implant_dose
+    value: 4000000000000000.0
+    unit: atoms/cm^2
+  - metric: junction_depth
+    value: 2000
+    unit: angstroms
+  - metric: source_drain_sheet_resistance
+    value: 50
+    unit: ohm/sq
+  - metric: max_drain_voltage
+    value: 4
+    unit: V
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: ev:threshold-vs-channel-length
+  evidence_type: observation
+  summary: 'Two-dimensional simulations and experimental measurements show that the
+    threshold voltage is essentially constant for channel lengths L > 2 microns, falls
+    by a reasonably small amount as L decreases from 2 to 1 micron, and then decreases
+    more rapidly with further reductions. For the basic design, L = 1.3 +/- 0.3 microns
+    gives V_t = 1.0 +/- 0.1 V from chip to chip. The shortest fabricated devices had
+    channel lengths of 0.5 microns. No extraneous short-channel effects were observed
+    for drain voltages up to 4V at L = 1.1 microns.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Two-Dimensional Analysis, Figs. 7-9
+  observations:
+  - metric: threshold_stability_range
+    value: 2
+    unit: microns
+    qualifiers:
+      condition: V_t essentially constant for L > this value
+  - metric: nominal_channel_length
+    value: 1.3
+    unit: microns
+    qualifiers:
+      tolerance: +/- 0.3 microns
+      threshold_variation: +/- 0.1 V
+  - metric: shortest_fabricated_channel
+    value: 0.5
+    unit: microns
+  - metric: max_tested_drain_voltage
+    value: 4
+    unit: V
+    qualifiers:
+      channel_length: 1.1 microns
+      short_channel_effects: none observed
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: ev:table1-scaling-results
+  evidence_type: observation
+  summary: 'Table I of the paper gives the complete set of circuit-level scaling results:
+    device dimensions scale as 1/kappa, doping as kappa, voltage as 1/kappa, current
+    as 1/kappa, capacitance as 1/kappa, delay time per circuit as 1/kappa, power dissipation
+    per circuit as 1/kappa^2, and power density as 1 (constant). These relationships
+    constitute the canonical Dennard scaling rules that governed semiconductor scaling
+    from the 1970s through approximately 2006.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Circuit Performance, Table I
+  observations:
+  - metric: dimension_scaling
+    unit: scaling factor
+    qualitative_value: 1/kappa
+  - metric: voltage_scaling
+    unit: scaling factor
+    qualitative_value: 1/kappa
+  - metric: current_scaling
+    unit: scaling factor
+    qualitative_value: 1/kappa
+  - metric: capacitance_scaling
+    unit: scaling factor
+    qualitative_value: 1/kappa
+  - metric: delay_scaling
+    unit: scaling factor
+    qualitative_value: 1/kappa
+  - metric: power_per_circuit_scaling
+    unit: scaling factor
+    qualitative_value: 1/kappa^2
+  - metric: power_density_scaling
+    qualitative_value: constant (1)
+    qualifiers:
+      implication: cooling problem unchanged with increased circuit density
+  - metric: power_delay_product_scaling
+    unit: scaling factor
+    qualitative_value: 1/kappa^3
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: ev:conventional-device-params
+  evidence_type: observation
+  summary: 'The conventional (pre-scaling) n-channel MOSFET used as the reference
+    device had a 1000-angstrom gate insulator, substrate doping of 5e15 cm^-3, channel
+    length of approximately 5 microns, threshold voltage of approximately 2V, and
+    maximum drain voltage of 12-15V. This device represents the state of the art circa
+    1974 fabricated using conventional diffusion techniques.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Device Scaling, Fig. 1(a)
+  observations:
+  - metric: gate_oxide_thickness
+    value: 1000
+    unit: angstroms
+  - metric: substrate_doping
+    value: 5000000000000000.0
+    unit: cm^-3
+  - metric: channel_length
+    value: 5
+    unit: microns
+  - metric: threshold_voltage
+    value: 2
+    unit: V
+    qualifiers:
+      note: approximate, relative to source potential
+  - metric: max_drain_voltage
+    unit: V
+    qualitative_value: 12-15
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+relations:
+- id: rel:1
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:scaling-verification
+- id: rel:2
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:conventional-device-params
+- id: rel:3
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:scaling-verification
+- id: rel:4
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:5
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:table1-scaling-results
+- id: rel:6
+  subject_ref: stmt:c3
+  predicate: depends_on
+  object_ref: stmt:c2
+- id: rel:7
+  subject_ref: stmt:c4
+  predicate: supported_by
+  object_ref: ev:ion-implant-device-params
+- id: rel:8
+  subject_ref: stmt:c4
+  predicate: supported_by
+  object_ref: ev:threshold-vs-channel-length
+- id: rel:9
+  subject_ref: stmt:c5
+  predicate: supported_by
+  object_ref: ev:threshold-vs-channel-length
+- id: rel:10
+  subject_ref: stmt:c5
+  predicate: depends_on
+  object_ref: stmt:c4
+- id: rel:11
+  subject_ref: stmt:c1
+  predicate: uses
+  object_ref: stmt:m1
+- id: rel:12
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:13
+  subject_ref: stmt:c3
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:14
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:dennard-iedm1972
+  citation_intent: background
+- id: rel:15
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:kennedy-mock
+  citation_intent: uses_method
+actions: []
+extensions:
+  paper:
+    venue: IEEE Journal of Solid-State Circuits, vol. SC-9, no. 5, pp. 256-268
+    year: 1974
+    discipline: Semiconductor Device Physics / VLSI Design
+    author_affiliation: IBM T.J. Watson Research Center
+    sections:
+      introduction: pp. 256-257 (motivation for sub-micron MOSFET design)
+      device_scaling: pp. 257-258 (constant-field scaling theory, kappa factor)
+      ion_implanted_design: pp. 258-259 (improved structure with channel implant)
+      fabrication: pp. 259-260 (four-mask polysilicon-gate process)
+      one_dimensional_analysis: pp. 260 (threshold voltage vs substrate bias)
+      two_dimensional_analysis: pp. 260-261 (short-channel effects, Kennedy-Mock model)
+      zero_substrate_bias: pp. 261-262 (alternative design for V_sub = 0)
+      circuit_performance: pp. 262-263 (Table I scaling results, Table II interconnect)
+      summary: p. 263
+    methodology_type: theoretical_analysis_with_experimental_validation
+    evidence_type_distribution:
+      observations: 5
+      proofs: 0
+      quantitative: 14
+      qualitative: 2
+      note: 'This paper establishes the theoretical framework for MOSFET scaling (constant-field
+        scaling) and validates it experimentally with kappa=5 devices. The scaling
+        rules in Table I became the canonical reference for semiconductor scaling
+        from the 1970s through approximately 2006, when voltage scaling stalled due
+        to subthreshold leakage (the "power wall"), ending the Dennard scaling era
+        and ushering in the multi-core era.
+
+        '
+abstract: This paper considers the design, fabrication, and characterization of very
+  small MOSFET switching devices suitable for digital integrated circuits using dimensions
+  of the order of 1 micron. Scaling relationships are presented which show how a conventional
+  MOSFET can be reduced in size. An improved small device structure is presented that
+  uses ion implantation to provide shallow source and drain regions and a nonuniform
+  substrate doping profile. One-dimensional models are used to predict the substrate
+  doping profile and the corresponding threshold voltage versus source voltage characteristic.
+  A two-dimensional current transport model is used to predict the relative degree
+  of short-channel effects for different device parameter combinations. Polysilicon-gate
+  MOSFET's with channel lengths as short as 0.5 micron were fabricated, and the device
+  characteristics measured and compared with predicted values. The performance improvement
+  expected from using these very small devices in highly miniaturized integrated circuits
+  is projected.
+venue: IEEE Journal of Solid-State Circuits
+year: 1974
+keywords:
+- Dennard scaling
+- constant-field scaling
+- MOSFET
+- ion implantation
+- short-channel effects
+- threshold voltage
+- gate oxide
+- device miniaturization
+- power density
+- VLSI
+- semiconductor scaling
+- subthreshold behavior
+authors:
+- name: Robert H. Dennard
+  affiliation: IBM T.J. Watson Research Center
+  role: first
+- name: Fritz H. Gaensslen
+  affiliation: IBM T.J. Watson Research Center
+  role: contributor
+- name: Hwa-Nien Yu
+  affiliation: IBM T.J. Watson Research Center
+  role: contributor
+- name: V. Leo Rideout
+  affiliation: IBM T.J. Watson Research Center
+  role: contributor
+- name: Ernest Bassous
+  affiliation: IBM T.J. Watson Research Center
+  role: contributor
+- name: Andre R. LeBlanc
+  affiliation: IBM T.J. Watson Research Center
+  role: contributor
+venue_type: published
+resources:
+  facilities:
+  - IBM T.J. Watson Research Center silicon technology facility
+  - IBM two-dimensional current transport simulation (Kennedy-Mock model)
+language: en
+access: open
+record_status: active

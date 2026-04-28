@@ -1,0 +1,1198 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:examples/turing-dense/1.0.0
+profile: paper@1
+subject_ref: art:paper
+title: Computing Machinery and Intelligence
+summary: 'Dense agent-facing sidecar for Turing''s 1950 Mind paper. Provides fine-grained
+  coverage of the imitation game protocol, all nine objections with individual rebuttals,
+  the digital computer description, universality argument, learning machines proposal,
+  and specific quantitative predictions. This dense variant covers every argument step
+  and detail needed to answer questions about individual objections, the three-player
+  protocol, digital computer components, and the child-machine analogy.
+
+  '
+coverage:
+  statements: exhaustive
+  evidence: exhaustive
+license: CC-BY-4.0
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: mind-1950-vol59-no236
+freshness:
+  as_of: '2026-03-27T00:00:00Z'
+  update_policy: immutable
+provenance:
+  origin: author
+  actor:
+    name: Knows Example Authors
+    type: org
+  generated_at: '2026-03-27T00:00:00Z'
+  method: manual_curation
+artifacts:
+- id: art:paper
+  artifact_type: paper
+  role: subject
+  title: Computing Machinery and Intelligence
+  identifiers:
+    doi: 10.2307/2251299
+  representations:
+  - id: rep:fulltext
+    media_type: text/markdown
+    locator:
+      type: path
+      value: examples/philosophy/turing-fulltext.md
+- id: art:babbage-analytical
+  artifact_type: paper
+  role: cited
+  title: Analytical Engine -- Charles Babbage's planned general-purpose mechanical
+    computer
+  identifiers:
+    custom:
+      reference: Babbage, C., Analytical Engine (designed 1837, never completed)
+  representations: []
+- id: art:lovelace-notes
+  artifact_type: paper
+  role: cited
+  title: Translator's Notes to an Article on Babbage's Analytical Engine (Countess
+    of Lovelace 1842)
+  identifiers:
+    custom:
+      reference: Countess of Lovelace, Scientific Memoirs (ed. R. Taylor), vol. 3
+        (1842), 691-731
+  representations: []
+- id: art:godel-1931
+  artifact_type: paper
+  role: cited
+  title: "Uber formal unentscheidbare Satze der Principia Mathematica und verwandter
+    Systeme, I (Godel 1931)"
+  identifiers:
+    custom:
+      reference: "Godel, K., Monatshefte fur Math. und Phys. (1931), 173-189"
+  representations: []
+- id: art:jefferson-1949
+  artifact_type: paper
+  role: cited
+  title: The Mind of Mechanical Man -- Lister Oration for 1949 (Jefferson)
+  identifiers:
+    custom:
+      reference: Jefferson, G., British Medical Journal, vol. i (1949), 1105-1121
+  representations: []
+- id: art:turing-1937
+  artifact_type: paper
+  role: cited
+  title: On Computable Numbers, with an Application to the Entscheidungsproblem (Turing
+    1937)
+  identifiers:
+    custom:
+      reference: Turing, A. M., Proc. London Math. Soc. (2), 42 (1937), 230-265
+  representations: []
+statements:
+- id: stmt:c1
+  statement_type: claim
+  modality: theoretical
+  text: 'The question "Can machines think?" should be replaced by the imitation game:
+    a human interrogator communicates via text with a hidden machine and a hidden
+    human, then tries to determine which is which. If the machine fools the interrogator
+    as often as a human would, the machine should be credited with thinking. This
+    operational substitution avoids the definitional morass around "machine" and "think".
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 1, The Imitation Game
+    quote: We now ask the question, 'What will happen when a machine takes the part
+      of A in this game?' Will the interrogator decide wrongly as often when the game
+      is played like this as he does when the game is played between a man and a woman?
+      These questions replace our original, 'Can machines think?'
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c2
+  statement_type: claim
+  modality: theoretical
+  text: 'Digital computers are universal machines: any discrete-state machine can
+    be mimicked by a suitably programmed digital computer with adequate storage and
+    speed. Therefore the question reduces to whether one particular digital computer
+    C, given enough storage and an appropriate programme, can play the imitation game
+    satisfactorily.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 5, Universality of Digital Computers
+    quote: This special property of digital computers, that they can mimic any discrete
+      state machine, is described by saying that they are universal machines.
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c3
+  statement_type: claim
+  modality: theoretical
+  text: 'Turing predicts that in about fifty years (by ~2000), computers with ~10^9
+    bits of storage will play the imitation game well enough that an average interrogator
+    will have no more than a 70% chance of correct identification after five minutes
+    of questioning. He further predicts that by century''s end the phrase "machines
+    thinking" will be common parlance.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 6, opening paragraph
+    quote: I believe that in about fifty years' time it will be possible to programme
+      computers, with a storage capacity of about 10^9, to make them play the imitation
+      game so well that an average interrogator will not have more than 70 per cent.
+      chance of making the right identification after five minutes of questioning.
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c4
+  statement_type: claim
+  modality: theoretical
+  text: 'All nine contrary objections to machine thinking can be answered. Turing
+    addresses: (1) The Theological Objection, (2) Heads in the Sand, (3) The Mathematical
+    Objection (Godel), (4) The Argument from Consciousness (Jefferson), (5) Arguments
+    from Various Disabilities, (6) Lady Lovelace''s Objection, (7) Argument from Continuity
+    in the Nervous System, (8) The Argument from Informality of Behaviour, and (9)
+    The Argument from Extra-Sensory Perception. None is conclusive against the possibility
+    of machine thought.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 6, Contrary Views on the Main Question
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c5
+  statement_type: claim
+  modality: theoretical
+  text: 'Instead of directly programming an adult mind, one should construct a child-machine
+    with minimal built-in mechanism and then educate it through punishments, rewards,
+    and symbolic instruction -- producing the adult mind via a learning process analogous
+    to human child development. This is more practical than hand-coding sixty workers''
+    worth of programme over fifty years.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 7, Learning Machines
+    quote: Instead of trying to produce a programme to simulate the adult mind, why
+      not rather try to produce one which simulates the child's? If this were then
+      subjected to an appropriate course of education one would obtain the adult brain.
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c6
+  statement_type: claim
+  modality: theoretical
+  text: 'Objection 1 (Theological): Thinking is a function of the immortal soul given
+    only to humans. Turing rebuts this by arguing it restricts God''s omnipotence --
+    God could confer a soul on a machine if He chose, just as He could on an elephant
+    with an improved brain. Furthermore, theological arguments have historically been
+    unreliable (e.g., biblical arguments against Copernican theory).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 6, Objection 1
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c7
+  statement_type: claim
+  modality: theoretical
+  text: 'Objection 2 (Heads in the Sand): The consequences of machines thinking would
+    be too dreadful, so let us hope they cannot. Turing dismisses this as emotional
+    denial rather than argument, saying consolation rather than refutation is appropriate,
+    and suggests the transmigration of souls as consolation.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 6, Objection 2
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c8
+  statement_type: claim
+  modality: theoretical
+  text: 'Objection 3 (Mathematical / Godel): Godel''s theorem shows that any sufficiently
+    powerful discrete-state machine has limitations -- questions it will answer wrongly
+    or fail to answer. Turing''s key counter-argument: it has only been stated, without
+    any sort of proof, that no such limitations apply to the human intellect. Humans
+    also give wrong answers frequently. Moreover, superiority over one particular machine
+    does not imply superiority over all machines -- there might always be cleverer ones.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 6, Objection 3
+    quote: it has only been stated, without any sort of proof, that no such limitations
+      apply to the human intellect
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c9
+  statement_type: claim
+  modality: theoretical
+  text: 'Objection 4 (Consciousness / Jefferson): Jefferson argues that a machine
+    cannot truly think unless it feels emotions, knows that it has written a sonnet,
+    etc. Turing replies that the extreme form of this view leads to solipsism -- the
+    only way to know anyone thinks is to be that person. He uses a viva voce dialogue
+    about Shakespeare''s sonnet ("Shall I compare thee to a summer''s day") to show
+    the imitation game can probe aesthetic understanding. If a machine sustained such
+    literary conversation, even Jefferson would not call it "an easy contrivance."
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 6, Objection 4
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c10
+  statement_type: claim
+  modality: theoretical
+  text: 'Objection 5 (Various Disabilities): Critics claim machines can never do X
+    (be kind, have a sense of humour, fall in love, learn from experience, etc.).
+    Turing argues these claims are founded on scientific induction from limited experience
+    with existing machines, and that machines with large storage capacity have not yet
+    been observed. The variety of behaviour possible is related to storage capacity.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 6, Objection 5
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c11
+  statement_type: claim
+  modality: theoretical
+  text: 'Objection 6 (Lady Lovelace): Lady Lovelace stated "The Analytical Engine
+    has no pretensions to originate anything. It can do whatever we know how to order
+    it to perform." Turing''s immediate rebuttal: the Analytical Engine was a universal
+    digital computer, so with adequate storage and speed it could mimic any discrete-state
+    machine. Lovelace lacked the evidence to see this. Turing also notes machines
+    frequently surprise him because he does not do sufficient calculation to predict
+    their behaviour. The fuller rebuttal is deferred to Section 7 (learning machines).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 6, Objection 6
+    quote: The Analytical Engine has no pretensions to originate anything. It can do
+      whatever we know how to order it to perform
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c12
+  statement_type: claim
+  modality: theoretical
+  text: 'Objection 7 (Continuity of the Nervous System): The nervous system is not
+    a discrete-state machine -- small errors in neural signals can produce large effects.
+    Turing rebuts this by noting that a discrete digital computer can approximate continuous
+    behaviour to within the interrogator''s detection threshold. He illustrates with
+    a differential analyser example: a digital computer could give the "right sort of
+    answer" (e.g., approximate pi values) that the interrogator cannot distinguish
+    from the continuous machine.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 6, Objection 7
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c13
+  statement_type: claim
+  modality: theoretical
+  text: 'Objection 8 (Informality of Behaviour): It is impossible to produce rules
+    of conduct covering every conceivable circumstance, so men cannot be machines.
+    Turing identifies the undistributed middle in this argument and distinguishes between
+    "rules of conduct" (conscious precepts like "stop at red lights") and "laws of
+    behaviour" (natural laws governing the body). He demonstrates with a Manchester
+    computer program using only 1000 storage units that produces unpredictable outputs
+    -- one cannot learn enough from its replies to predict untried values.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 6, Objection 8
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c14
+  statement_type: claim
+  modality: theoretical
+  text: 'Objection 9 (Extra-Sensory Perception): Turing considers this "quite a strong
+    one" -- the strongest objection in his view. If telepathy exists, an interrogator
+    using a telepathic human witness could outperform the machine. Turing''s solution:
+    put the competitors in a "telepathy-proof room." He also suggests that a random
+    number generator in the machine might be subject to psychokinetic influence, potentially
+    helping the machine guess right.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 6, Objection 9
+    quote: This argument is to my mind quite a strong one
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c15
+  statement_type: claim
+  modality: theoretical
+  text: 'A digital computer consists of three parts: (i) Store -- corresponds to the
+    human computer''s paper (calculation paper and book of rules), and partly to memory
+    for calculations done in the head; (ii) Executive unit -- carries out individual
+    operations involved in a calculation; (iii) Control -- ensures instructions are
+    obeyed correctly and in the right order, corresponding to the human following the
+    book of rules. The "book of rules" is replaced by the "table of instructions"
+    stored in the store, and constructing these tables is called "programming."
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 4, Digital Computers
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c16
+  statement_type: claim
+  modality: theoretical
+  text: 'The imitation game involves three players: a man (A) who tries to deceive
+    the interrogator, a woman (B) who tries to help the interrogator identify correctly,
+    and an interrogator (C) in a separate room who communicates only via typewritten
+    text. Turing then asks what happens when a machine takes the part of A. Communication
+    must be written or typewritten to exclude voice cues.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 1, The Imitation Game
+    quote: It is played with three people, a man (A), a woman (B), and an interrogator
+      (C) who may be of either sex
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c17
+  statement_type: claim
+  modality: theoretical
+  text: 'The imitation game has the advantage of drawing a sharp line between physical
+    and intellectual capacities. The interrogator cannot see, touch, or hear the competitors.
+    Sample Q&A exchanges (sonnet writing, arithmetic with deliberate errors, chess
+    endgame) demonstrate the test covers diverse intellectual capacities without
+    penalizing for physical appearance.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 2, Critique of the New Problem
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c18
+  statement_type: claim
+  modality: theoretical
+  text: 'The sonnet viva voce dialogue shows that "a spring day" would not scan (breaks
+    the metre), "a winter''s day" would scan but nobody wants to be compared to one,
+    and "by a winter''s day one means a typical winter''s day, rather than a special
+    one like Christmas." This demonstrates the imitation game can test aesthetic and
+    contextual reasoning, not just factual recall.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 6, Objection 4
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c19
+  statement_type: claim
+  modality: theoretical
+  text: 'The child-machine''s education parallels biological evolution: structure of
+    the child machine = hereditary material, changes to the machine = mutations, judgment
+    of the experimenter = natural selection. The experimenter can outpace blind evolution
+    by using intelligence to trace causes of weakness and design targeted mutations.
+    A random element should be included to aid search.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 7, Learning Machines
+    quote: Structure of the child machine = Hereditary material; Changes = Mutations;
+      Natural selection = Judgment of the experimenter
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c20
+  statement_type: claim
+  modality: theoretical
+  text: 'Turing estimates brain storage capacity at 10^10 to 10^15 binary digits,
+    inclines to the lower values, and believes only a small fraction is used for higher
+    thinking (most for visual impressions). He estimates 10^9 bits would suffice for
+    satisfactory play of the imitation game, at least against a blind man. He notes
+    that the capacity of the Encyclopaedia Britannica (11th edition) is 2 x 10^9 bits.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 7, Learning Machines
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c21
+  statement_type: claim
+  modality: theoretical
+  text: 'Turing uses the "skin of an onion" analogy: when examining the mind, we find
+    operations explainable in mechanical terms, strip them away, and find another
+    layer also mechanical, and so on. Either we eventually reach "the real mind" or
+    we find that the whole mind is mechanical -- nothing but skins all the way down.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 7, Learning Machines
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c22
+  statement_type: claim
+  modality: theoretical
+  text: 'Regarding machines and errors: Turing distinguishes "errors of functioning"
+    (mechanical faults) from "errors of conclusion" (outputting false propositions).
+    Abstract machines by definition cannot have errors of functioning, but can certainly
+    make errors of conclusion. A machine programmed for the imitation game would
+    deliberately introduce arithmetic mistakes to avoid being unmasked by deadly accuracy.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 6, Objection 5
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:a1
+  statement_type: assumption
+  modality: descriptive
+  text: 'The scope of "machine" is restricted to digital computers. Turing explicitly
+    excludes biological organisms ("men born in the usual manner") and acknowledges
+    this is a narrowing choice, but argues it is not drastic because digital computers
+    are universal -- they can simulate any discrete-state machine.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 3, The Machines concerned in the Game
+    quote: Following this suggestion we only permit digital computers to take part
+      in our game.
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:m1
+  statement_type: method
+  modality: descriptive
+  text: 'Turing''s method is philosophical argumentation by operational reformulation
+    plus systematic objection-and-rebuttal. He replaces an ill-defined question with
+    a precise behavioural test, restricts the machine class, establishes universality,
+    then enumerates and answers nine objections. No experiments or formal proofs are
+    presented -- evidence consists entirely of thought experiments, logical arguments,
+    and analogies.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Sections 1-7 (full paper)
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:l1
+  statement_type: limitation
+  modality: descriptive
+  text: 'The imitation game tests only text-based conversational behaviour over a
+    short window (five minutes). It deliberately excludes physical appearance, sensory
+    experience, embodiment, and emotional qualia. Critics (e.g., Searle''s later Chinese
+    Room argument) argue that passing the test demonstrates linguistic mimicry rather
+    than genuine understanding.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 2, Critique of the New Problem
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+evidence:
+- id: ev:imitation-game
+  evidence_type: case_study
+  summary: 'The imitation game thought experiment: three players (man A, woman B,
+    interrogator C) communicate via text. A tries to deceive C; B tries to help C.
+    Turing then asks what happens when a machine replaces A. The test is operational
+    -- it defines "thinking" in terms of indistinguishable conversational behaviour,
+    sidestepping metaphysical debates about consciousness. Sample Q&A exchanges (sonnet
+    writing, arithmetic with deliberate errors, chess endgame) illustrate how the
+    test covers diverse intellectual capacities.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Sections 1-2
+  observations:
+  - metric: test_structure
+    qualitative_value: Three-player text-only protocol; machine replaces man's role
+  - metric: evaluation_criterion
+    qualitative_value: Frequency of correct identification by interrogator
+  - metric: scope
+    qualitative_value: Covers any intellectual field expressible via text Q&A
+  - metric: communication_medium
+    qualitative_value: Typewritten messages to exclude voice cues
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:nine-objections
+  evidence_type: case_study
+  summary: 'Turing systematically enumerates and rebuts nine objections to machine
+    thinking: (1) Theological -- restricts God''s omnipotence; (2) Heads in the Sand
+    -- emotional denial; (3) Mathematical (Godel) -- machines have limitations but
+    so do humans; (4) Consciousness (Jefferson) -- extreme form leads to solipsism;
+    (5) Various Disabilities -- rests on induction from limited experience; (6) Lady
+    Lovelace -- underestimates what programming can achieve; (7) Continuity of Nervous
+    System -- discrete can approximate continuous; (8) Informality of Behaviour --
+    confuses rules of conduct with laws of behaviour; (9) ESP -- the strongest objection,
+    solvable by telepathy-proof rooms.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 6, nine numbered subsections
+  observations:
+  - metric: objections_addressed
+    qualitative_value: 9 distinct objections, each with explicit rebuttal
+  - metric: strongest_concession
+    qualitative_value: Turing concedes the ESP argument is 'quite a strong one'
+  - metric: weakest_objection
+    qualitative_value: Heads in the Sand dismissed as not requiring refutation
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:learning-machine
+  evidence_type: case_study
+  summary: 'Turing proposes a constructive programme: build a child-machine with minimal
+    initial structure (like a blank notebook), then educate it using punishments,
+    rewards, and symbolic language instruction. He draws an analogy between machine
+    learning and evolution (structure = heredity, changes = mutations, experimenter
+    = selection). He notes that intelligent experimentation can outpace blind evolution,
+    suggests including a random element to aid search, and mentions his own preliminary
+    experiments with a simple child-machine.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 7, Learning Machines
+  observations:
+  - metric: analogy
+    qualitative_value: Child-machine education analogized to biological evolution
+      with intelligent selection
+  - metric: mechanism
+    qualitative_value: Punishments decrease probability of preceding events; rewards
+      increase it
+  - metric: practical_note
+    qualitative_value: Turing reports conducting preliminary experiments with a simple
+      child-machine
+  - metric: random_element
+    qualitative_value: Random element useful for searching solution space, avoids
+      systematic method's block problem
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:universality-argument
+  evidence_type: case_study
+  summary: 'Turing explains that digital computers are universal machines -- they can
+    mimic any discrete-state machine given adequate storage and speed. He illustrates
+    discrete-state machines with a simple 3-state clicking wheel, notes the Manchester
+    computer has ~2^165,000 states (~10^50,000), and argues that universality means
+    all digital computers are in a sense equivalent -- only the programme matters.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 5, Universality of Digital Computers
+  observations:
+  - metric: key_consequence
+    qualitative_value: All digital computers are in a sense equivalent -- only the
+      programme matters
+  - metric: storage_example
+    qualitative_value: Manchester machine has about 165,000 bits storage capacity
+  - metric: discrete_state_example
+    qualitative_value: 3-state clicking wheel illustrates discrete-state concept
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:sonnet-viva-voce
+  evidence_type: case_study
+  summary: 'In rebutting the Argument from Consciousness, Turing constructs a viva
+    voce dialogue about Shakespeare''s sonnet "Shall I compare thee to a summer''s
+    day." The witness explains why "a spring day" would not scan, why "a winter''s
+    day" carries the wrong connotation (nobody wants to be compared to one), and how
+    Mr. Pickwick relates to Christmas. The dialogue demonstrates multi-turn aesthetic
+    and contextual reasoning.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 6, Objection 4
+  observations:
+  - metric: spring_day
+    qualitative_value: Would not scan (breaks the metre)
+  - metric: winter_day
+    qualitative_value: Would scan but nobody wants to be compared to one
+  - metric: christmas_exception
+    qualitative_value: Christmas is a winter's day but Mr. Pickwick wouldn't mind;
+      witness replies "by a winter's day one means a typical winter's day"
+  - metric: rhetorical_purpose
+    qualitative_value: Demonstrates the imitation game can test subjective understanding
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:digital-computer-components
+  evidence_type: case_study
+  summary: 'Turing describes a digital computer as having three parts: (i) Store --
+    information storage corresponding to the human computer''s paper; (ii) Executive
+    unit -- performs individual operations; (iii) Control -- ensures instructions obeyed
+    in correct order. He explains instruction coding, conditional branching ("if position
+    4505 contains 0 obey next the instruction stored in 6707"), and the domestic analogy
+    of Tommy and the cobbler to illustrate loops.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 4, Digital Computers
+  observations:
+  - metric: store_analogy
+    qualitative_value: Corresponds to paper (calculation sheets + rule book) and memory
+  - metric: executive_analogy
+    qualitative_value: Carries out individual calculation operations
+  - metric: control_analogy
+    qualitative_value: Corresponds to the human following the book of rules
+  - metric: programming_definition
+    qualitative_value: Constructing instruction tables is called programming
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:babbage-historical
+  evidence_type: citation_backed
+  summary: 'Turing notes that Charles Babbage planned the Analytical Engine (a digital
+    computer) in the 1830s but never completed it. Its speed would have been about
+    100 times slower than the Manchester machine. The fact that Babbage''s machine
+    was purely mechanical (not electrical) helps dispel the superstition that electricity
+    is theoretically important -- since all digital computers are equivalent, the use
+    of electricity is a superficial similarity between computers and the nervous system.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 4, Digital Computers
+  observations:
+  - metric: babbage_speed
+    qualitative_value: About 100 times slower than the Manchester machine
+  - metric: electricity_point
+    qualitative_value: Use of electricity is superficial; look for mathematical analogies
+      of function instead
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:programming-estimate
+  evidence_type: case_study
+  summary: 'Turing estimates his own programming rate at about 1000 digits of programme
+    per day, so about sixty workers working steadily through fifty years might produce
+    enough programme to simulate an adult mind -- if nothing went into the waste-paper
+    basket. This motivates the child-machine approach as a more expeditious method.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: Section 7, Learning Machines
+  observations:
+  - metric: programming_rate
+    qualitative_value: About 1000 digits of programme per day
+  - metric: team_estimate
+    qualitative_value: About 60 workers for 50 years
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+relations:
+- id: rel:1
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:imitation-game
+- id: rel:2
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:universality-argument
+- id: rel:3
+  subject_ref: stmt:c4
+  predicate: supported_by
+  object_ref: ev:nine-objections
+- id: rel:4
+  subject_ref: stmt:c5
+  predicate: supported_by
+  object_ref: ev:learning-machine
+- id: rel:5
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:6
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:7
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:8
+  subject_ref: stmt:c1
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:9
+  subject_ref: stmt:c3
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:10
+  subject_ref: stmt:c3
+  predicate: depends_on
+  object_ref: stmt:c2
+- id: rel:11
+  subject_ref: stmt:c4
+  predicate: supported_by
+  object_ref: ev:sonnet-viva-voce
+- id: rel:12
+  subject_ref: stmt:c5
+  predicate: challenged_by
+  object_ref: art:lovelace-notes
+- id: rel:13
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:godel-1931
+  citation_intent: contradicts
+- id: rel:14
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:jefferson-1949
+  citation_intent: contradicts
+- id: rel:15
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:lovelace-notes
+  citation_intent: contradicts
+- id: rel:16
+  subject_ref: stmt:c6
+  predicate: supported_by
+  object_ref: ev:nine-objections
+- id: rel:17
+  subject_ref: stmt:c7
+  predicate: supported_by
+  object_ref: ev:nine-objections
+- id: rel:18
+  subject_ref: stmt:c8
+  predicate: supported_by
+  object_ref: ev:nine-objections
+- id: rel:19
+  subject_ref: stmt:c9
+  predicate: supported_by
+  object_ref: ev:nine-objections
+- id: rel:20
+  subject_ref: stmt:c9
+  predicate: supported_by
+  object_ref: ev:sonnet-viva-voce
+- id: rel:21
+  subject_ref: stmt:c10
+  predicate: supported_by
+  object_ref: ev:nine-objections
+- id: rel:22
+  subject_ref: stmt:c11
+  predicate: supported_by
+  object_ref: ev:nine-objections
+- id: rel:23
+  subject_ref: stmt:c11
+  predicate: depends_on
+  object_ref: stmt:c2
+- id: rel:24
+  subject_ref: stmt:c12
+  predicate: supported_by
+  object_ref: ev:nine-objections
+- id: rel:25
+  subject_ref: stmt:c13
+  predicate: supported_by
+  object_ref: ev:nine-objections
+- id: rel:26
+  subject_ref: stmt:c14
+  predicate: supported_by
+  object_ref: ev:nine-objections
+- id: rel:27
+  subject_ref: stmt:c15
+  predicate: supported_by
+  object_ref: ev:digital-computer-components
+- id: rel:28
+  subject_ref: stmt:c16
+  predicate: supported_by
+  object_ref: ev:imitation-game
+- id: rel:29
+  subject_ref: stmt:c17
+  predicate: supported_by
+  object_ref: ev:imitation-game
+- id: rel:30
+  subject_ref: stmt:c18
+  predicate: supported_by
+  object_ref: ev:sonnet-viva-voce
+- id: rel:31
+  subject_ref: stmt:c19
+  predicate: supported_by
+  object_ref: ev:learning-machine
+- id: rel:32
+  subject_ref: stmt:c20
+  predicate: supported_by
+  object_ref: ev:programming-estimate
+- id: rel:33
+  subject_ref: stmt:c15
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:34
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:babbage-analytical
+  citation_intent: uses_method
+- id: rel:35
+  subject_ref: stmt:c11
+  predicate: supported_by
+  object_ref: ev:babbage-historical
+- id: rel:36
+  subject_ref: stmt:c22
+  predicate: supported_by
+  object_ref: ev:nine-objections
+- id: rel:37
+  subject_ref: stmt:c21
+  predicate: supported_by
+  object_ref: ev:learning-machine
+- id: rel:38
+  subject_ref: stmt:c5
+  predicate: supported_by
+  object_ref: ev:programming-estimate
+actions: []
+extensions:
+  paper:
+    venue: Mind
+    year: 1950
+    volume: 59
+    issue: 236
+    pages: 433-460
+    discipline: Philosophy of Mind / Computer Science
+    sections:
+      s1: The Imitation Game
+      s2: Critique of the New Problem
+      s3: The Machines concerned in the Game
+      s4: Digital Computers
+      s5: Universality of Digital Computers
+      s6: Contrary Views on the Main Question
+      s7: Learning Machines
+    methodology_type: philosophical_argumentation
+    evidence_type_distribution:
+      case_studies: 8
+      quantitative: 0
+      proofs: 0
+      note: 'This paper contains no experiments, no data, and no formal proofs. Evidence
+        consists entirely of thought experiments, logical arguments, and analogies.
+
+        '
+abstract: I propose to consider the question, "Can machines think?" This should begin
+  with definitions of the meaning of the terms "machine" and "think". The definitions
+  might be framed so as to reflect so far as possible the normal use of the words,
+  but this attitude is dangerous. Instead of attempting such a definition I shall
+  replace the question by another, which is closely related to it and is expressed
+  in relatively unambiguous words.
+venue: Mind
+year: 1950
+keywords:
+- imitation game
+- Turing Test
+- machine thinking
+- digital computer
+- universality
+- learning machine
+- child-machine
+- artificial intelligence
+- consciousness
+- "Godel's theorem"
+- Lady Lovelace's objection
+- philosophy of mind
+- ESP
+- theological objection
+- informality of behaviour
+- sonnet viva voce
+authors:
+- name: A. M. Turing
+  affiliation: Victoria University of Manchester
+  role: first
+venue_type: published
+language: en
+access: open
+record_status: active

@@ -1,0 +1,935 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:examples/godel-incompleteness-dense/1.0.0
+profile: paper@1
+subject_ref: art:paper
+title: Ueber formal unentscheidbare Saetze der Principia Mathematica und verwandter
+  Systeme I
+summary: 'Dense agent-facing sidecar for Goedel''s 1931 incompleteness paper. Covers
+  the First Incompleteness Theorem (Theorem VI, omega-consistency), Second Incompleteness
+  Theorem (Theorem XI), Goedel numbering scheme (prime factorization encoding),
+  the 46 primitive recursive relations, the formal system P (five axiom groups),
+  the diagonal self-reference construction (class-signs, class K, R_q(q)), distinction
+  between omega-consistency and simple consistency, Rosser''s strengthening, Hilbert''s
+  program refutation, Theorem V (representability of primitive recursive relations),
+  and applicability conditions (Section 2.7). All evidence is proof-based.
+
+  '
+coverage:
+  statements: exhaustive
+  evidence: exhaustive
+license: CC-BY-4.0
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: monatshefte-1931
+freshness:
+  as_of: '2026-03-19T00:00:00Z'
+  update_policy: immutable
+provenance:
+  origin: author
+  actor:
+    name: Knows Example Authors
+    type: org
+  generated_at: '2026-03-27T00:00:00Z'
+  method: manual_curation
+artifacts:
+- id: art:paper
+  artifact_type: paper
+  role: subject
+  title: Ueber formal unentscheidbare Saetze der Principia Mathematica und verwandter
+    Systeme I
+  identifiers:
+    doi: 10.1007/BF01700692
+  representations:
+  - id: rep:pdf
+    media_type: application/pdf
+    locator:
+      type: url
+      value: https://link.springer.com/article/10.1007/BF01700692
+- id: art:principia
+  artifact_type: paper
+  role: cited
+  title: Principia Mathematica (Whitehead & Russell)
+  identifiers:
+    custom:
+      reference: Whitehead & Russell 1910-1913
+  representations: []
+- id: art:hilbert-program
+  artifact_type: paper
+  role: cited
+  title: Hilbert's Program — Foundations of Mathematics
+  identifiers:
+    custom:
+      reference: Hilbert 1928, Grundlagen der Mathematik
+  representations: []
+- id: art:peano-axioms
+  artifact_type: paper
+  role: cited
+  title: Peano Axioms for Arithmetic
+  identifiers:
+    custom:
+      reference: Peano 1889, Arithmetices principia
+  representations: []
+- id: art:rosser
+  artifact_type: paper
+  role: cited
+  title: Extensions of some theorems of Goedel and Church (Rosser)
+  identifiers:
+    doi: 10.2307/2269059
+  representations: []
+- id: art:richard-antinomy
+  artifact_type: paper
+  role: cited
+  title: Richard's Antinomy (self-reference paradox)
+  identifiers:
+    custom:
+      reference: Richard 1905
+  representations: []
+statements:
+- id: stmt:c1
+  statement_type: claim
+  modality: theoretical
+  text: 'First Incompleteness Theorem (Theorem VI): Any omega-consistent formal
+    system F that is capable of expressing basic arithmetic (contains Peano arithmetic)
+    is incomplete — there exist statements in the language of F that are true but
+    not provable within F. Specifically, Goedel constructs a sentence G (= R_q(q))
+    that asserts its own unprovability within F. Neither G nor not-G is provable
+    (under omega-consistency).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Theorem VI
+    quote: every omega-consistent recursive class kappa of formulae there are recursive
+      class-signs r, such that neither v Gen r nor Neg(v Gen r) belongs to Flg(kappa)
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c2
+  statement_type: claim
+  modality: theoretical
+  text: 'Second Incompleteness Theorem (Theorem XI): If a consistent formal system F
+    contains Peano arithmetic, then F cannot prove its own consistency. The formalized
+    consistency statement Con(F) = not-Bew(goedel_num(0=1)) is not provable in F.
+    The proof formalizes the First Incompleteness proof inside F, establishing that
+    F proves Con(F) -> G; since G is unprovable, Con(F) must also be unprovable.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Theorem XI
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c3
+  statement_type: claim
+  modality: theoretical
+  text: 'The undecidable sentence G is not only unprovable but also true (in the
+    standard model of arithmetic). If F is consistent, G is true but unprovable;
+    if not-G were provable, F would be inconsistent. This establishes a gap between
+    truth and provability — there are true arithmetic statements that cannot be
+    proved within any sufficiently strong consistent formal system.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section 1, end of introduction
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c4
+  statement_type: claim
+  modality: theoretical
+  text: 'Omega-consistency is strictly stronger than simple consistency. A system is
+    omega-consistent if there is no class-sign a such that a(n) is provable for every
+    natural number n, yet not-forall-x.a(x) is also provable. Simple consistency
+    only requires that no formula and its negation are both provable. Goedel''s
+    original Theorem VI requires omega-consistency specifically for step 2 (showing
+    not-G is not provable). Rosser (1936) later strengthened the result to require
+    only simple consistency.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section 2.6
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c5
+  statement_type: claim
+  modality: theoretical
+  text: 'The formal system P (for which undecidability is proved) is built by constructing
+    PM-style logic on top of Peano arithmetic. It has five groups of axioms: (I) Peano
+    axioms — three axioms for natural numbers (0 is not a successor, successor is
+    injective, induction); (II) Propositional axioms — four schemas governing logical
+    connectives; (III) Quantifier axioms — two schemas for universal quantification;
+    (IV) Comprehension/reducibility axiom — existence of a class for any definable
+    property; (V) Set axiom/extensionality — two classes are equal iff they have
+    the same elements.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section 2.1, axioms I-V
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c6
+  statement_type: claim
+  modality: theoretical
+  text: 'Two properties of a formal system are sufficient for Goedel''s incompleteness
+    result to apply (Section 2.7): (1) The class of axioms and the relation "immediate
+    consequence" must be primitive recursively definable when basic signs are replaced
+    by numbers; (2) Every primitive recursive relation must be definable within the
+    system (in the sense of Theorem V, i.e., decision-definite). Any system satisfying
+    both conditions and being omega-consistent contains undecidable propositions of
+    the form forall-x.F(x). This applies to Zermelo-Fraenkel set theory, von Neumann''s
+    set theory, and any system whose axioms are generated by finitely many schemas.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section 2.7, final paragraphs
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c7
+  statement_type: claim
+  modality: theoretical
+  text: 'Theorem V (representability): For every primitive recursive relation R(x_1,
+    ..., x_n) there is a relation sign r in system P such that for each n-tuple
+    (x_1, ..., x_n): if R holds, then subst(r, v, number(x)) is provable; if R
+    does not hold, then not-subst(r, v, number(x)) is provable. This ensures that
+    all 46 primitive recursive metamathematical relations can be "talked about"
+    within the system.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section 2.5, Theorem V
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c8
+  statement_type: claim
+  modality: theoretical
+  text: 'The undecidable sentence is constructed via a diagonal self-reference analogous
+    to the liar paradox but replacing truth with provability. Class-signs are formulas
+    with exactly one free variable of type natural number, enumerated as R_1, R_2,
+    .... The class K = {n in N | not-provable(R_n(n))}. Since K is definable in
+    system P, there exists a class-sign S = R_q such that S(n) states n in K. The
+    undecidable sentence R_q(q) then asserts "I am not provable" since R_q(q) <->
+    S(q) <-> q in K <-> not-provable(R_q(q)).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section 1 (introduction, informal sketch)
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c9
+  statement_type: claim
+  modality: theoretical
+  text: 'The Second Incompleteness Theorem directly refutes Hilbert''s program, which
+    sought to prove the consistency of mathematics using finitary methods formalizable
+    within the system itself. Since no consistent system containing arithmetic can
+    prove its own consistency, a finitary consistency proof (as Hilbert envisioned)
+    is impossible for such systems.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section 4, discussion
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c10
+  statement_type: claim
+  modality: theoretical
+  text: 'The analogy of Goedel''s construction with the Richard antinomy and the liar
+    paradox is explicitly noted by Goedel. The key difference: the liar paradox
+    involves truth ("this statement is false"), while Goedel replaces truth with
+    provability ("this statement is not provable"), avoiding actual paradox since
+    the statement turns out to be true.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section 1
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c11
+  statement_type: claim
+  modality: theoretical
+  text: 'The concept "provable" (relation 46) is the only one among the 46 metamathematical
+    concepts that is not primitive recursive. It requires an unbounded existential
+    quantifier (exists y such that y is a proof of x), making it recursively
+    enumerable but not primitive recursive. All other 45 relations (formula, axiom,
+    immediate consequence, substitution, etc.) are primitive recursive.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section 2.4, relation 46
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:m1
+  statement_type: method
+  modality: descriptive
+  text: 'Goedel numbering: Each symbol, formula, and proof sequence in the formal
+    system is assigned a unique natural number via a primitive recursive encoding.
+    Primitive symbols get unique numbers (0->1, succ->3, not->5, or->7, forall->9,
+    open-paren->11, close-paren->13, variables of type n get prime powers p^n for
+    primes p>13). A finite sequence (n_1, n_2, ..., n_k) maps to 2^{n_1} * 3^{n_2}
+    * ... * p_k^{n_k} where p_k is the k-th prime. This is injective by the
+    fundamental theorem of arithmetic, enabling the system to reason about its own
+    syntax. Combined with the diagonal argument, this constructs the self-referential
+    sentence G.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section 2.2
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:m2
+  statement_type: method
+  modality: descriptive
+  text: 'Goedel demonstrates that 46 specific metamathematical relations and functions
+    (divisibility, primality, prime factorization, sequence length, concatenation,
+    substitution, formula, axiom, immediate consequence, proof figure, provability)
+    are all primitive recursive and therefore representable in any system containing
+    Peano arithmetic (Theorem V). This arithmetization of metamathematics is the
+    technical backbone enabling self-reference.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section 2.3-2.4, relations 1-46
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:a1
+  statement_type: assumption
+  modality: descriptive
+  text: 'The formal system F is assumed to be consistent (does not derive both a
+    statement and its negation). The original Theorem VI uses the stronger assumption
+    of omega-consistency. Rosser (1936) later weakened this to simple consistency by
+    modifying the self-referential sentence construction.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Theorem VI, hypotheses
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:a2
+  statement_type: assumption
+  modality: descriptive
+  text: 'The formal system F must be sufficiently powerful to express basic arithmetic
+    — specifically, it must contain (or represent) the Peano axioms. The system''s
+    axioms and inference rules must be recursively enumerable (effectively decidable).
+    These two conditions are the minimal requirements identified in Section 2.7.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section 2, Section 2.7
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:l1
+  statement_type: limitation
+  modality: descriptive
+  text: 'The incompleteness theorems do not apply to formal systems that are too weak
+    to express arithmetic (e.g., Presburger arithmetic, which is complete and
+    decidable). Nor do they apply to systems that are not recursively axiomatizable.
+    The theorems set a boundary on what sufficiently expressive formal systems can
+    achieve, not on mathematics as a whole.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section 4
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+evidence:
+- id: ev:goedel-sentence
+  evidence_type: proof
+  summary: 'Construction of the Goedel sentence G via diagonal self-reference. Class-signs
+    are formulas with one free variable, enumerated as R_1, R_2, .... Define class
+    K = {n | not-provable(R_n(n))}. Since K is definable, there is a class-sign S
+    = R_q such that S(n) says n in K. Then R_q(q) <-> not-provable(R_q(q)), i.e.,
+    R_q(q) says "I am not provable." If F is consistent, R_q(q) is not provable
+    (assuming provability would yield truth of not-provable, contradiction). If F
+    is omega-consistent, not-R_q(q) is also not provable (since for each n, "n does
+    not prove R_q(q)" is provable, and omega-consistency prevents proving the negation
+    of the universal statement). Hence G is undecidable.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section 1 and Theorem VI proof
+  observations:
+  - metric: goedel_sentence_status
+    qualitative_value: Undecidable in F — neither G nor not-G is provable (under omega-consistency)
+  - metric: self_reference_mechanism
+    qualitative_value: 'Diagonal construction: R_q(q) <-> not-provable(R_q(q))'
+  - metric: analogy
+    qualitative_value: Analogous to liar paradox and Richard antinomy, but replaces
+      truth with provability
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:second-incompleteness
+  evidence_type: proof
+  summary: 'Proof of Theorem XI: Con(F) is formalized as not-Bew(goedel_num(0=1)).
+    The proof of the First Theorem is formalized within F, showing F proves Con(F)
+    -> G. Since G is unprovable (Theorem VI), Con(F) must also be unprovable. This
+    directly refutes Hilbert''s program which sought finitary consistency proofs.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Theorem XI, proof
+  observations:
+  - metric: consistency_provability
+    qualitative_value: Con(F) not provable within F, assuming F is consistent
+  - metric: proof_strategy
+    qualitative_value: Formalize First Incompleteness proof inside F; derive Con(F)
+      -> G; contrapositive gives unprovability of Con(F)
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:goedel-numbering
+  evidence_type: proof
+  summary: 'Goedel numbering scheme: primitive symbols mapped to specific natural
+    numbers (0->1, succ->3, not->5, or->7, forall->9, open-paren->11, close-paren->13).
+    Variables of type n get prime powers p^n for primes p>13. Sequences (n_1,...,n_k)
+    encoded as products 2^{n_1} * 3^{n_2} * ... * p_k^{n_k}. Injectivity guaranteed
+    by fundamental theorem of arithmetic. 46 metamathematical relations (divisibility,
+    primality, nthPrime, item, length, concatenation, formula, substitution, axiom,
+    immediate consequence, proof figure, provability) shown to be primitive recursive.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section 2.2-2.4, relations 1-46
+  observations:
+  - metric: primitive_recursive_relations
+    qualitative_value: 46 metamathematical relations shown to be primitive recursive
+  - metric: encoding_scheme
+    qualitative_value: 'Prime factorization: sequence (a1,...,an) maps to 2^a1 * 3^a2
+      * ... * p_n^an'
+  - metric: symbol_assignments
+    qualitative_value: '0->1, succ->3, not->5, or->7, forall->9, open-paren->11, close-paren->13'
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:hilbert-refutation
+  evidence_type: proof
+  summary: 'Theorem XI directly refutes Hilbert''s program. Hilbert sought to prove
+    the consistency of mathematics using finitary methods formalizable within the
+    system. Since no consistent system containing arithmetic can prove its own
+    consistency, a finitary consistency proof is impossible for such systems.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section 4, discussion
+  observations:
+  - metric: hilbert_program_status
+    qualitative_value: Refuted — finitary consistency proof impossible for systems
+      containing arithmetic
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:axiom-groups
+  evidence_type: proof
+  summary: 'The formal system P has five axiom groups: (I) Peano axioms — not(succ(x)=0),
+    succ(x)=succ(y)->x=y, induction schema; (II) Propositional axioms — four schemas
+    including p|p->p, p->p|q, p|q->q|p, (p->q)->(r|p->r|q); (III) Quantifier axioms
+    — two schemas for universal quantification and substitution; (IV) Comprehension
+    axiom (exists u. forall v. (u(v) <-> a)); (V) Set axiom/extensionality (forall
+    x. (x2(x) <-> y2(x)) -> x2=y2). Inference rules: modus ponens and generalization.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section 2.1, axioms I-V
+  observations:
+  - metric: peano_axiom_count
+    value: 3
+    unit: axioms
+    qualifiers:
+      group: I
+  - metric: propositional_axiom_count
+    value: 4
+    unit: schemas
+    qualifiers:
+      group: II
+  - metric: quantifier_axiom_count
+    value: 2
+    unit: schemas
+    qualifiers:
+      group: III
+  - metric: total_axiom_groups
+    value: 5
+    unit: groups
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:applicability-conditions
+  evidence_type: proof
+  summary: 'Section 2.7 identifies exactly two sufficient conditions for incompleteness
+    to apply: (1) axioms and inference rules are primitive recursively definable; (2)
+    every primitive recursive relation is definable in the system. Any omega-consistent
+    system satisfying both contains undecidable propositions of the form forall-x.F(x).
+    Applies to Zermelo-Fraenkel, von Neumann set theory, and systems with finitely
+    many axiom schemas.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section 2.7
+  observations:
+  - metric: condition_1
+    qualitative_value: Axioms and inference rules must be primitive recursively definable
+  - metric: condition_2
+    qualitative_value: Every primitive recursive relation must be definable within the
+      system (Theorem V sense)
+  - metric: applicable_systems
+    qualitative_value: PM, Zermelo-Fraenkel, von Neumann set theory, any system generated
+      by finitely many schemas
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:omega-consistency-detail
+  evidence_type: proof
+  summary: 'Omega-consistency is needed specifically in step 2 of the Theorem VI
+    proof to show not-G is not provable. Since G is unprovable, for each natural
+    number n the statement "n does not prove G" is provable. If the system were
+    omega-inconsistent, it could still prove the negation of the universal statement
+    (i.e., prove not-G) even though all instances are individually provable. Rosser
+    (1936) modified the self-referential sentence to eliminate the need for omega-
+    consistency, requiring only simple consistency.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section 2.6, Theorem VI proof steps 1-2
+  observations:
+  - metric: omega_consistency_role
+    qualitative_value: Needed for step 2 (unprovability of not-G); prevents system from
+      proving negation of universal statement when all instances are provable
+  - metric: rosser_improvement
+    qualitative_value: Rosser (1936) weakened requirement to simple consistency by
+      modifying the self-referential sentence
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:representability
+  evidence_type: proof
+  summary: 'Theorem V proof by induction on degree of primitive recursive functions.
+    Base case (degree 1): constants and successor are trivially representable.
+    Inductive step: if phi is built from lower-degree phi_1,...,phi_k by insertion
+    and primitive recursion, and r_1,...,r_k are their relation signs, then the
+    definition processes can be formally modeled in system P to obtain a new relation
+    sign r satisfying the representability conditions. This ensures all 46 metamathematical
+    concepts have corresponding formulas in P.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section 2.5
+  observations:
+  - metric: proof_method
+    qualitative_value: Induction on degree of primitive recursive functions
+  - metric: base_case
+    qualitative_value: Constants and successor function (degree 1) are trivially representable
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+relations:
+- id: rel:1
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:goedel-sentence
+- id: rel:2
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:second-incompleteness
+- id: rel:3
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:goedel-sentence
+- id: rel:4
+  subject_ref: stmt:c4
+  predicate: supported_by
+  object_ref: ev:omega-consistency-detail
+- id: rel:5
+  subject_ref: stmt:c5
+  predicate: supported_by
+  object_ref: ev:axiom-groups
+- id: rel:6
+  subject_ref: stmt:c6
+  predicate: supported_by
+  object_ref: ev:applicability-conditions
+- id: rel:7
+  subject_ref: stmt:c7
+  predicate: supported_by
+  object_ref: ev:representability
+- id: rel:8
+  subject_ref: stmt:c8
+  predicate: supported_by
+  object_ref: ev:goedel-sentence
+- id: rel:9
+  subject_ref: stmt:c9
+  predicate: supported_by
+  object_ref: ev:hilbert-refutation
+- id: rel:10
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:goedel-numbering
+- id: rel:11
+  subject_ref: stmt:c11
+  predicate: supported_by
+  object_ref: ev:goedel-numbering
+- id: rel:12
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:13
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:m2
+- id: rel:14
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:15
+  subject_ref: stmt:c3
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:16
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:17
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:a2
+- id: rel:18
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:a2
+- id: rel:19
+  subject_ref: stmt:c1
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:20
+  subject_ref: stmt:c2
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:21
+  subject_ref: stmt:c4
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:22
+  subject_ref: stmt:c5
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:23
+  subject_ref: stmt:c6
+  predicate: depends_on
+  object_ref: stmt:c7
+- id: rel:24
+  subject_ref: stmt:c7
+  predicate: depends_on
+  object_ref: stmt:m2
+- id: rel:25
+  subject_ref: stmt:c8
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:26
+  subject_ref: stmt:c9
+  predicate: depends_on
+  object_ref: stmt:c2
+- id: rel:27
+  subject_ref: stmt:c10
+  predicate: depends_on
+  object_ref: stmt:c8
+- id: rel:28
+  subject_ref: stmt:c11
+  predicate: depends_on
+  object_ref: stmt:m2
+- id: rel:29
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:principia
+  citation_intent: other
+- id: rel:30
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:hilbert-program
+  citation_intent: contradicts
+- id: rel:31
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:peano-axioms
+  citation_intent: uses_method
+- id: rel:32
+  subject_ref: stmt:a1
+  predicate: challenged_by
+  object_ref: art:rosser
+- id: rel:33
+  subject_ref: ev:hilbert-refutation
+  predicate: challenged_by
+  object_ref: art:hilbert-program
+- id: rel:34
+  subject_ref: stmt:c10
+  predicate: depends_on
+  object_ref: art:richard-antinomy
+actions: []
+extensions:
+  paper:
+    venue: Monatshefte fuer Mathematik und Physik
+    year: 1931
+    discipline: Pure Mathematics / Mathematical Logic
+    sections:
+      section_1: Introduction and informal overview of the proof
+      section_2_1: Formal system P — definitions and five axiom groups
+      section_2_2: Goedel numbering scheme
+      section_2_3: Primitive recursion — definition and theorems I-IV
+      section_2_4: 46 primitive recursive metamathematical relations
+      section_2_5: Representability (Theorem V)
+      section_2_6: Undecidability theorem (Theorem VI)
+      section_2_7: Discussion — applicability conditions and generalizations
+      section_4: Second Incompleteness Theorem (Theorem XI) and Hilbert refutation
+    methodology_type: formal_proof
+    evidence_type_distribution:
+      proofs: 8
+      quantitative: 1
+      qualitative: 9
+      note: 'Dense sidecar covering all major components: Goedel numbering with specific
+        symbol assignments, prime factorization encoding, 46 primitive recursive
+        relations, five axiom groups of system P, diagonal self-reference construction,
+        omega-consistency vs simple consistency, Rosser''s improvement, Theorem V
+        (representability), applicability conditions (Section 2.7), and Hilbert
+        program refutation.
+
+        '
+abstract: The development of mathematics towards greater exactness has led to large
+  areas of it being formalized, so that proofs can be carried out according to a few
+  mechanical rules. The most comprehensive formal systems set up so far are the system
+  of Principia Mathematica and the Zermelo-Fraenkel axiom system of set theory. We
+  show that in these systems there exist undecidable propositions.
+venue: Monatshefte fur Mathematik und Physik
+year: 1931
+keywords:
+- incompleteness theorem
+- formal systems
+- undecidability
+- Godel numbering
+- diagonal argument
+- Peano arithmetic
+- consistency
+- omega-consistency
+- Hilbert program
+- mathematical logic
+- metamathematics
+- self-reference
+- primitive recursive
+- Richard antinomy
+- Rosser improvement
+authors:
+- name: Kurt Godel
+  affiliation: University of Vienna
+  role: first
+venue_type: published
+language: de
+access: open
+record_status: active

@@ -1,0 +1,944 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:examples/semmelweis-handwashing-dense/1.0.0
+profile: paper@1
+subject_ref: art:paper
+title: Die Aetiologie, der Begriff und die Prophylaxis des Kindbettfiebers
+summary: 'Dense agent-facing sidecar for Semmelweis''s work on puerperal fever (1847
+  observations, published 1861). Covers the full narrative chain: clinic mortality
+  differences, Kolletschka''s death as key insight, handwashing intervention with
+  chlorinated lime, dramatic mortality reduction, extension of prophylaxis between
+  patients, autoinfection concept, Budapest results (St. Rokus 0.85%, University
+  of Pest 0.39%), medical establishment rejection, and posthumous vindication. Includes
+  year-by-year mortality statistics.
+
+  '
+coverage:
+  statements: exhaustive
+  evidence: exhaustive
+license: CC-BY-4.0
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: semmelweis-1861-monograph
+freshness:
+  as_of: '2026-03-19T00:00:00Z'
+  update_policy: immutable
+provenance:
+  origin: author
+  actor:
+    name: Knows Example Authors
+    type: org
+  generated_at: '2026-03-27T00:00:00Z'
+  method: manual_curation
+artifacts:
+- id: art:paper
+  artifact_type: paper
+  role: subject
+  title: Die Aetiologie, der Begriff und die Prophylaxis des Kindbettfiebers
+  identifiers:
+    custom:
+      reference: Semmelweis 1861
+      english_title: The Etiology, Concept, and Prophylaxis of Childbed Fever
+  representations:
+  - id: rep:monograph
+    media_type: text/plain
+    locator:
+      type: url
+      value: https://archive.org/details/dieaetiologieder00semm
+- id: art:vienna-hospital-records
+  artifact_type: dataset
+  role: supporting
+  title: Vienna General Hospital birth and death records (1841-1849)
+  identifiers:
+    custom:
+      reference: Administrative records, First and Second Obstetrical Clinics
+  representations: []
+- id: art:kolletschka-case
+  artifact_type: paper
+  role: supporting
+  title: Autopsy report of Prof. Jakob Kolletschka (1847)
+  identifiers:
+    custom:
+      reference: Kolletschka death from scalpel wound during autopsy
+  representations: []
+- id: art:pasteur-germ-theory
+  artifact_type: paper
+  role: cited
+  title: Pasteur's germ theory of disease (1860s-1870s)
+  identifiers:
+    custom:
+      reference: Pasteur 1861-1878
+  representations: []
+- id: art:lister-antisepsis
+  artifact_type: paper
+  role: cited
+  title: Lister, On the Antiseptic Principle in the Practice of Surgery (1867)
+  identifiers:
+    doi: 10.1016/S0140-6736(02)51827-4
+  representations: []
+statements:
+- id: stmt:c1
+  statement_type: claim
+  modality: empirical
+  text: 'Puerperal (childbed) fever is caused by "cadaverous particles" — decomposing
+    animal organic matter transmitted on the hands of physicians and medical students
+    who move directly from autopsy rooms to maternity wards without adequate hand
+    cleansing. Later generalized: any source of decaying animal organic matter can
+    cause the disease, not just cadaveric material.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I
+    quote: decaying animal-organic matter... conveyed to the individuals by the examining
+      fingers
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c2
+  statement_type: claim
+  modality: empirical
+  text: 'Handwashing with chlorinated lime solution (chlorina liquida) before examining
+    patients dramatically reduces maternal mortality from puerperal fever. The First
+    Division mortality rate dropped from approximately 10% to under 2% after the
+    intervention was introduced in May 1847. Semmelweis chose chlorine because it
+    was the most effective solution for removing the characteristic cadaveric smell
+    lingering on hands.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c3
+  statement_type: claim
+  modality: empirical
+  text: 'The difference in mortality rates between the First Division (staffed by
+    medical students who performed autopsies) and the Second Division (staffed by
+    midwives who did not perform autopsies) is explained by medical students transmitting
+    cadaverous particles on their ungloved hands. Patients were admitted to divisions
+    on alternate days, creating quasi-random allocation.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c4
+  statement_type: claim
+  modality: empirical
+  text: 'Kolletschka''s death was the key causal insight. Professor Jakob Kolletschka,
+    a forensic pathologist, died in March 1847 after a student accidentally cut his
+    finger during autopsy. His autopsy findings were identical to puerperal fever
+    victims (lymphangitis, peritonitis, pleuritis, pericarditis, meningitis), except
+    for the genital organs. Semmelweis inferred: if Kolletschka died from cadaveric
+    particles entering through a wound, the same particles must cause childbed fever
+    when introduced into the birth canal.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c5
+  statement_type: claim
+  modality: empirical
+  text: 'After an October 1847 outbreak traced to a patient with a purulent uterine
+    carcinoma (12 deaths, 5.2%), Semmelweis extended the handwashing requirement:
+    attendants must wash with chlorine between patient examinations, not only upon
+    entering the ward. A November outbreak was traced to a patient with purulent knee
+    discharge, leading Semmelweis to require isolation of infected patients to prevent
+    environmental contamination.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c6
+  statement_type: claim
+  modality: empirical
+  text: 'Semmelweis identified "autoinfection" — approximately 1% of childbed fever
+    cases originated from the birth canal itself (birth trauma or retained placenta)
+    rather than external contamination. These cases were considered non-preventable
+    by handwashing or isolation.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c7
+  statement_type: claim
+  modality: empirical
+  text: 'Every case of childbed fever, without exception, was caused by the introduction
+    of decaying animal organic matter from outside — this was the central doctrine
+    that distinguished Semmelweis from English "contagionists" who attributed fever
+    to multiple causes. Semmelweis insisted on a single necessary cause.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part II
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c8
+  statement_type: claim
+  modality: empirical
+  text: 'At St. Rokus Hospital in Budapest (1851-1857), Semmelweis achieved an overall
+    maternal mortality rate from childbed fever of 0.85%, compared to 10-15% at Prague
+    and Vienna during the same period. At the University of Pest, he reduced the rate
+    to 0.39% in his first year as Professor (1855) and maintained 0.9% during 1859-1860.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part II
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c9
+  statement_type: claim
+  modality: descriptive
+  text: 'Semmelweis''s findings were widely rejected during his lifetime. Major opponents
+    included Rudolf Virchow (who attributed fever to inadequate uterine contractions
+    and atmospheric conditions) and Friedrich Scanzoni von Lichtenfels. The main
+    reason for rejection was the paradigm shift required: accepting that a disease
+    could have just one necessary cause, before the discovery of bacteria and germ
+    theory.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part II
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c10
+  statement_type: claim
+  modality: descriptive
+  text: 'Semmelweis died on August 13, 1865, at age 47 in an insane asylum. Recently
+    discovered autopsy documents revealed he was likely beaten by attendants while
+    struggling to escape, and died of generalized sepsis from infected injuries.
+    His doctrine was vindicated posthumously after Pasteur and Lister established
+    the microbial basis of infection.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part II
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c11
+  statement_type: claim
+  modality: descriptive
+  text: 'Semmelweis was born July 1, 1818, in Budapest, son of a wealthy grocer. He
+    enrolled at the University of Vienna to study law, switched to medicine, and
+    graduated in 1844. He was appointed First Assistant (equivalent of Chief Resident)
+    in Obstetrics at the First Division of the Vienna General Hospital on July 1,
+    1846, at age 28.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:m1
+  statement_type: method
+  modality: descriptive
+  text: 'Observational comparative study between two divisions in the same hospital.
+    The First Division (medical students performing autopsies) served as the intervention
+    group after handwashing was introduced in May 1847. The Second Division (midwives,
+    no autopsy contact) served as the natural comparison. Mortality data were drawn
+    from hospital administrative records spanning 1841-1849. Patient allocation was
+    quasi-random (admission on alternate days). Semmelweis personally autopsied all
+    mothers who died of childbed fever each morning before ward rounds.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:m2
+  statement_type: method
+  modality: descriptive
+  text: 'Semmelweis used a method of systematic exclusion of putative causes. He
+    examined all factors that differed between the two divisions, reasoning that
+    factors present in both divisions could not explain the mortality difference.
+    He eliminated causes including overcrowding, diet, atmospheric conditions, and
+    even the hypothesis that embarrassment from male examination caused fever.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:a1
+  statement_type: assumption
+  modality: descriptive
+  text: 'The primary difference between the First and Second Divisions is the autopsy
+    exposure of medical students. Other potential confounders (patient demographics,
+    admission patterns, overcrowding) are assumed comparable or secondary. Patients
+    were assigned to divisions by day of admission (alternating schedule), providing
+    quasi-random allocation.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:l1
+  statement_type: limitation
+  modality: descriptive
+  text: 'This is an observational study, not a randomized controlled trial. There
+    was no blinding, no formal control group design, and no statistical hypothesis
+    testing by modern standards. Confounders beyond autopsy exposure were not systematically
+    controlled.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:l2
+  statement_type: limitation
+  modality: descriptive
+  text: 'Germ theory had not yet been established (Pasteur''s work came in the 1860s-1870s).
+    Semmelweis''s "cadaverous particles" hypothesis lacked a mechanistic microbial
+    explanation, which contributed to widespread rejection by the medical establishment
+    during his lifetime.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part II
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+evidence:
+- id: ev:mortality-first-clinic-before
+  evidence_type: observation
+  summary: 'Hospital records from 1841-1846 show the First Division (medical students)
+    had a maternal mortality rate of approximately 9-10%, ranging from 5.3% to 15.8%
+    across years. In 1846, the year before handwashing, the rate was approximately
+    11.4% (459 deaths out of 4,010 births). The rate fluctuated around 9%, approximately
+    three times higher than the Second Division.
+
+    '
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I, Table
+  observations:
+  - metric: maternal_mortality_rate
+    value: 10
+    unit: percent
+    qualifiers:
+      clinic: First Division
+      period: 1841-1846
+      type: approximate average
+  - metric: maternal_mortality_rate
+    value: 11.4
+    unit: percent
+    qualifiers:
+      clinic: First Division
+      year: 1846
+      deaths: 459
+      births: 4010
+  - metric: maternal_mortality_rate_range
+    qualitative_value: 5.3% to 15.8% across 1841-1846
+    qualifiers:
+      clinic: First Division
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:mortality-first-clinic-after
+  evidence_type: observation
+  summary: 'After mandatory handwashing with chlorinated lime (May 1847): June-August
+    1847, mortality fell from 7.8% to 1.8%. October 1847 spike to 5.2% (12 deaths)
+    traced to purulent uterine carcinoma patient. November spike to 4.0% (11 deaths)
+    traced to patient with purulent knee infection. For the full year 1848, rate fell
+    to 1.27% (45 deaths out of 3,556 births) — lower than the Second Division''s
+    1.33%. Best individual months showed rates as low as 0.23%.
+
+    '
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I, Table
+  observations:
+  - metric: maternal_mortality_rate
+    value: 1.8
+    unit: percent
+    qualifiers:
+      clinic: First Division
+      period: June-August 1847
+      condition: post-initial-handwashing
+  - metric: maternal_mortality_rate
+    value: 5.2
+    unit: percent
+    qualifiers:
+      clinic: First Division
+      month: October 1847
+      deaths: 12
+      note: spike traced to purulent uterine carcinoma
+  - metric: maternal_mortality_rate
+    value: 4.0
+    unit: percent
+    qualifiers:
+      clinic: First Division
+      month: November 1847
+      deaths: 11
+      note: spike traced to purulent knee infection
+  - metric: maternal_mortality_rate
+    value: 1.27
+    unit: percent
+    qualifiers:
+      clinic: First Division
+      year: 1848
+      deaths: 45
+      births: 3556
+      condition: post-full-prophylaxis
+  - metric: maternal_mortality_rate_minimum
+    value: 0.23
+    unit: percent
+    qualifiers:
+      clinic: First Division
+      period: best months 1847-1848
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:second-clinic-baseline
+  evidence_type: observation
+  summary: 'The Second Division (midwives, no autopsy contact) consistently showed
+    approximately 2-3% mortality throughout 1841-1846. In 1848, after First Division
+    implemented full handwashing, Second Division rate was 1.33% — slightly higher
+    than First Division''s 1.27%. The convergence of rates after handwashing confirmed
+    the causal role of cadaveric contamination.
+
+    '
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I, Table
+  observations:
+  - metric: maternal_mortality_rate
+    value: 2
+    unit: percent
+    qualifiers:
+      clinic: Second Division
+      period: 1841-1846
+      type: approximate average
+  - metric: maternal_mortality_rate
+    value: 1.33
+    unit: percent
+    qualifiers:
+      clinic: Second Division
+      year: 1848
+  - metric: clinic_rate_comparison
+    qualitative_value: First Division ~10% vs Second Division ~2% before intervention;
+      First Division 1.27% vs Second Division 1.33% after handwashing
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:kolletschka
+  evidence_type: observation
+  summary: 'Professor Jakob Kolletschka, a forensic pathologist and friend of Semmelweis,
+    died in March 1847 after a student accidentally cut his finger during autopsy.
+    Kolletschka''s autopsy revealed pathology identical to puerperal fever victims:
+    lymphangitis, peritonitis, pleuritis, pericarditis, meningitis — except for
+    the genital organs. This was the key causal inference linking cadaveric particles
+    to childbed fever.
+
+    '
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I
+  observations:
+  - metric: kolletschka_pathology
+    qualitative_value: Autopsy findings identical to puerperal fever — lymphangitis,
+      peritonitis, pleuritis, pericarditis, meningitis
+    qualifiers:
+      cause_of_death: scalpel wound during autopsy
+      year: 1847
+      month: March
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:budapest-results
+  evidence_type: observation
+  summary: 'St. Rokus Hospital Budapest (1851-1857): overall maternal mortality from
+    childbed fever 0.85%, versus 10-15% at Prague and Vienna during the same period.
+    University of Pest: 0.39% in first year as Professor (appointed 1855). Rate of
+    0.9% during 1859-1860 despite poor facility conditions.
+
+    '
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part II
+  observations:
+  - metric: maternal_mortality_rate
+    value: 0.85
+    unit: percent
+    qualifiers:
+      hospital: St. Rokus Hospital, Budapest
+      period: 1851-1857
+      role: Head of Obstetrics
+  - metric: maternal_mortality_rate
+    value: 0.39
+    unit: percent
+    qualifiers:
+      hospital: University of Pest
+      period: first year as Professor (1855)
+  - metric: maternal_mortality_rate
+    value: 0.9
+    unit: percent
+    qualifiers:
+      hospital: University of Pest
+      period: 1859-1860
+  - metric: comparison_mortality
+    qualitative_value: Prague and Vienna 10-15% during 1851-1857
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:initial-drop
+  evidence_type: observation
+  summary: 'The immediate results of the handwashing intervention in June-August 1847
+    were dramatic: maternal mortality from childbed fever dropped from 7.8% (pre-intervention
+    average for First Division) to 1.8% in the first three months. This approximately
+    77% relative reduction occurred within weeks of implementing the chlorine handwashing
+    policy.
+
+    '
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I
+  observations:
+  - metric: mortality_before_intervention
+    value: 7.8
+    unit: percent
+    qualifiers:
+      period: before May 1847
+  - metric: mortality_after_intervention
+    value: 1.8
+    unit: percent
+    qualifiers:
+      period: June-August 1847
+  - metric: relative_reduction
+    qualitative_value: Approximately 77% relative reduction in first three months
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:rejection-and-vindication
+  evidence_type: observation
+  summary: 'Semmelweis''s doctrine was initially rejected by leading European physicians
+    including Virchow and Scanzoni. However, acceptance grew: Virchow acknowledged
+    Semmelweis''s merit in 1864. Scanzoni conceded in 1867 that puerperal fever was
+    "almost unanimously considered an infectious disease" and credited Semmelweis''s
+    "restless and self-sacrificing efforts." Full vindication came after Pasteur''s
+    germ theory and Lister''s antiseptic surgery in the 1860s-1870s.
+
+    '
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part II
+  observations:
+  - metric: rejection_timeline
+    qualitative_value: Initial rejection 1847-1860; gradual acceptance 1860s; full
+      vindication post-Pasteur/Lister
+  - metric: virchow_acknowledgment
+    qualitative_value: '"I recognize the merit of the Vienna school and most specifically
+      that of Semmelweis" (1864 lecture)'
+  - metric: scanzoni_acknowledgment
+    qualitative_value: '"Semmelweis has rendered a great service to lying-in women in
+      our hospitals" (1867 textbook 4th edition)'
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:mortality-reduction-summary
+  evidence_type: observation
+  summary: 'Overall mortality reduction: First Division went from ~10% average (1841-1846)
+    to 1.27% (1848), an approximately 87% relative reduction. After full prophylaxis
+    (inter-patient handwashing + isolation), the First Division rate dropped below
+    the Second Division rate (1.27% vs 1.33% in 1848).
+
+    '
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I
+  observations:
+  - metric: mortality_reduction_relative
+    qualitative_value: From ~10% to ~1.27% (approximately 87% relative reduction)
+    qualifiers:
+      comparison: pre vs post full handwashing intervention
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+relations:
+- id: rel:1
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:kolletschka
+- id: rel:2
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:mortality-first-clinic-before
+- id: rel:3
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:mortality-first-clinic-after
+- id: rel:4
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:initial-drop
+- id: rel:5
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:second-clinic-baseline
+- id: rel:6
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:kolletschka
+- id: rel:7
+  subject_ref: stmt:c4
+  predicate: supported_by
+  object_ref: ev:kolletschka
+- id: rel:8
+  subject_ref: stmt:c5
+  predicate: supported_by
+  object_ref: ev:mortality-first-clinic-after
+- id: rel:9
+  subject_ref: stmt:c8
+  predicate: supported_by
+  object_ref: ev:budapest-results
+- id: rel:10
+  subject_ref: stmt:c9
+  predicate: supported_by
+  object_ref: ev:rejection-and-vindication
+- id: rel:11
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:mortality-reduction-summary
+- id: rel:12
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:13
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:14
+  subject_ref: stmt:c3
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:15
+  subject_ref: stmt:c1
+  predicate: limited_by
+  object_ref: stmt:l2
+- id: rel:16
+  subject_ref: stmt:c2
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:17
+  subject_ref: stmt:c3
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:18
+  subject_ref: stmt:c4
+  predicate: depends_on
+  object_ref: stmt:m2
+- id: rel:19
+  subject_ref: stmt:c5
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:20
+  subject_ref: stmt:c6
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:21
+  subject_ref: stmt:c7
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:22
+  subject_ref: stmt:c8
+  predicate: depends_on
+  object_ref: stmt:c2
+- id: rel:23
+  subject_ref: stmt:c9
+  predicate: limited_by
+  object_ref: stmt:l2
+- id: rel:24
+  subject_ref: stmt:c10
+  predicate: depends_on
+  object_ref: stmt:c9
+- id: rel:25
+  subject_ref: art:paper
+  predicate: uses
+  object_ref: art:vienna-hospital-records
+- id: rel:26
+  subject_ref: art:paper
+  predicate: uses
+  object_ref: art:kolletschka-case
+- id: rel:27
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:pasteur-germ-theory
+  citation_intent: other
+- id: rel:28
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:lister-antisepsis
+  citation_intent: other
+actions: []
+extensions:
+  paper:
+    venue: 'Monograph (Pest, Wien und Leipzig: C.A. Hartleben''s Verlags-Expedition)'
+    year: 1861
+    observation_year: 1847
+    discipline: Medicine / Epidemiology / Infection Control
+    sections:
+      part_i: Observations, mortality data, handwashing intervention
+      part_ii: Theoretical discussion, etiology of puerperal fever
+    methodology_type: observational_comparative_study
+    evidence_type_distribution:
+      quantitative: 8
+      qualitative: 6
+      note: 'Dense sidecar covering the complete Semmelweis narrative: background,
+        Kolletschka insight, handwashing intervention, monthly mortality data, extension
+        of prophylaxis, Budapest replication, medical establishment rejection, and
+        posthumous vindication.
+
+        '
+abstract: Through careful observation of mortality rates in the two maternity clinics
+  at the Vienna General Hospital, and the introduction of chlorinated lime handwashing
+  for physicians moving from autopsy to delivery, the mortality from puerperal fever
+  in the First Division was reduced from approximately 10% to approximately 1-2%,
+  matching the rates of the Second Division staffed by midwives.
+venue: Published 1861 (observations from 1847)
+year: 1847
+keywords:
+- handwashing
+- puerperal fever
+- infection control
+- childbed fever
+- chlorinated lime
+- antisepsis
+- hospital hygiene
+- maternal mortality
+- cadaverous particles
+- Kolletschka
+- autoinfection
+- germ theory
+- Semmelweis doctrine
+authors:
+- name: Ignaz Semmelweis
+  affiliation: Vienna General Hospital
+  role: first
+venue_type: published
+resources:
+  facilities:
+  - Vienna General Hospital, First and Second Maternity Divisions
+  - St. Rokus Hospital, Budapest
+  - University of Pest
+  human:
+    participants: 0
+    annotators: 0
+language: de
+access: open
+record_status: active

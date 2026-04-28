@@ -1,0 +1,520 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:examples/moore-law/1.0.0
+profile: paper@1
+subject_ref: art:paper
+title: Cramming more components onto integrated circuits
+summary: 'Agent-facing sidecar for Gordon Moore''s 1965 paper in Electronics Magazine,
+  which observed that the number of transistors on an integrated circuit had been
+  doubling approximately every year since 1959 and predicted this trend would continue
+  for at least a decade. This empirical observation, later refined to a doubling every
+  two years (and popularly quoted as 18 months), became known as Moore''s Law. The
+  paper also argues that increasing integration reduces cost per component, identifies
+  an optimal component count per chip at any technology generation, and projects 65,000
+  components on a single chip by 1975. Evidence is observational and extrapolative
+  — no theoretical derivation or physical law is claimed.
+
+  '
+coverage:
+  statements: main_claims_only
+  evidence: key_evidence_only
+license: CC-BY-4.0
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: electronics-magazine-1965
+freshness:
+  as_of: '2026-03-19T00:00:00Z'
+  update_policy: immutable
+provenance:
+  origin: author
+  actor:
+    name: Knows Example Authors
+    type: org
+  generated_at: '2026-03-19T00:00:00Z'
+  method: manual_curation
+artifacts:
+- id: art:paper
+  artifact_type: paper
+  role: subject
+  title: Cramming more components onto integrated circuits
+  identifiers:
+    doi: 10.1109/N-SSC.2006.4785860
+  representations:
+  - id: rep:pdf
+    media_type: application/pdf
+    locator:
+      type: url
+      value: https://ieeexplore.ieee.org/document/4785860
+- id: art:kilby-ic
+  artifact_type: paper
+  role: cited
+  title: Kilby's invention of the integrated circuit
+  identifiers:
+    custom:
+      reference: Kilby 1958, Texas Instruments
+  representations: []
+- id: art:noyce-planar
+  artifact_type: paper
+  role: cited
+  title: Noyce's planar integrated circuit (monolithic IC)
+  identifiers:
+    custom:
+      reference: Noyce 1959, Fairchild Semiconductor
+  representations: []
+- id: art:moore-1975
+  artifact_type: paper
+  role: cited
+  title: Progress in Digital Integrated Electronics (Moore, 1975 revision)
+  identifiers:
+    custom:
+      reference: Moore 1975, IEDM Technical Digest
+  representations: []
+- id: art:dennard-scaling
+  artifact_type: paper
+  role: cited
+  title: Design of ion-implanted MOSFET's with very small physical dimensions (Dennard
+    scaling)
+  identifiers:
+    doi: 10.1109/JSSC.1974.1050511
+  representations: []
+statements:
+- id: stmt:c1
+  statement_type: claim
+  modality: empirical
+  text: 'The number of transistors (components) on an integrated circuit doubles approximately
+    every year. Moore observed that the most cost-effective number of components per
+    chip had grown from 1 (1959) to roughly 50-60 (1965), following an exponential
+    trend. He projected this doubling rate would continue for at least a decade. In
+    1975, Moore revised the doubling period to approximately every two years, and
+    the popular formulation settled on 18 months (combining Moore''s transistor density
+    observation with Dennard scaling improvements in clock speed).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: pp. 114-117
+    quote: The complexity for minimum component costs has increased at a rate of roughly
+      a factor of two per year
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c2
+  statement_type: claim
+  modality: empirical
+  text: 'By 1975, it would be possible to have as many as 65,000 components on a single
+    silicon chip. This prediction was extrapolated from the 1959-1965 data trend of
+    annual doubling: starting from approximately 50 components in 1965, ten more doublings
+    by 1975 would yield 2^10 * 50 ~ 65,000 components. This prediction proved remarkably
+    accurate — the Intel 8080 (1974) had ~4,500 transistors, the 8085 (1976) had ~6,500,
+    and the 16-bit processors of the late 1970s approached the predicted range.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: p. 115
+    quote: by 1975, the number of components per integrated circuit for minimum cost
+      will be 65,000
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c3
+  statement_type: claim
+  modality: empirical
+  text: 'Increasing integration reduces the manufacturing cost per component. At any
+    given time there exists an optimal number of components per chip that minimizes
+    the cost per component — too few components underutilize the silicon area, while
+    too many decrease yield due to defect density. As manufacturing technology improves
+    (higher yield, finer lithography), this optimum shifts to higher component counts.
+    The economic driving force of integration is therefore cost reduction, not merely
+    technical achievement.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: pp. 114-115
+    quote: the cost per component is nearly inversely proportional to the number of
+      components
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c4
+  statement_type: claim
+  modality: empirical
+  text: 'Integrated electronics will lead to practical home computers, automatic controls
+    for automobiles, and personal portable communications equipment. Moore envisions
+    that the economics of integration will make complex electronic systems available
+    to ordinary consumers, fundamentally transforming electronics from a specialist
+    industrial tool to a consumer commodity.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: p. 114
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:m1
+  statement_type: method
+  modality: descriptive
+  text: 'Moore''s methodology is empirical observation and log-linear extrapolation
+    from manufacturing data. He plots the number of components on the most cost-effective
+    integrated circuits from 1959 to 1965 on a semi-logarithmic scale and observes
+    a straight line (exponential growth). The extrapolation to 1975 assumes this trend
+    continues at the same rate. No physical or theoretical model is proposed to explain
+    the doubling — it is presented as an empirical regularity driven by concurrent
+    improvements in lithographic resolution, wafer size, defect density reduction,
+    and circuit design cleverness.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: pp. 114-115, Figure 1
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:a1
+  statement_type: assumption
+  modality: descriptive
+  text: 'The extrapolation assumes that the manufacturing improvements driving the
+    doubling trend — advances in photolithography, increases in wafer diameter, reductions
+    in defect density, and innovations in circuit design techniques — will continue
+    at their historical rate for at least the next decade (1965-1975). Moore does
+    not claim any physical necessity for this; it is an assumption about the pace
+    of engineering progress and economic investment in semiconductor R&D.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: pp. 115-116
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:l1
+  statement_type: limitation
+  modality: descriptive
+  text: 'Moore''s Law is an empirical observation and economic prediction, not a physical
+    law. It has no theoretical derivation and must eventually encounter fundamental
+    physical limits: atomic scale (transistor feature sizes approaching atomic dimensions),
+    quantum tunneling (leakage current increasing exponentially as gate oxide thins),
+    and thermodynamic limits (Landauer''s principle sets minimum energy per bit erasure
+    at kT*ln(2)). Dennard scaling broke down around 2006 (power density no longer
+    decreased with smaller transistors), and the doubling period has progressively
+    lengthened since approximately 2012. Moore himself acknowledged the trend cannot
+    continue indefinitely.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: p. 117
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+evidence:
+- id: ev:component-trend-data
+  evidence_type: observation
+  summary: 'Moore presents a log-linear plot (Figure 1) of the number of components
+    on the most economical integrated circuit from 1959 to 1965. The data points show
+    exponential growth from a single transistor in 1959 to approximately 50-60 components
+    per chip in 1965, consistent with a doubling period of approximately one year.
+    This constitutes 6 data points spanning 6 years of the nascent IC industry.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Figure 1, p. 115
+  observations:
+  - metric: components_1959
+    value: 1
+    unit: transistors per chip
+    qualifiers:
+      year: 1959
+      note: first planar transistor IC
+  - metric: components_1962
+    value: 8
+    unit: components per chip
+    qualifiers:
+      year: 1962
+      note: approximate from plot
+  - metric: components_1965
+    value: 50
+    unit: components per chip
+    qualifiers:
+      year: 1965
+      note: most cost-effective IC, approximate
+  - metric: doubling_period
+    value: 1
+    unit: year
+    qualifiers:
+      observation_period: 1959-1965
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:1975-prediction
+  evidence_type: observation
+  summary: 'Extrapolating the observed doubling trend from 1965 to 1975 (ten more
+    doublings), Moore predicts 65,000 components per chip by 1975. This prediction
+    was approximately validated by actual industry development: the 16K DRAM (16,384
+    transistors) appeared in 1976, and the Intel 8086 (29,000 transistors) in 1978.
+    Moore''s 1975 revision adjusted the doubling rate to every two years for the post-1975
+    era.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: p. 115
+  observations:
+  - metric: predicted_components_1975
+    value: 65000
+    unit: components per chip
+    qualifiers:
+      basis: 10 doublings from ~60 in 1965
+      type: extrapolation
+  - metric: actual_16k_dram_1976
+    value: 16384
+    unit: transistors
+    qualifiers:
+      year: 1976
+      product: 16K DRAM
+      note: within order of magnitude of prediction
+  - metric: actual_8086_1978
+    value: 29000
+    unit: transistors
+    qualifiers:
+      year: 1978
+      product: Intel 8086
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:cost-per-component
+  evidence_type: observation
+  summary: 'Moore presents a cost analysis showing that the cost per component decreases
+    as the number of components per chip increases, up to an optimum point beyond
+    which yield losses from manufacturing defects cause costs to rise again. This
+    optimum shifts to higher component counts each year as manufacturing processes
+    improve. The curve of cost per component versus number of components has a U-shape,
+    with the minimum moving rightward over time.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: p. 115, Figure 2
+  observations:
+  - metric: cost_trend
+    qualitative_value: Cost per component decreases nearly inversely with component
+      count up to the yield-limited optimum
+    qualifiers:
+      shape: U-shaped curve with minimum shifting right annually
+  - metric: yield_constraint
+    qualitative_value: Defect density on wafer imposes upper bound on economical component
+      count; this bound relaxes with process improvements
+    qualifiers:
+      driving_factors: lithographic resolution, wafer diameter, defect density reduction
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+relations:
+- id: rel:1
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:component-trend-data
+- id: rel:2
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:1975-prediction
+- id: rel:3
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:component-trend-data
+- id: rel:4
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:cost-per-component
+- id: rel:5
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:1975-prediction
+- id: rel:6
+  subject_ref: stmt:c1
+  predicate: uses
+  object_ref: stmt:m1
+- id: rel:7
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:8
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:9
+  subject_ref: stmt:c4
+  predicate: depends_on
+  object_ref: stmt:c3
+- id: rel:10
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:11
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:12
+  subject_ref: stmt:c1
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:13
+  subject_ref: stmt:c2
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:14
+  subject_ref: stmt:c4
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:15
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:kilby-ic
+  citation_intent: background
+- id: rel:16
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:noyce-planar
+  citation_intent: background
+- id: rel:17
+  subject_ref: stmt:c1
+  predicate: challenged_by
+  object_ref: art:moore-1975
+- id: rel:18
+  subject_ref: stmt:l1
+  predicate: depends_on
+  object_ref: art:dennard-scaling
+actions: []
+extensions:
+  paper:
+    venue: Electronics Magazine, Volume 38, Number 8, pp. 114-117
+    year: 1965
+    discipline: Semiconductor Engineering / Microelectronics
+    author_affiliation: Fairchild Semiconductor
+    sections:
+      introduction: pp. 114 (vision for integrated electronics in consumer applications)
+      trend_observation: pp. 114-115 (component count doubling, Figure 1)
+      cost_analysis: p. 115 (cost per component curve, Figure 2)
+      predictions: pp. 115-117 (65,000 components by 1975, future applications)
+    methodology_type: empirical_observation_and_extrapolation
+    evidence_type_distribution:
+      observations: 3
+      proofs: 0
+      quantitative: 5
+      qualitative: 2
+      note: 'This is a short visionary paper (4 pages) based on empirical manufacturing
+        data from the first 6 years of the integrated circuit industry (1959-1965).
+        It contains no theoretical derivation — Moore''s Law is an empirical regularity,
+        not a physical law. The prediction proved remarkably durable: transistor counts
+        continued to double roughly every 2 years for over 50 years, though the pace
+        has slowed since approximately 2012.
+
+        '
+abstract: The future of integrated electronics is the future of electronics itself.
+  The advantages of integration will bring about a proliferation of electronics, pushing
+  this science into many new areas. The complexity for minimum component costs has
+  increased at a rate of roughly a factor of two per year. Certainly over the short
+  term this rate can be expected to continue, if not to increase.
+venue: Electronics Magazine
+year: 1965
+keywords:
+- Moore law
+- integrated circuit
+- transistor density
+- semiconductor
+- scaling
+- cost per component
+- microelectronics
+- VLSI
+- exponential growth
+- prediction
+authors:
+- name: Gordon E. Moore
+  affiliation: Fairchild Semiconductor
+  role: first
+venue_type: published
+resources:
+  facilities:
+  - Fairchild Semiconductor fabrication facility
+language: en
+access: open
+record_status: active

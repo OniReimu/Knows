@@ -1,0 +1,653 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:examples/pauling/1.0.0
+profile: paper@1
+subject_ref: art:paper
+title: The Nature of the Chemical Bond. Application of Results Obtained from the Quantum
+  Mechanics and from a Theory of Paramagnetic Susceptibility to the Structure of Molecules
+summary: 'Agent-facing sidecar for Pauling''s 1931 paper deriving the theory of directed
+  valence bonds from quantum mechanics. Covers the central results of orbital hybridization
+  (sp3 tetrahedral, dsp2 square planar, d2sp3 octahedral), the quantitative bond-strength
+  criterion based on eigenfunction overlap, predictions of bond angles for water (90
+  degrees from pure p) and carbon (109 degrees 28 minutes from sp3), free vs. restricted
+  rotation about single and double bonds, and a complete theory of magnetic moments
+  of transition-metal complexes that distinguishes covalent from ionic bonding.
+
+  '
+coverage:
+  statements: main_claims_only
+  evidence: key_evidence_only
+license: CC-BY-4.0
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: jacs-1931-v53-p1367
+freshness:
+  as_of: '2026-03-25T00:00:00Z'
+  update_policy: immutable
+provenance:
+  origin: author
+  actor:
+    name: Knows Example Authors
+    type: org
+  generated_at: '2026-03-25T00:00:00Z'
+  method: manual_curation
+artifacts:
+- id: art:paper
+  artifact_type: paper
+  role: subject
+  title: The Nature of the Chemical Bond. Application of Results Obtained from the
+    Quantum Mechanics and from a Theory of Paramagnetic Susceptibility to the Structure
+    of Molecules
+  identifiers:
+    doi: 10.1021/ja01355a027
+    custom:
+      journal: Journal of the American Chemical Society
+      volume: '53'
+      issue: '4'
+      pages: 1367-1400
+      year: '1931'
+  representations:
+  - id: rep:pdf
+    media_type: application/pdf
+    locator:
+      type: url
+      value: https://doi.org/10.1021/ja01355a027
+- id: art:heitler-london
+  artifact_type: paper
+  role: cited
+  title: Heitler and London's quantum mechanical treatment of the hydrogen molecule
+    (1927)
+  identifiers:
+    custom:
+      reference: Heitler and London, Z. Physik 44, 455 (1927)
+  representations: []
+- id: art:lewis-1916
+  artifact_type: paper
+  role: cited
+  title: Lewis's electron-pair bond theory (1916)
+  identifiers:
+    custom:
+      reference: G. N. Lewis 1916
+  representations: []
+- id: art:slater-1931
+  artifact_type: paper
+  role: cited
+  title: Slater's independent derivation of 90-degree bond angles for p eigenfunctions
+    and existence of tetrahedral eigenfunctions
+  identifiers:
+    custom:
+      reference: J. C. Slater, Phys. Rev. (1931)
+  representations: []
+- id: art:werner-coordination
+  artifact_type: paper
+  role: cited
+  title: Werner's coordination theory assigning square planar geometry to palladous
+    and platinous compounds
+  identifiers:
+    custom:
+      reference: Werner coordination chemistry
+  representations: []
+statements:
+- id: stmt:c1
+  statement_type: claim
+  modality: theoretical
+  text: 'The electron-pair bond is formed through the interaction of an unpaired electron
+    on each of two atoms. The spins of the electrons are opposed when the bond is
+    formed, and the bond energy arises primarily from the quantum mechanical resonance
+    (exchange) energy, which depends on electrostatic forces rather than magnetic
+    interactions.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section I, The Electron-Pair Bond
+    quote: The electron-pair bond is formed through the interaction of an unpaired
+      electron on each of two atoms
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:c2
+  statement_type: claim
+  modality: theoretical
+  text: 'Of two eigenfunctions with the same dependence on r, the one with the larger
+    value in the bond direction will give rise to the stronger bond (Rule 5). This
+    maximum-overlap principle determines the spatial orientation and relative strength
+    of bonds. A p eigenfunction, with maximum value sqrt(3) approx 1.732 along its
+    axis, forms stronger bonds than an s eigenfunction (value 1 in all directions),
+    and the best sp3 tetrahedral eigenfunction reaches a maximum of 2.000.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section I, Rules 5 and 6
+    quote: the one with the larger value in the bond direction will give rise to the
+      stronger bond
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:c3
+  statement_type: claim
+  modality: theoretical
+  text: 'When the s-p energy separation is small relative to the bond energy, s and
+    p eigenfunctions combine to form four equivalent tetrahedral bond eigenfunctions
+    (sp3 hybridization) directed toward the corners of a regular tetrahedron at mutual
+    angles of 109 degrees 28 minutes. Each has a bond strength of 2.000. This provides
+    the quantum mechanical justification for the chemist''s tetrahedral carbon atom
+    in diamond and all aliphatic compounds, as well as for tetrahedral nitrogen (in
+    NH4+) and phosphorus atoms.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section I, The Tetrahedral Carbon Atom
+    quote: an atom in which only s and p eigenfunctions contribute to bond formation
+      and in which the quantization in polar coordinates is broken can form one, two,
+      three, or four equivalent bonds, which are directed toward the corners of a
+      regular tetrahedron
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:c4
+  statement_type: claim
+  modality: theoretical
+  text: 'When s-p quantization is NOT broken (bond energy insufficient to overcome
+    the s-p separation), two unpaired p electrons form bonds at approximately 90 degrees.
+    This explains the bent geometry of H2O (bond angle 90 degrees or slightly larger),
+    the pyramidal structure of NH3, and the 90-degree bonds in H2S, H2Se, and H2Te.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section I, s and p Eigenfunctions
+    quote: p electrons will form stronger bonds than s electrons, and that the bonds
+      formed by p electrons in an atom tend to be oriented at right angles to one
+      another
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:c5
+  statement_type: claim
+  modality: theoretical
+  text: 'A single d eigenfunction combined with s and three p eigenfunctions (dsp2
+    hybridization) gives four strong square planar bonds of strength 2.694, directed
+    toward the corners of a square. This explains the square planar geometry of bivalent
+    Ni, Pd, and Pt complexes such as K2Ni(CN)4, K2PdCl4, and K2PtCl4, where eight
+    unshared d electrons occupy four of the five d orbitals.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section I, Bonds Involving d-Eigenfunctions
+    quote: with a single d eigenfunction no more than four strong bonds can be formed,
+      and these lie in a plane
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:c6
+  statement_type: claim
+  modality: theoretical
+  text: 'Two d eigenfunctions combined with s and three p eigenfunctions (d2sp3 hybridization)
+    give six equivalent octahedral bond eigenfunctions of strength 2.923, directed
+    toward the corners of a regular octahedron. No stronger octahedral bonds can be
+    formed even with more d eigenfunctions available. This accounts for the six-coordinate
+    complexes of transition metals such as [Fe(CN)6]3-, [PtCl6]2-, and [Co(NH3)6]3+.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section I, Bonds Involving d-Eigenfunctions
+    quote: six equivalent eigenfunctions can be formed... These form strong bonds,
+      of strength 2.923, directed toward the corners of a regular octahedron
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:c7
+  statement_type: claim
+  modality: theoretical
+  text: 'Each tetrahedral bond eigenfunction is cylindrically symmetrical about its
+    bond direction, so bond energy is independent of orientation about a single bond
+    (free rotation). A double bond lacks this symmetry, preventing free rotation and
+    giving rise to distinct cis and trans isomers separated by 180 degrees. This provides
+    the quantum mechanical basis for the long-known phenomenon of geometric isomerism
+    about double bonds.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section I, Free or Restricted Rotation
+    quote: there are two stable states for a simple compound involving a double bond,
+      a cis and a trans state, differing in orientation by 180 degrees. There is no
+      free rotation about a double bond
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:m1
+  statement_type: method
+  modality: descriptive
+  text: 'Pauling applies the variational method of quantum mechanics to determine
+    the optimal linear combinations of atomic s, p, and d eigenfunctions for bond
+    formation. The coefficients in these linear combinations are chosen to maximize
+    the overlap (concentration) of the bond eigenfunction in the direction of the
+    bonded atom, subject to orthogonality and normalization constraints. Bond strength
+    is quantified as the maximum value of the angular part of the eigenfunction. Results
+    are correlated with experimental data from crystal structures (x-ray), band spectra,
+    electric dipole moments, and thermochemistry.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section I, derivation outline
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+evidence:
+- id: ev:bond-strengths
+  evidence_type: observation
+  summary: 'Quantitative bond strengths calculated from the angular parts of hybridized
+    eigenfunctions, providing a numerical ranking of bond-forming power for different
+    hybridization schemes.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section I, throughout
+  observations:
+  - metric: s_eigenfunction_strength
+    value: 1.0
+    qualifiers:
+      type: spherically symmetric, weakest bond
+  - metric: p_eigenfunction_strength
+    value: 1.732
+    qualifiers:
+      type: sqrt(3), stronger than s, bonds at 90 degrees
+  - metric: sp3_tetrahedral_strength
+    value: 2.0
+    qualifiers:
+      type: four equivalent bonds at 109 degrees 28 minutes
+  - metric: sp2_trigonal_strength
+    value: 1.991
+    qualifiers:
+      type: three equivalent bonds at 120 degrees in a plane
+  - metric: dsp2_square_planar_strength
+    value: 2.694
+    qualifiers:
+      type: four bonds at 90 degrees in a plane, one d orbital used
+  - metric: d2sp3_octahedral_strength
+    value: 2.923
+    qualifiers:
+      type: six equivalent bonds, two d orbitals used
+  - metric: sd3p3_tetrahedral_with_d_strength
+    value: 2.95
+    qualifiers:
+      type: four bonds using three d eigenfunctions, nearly maximum
+  - metric: spd_best_single_bond_strength
+    value: 3.0
+    qualifiers:
+      type: maximum possible from s + p + d combination
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: ev:bond-angles
+  evidence_type: observation
+  summary: 'Crystal structure data (Table I in the paper) confirming predicted bond
+    angles for various compounds. Quadrivalent carbon and nitrogen show tetrahedral
+    angles (109.5 degrees), while heavier atoms forming only two or three bonds show
+    angles closer to 90 degrees.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Table I, The Angles between Bonds
+  observations:
+  - metric: tetrahedral_angle
+    value: 109.5
+    unit: degrees
+    qualifiers:
+      compounds: diamond, GeI4, SnI4, As2O3, Sb2O3, NaClO3, KClO3, KBrO3
+      note: verified by x-ray crystal structure
+  - metric: As_bond_angle
+    value: 97
+    unit: degrees
+    qualifiers:
+      compound: elemental arsenic
+      bonds: 3
+  - metric: Sb_bond_angle
+    value: 96
+    unit: degrees
+    qualifiers:
+      compound: elemental antimony
+      bonds: 3
+  - metric: Se_bond_angle
+    value: 105
+    unit: degrees
+    qualifiers:
+      compound: elemental selenium
+      bonds: 2
+  - metric: Te_bond_angle
+    value: 102
+    unit: degrees
+    qualifiers:
+      compound: elemental tellurium
+      bonds: 2
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: ev:magnetic-moments
+  evidence_type: observation
+  summary: 'Magnetic susceptibility data for iron-group ions and transition-metal
+    complexes (Tables II-IV in the paper) demonstrating that magnetic moments are
+    determined by the number of unpaired electrons via mu_S = 2*sqrt(S(S+1)). Complexes
+    with electron-pair bonds (e.g., ferrocyanide, diamagnetic) are distinguished from
+    those with ionic bonds (e.g., ferric fluoride, paramagnetic) by their different
+    magnetic moments.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section II, Tables II-IV
+  observations:
+  - metric: Fe(CN)6_3minus_moment
+    value: 2.0
+    unit: Bohr magnetons
+    qualifiers:
+      compound: K3[Fe(CN)6]
+      bond_type: electron-pair (d2sp3)
+      unpaired_electrons: 1
+  - metric: Fe(CN)6_4minus_moment
+    value: 0.0
+    unit: Bohr magnetons
+    qualifiers:
+      compound: K4[Fe(CN)6].3H2O
+      bond_type: electron-pair (d2sp3)
+      unpaired_electrons: 0
+  - metric: FeF6_moment
+    value: 5.97
+    unit: Bohr magnetons
+    qualifiers:
+      compound: (NH4)3[FeF6.H2O]
+      bond_type: ionic
+      unpaired_electrons: 5
+  - metric: K2Ni(CN)4_moment
+    value: 0.0
+    unit: Bohr magnetons
+    qualifiers:
+      compound: K2Ni(CN)4
+      bond_type: dsp2 square planar
+      note: diamagnetic, confirms square planar geometry
+  - metric: Ni_CO_4_moment
+    value: 0.0
+    unit: Bohr magnetons
+    qualifiers:
+      compound: Ni(CO)4
+      bond_type: tetrahedral sp3
+      note: diamagnetic, all d electrons paired
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: ev:s-p-energy-criterion
+  evidence_type: observation
+  summary: 'Pauling establishes a quantitative criterion for whether hybridization
+    occurs: the s-p quantization is broken (hybridization happens) when bond energy
+    exceeds the s-p energy separation. For carbon, the s-p separation is approximately
+    9.3 eV (~200,000 cal/mol) while single bond energy is approximately 100,000 cal/mol;
+    four bonds provide approximately 400,000 cal/mol total, easily breaking the quantization.
+    For bivalent oxygen, only approximately 200,000 cal/mol bond energy is available
+    versus approximately 400,000 cal/mol for promoting two s electrons, so p eigenfunctions
+    are retained and 90-degree bonds result.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Section I, Change of Quantization
+  observations:
+  - metric: carbon_s_p_separation
+    value: 9.3
+    unit: eV
+    qualifiers:
+      note: approximately 200,000 cal/mol
+  - metric: single_bond_energy
+    qualitative_value: approximately 100,000 cal/mol
+    qualifiers:
+      note: order of magnitude for carbon
+  - metric: carbon_4_bonds_energy
+    qualitative_value: approximately 400,000 cal/mol
+    qualifiers:
+      note: exceeds s-p separation, hybridization occurs
+  - metric: oxygen_available_bond_energy
+    qualitative_value: approximately 200,000 cal/mol
+    qualifiers:
+      note: two bonds only, does not overcome 400,000 cal/mol for two s electrons
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+relations:
+- id: rel:1
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:bond-strengths
+- id: rel:2
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:bond-angles
+- id: rel:3
+  subject_ref: stmt:c4
+  predicate: supported_by
+  object_ref: ev:bond-angles
+- id: rel:4
+  subject_ref: stmt:c4
+  predicate: supported_by
+  object_ref: ev:s-p-energy-criterion
+- id: rel:5
+  subject_ref: stmt:c5
+  predicate: supported_by
+  object_ref: ev:bond-strengths
+- id: rel:6
+  subject_ref: stmt:c5
+  predicate: supported_by
+  object_ref: ev:magnetic-moments
+- id: rel:7
+  subject_ref: stmt:c6
+  predicate: supported_by
+  object_ref: ev:bond-strengths
+- id: rel:8
+  subject_ref: stmt:c6
+  predicate: supported_by
+  object_ref: ev:magnetic-moments
+- id: rel:9
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:10
+  subject_ref: stmt:c3
+  predicate: depends_on
+  object_ref: stmt:c2
+- id: rel:11
+  subject_ref: stmt:c4
+  predicate: depends_on
+  object_ref: stmt:c2
+- id: rel:12
+  subject_ref: stmt:c5
+  predicate: depends_on
+  object_ref: stmt:c2
+- id: rel:13
+  subject_ref: stmt:c6
+  predicate: depends_on
+  object_ref: stmt:c2
+- id: rel:14
+  subject_ref: stmt:c7
+  predicate: depends_on
+  object_ref: stmt:c3
+- id: rel:15
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:16
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:heitler-london
+  citation_intent: background
+- id: rel:17
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:lewis-1916
+  citation_intent: background
+- id: rel:18
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:slater-1931
+  citation_intent: other
+actions: []
+extensions:
+  paper:
+    venue: Journal of the American Chemical Society
+    year: 1931
+    discipline: Chemistry / Quantum Chemistry
+    sections:
+      section_I: The Electron-Pair Bond (pp. 1367-1386)
+      section_II: The Magnetic Moments of Molecules and Complex Ions (pp. 1386-1400)
+    methodology_type: theoretical_derivation_with_empirical_validation
+    evidence_type_distribution:
+      quantitative: 12
+      qualitative: 6
+      note: 'This is a theoretical paper deriving bond properties from quantum mechanics.
+        The primary contribution is the construction of hybridized eigenfunctions
+        and derivation of bond strengths, angles, and geometries from the variational
+        principle. Empirical validation comes from crystal structure data (Table I),
+        thermochemical bond energies, electric dipole moments, and magnetic susceptibility
+        measurements (Tables II-IV). The theory unifies Lewis''s electron-pair bond,
+        the tetrahedral carbon atom, and Werner''s coordination chemistry under a
+        single quantum mechanical framework.
+
+        '
+abstract: With the aid of the quantum mechanics there is formulated a set of rules
+  regarding electron-pair bonds, dealing particularly with the strength of bonds in
+  relation to the nature of the single-electron eigenfunctions involved. From s and
+  p eigenfunctions the best bond eigenfunctions are four equivalent tetrahedral eigenfunctions,
+  giving bonds directed toward the corners of a regular tetrahedron. A single d eigenfunction
+  with s and p gives four strong bonds in a square plane. Two d eigenfunctions with
+  s and p give six octahedral eigenfunctions. The magnetic moment of a complex ion
+  is determined by the number of unpaired electrons, permitting the distinction between
+  electron-pair bonds and ionic bonds from magnetic data.
+venue: Journal of the American Chemical Society
+year: 1931
+keywords:
+- chemical bond
+- quantum mechanics
+- hybridization
+- sp3
+- sp2
+- dsp2
+- d2sp3
+- tetrahedral
+- octahedral
+- square planar
+- bond angles
+- bond strength
+- electron-pair bond
+- directed valence
+- magnetic moments
+- transition metals
+- coordination compounds
+- free rotation
+- double bond
+- cis-trans isomerism
+authors:
+- name: Linus Pauling
+  affiliation: Gates Chemical Laboratory, California Institute of Technology
+  role: first
+venue_type: published
+resources:
+  facilities:
+  - Gates Chemical Laboratory, California Institute of Technology
+language: en
+access: subscription
+record_status: active

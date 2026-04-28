@@ -1,0 +1,265 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:reviews/resnet-review-agent-001/1.0.0
+profile: review@1
+subject_ref: art:reviewed-paper
+title: Agent Review of 'Deep Residual Learning for Image Recognition'
+summary: 'Structured agent-generated review of the ResNet paper (He et al., CVPR 2016).
+  Contains assessment of claims, identified strengths/weaknesses, reproducibility
+  checks, and recommendation. Linked to the original paper sidecar via cross-record
+  relations.
+
+  '
+coverage:
+  statements: exhaustive
+  evidence: key_evidence_only
+license: CC-BY-4.0
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: review-round-1
+freshness:
+  as_of: '2026-03-19T00:00:00Z'
+  update_policy: immutable
+provenance:
+  origin: machine
+  actor:
+    name: knows-reviewer-agent
+    type: tool
+    version: 0.1.0
+  generated_at: '2026-03-19T00:00:00Z'
+  method: extraction
+artifacts:
+- id: art:reviewed-paper
+  artifact_type: paper
+  role: subject
+  title: Deep Residual Learning for Image Recognition
+  identifiers:
+    doi: 10.1109/CVPR.2016.90
+    arxiv: '1512.03385'
+  representations: []
+  external_metadata_refs:
+  - standard: other
+    locator:
+      type: url
+      value: knows:examples/resnet/1.0.0
+- id: art:original-sidecar
+  artifact_type: other
+  role: supporting
+  title: Original KnowsRecord sidecar for ResNet
+  identifiers:
+    custom:
+      knows_record_id: knows:examples/resnet/1.0.0
+  representations: []
+statements:
+- id: stmt:s1
+  statement_type: claim
+  modality: normative
+  text: 'The degradation problem is convincingly demonstrated with controlled experiments
+    (Table 2, Figure 4) showing that deeper plain nets have higher training error,
+    ruling out overfitting as the cause.
+
+    '
+  about_ref: art:reviewed-paper
+  status: asserted
+  source_anchors: []
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: machine
+    actor:
+      name: knows-reviewer-agent
+      type: tool
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:s2
+  statement_type: claim
+  modality: normative
+  text: 'Comprehensive evaluation across multiple tasks (classification, detection,
+    segmentation) and datasets (ImageNet, CIFAR-10, PASCAL VOC, COCO) provides strong
+    evidence for the generality of residual learning.
+
+    '
+  about_ref: art:reviewed-paper
+  status: asserted
+  source_anchors: []
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: machine
+    actor:
+      name: knows-reviewer-agent
+      type: tool
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:s3
+  statement_type: claim
+  modality: normative
+  text: 'The method is elegant in its simplicity: identity shortcuts add zero parameters,
+    zero computation, and can be implemented with a single addition operation. This
+    makes adoption trivial.
+
+    '
+  about_ref: art:reviewed-paper
+  status: asserted
+  source_anchors: []
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: machine
+    actor:
+      name: knows-reviewer-agent
+      type: tool
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:w1
+  statement_type: limitation
+  modality: normative
+  text: 'The hypothesis that residual functions are easier to optimize than unreferenced
+    mappings (Section 3.1) remains unproven. The paper acknowledges this is "still
+    an open question" but presents it as the core motivation.
+
+    '
+  about_ref: art:reviewed-paper
+  status: asserted
+  source_anchors: []
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance:
+    origin: machine
+    actor:
+      name: knows-reviewer-agent
+      type: tool
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:w2
+  statement_type: limitation
+  modality: normative
+  text: 'The 1202-layer CIFAR-10 result (7.93%) is worse than the 110-layer version
+    (6.43%), attributed to overfitting. No regularization techniques are explored,
+    leaving open whether the degradation problem is truly solved or merely deferred
+    to extreme depths.
+
+    '
+  about_ref: art:reviewed-paper
+  status: asserted
+  source_anchors: []
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: machine
+    actor:
+      name: knows-reviewer-agent
+      type: tool
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:w3
+  statement_type: question
+  modality: normative
+  text: 'Error bars or confidence intervals are not reported for ImageNet results.
+    Only CIFAR-10 ResNet-110 reports std over 5 runs (6.61 +/- 0.16). For a paper
+    making strong claims about depth scaling, single-run ImageNet numbers reduce confidence.
+
+    '
+  about_ref: art:reviewed-paper
+  status: asserted
+  source_anchors: []
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance:
+    origin: machine
+    actor:
+      name: knows-reviewer-agent
+      type: tool
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:repro
+  statement_type: method
+  modality: descriptive
+  text: 'Reproducibility: PARTIAL. Training details are provided (SGD, mini-batch
+    256, lr schedule, weight decay, BN). Architecture fully specified in Table 1.
+    However, no code release, no random seed documentation, and ImageNet results are
+    single-run.
+
+    '
+  about_ref: art:reviewed-paper
+  status: asserted
+  source_anchors: []
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance:
+    origin: machine
+    actor:
+      name: knows-reviewer-agent
+      type: tool
+    generated_at: '2026-03-19T00:00:00Z'
+evidence:
+- id: ev:checklist
+  evidence_type: other
+  summary: 'Venue checklist assessment (retroactive CVPR-style): Novel contribution:
+    YES. Adequate evaluation: YES. Reproducibility: PARTIAL (no code, no seeds). Limitations
+    discussed: PARTIAL (1202-layer overfitting noted, but no theoretical analysis
+    of when residual learning fails). Broader impact: NOT DISCUSSED (pre-2020 norm).
+
+    '
+  source_anchors: []
+  provenance:
+    origin: machine
+    actor:
+      name: knows-reviewer-agent
+      type: tool
+    generated_at: '2026-03-19T00:00:00Z'
+relations:
+- id: rel:1
+  subject_ref: stmt:s1
+  predicate: supported_by
+  object_ref: knows:examples/resnet/1.0.0#stmt:c1
+- id: rel:2
+  subject_ref: stmt:s2
+  predicate: supported_by
+  object_ref: knows:examples/resnet/1.0.0#stmt:c4
+- id: rel:3
+  subject_ref: knows:examples/resnet/1.0.0#stmt:a1
+  predicate: challenged_by
+  object_ref: stmt:w1
+- id: rel:4
+  subject_ref: knows:examples/resnet/1.0.0#stmt:l1
+  predicate: challenged_by
+  object_ref: stmt:w2
+- id: rel:5
+  subject_ref: knows:examples/resnet/1.0.0#ev:imagenet-single
+  predicate: challenged_by
+  object_ref: stmt:w3
+- id: rel:6
+  subject_ref: art:reviewed-paper
+  predicate: cites
+  object_ref: art:original-sidecar
+  citation_intent: reviews
+actions: []
+extensions:
+  review:
+    venue_checklist: CVPR (retroactive)
+    recommendation: strong_accept
+    confidence: high
+    summary_assessment: 'Landmark paper that elegantly solves a critical optimization
+      problem. Strong empirical validation across tasks and datasets. Theoretical
+      motivation is intuitive but remains unproven. Minor concerns about single-run
+      results and extreme-depth overfitting do not undermine the core contribution.
+
+      '
+    scores:
+      novelty: 5
+      significance: 5
+      clarity: 4
+      correctness: 4
+      reproducibility: 3
+    strengths_count: 3
+    weaknesses_count: 3
+    questions_count: 1
+venue: CVPR 2016 (review of)
+year: 2016
+venue_type: other
+language: en
+access: open
+record_status: active

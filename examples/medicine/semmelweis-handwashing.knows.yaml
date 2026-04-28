@@ -1,0 +1,499 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:examples/semmelweis-handwashing/1.0.0
+profile: paper@1
+subject_ref: art:paper
+title: Die Aetiologie, der Begriff und die Prophylaxis des Kindbettfiebers
+summary: 'Agent-facing sidecar for Semmelweis''s work on puerperal fever (1847 observations,
+  published 1861). Documents his landmark finding that handwashing with chlorinated
+  lime dramatically reduced maternal mortality in the First Clinic of the Vienna General
+  Hospital, establishing the foundations of antiseptic practice decades before germ
+  theory.
+
+  '
+coverage:
+  statements: main_claims_only
+  evidence: key_evidence_only
+license: CC-BY-4.0
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: semmelweis-1861-monograph
+freshness:
+  as_of: '2026-03-19T00:00:00Z'
+  update_policy: immutable
+provenance:
+  origin: author
+  actor:
+    name: Knows Example Authors
+    type: org
+  generated_at: '2026-03-19T00:00:00Z'
+  method: manual_curation
+artifacts:
+- id: art:paper
+  artifact_type: paper
+  role: subject
+  title: Die Aetiologie, der Begriff und die Prophylaxis des Kindbettfiebers
+  identifiers:
+    custom:
+      reference: Semmelweis 1861
+      english_title: The Etiology, Concept, and Prophylaxis of Childbed Fever
+  representations:
+  - id: rep:monograph
+    media_type: text/plain
+    locator:
+      type: url
+      value: https://archive.org/details/dieaetiologieder00semm
+- id: art:vienna-hospital-records
+  artifact_type: dataset
+  role: supporting
+  title: Vienna General Hospital birth and death records (1841-1849)
+  identifiers:
+    custom:
+      reference: Administrative records, First and Second Obstetrical Clinics
+  representations: []
+- id: art:kolletschka-case
+  artifact_type: paper
+  role: supporting
+  title: Autopsy report of Prof. Jakob Kolletschka (1847)
+  identifiers:
+    custom:
+      reference: Kolletschka death from scalpel wound during autopsy
+  representations: []
+- id: art:pasteur-germ-theory
+  artifact_type: paper
+  role: cited
+  title: Pasteur's germ theory of disease (1860s–1870s)
+  identifiers:
+    custom:
+      reference: Pasteur 1861-1878
+  representations: []
+- id: art:lister-antisepsis
+  artifact_type: paper
+  role: cited
+  title: Lister, On the Antiseptic Principle in the Practice of Surgery (1867)
+  identifiers:
+    doi: 10.1016/S0140-6736(02)51827-4
+  representations: []
+statements:
+- id: stmt:c1
+  statement_type: claim
+  modality: empirical
+  text: 'Puerperal (childbed) fever is caused by "cadaverous particles" — decomposing
+    organic matter transmitted on the hands of physicians and medical students who
+    move directly from autopsy rooms to maternity wards without adequate hand cleansing.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I
+    quote: decaying animal-organic matter... conveyed to the individuals by the examining
+      fingers
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c2
+  statement_type: claim
+  modality: empirical
+  text: 'Handwashing with chlorinated lime solution (chlorina liquida) before examining
+    patients dramatically reduces maternal mortality from puerperal fever. The First
+    Clinic mortality rate dropped from approximately 10% to 1-2% after the intervention
+    was introduced in May 1847.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c3
+  statement_type: claim
+  modality: empirical
+  text: 'The difference in mortality rates between the First Clinic (staffed by medical
+    students) and the Second Clinic (staffed by midwives) is explained by medical
+    students'' routine contact with cadavers during anatomy instruction. Midwives
+    did not perform autopsies and therefore did not transmit cadaverous particles.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:m1
+  statement_type: method
+  modality: descriptive
+  text: 'Observational comparative study between two clinics in the same hospital.
+    The First Clinic (medical students performing autopsies) served as the intervention
+    group after handwashing was introduced in May 1847. The Second Clinic (midwives,
+    no autopsy contact) served as the natural comparison. Mortality data were drawn
+    from hospital administrative records spanning 1841-1849.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:a1
+  statement_type: assumption
+  modality: descriptive
+  text: 'The primary difference between the First and Second Clinics is the autopsy
+    exposure of medical students. Other potential confounders (patient demographics,
+    admission patterns, overcrowding) are assumed to be comparable or secondary. Patients
+    were assigned to clinics by day of admission (alternating schedule), providing
+    quasi-random allocation.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I
+  confidence:
+    claim_strength: medium
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:l1
+  statement_type: limitation
+  modality: descriptive
+  text: 'This is an observational study, not a randomized controlled trial. There
+    was no blinding, no formal control group design, and no statistical hypothesis
+    testing by modern standards. Confounders beyond autopsy exposure were not systematically
+    controlled.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:l2
+  statement_type: limitation
+  modality: descriptive
+  text: 'Germ theory had not yet been established (Pasteur''s work came in the 1860s-1870s).
+    Semmelweis''s "cadaverous particles" hypothesis lacked a mechanistic microbial
+    explanation, which contributed to widespread rejection by the medical establishment
+    during his lifetime.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part II
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+evidence:
+- id: ev:mortality-first-clinic-before
+  evidence_type: observation
+  summary: 'Hospital records from 1841-1846 show the First Clinic (medical students)
+    had a maternal mortality rate of approximately 10%, ranging from 5.3% to 15.8%
+    across years. In 1846, the year before the handwashing intervention, the rate
+    was approximately 11.4% (459 deaths out of 4,010 births).
+
+    '
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I, Table
+  observations:
+  - metric: maternal_mortality_rate
+    value: 10
+    unit: percent
+    qualifiers:
+      clinic: First Clinic
+      period: 1841-1846
+      type: approximate average
+  - metric: maternal_mortality_rate
+    value: 11.4
+    unit: percent
+    qualifiers:
+      clinic: First Clinic
+      year: 1846
+      deaths: 459
+      births: 4010
+  - metric: maternal_mortality_rate_range
+    qualitative_value: 5.3% to 15.8% across 1841-1846
+    qualifiers:
+      clinic: First Clinic
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:mortality-first-clinic-after
+  evidence_type: observation
+  summary: 'After the introduction of mandatory handwashing with chlorinated lime
+    in May 1847, the First Clinic mortality rate dropped dramatically. For the full
+    year 1848, the rate fell to 1.27% (45 deaths out of 3,556 births). Individual
+    months in late 1847 and 1848 showed rates as low as 0.23%.
+
+    '
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I, Table
+  observations:
+  - metric: maternal_mortality_rate
+    value: 1.27
+    unit: percent
+    qualifiers:
+      clinic: First Clinic
+      year: 1848
+      deaths: 45
+      births: 3556
+      condition: post-handwashing
+  - metric: maternal_mortality_rate_minimum
+    value: 0.23
+    unit: percent
+    qualifiers:
+      clinic: First Clinic
+      period: best months 1847-1848
+      condition: post-handwashing
+  - metric: mortality_reduction_relative
+    qualitative_value: From ~10% to ~1.3% (approximately 87% relative reduction)
+    qualifiers:
+      comparison: pre vs post handwashing intervention
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:second-clinic-baseline
+  evidence_type: observation
+  summary: 'The Second Clinic (midwives, no autopsy contact) consistently showed a
+    lower mortality rate of approximately 2% throughout 1841-1846, serving as a natural
+    comparison. After handwashing was introduced in the First Clinic, the two clinics''
+    rates converged.
+
+    '
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I, Table
+  observations:
+  - metric: maternal_mortality_rate
+    value: 2
+    unit: percent
+    qualifiers:
+      clinic: Second Clinic
+      period: 1841-1846
+      type: approximate average
+  - metric: clinic_rate_comparison
+    qualitative_value: First Clinic ~10% vs Second Clinic ~2% before intervention;
+      rates converged after handwashing
+    qualifiers:
+      period: 1841-1848
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:kolletschka
+  evidence_type: observation
+  summary: 'The death of Prof. Jakob Kolletschka in 1847 from a scalpel wound sustained
+    during autopsy provided the key insight. Kolletschka''s autopsy revealed pathology
+    identical to puerperal fever victims, suggesting a common causative agent transmitted
+    via cadaverous matter.
+
+    '
+  source_anchors:
+  - representation_ref: rep:monograph
+    locator_type: section
+    locator: Part I
+  observations:
+  - metric: kolletschka_pathology
+    qualitative_value: Autopsy findings identical to puerperal fever — lymphangitis,
+      peritonitis, pleuritis, pericarditis, meningitis
+    qualifiers:
+      cause_of_death: scalpel wound during autopsy
+      year: 1847
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+relations:
+- id: rel:1
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:kolletschka
+- id: rel:2
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:mortality-first-clinic-before
+- id: rel:3
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:mortality-first-clinic-after
+- id: rel:4
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:second-clinic-baseline
+- id: rel:5
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:kolletschka
+- id: rel:6
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:7
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:8
+  subject_ref: stmt:c3
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:9
+  subject_ref: stmt:c1
+  predicate: limited_by
+  object_ref: stmt:l2
+- id: rel:10
+  subject_ref: stmt:c2
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:11
+  subject_ref: stmt:c3
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:12
+  subject_ref: art:paper
+  predicate: uses
+  object_ref: art:vienna-hospital-records
+- id: rel:13
+  subject_ref: art:paper
+  predicate: uses
+  object_ref: art:kolletschka-case
+- id: rel:14
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:pasteur-germ-theory
+  citation_intent: other
+- id: rel:15
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:lister-antisepsis
+  citation_intent: other
+actions: []
+extensions:
+  paper:
+    venue: 'Monograph (Pest, Wien und Leipzig: C.A. Hartleben''s Verlags-Expedition)'
+    year: 1861
+    observation_year: 1847
+    discipline: Medicine / Epidemiology / Infection Control
+    sections:
+      part_i: Observations, mortality data, handwashing intervention
+      part_ii: Theoretical discussion, etiology of puerperal fever
+    methodology_type: observational_comparative_study
+    evidence_type_distribution:
+      quantitative: 6
+      qualitative: 4
+      note: 'Semmelweis''s work is notable for combining numeric mortality records
+        (hospital administrative data across multiple years) with clinical case observations.
+        Despite strong empirical evidence, the absence of germ theory and randomized
+        trial methodology led to his findings being rejected during his lifetime.
+        He was vindicated posthumously after Pasteur and Lister established the microbial
+        basis of infection.
+
+        '
+abstract: Through careful observation of mortality rates in the two maternity clinics
+  at the Vienna General Hospital, and the introduction of chlorinated lime handwashing
+  for physicians moving from autopsy to delivery, the mortality from puerperal fever
+  in the First Clinic was reduced from approximately 10% to approximately 1-2%, matching
+  the rates of the Second Clinic staffed by midwives.
+venue: Published 1861 (observations from 1847)
+year: 1847
+keywords:
+- handwashing
+- puerperal fever
+- infection control
+- childbed fever
+- chlorinated lime
+- antisepsis
+- hospital hygiene
+- maternal mortality
+- cadaverous particles
+authors:
+- name: Ignaz Semmelweis
+  affiliation: Vienna General Hospital
+  role: first
+venue_type: published
+resources:
+  facilities:
+  - Vienna General Hospital, First and Second Maternity Clinics
+  human:
+    participants: 0
+    annotators: 0
+language: de
+access: open
+record_status: active

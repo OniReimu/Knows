@@ -1,0 +1,472 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:examples/terzaghi-soil-mechanics/1.0.0
+profile: paper@1
+subject_ref: art:paper
+title: Theoretical Soil Mechanics
+summary: 'Agent-facing sidecar for Terzaghi''s foundational works on soil mechanics:
+  "Erdbaumechanik auf bodenphysikalischer Grundlage" (1925) and "Theoretical Soil
+  Mechanics" (1943). Covers the effective stress principle, one-dimensional consolidation
+  theory, and oedometer-based experimental validation. Evidence is a mix of laboratory
+  experiment results and mathematical derivations.
+
+  '
+coverage:
+  statements: main_claims_only
+  evidence: key_evidence_only
+license: CC-BY-4.0
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: wiley-1943-first-edition
+freshness:
+  as_of: '2026-03-19T00:00:00Z'
+  update_policy: immutable
+provenance:
+  origin: author
+  actor:
+    name: Knows Example Authors
+    type: org
+  generated_at: '2026-03-19T00:00:00Z'
+  method: manual_curation
+artifacts:
+- id: art:paper
+  artifact_type: paper
+  role: subject
+  title: Theoretical Soil Mechanics
+  identifiers:
+    doi: 10.1002/9780470172766
+  representations:
+  - id: rep:book
+    media_type: application/pdf
+    locator:
+      type: url
+      value: https://doi.org/10.1002/9780470172766
+- id: art:erdbaumechanik
+  artifact_type: paper
+  role: cited
+  title: Erdbaumechanik auf bodenphysikalischer Grundlage
+  identifiers:
+    custom:
+      reference: Terzaghi 1925, Franz Deuticke, Leipzig/Wien
+  representations: []
+- id: art:darcy
+  artifact_type: paper
+  role: cited
+  title: Les fontaines publiques de la ville de Dijon
+  identifiers:
+    custom:
+      reference: Darcy 1856
+  representations: []
+- id: art:boussinesq
+  artifact_type: paper
+  role: cited
+  title: Application des potentiels a l'etude de l'equilibre et du mouvement des solides
+    elastiques
+  identifiers:
+    custom:
+      reference: Boussinesq 1885
+  representations: []
+- id: art:oedometer
+  artifact_type: dataset
+  role: supporting
+  title: Oedometer consolidation test results on saturated clay specimens
+  identifiers:
+    custom:
+      reference: Terzaghi lab data, Vienna/MIT
+  representations: []
+statements:
+- id: stmt:c1
+  statement_type: claim
+  modality: theoretical
+  text: 'The mechanical behaviour of soils is governed by the principle of effective
+    stress: sigma'' = sigma - u, where sigma'' is the effective stress carried by
+    the soil skeleton, sigma is the total stress, and u is the pore water pressure.
+    Only changes in effective stress cause changes in volume or shear strength of
+    the soil.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: page_range
+    locator: 11-15
+    quote: All measurable effects of a change of stress... are exclusively due to
+      changes in the effective stresses
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c2
+  statement_type: claim
+  modality: theoretical
+  text: 'Consolidation of a saturated clay layer under an applied load is a time-dependent
+    process governed by the one-dimensional consolidation equation: du/dt = c_v *
+    d^2u/dz^2, where u is excess pore water pressure, c_v is the coefficient of consolidation,
+    and z is the depth coordinate. This equation is analogous to the heat diffusion
+    equation.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: page_range
+    locator: 265-280
+    quote: the process of consolidation involves a gradual transfer of stress from
+      the pore water to the soil skeleton
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c3
+  statement_type: claim
+  modality: empirical
+  text: 'The degree of consolidation U as a function of time factor T_v follows a
+    predictable curve derivable from the consolidation equation. For U < 60%, the
+    relation approximates T_v = (pi/4) * U^2; for U > 60%, T_v = -0.9332 * log10(1
+    - U) - 0.0851. Laboratory oedometer tests confirm this theoretical prediction.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: page_range
+    locator: 280-290
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:m1
+  statement_type: method
+  modality: descriptive
+  text: 'The consolidation theory is validated through oedometer (one-dimensional
+    compression) tests on saturated clay specimens. A soil sample is confined in a
+    rigid ring, loaded incrementally, and the settlement is recorded as a function
+    of time. The coefficient of consolidation c_v is back-calculated by fitting the
+    theoretical U-T_v curve to the measured settlement-time data (square root of time
+    or log-time method).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: page_range
+    locator: 265-275
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:a1
+  statement_type: assumption
+  modality: descriptive
+  text: 'The soil is treated as a two-phase medium consisting of incompressible solid
+    grains and incompressible pore water. The soil is fully saturated. Water flow
+    through the soil obeys Darcy''s law (v = k * i, where k is the coefficient of
+    permeability and i is the hydraulic gradient).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: page_range
+    locator: 265-266
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:a2
+  statement_type: assumption
+  modality: descriptive
+  text: 'Compression is one-dimensional (strain occurs only in the vertical direction).
+    The coefficient of permeability k and the coefficient of compressibility a_v remain
+    constant during any given load increment. The applied load increment is instantaneous
+    relative to the consolidation timescale.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: page_range
+    locator: 266-268
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:l1
+  statement_type: limitation
+  modality: descriptive
+  text: 'The consolidation theory is strictly one-dimensional: it does not account
+    for lateral deformation or three-dimensional stress states. It assumes small strains
+    (linear theory), constant soil properties during each load increment, and full
+    saturation. Secondary compression (creep) occurring after primary consolidation
+    is not addressed. For highly compressible organic soils or thick strata with variable
+    permeability, measured settlement rates may deviate significantly from the theoretical
+    prediction.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: page_range
+    locator: 290-295
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+evidence:
+- id: ev:oedometer
+  evidence_type: experiment_run
+  summary: 'Laboratory oedometer tests on saturated clay specimens demonstrate that
+    settlement proceeds as a time-dependent process consistent with the theoretical
+    consolidation curve. Measured c_v values for typical clays range from 0.5 to 30
+    m^2/year depending on soil type and stress level. The log-time method and square-root-of-time
+    method both yield consistent c_v values.
+
+    '
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: page_range
+    locator: 275-290
+  observations:
+  - metric: coefficient_of_consolidation_c_v
+    value: 0.5
+    unit: m^2/year
+    qualifiers:
+      soil_type: soft marine clay
+      condition: lower bound typical
+  - metric: coefficient_of_consolidation_c_v
+    value: 30
+    unit: m^2/year
+    qualifiers:
+      soil_type: stiff overconsolidated clay
+      condition: upper bound typical
+  - metric: compression_index_C_c
+    value: 0.4
+    qualifiers:
+      soil_type: normally consolidated clay
+      note: typical range 0.2-0.8
+  - metric: time_for_90pct_consolidation
+    qualitative_value: Minutes to hours in laboratory oedometer; months to years in
+      field
+    qualifiers:
+      note: depends on drainage path length squared
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:consolidation-derivation
+  evidence_type: proof
+  summary: 'Mathematical derivation of the one-dimensional consolidation equation
+    from first principles: continuity equation for pore water flow, Darcy''s law for
+    seepage velocity, and a linear stress-strain relationship for the soil skeleton.
+    The resulting PDE (du/dt = c_v * d^2u/dz^2) has an analytical Fourier series solution
+    for standard boundary conditions, yielding the theoretical U-T_v curve that relates
+    degree of consolidation to dimensionless time factor.
+
+    '
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: page_range
+    locator: 265-280
+  observations:
+  - metric: time_factor_at_50pct_consolidation
+    value: 0.197
+    qualifiers:
+      U: 50%
+      boundary: double drainage
+  - metric: time_factor_at_90pct_consolidation
+    value: 0.848
+    qualifiers:
+      U: 90%
+      boundary: double drainage
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:effective-stress-validation
+  evidence_type: experiment_run
+  summary: 'Direct shear and triaxial tests on saturated soils demonstrate that shear
+    strength and volume change behaviour correlate with effective stress (sigma -
+    u) rather than total stress. Specimens tested at identical effective stress but
+    different total stress and pore pressure combinations yield the same shear strength
+    and deformation behaviour, confirming the effective stress principle.
+
+    '
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: page_range
+    locator: 11-20
+  observations:
+  - metric: effective_stress_principle
+    qualitative_value: Shear strength is a unique function of effective stress sigma'
+      = sigma - u
+    qualifiers:
+      test_type: direct shear and triaxial
+  - metric: pore_pressure_independence
+    qualitative_value: Same sigma' with different (sigma, u) combinations produces
+      identical strength and deformation
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+relations:
+- id: rel:1
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:effective-stress-validation
+- id: rel:2
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:consolidation-derivation
+- id: rel:3
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:oedometer
+- id: rel:4
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:oedometer
+- id: rel:5
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:consolidation-derivation
+- id: rel:6
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:7
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:a2
+- id: rel:8
+  subject_ref: stmt:c3
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:9
+  subject_ref: stmt:c2
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:10
+  subject_ref: stmt:c3
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:11
+  subject_ref: stmt:m1
+  predicate: uses
+  object_ref: art:oedometer
+- id: rel:12
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:erdbaumechanik
+  citation_intent: extends
+- id: rel:13
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:darcy
+  citation_intent: uses_method
+- id: rel:14
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:boussinesq
+  citation_intent: background
+actions: []
+extensions:
+  paper:
+    venue: John Wiley & Sons (1943) / Franz Deuticke (1925)
+    year: 1943
+    discipline: Geotechnical Engineering / Civil Engineering
+    sections:
+      effective_stress: Chapters I-II
+      consolidation_theory: Chapters XII-XIII
+      laboratory_methods: Chapters III-IV
+      earth_pressure: Chapters V-VIII
+      bearing_capacity: Chapters XIV-XVII
+    methodology_type: theoretical_derivation_with_experimental_validation
+    evidence_type_distribution:
+      quantitative: 6
+      qualitative: 3
+      note: 'Evidence combines mathematical derivation (the consolidation PDE and
+        its Fourier series solution) with laboratory oedometer tests providing quantitative
+        validation. The effective stress principle is supported by both direct shear
+        and triaxial test observations. This mixture of proof and experiment is characteristic
+        of classical geotechnical engineering.
+
+        '
+abstract: This work establishes the fundamental principles of soil mechanics based
+  on soil physics, introducing the concept of effective stress and the theory of one-dimensional
+  consolidation. Laboratory oedometer tests demonstrate that consolidation of saturated
+  clay follows a time-dependent process governed by the coefficient of consolidation.
+venue: Franz Deuticke, Vienna (book, 1925); Wiley (1943 English edition)
+year: 1925
+keywords:
+- soil mechanics
+- effective stress
+- consolidation
+- pore water pressure
+- oedometer
+- clay
+- Darcy law
+- geotechnical engineering
+- foundation
+- settlement
+authors:
+- name: Karl Terzaghi
+  affiliation: Technical University of Vienna
+  role: first
+venue_type: published
+resources:
+  facilities:
+  - Soil mechanics laboratory, Technical University of Vienna
+  software: []
+  compute: []
+language: de
+access: open
+record_status: active

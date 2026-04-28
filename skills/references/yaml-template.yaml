@@ -1,0 +1,454 @@
+# Knows Sidecar YAML Template (v0.9)
+# COPY THIS STRUCTURE EXACTLY. Only change values after colons.
+# Skip entire blocks the paper does not have.
+# IDs MUST be descriptive kebab-case (e.g., stmt:privacy-budget-tradeoff), NOT numbered (e.g., stmt:c1).
+
+$schema: "https://knows.dev/schema/record-0.9.json"
+knows_version: "0.9.0"
+record_id: "knows:generated/PAPER_NAME/1.0.0"
+profile: "paper@1"  # Common profiles: paper@1, repo@1, dataset@1, model@1, benchmark@1, review@1
+subject_ref: "art:paper"
+title: "FILL: Paper Title"
+authors:
+  - name: "FILL: First Author Name"
+    affiliation: "FILL: University or Organization"
+    role: first  # ONLY: first, corresponding, senior, contributor
+    # orcid: "0000-0002-1825-0097"  # Optional
+    # email: "author@example.edu"    # Optional
+    # homepage: "https://example.edu/~author"  # Optional
+    # scholar_id: "xxxxxxxxxxxxx"    # Optional (Google Scholar)
+  - name: "FILL: Second Author Name"
+    affiliation: "FILL: University or Organization"
+    role: contributor
+    # anonymous: false  # Set true for double-blind: name="Anonymous", omit affiliation/email
+summary: "FILL: 1-2 sentence description"
+coverage:
+  statements: exhaustive  # ONLY: exhaustive, main_claims_only, key_claims_and_limitations, partial
+  evidence: key_evidence_only  # ONLY: exhaustive, key_evidence_only, partial
+license: "CC-BY-4.0"
+
+# --- OPTIONAL ROOT FIELDS (include when applicable, omit if not) ---
+# record_status: active  # ONLY: active, retracted, superseded, deprecated — lifecycle of THIS sidecar record
+# venue: "FILL: e.g., CVPR 2016, Nature, arXiv preprint"
+# venue_type: published  # ONLY: published, preprint, under_review, in_preparation, technical_report, thesis, book, other
+# access: open  # ONLY: open, embargoed, closed, login_required, subscription
+# year: 2026
+# language: "en"  # ISO 639-1 code
+# keywords: ["FILL: keyword1", "FILL: keyword2"]
+
+# --- ARTIFACTS ---
+# Types: paper, dataset, repository, model, benchmark, software, website, other
+# Role: subject (primary paper), supporting (used by paper), cited (external reference)
+# For role: cited, omit representations entirely.
+# IMPORTANT: identifiers — only include keys you are CERTAIN about.
+# Omit unknown keys entirely. Do NOT write "TODO" or placeholder values.
+# Available identifier keys: doi, arxiv, url, isbn, custom
+# Examples:
+#   Published paper:  identifiers: {doi: "10.1234/example"}
+#   arXiv preprint:   identifiers: {arxiv: "2401.12345"}
+#   OpenReview only:  identifiers: {url: "https://openreview.net/forum?id=XXX"}
+#   Multiple known:   identifiers: {doi: "10.1234/example", arxiv: "2401.12345"}
+#   Nothing known:    identifiers: {}
+artifacts:
+  - id: "art:paper"
+    artifact_type: paper
+    role: subject
+    title: "FILL: Paper Title"
+    identifiers: {}  # fill only keys you know: doi, arxiv, url
+    representations:
+      - id: "rep:paper-pdf"
+        media_type: "application/pdf"
+        locator:
+          type: path  # ONLY: url, git, path, doi, other
+          value: "paper.pdf"
+  - id: "art:dataset"
+    artifact_type: dataset
+    role: supporting
+    title: "FILL: Dataset name (e.g., CIFAR-10, ImageNet)"
+    identifiers:
+      url: "FILL: actual URL, or omit identifiers block if unknown"
+  - id: "art:repo"
+    artifact_type: repository
+    role: supporting
+    title: "FILL: Code repository name"
+    identifiers:
+      url: "FILL: actual URL, or omit identifiers block if unknown"
+  - id: "art:model"
+    artifact_type: model
+    role: supporting
+    title: "FILL: Pre-trained model name (e.g., BERT-base)"
+    identifiers:
+      url: "FILL: actual URL, or omit identifiers block if unknown"
+  - id: "art:benchmark"
+    artifact_type: benchmark
+    role: supporting
+    title: "FILL: Benchmark name"
+    identifiers:
+      url: "FILL: actual URL, or omit identifiers block if unknown"
+
+# --- STATEMENTS (all 6 types — skip types not in the paper) ---
+# statement_type: claim | assumption | limitation | method | question | definition
+# modality: empirical | theoretical | descriptive | normative  ← ONLY these 4, no others
+# status: asserted | retracted | superseded | under_review  ← ONLY these 4, no others
+statements:
+  - id: "stmt:main-contribution"
+    statement_type: claim
+    modality: empirical  # ONLY: empirical, theoretical, descriptive, normative
+    text: "FILL: Main claim text"
+    about_ref: "art:paper"
+    status: asserted  # ONLY: asserted, retracted, superseded, under_review
+    source_anchors:
+      - representation_ref: "rep:paper-pdf"
+        locator_type: section  # ONLY: fragment, xpath, css, line_range, page_range, table, figure, section, paragraph, other
+        locator: "Section 1"
+    confidence:
+      claim_strength: high  # ONLY: high, medium, low
+      extraction_fidelity: high  # ONLY: high, medium, low
+    provenance:
+      origin: machine  # ONLY: author, machine, imported
+      actor:
+        name: "knows-gen"
+        type: tool  # ONLY: person, org, tool
+      generated_at: "2026-01-01T00:00:00Z"
+  - id: "stmt:iid-data-assumption"
+    statement_type: assumption
+    modality: theoretical
+    text: "FILL: Key assumption text (e.g., IID data, stationarity)"
+    about_ref: "art:paper"
+    status: asserted
+    source_anchors:
+      - representation_ref: "rep:paper-pdf"
+        locator_type: section
+        locator: "Section 2"
+    confidence:
+      claim_strength: medium
+      extraction_fidelity: high
+    provenance:
+      origin: machine
+      actor:
+        name: "knows-gen"
+        type: tool
+      generated_at: "2026-01-01T00:00:00Z"
+  - id: "stmt:single-dataset-scope"
+    statement_type: limitation
+    modality: descriptive
+    text: "FILL: Limitation text (e.g., only evaluated on X dataset)"
+    about_ref: "art:paper"
+    status: asserted
+    source_anchors:
+      - representation_ref: "rep:paper-pdf"
+        locator_type: section
+        locator: "Section 5"
+    confidence:
+      claim_strength: high
+      extraction_fidelity: high
+    provenance:
+      origin: machine
+      actor:
+        name: "knows-gen"
+        type: tool
+      generated_at: "2026-01-01T00:00:00Z"
+  - id: "stmt:two-stage-training"
+    statement_type: method
+    modality: descriptive
+    text: "FILL: Core method description (e.g., training procedure, algorithm)"
+    about_ref: "art:paper"
+    status: asserted
+    source_anchors:
+      - representation_ref: "rep:paper-pdf"
+        locator_type: section
+        locator: "Section 3"
+    confidence:
+      claim_strength: high
+      extraction_fidelity: high
+    provenance:
+      origin: machine
+      actor:
+        name: "knows-gen"
+        type: tool
+      generated_at: "2026-01-01T00:00:00Z"
+  - id: "stmt:generalization-open-question"
+    statement_type: question
+    modality: descriptive
+    text: "FILL: Open research question the paper raises or addresses"
+    about_ref: "art:paper"
+    status: asserted
+    source_anchors:
+      - representation_ref: "rep:paper-pdf"
+        locator_type: section
+        locator: "Section 1"
+    confidence:
+      claim_strength: medium
+      extraction_fidelity: high
+    provenance:
+      origin: machine
+      actor:
+        name: "knows-gen"
+        type: tool
+      generated_at: "2026-01-01T00:00:00Z"
+  - id: "stmt:def-knowledge-distillation"
+    statement_type: definition
+    modality: descriptive
+    text: "FILL: Key term or concept defined in the paper"
+    about_ref: "art:paper"
+    status: asserted
+    source_anchors:
+      - representation_ref: "rep:paper-pdf"
+        locator_type: section
+        locator: "Section 2"
+    confidence:
+      claim_strength: high
+      extraction_fidelity: high
+    provenance:
+      origin: machine
+      actor:
+        name: "knows-gen"
+        type: tool
+      generated_at: "2026-01-01T00:00:00Z"
+
+# --- EVIDENCE (11 types — skip types not in the paper) ---
+# Types: table_result, figure, experiment_run, proof, case_study, observation,
+#        survey_result, citation_backed, qualitative_analysis, statistical_test, simulation
+# Observations: ALWAYS include metric (required). Use value (number) OR qualitative_value (string).
+evidence:
+  - id: "ev:main-accuracy-comparison"
+    evidence_type: table_result
+    summary: "FILL: What this table shows"
+    source_anchors:
+      - representation_ref: "rep:paper-pdf"
+        locator_type: table
+        locator: "Table 1"
+    observations:
+      - metric: "accuracy"
+        value: 95.0
+        unit: "%"
+    provenance:
+      origin: machine
+      actor:
+        name: "knows-gen"
+        type: tool
+      generated_at: "2026-01-01T00:00:00Z"
+  - id: "ev:convergence-curve"
+    evidence_type: figure
+    summary: "FILL: What this figure shows"
+    source_anchors:
+      - representation_ref: "rep:paper-pdf"
+        locator_type: figure
+        locator: "Figure 1"
+    observations:
+      - metric: "FILL: metric name"
+        value: 0.0
+        unit: "FILL or remove"
+    provenance:
+      origin: machine
+      actor:
+        name: "knows-gen"
+        type: tool
+      generated_at: "2026-01-01T00:00:00Z"
+  - id: "ev:ablation-without-pretraining"
+    evidence_type: experiment_run
+    summary: "FILL: What this experiment shows"
+    source_anchors:
+      - representation_ref: "rep:paper-pdf"
+        locator_type: section
+        locator: "Section 4"
+    observations:
+      - metric: "FILL: metric name"
+        value: 0.0
+        unit: "FILL or remove"
+    provenance:
+      origin: machine
+      actor:
+        name: "knows-gen"
+        type: tool
+      generated_at: "2026-01-01T00:00:00Z"
+  - id: "ev:convergence-bound-proof"
+    evidence_type: proof
+    summary: "FILL: What this proof establishes"
+    source_anchors:
+      - representation_ref: "rep:paper-pdf"
+        locator_type: section
+        locator: "Theorem 1"
+    observations:
+      - metric: "proof_result"
+        qualitative_value: "FILL: proof outcome (e.g., convergence guarantee under assumption X)"
+    provenance:
+      origin: machine
+      actor:
+        name: "knows-gen"
+        type: tool
+      generated_at: "2026-01-01T00:00:00Z"
+  - id: "ev:smith2020-prior-result"
+    evidence_type: citation_backed
+    summary: "FILL: Prior work supporting this claim"
+    source_anchors:
+      - representation_ref: "rep:paper-pdf"
+        locator_type: section
+        locator: "Section 2"
+    observations:
+      - metric: "prior_finding"
+        qualitative_value: "FILL: e.g., [Smith et al. 2020] showed X"
+    provenance:
+      origin: machine
+      actor:
+        name: "knows-gen"
+        type: tool
+      generated_at: "2026-01-01T00:00:00Z"
+  - id: "ev:scaling-plateau-observed"
+    evidence_type: observation
+    summary: "FILL: Empirical observation from experiments"
+    source_anchors:
+      - representation_ref: "rep:paper-pdf"
+        locator_type: section
+        locator: "Section 5"
+    observations:
+      - metric: "observed_pattern"
+        qualitative_value: "FILL: observed pattern or finding"
+    provenance:
+      origin: machine
+      actor:
+        name: "knows-gen"
+        type: tool
+      generated_at: "2026-01-01T00:00:00Z"
+  - id: "ev:paired-ttest-significance"
+    evidence_type: statistical_test
+    summary: "FILL: Statistical significance result"
+    source_anchors:
+      - representation_ref: "rep:paper-pdf"
+        locator_type: section
+        locator: "Section 4"
+    observations:
+      - metric: "p-value"
+        value: 0.05
+    provenance:
+      origin: machine
+      actor:
+        name: "knows-gen"
+        type: tool
+      generated_at: "2026-01-01T00:00:00Z"
+  - id: "ev:healthcare-deployment-case"
+    evidence_type: case_study
+    summary: "FILL: What this case study demonstrates"
+    source_anchors:
+      - representation_ref: "rep:paper-pdf"
+        locator_type: section
+        locator: "Section 5"
+    observations:
+      - metric: "case_finding"
+        qualitative_value: "FILL: key finding from case study"
+    provenance:
+      origin: machine
+      actor:
+        name: "knows-gen"
+        type: tool
+      generated_at: "2026-01-01T00:00:00Z"
+  - id: "ev:user-study-satisfaction"
+    evidence_type: survey_result
+    summary: "FILL: Survey or user study result"
+    source_anchors:
+      - representation_ref: "rep:paper-pdf"
+        locator_type: section
+        locator: "Section 4"
+    observations:
+      - metric: "agreement rate"
+        value: 0.0
+        unit: "%"
+    provenance:
+      origin: machine
+      actor:
+        name: "knows-gen"
+        type: tool
+      generated_at: "2026-01-01T00:00:00Z"
+  - id: "ev:thematic-coding-patterns"
+    evidence_type: qualitative_analysis
+    summary: "FILL: Qualitative analysis finding"
+    source_anchors:
+      - representation_ref: "rep:paper-pdf"
+        locator_type: section
+        locator: "Section 5"
+    observations:
+      - metric: "theme"
+        qualitative_value: "FILL: theme or pattern identified"
+    provenance:
+      origin: machine
+      actor:
+        name: "knows-gen"
+        type: tool
+      generated_at: "2026-01-01T00:00:00Z"
+  - id: "ev:monte-carlo-convergence"
+    evidence_type: simulation
+    summary: "FILL: Simulation result"
+    source_anchors:
+      - representation_ref: "rep:paper-pdf"
+        locator_type: section
+        locator: "Section 4"
+    observations:
+      - metric: "FILL: metric name"
+        value: 0.0
+        unit: "FILL or remove"
+    provenance:
+      origin: machine
+      actor:
+        name: "knows-gen"
+        type: tool
+      generated_at: "2026-01-01T00:00:00Z"
+
+# --- RELATIONS (9 predicate examples — use only what connects your entities) ---
+# Valid predicates: supported_by, challenged_by, depends_on, limited_by, cites,
+#                   uses, evaluates_on, implements, documents, same_as, supersedes, retracts
+# Note: documents object_ref MUST be an artifact (art:*), not a statement.
+relations:
+  - id: "rel:accuracy-supports-claim"
+    subject_ref: "stmt:main-contribution"
+    predicate: supported_by
+    object_ref: "ev:main-accuracy-comparison"
+  - id: "rel:claim-needs-iid"
+    subject_ref: "stmt:main-contribution"
+    predicate: depends_on
+    object_ref: "stmt:iid-data-assumption"
+  - id: "rel:scope-challenges-claim"
+    subject_ref: "stmt:main-contribution"
+    predicate: challenged_by
+    object_ref: "stmt:single-dataset-scope"
+  - id: "rel:scope-limits-claim"
+    subject_ref: "stmt:main-contribution"
+    predicate: limited_by
+    object_ref: "stmt:single-dataset-scope"
+  - id: "rel:method-evaluated-on-dataset"
+    subject_ref: "stmt:two-stage-training"
+    predicate: evaluates_on
+    object_ref: "art:dataset"
+  - id: "rel:method-uses-pretrained"
+    subject_ref: "stmt:two-stage-training"
+    predicate: uses
+    object_ref: "art:model"
+  - id: "rel:method-in-repo"
+    subject_ref: "stmt:two-stage-training"
+    predicate: implements
+    object_ref: "art:repo"
+  - id: "rel:claim-cites-prior"
+    subject_ref: "stmt:main-contribution"
+    predicate: cites
+    object_ref: "ev:smith2020-prior-result"
+  - id: "rel:method-documents-paper"
+    subject_ref: "stmt:two-stage-training"
+    predicate: documents
+    object_ref: "art:paper"
+
+actions: []
+
+provenance:
+  origin: machine  # ONLY: author, machine, imported
+  actor:
+    name: "knows-gen"
+    type: tool  # ONLY: person, org, tool
+    version: "0.9.0"
+  generated_at: "2026-01-01T00:00:00Z"
+  method: extraction  # ONLY: extraction, manual_curation, conversion, import — use 'extraction' for existing papers, 'manual_curation' for from-idea sidecars
+version:
+  spec: "0.9.0"
+  record: "1.0.0"
+  source: "original"
+freshness:
+  as_of: "2026-01-01T00:00:00Z"
+  update_policy: versioned  # ONLY: immutable, versioned, rolling

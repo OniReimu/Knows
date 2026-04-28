@@ -1,0 +1,499 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:examples/einstein-photoelectric/1.0.0
+profile: paper@1
+subject_ref: art:paper
+title: Ueber einen die Erzeugung und Verwandlung des Lichtes betreffenden heuristischen
+  Gesichtspunkt
+summary: 'Agent-facing sidecar for Einstein''s 1905 paper proposing the light quantum
+  hypothesis and its application to the photoelectric effect. Covers the central claim
+  that light consists of discrete energy quanta (E = h*nu), the derivation of the
+  photoelectric equation (KE = h*nu - W), the threshold frequency prediction, and
+  the thermodynamic analogy underpinning the argument.
+
+  '
+coverage:
+  statements: main_claims_only
+  evidence: key_evidence_only
+license: CC-BY-4.0
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: annalen-der-physik-1905
+freshness:
+  as_of: '2026-03-19T00:00:00Z'
+  update_policy: immutable
+provenance:
+  origin: author
+  actor:
+    name: Knows Example Authors
+    type: org
+  generated_at: '2026-03-19T00:00:00Z'
+  method: manual_curation
+artifacts:
+- id: art:paper
+  artifact_type: paper
+  role: subject
+  title: Ueber einen die Erzeugung und Verwandlung des Lichtes betreffenden heuristischen
+    Gesichtspunkt
+  identifiers:
+    doi: 10.1002/andp.19053220607
+  representations:
+  - id: rep:pdf
+    media_type: application/pdf
+    locator:
+      type: url
+      value: https://onlinelibrary.wiley.com/doi/10.1002/andp.19053220607
+- id: art:planck-radiation
+  artifact_type: paper
+  role: cited
+  title: Ueber das Gesetz der Energieverteilung im Normalspectrum (Planck's radiation
+    law)
+  identifiers:
+    doi: 10.1002/andp.19013090310
+  representations: []
+- id: art:lenard-photoelectric
+  artifact_type: paper
+  role: cited
+  title: Lenard's experimental observations on the photoelectric effect
+  identifiers:
+    custom:
+      reference: Lenard 1902, Annalen der Physik
+  representations: []
+- id: art:wien-distribution
+  artifact_type: paper
+  role: cited
+  title: Wien's displacement law and radiation distribution
+  identifiers:
+    custom:
+      reference: Wien 1896
+  representations: []
+- id: art:stokes-fluorescence
+  artifact_type: paper
+  role: cited
+  title: Stokes' rule on fluorescence (emitted frequency <= exciting frequency)
+  identifiers:
+    custom:
+      reference: Stokes 1852
+  representations: []
+statements:
+- id: stmt:c1
+  statement_type: claim
+  modality: theoretical
+  text: 'Light consists of discrete energy quanta (later called photons). Each quantum
+    carries energy E = h*nu, where h is Planck''s constant and nu is the frequency
+    of the light. This is not merely a mathematical convenience but reflects the physical
+    reality that monochromatic radiation of frequency nu behaves as if it consists
+    of independent energy quanta of magnitude h*nu.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: sections 1-6
+    quote: die Energie des Lichtes diskontinuierlich verteilt ist
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c2
+  statement_type: claim
+  modality: theoretical
+  text: 'The photoelectric effect is explained by the absorption of single light quanta
+    by individual electrons. The maximum kinetic energy of an emitted electron is
+    given by KE_max = h*nu - W, where W is the work function (minimum energy needed
+    to extract the electron from the material surface).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: section 8
+    quote: die kinetische Energie des Elektrons ... R*beta*nu/N - P
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c3
+  statement_type: claim
+  modality: theoretical
+  text: 'There exists a threshold frequency nu_0 = W / h below which no electrons
+    are emitted regardless of the intensity of the incident light. This directly contradicts
+    the classical wave theory prediction that sufficient intensity at any frequency
+    should eventually eject electrons.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: section 8
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:c4
+  statement_type: claim
+  modality: theoretical
+  text: 'Stokes'' rule for fluorescence (the emitted light frequency is always less
+    than or equal to the exciting frequency) is a natural consequence of the light
+    quantum hypothesis: a photon of energy h*nu can only produce a fluorescent photon
+    of energy h*nu'' where nu'' <= nu.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: section 7
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:m1
+  statement_type: method
+  modality: theoretical
+  text: 'The light quantum hypothesis is derived by thermodynamic analogy. Einstein
+    shows that the entropy of monochromatic radiation in the Wien regime (h*nu >>
+    kT) has the same mathematical form as the entropy of an ideal gas of independent
+    particles, each carrying energy h*nu. This formal correspondence motivates treating
+    radiation as composed of discrete, localized energy quanta.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: sections 5-6
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:a1
+  statement_type: assumption
+  modality: theoretical
+  text: 'The derivation assumes the Wien approximation to Planck''s radiation law,
+    which is valid only in the high-frequency (h*nu >> kT) regime. Einstein explicitly
+    notes this is a heuristic viewpoint ("heuristisch"), not a complete theory of
+    light. The energy distribution in space is assumed to be discontinuous — a radical
+    departure from Maxwell''s electromagnetic theory.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: sections 1-2, title
+    quote: heuristischen Gesichtspunkt
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: stmt:l1
+  statement_type: limitation
+  modality: descriptive
+  text: 'The paper explicitly presents itself as a heuristic point of view, not a
+    definitive theory. It cannot explain wave phenomena such as diffraction and interference.
+    The full reconciliation of the particle and wave natures of light required quantum
+    mechanics (wave-particle duality, developed 1920s). Additionally, the Wien approximation
+    used in the derivation breaks down in the low-frequency regime (Rayleigh-Jeans
+    limit).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: section 1
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+evidence:
+- id: ev:entropy-analogy
+  evidence_type: proof
+  summary: 'Sections 5-6: Einstein derives the entropy of monochromatic radiation
+    in the Wien regime as S = (E / h*nu) * k * [ln(V/V_0) + const]. This has the same
+    form as the entropy of N independent particles in a volume V: S = N*k*ln(V/V_0).
+    The formal equivalence with N = E/(h*nu) implies radiation behaves as if composed
+    of N independent quanta each of energy h*nu.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: sections 5-6
+  observations:
+  - metric: photon_energy
+    qualitative_value: E_quantum = h * nu (derived from entropy analogy)
+    qualifiers:
+      method: thermodynamic derivation
+      regime: Wien limit (h*nu >> kT)
+  - metric: entropy_form
+    qualitative_value: S = (E/h*nu) * k * ln(V/V_0) — identical to ideal gas of N
+      = E/(h*nu) particles
+    qualifiers:
+      type: formal mathematical analogy
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:photoelectric-equation
+  evidence_type: observation
+  summary: 'Section 8: Einstein derives the photoelectric equation KE_max = h*nu -
+    W and notes it is consistent with Lenard''s experimental observations: (1) maximum
+    electron velocity depends on frequency, not intensity; (2) there is a threshold
+    frequency below which no emission occurs; (3) increasing intensity increases the
+    number of emitted electrons but not their maximum energy.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: section 8
+  observations:
+  - metric: photoelectric_equation
+    qualitative_value: KE_max = h*nu - W (work function W is material-dependent)
+    qualifiers:
+      type: theoretical prediction
+  - metric: threshold_frequency
+    qualitative_value: nu_0 = W / h; no emission for nu < nu_0 regardless of intensity
+    qualifiers:
+      type: theoretical prediction
+  - metric: intensity_dependence
+    qualitative_value: Number of emitted electrons proportional to intensity; max
+      KE independent of intensity
+    qualifiers:
+      type: consistent with Lenard's observations
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:lenard-observations
+  evidence_type: citation_backed
+  summary: 'Lenard''s 1902 experiments on the photoelectric effect provide the empirical
+    basis that Einstein''s theory explains. Key observations: (1) electron kinetic
+    energy increases linearly with light frequency; (2) a minimum frequency is required
+    for electron emission; (3) classical wave theory predicts energy should depend
+    on intensity, which is contradicted by experiment.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: section 8
+  observations:
+  - metric: electron_ke_vs_frequency
+    qualitative_value: 'Linear relationship: KE_max increases with frequency nu'
+    qualifiers:
+      source: Lenard 1902
+  - metric: electron_ke_vs_intensity
+    qualitative_value: 'No dependence: KE_max independent of light intensity'
+    qualifiers:
+      source: Lenard 1902
+      note: contradicts classical wave theory
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+- id: ev:ionization-energy
+  evidence_type: observation
+  summary: 'Section 8: Einstein estimates the threshold frequency for the photoelectric
+    effect using known ionization potentials. For a typical metal with work function
+    of a few electron volts, the threshold frequency lies in the ultraviolet, consistent
+    with experimental observations. He uses the numerical value of Planck''s constant
+    h = 6.55e-27 erg*sec (close to the modern value of 6.626e-34 J*s).
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: section 8
+  observations:
+  - metric: planck_constant
+    value: 6.55e-27
+    unit: erg*sec
+    qualifiers:
+      note: Einstein's value; modern value 6.626e-27 erg*sec
+      era: '1905'
+  - metric: threshold_wavelength
+    qualitative_value: UV range for typical metals (consistent with Lenard)
+    qualifiers:
+      type: order-of-magnitude estimate
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-19T00:00:00Z'
+relations:
+- id: rel:1
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:entropy-analogy
+- id: rel:2
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:photoelectric-equation
+- id: rel:3
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:lenard-observations
+- id: rel:4
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:photoelectric-equation
+- id: rel:5
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:ionization-energy
+- id: rel:6
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:7
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:8
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:9
+  subject_ref: stmt:c3
+  predicate: depends_on
+  object_ref: stmt:c2
+- id: rel:10
+  subject_ref: stmt:c4
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:11
+  subject_ref: stmt:c1
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:12
+  subject_ref: stmt:m1
+  predicate: limited_by
+  object_ref: stmt:a1
+- id: rel:13
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:planck-radiation
+  citation_intent: extends
+- id: rel:14
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:lenard-photoelectric
+  citation_intent: other
+- id: rel:15
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:wien-distribution
+  citation_intent: uses_method
+- id: rel:16
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:stokes-fluorescence
+  citation_intent: other
+actions: []
+extensions:
+  paper:
+    venue: Annalen der Physik, Volume 322, Issue 6, pp. 132-148
+    year: 1905
+    discipline: Theoretical Physics
+    award: Nobel Prize in Physics 1921
+    sections:
+      introduction: sections 1-2 (crisis of classical radiation theory)
+      planck_derivation: section 3 (Planck's radiation formula)
+      entropy_radiation: sections 4-6 (entropy analogy and light quanta)
+      stokes_rule: section 7 (application to fluorescence)
+      photoelectric_effect: section 8 (photoelectric equation)
+      ionization: section 9 (ionization by UV light)
+    methodology_type: theoretical_derivation
+    evidence_type_distribution:
+      theoretical: 5
+      empirical_predictions: 3
+      quantitative: 2
+      qualitative: 5
+      note: 'This is fundamentally a theoretical paper. The photoelectric equation
+        KE = h*nu - W was a prediction later confirmed quantitatively by Millikan
+        (1916), who measured h to 0.5% accuracy from the slope of KE vs nu, ironically
+        while attempting to disprove Einstein''s theory.
+
+        '
+abstract: A profound formal distinction exists between the theoretical concepts which
+  physicists have formed regarding gases and other ponderable bodies and the Maxwellian
+  theory of electromagnetic processes in so-called empty space. According to the theory
+  to be developed here, the energy of a light ray spreading from a point source is
+  not continuously distributed over an increasing space but consists of a finite number
+  of energy quanta localized at points in space.
+venue: Annalen der Physik
+year: 1905
+keywords:
+- photoelectric effect
+- light quanta
+- photon
+- energy quantization
+- Planck constant
+- work function
+- threshold frequency
+- blackbody radiation
+- Wien approximation
+authors:
+- name: Albert Einstein
+  affiliation: Swiss Patent Office, Bern
+  role: first
+venue_type: published
+language: de
+access: open
+record_status: active

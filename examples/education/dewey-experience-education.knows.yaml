@@ -1,0 +1,594 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:examples/dewey/1.0.0
+profile: paper@1
+subject_ref: art:paper
+title: 'Experience and Education'
+summary: 'Agent-facing sidecar for John Dewey''s 1938 monograph on the philosophy of
+  education grounded in experience. Documents Dewey''s critique of both traditional
+  and progressive education, his two foundational principles of experience (continuity
+  and interaction), his reconception of freedom as intellectual self-control rather
+  than mere physical liberty, and his argument that progressive education requires
+  rigorous organization of subject-matter guided by the scientific method.
+
+  '
+coverage:
+  statements: main_claims_only
+  evidence: key_evidence_only
+license: CC-BY-4.0
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: dewey-1938-experience-education
+freshness:
+  as_of: '2026-03-25T00:00:00Z'
+  update_policy: immutable
+provenance:
+  origin: author
+  actor:
+    name: Knows Example Authors
+    type: org
+  generated_at: '2026-03-25T00:00:00Z'
+  method: manual_curation
+artifacts:
+- id: art:paper
+  artifact_type: paper
+  role: subject
+  title: 'Experience and Education'
+  identifiers:
+    custom:
+      isbn: 978-0-684-83828-1
+      reference: Dewey 1938
+      publisher: Kappa Delta Pi
+  representations:
+  - id: rep:book
+    media_type: text/plain
+    locator:
+      type: url
+      value: https://archive.org/details/experienceeduca00dewe
+- id: art:democracy-education
+  artifact_type: paper
+  role: cited
+  title: 'Democracy and Education: An Introduction to the Philosophy of Education'
+  identifiers:
+    custom:
+      reference: Dewey 1916
+      publisher: Macmillan
+  representations: []
+- id: art:how-we-think
+  artifact_type: paper
+  role: cited
+  title: 'How We Think'
+  identifiers:
+    custom:
+      reference: Dewey 1910
+      publisher: D.C. Heath
+  representations: []
+- id: art:hogben-mathematics
+  artifact_type: paper
+  role: cited
+  title: 'Mathematics for the Million'
+  identifiers:
+    custom:
+      reference: Hogben 1936
+  representations: []
+statements:
+- id: stmt:c1
+  statement_type: claim
+  modality: theoretical
+  text: 'Neither traditional nor progressive education is adequate on its own. Traditional
+    education imposes adult standards, subject-matter, and methods from above and outside
+    the learner''s experience. Progressive education, reacting against this imposition,
+    often develops its principles negatively rather than constructively — rejecting
+    organization, adult guidance, and the past wholesale. Both are miseducative because
+    neither applies the principles of a carefully developed philosophy of experience.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Chapter 1
+    quote: neither the old nor the new education is adequate
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:c2
+  statement_type: claim
+  modality: theoretical
+  text: 'The principle of continuity (the experiential continuum) holds that every
+    experience both takes up something from those which have gone before and modifies
+    in some way the quality of those which come after. This principle, rooted in the
+    biological concept of habit, provides the primary criterion for discriminating
+    between experiences that are educative and those that are miseducative. An educative
+    experience is one that promotes further growth; a miseducative experience arrests
+    or distorts the growth of further experience.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Chapters 2-3
+    quote: the principle of continuity of experience means that every experience both
+      takes up something from those which have gone before and modifies in some way
+      the quality of those which come after
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:c3
+  statement_type: claim
+  modality: theoretical
+  text: 'The principle of interaction assigns equal rights to both objective (environmental)
+    and internal (personal) conditions of experience. Any normal experience is an interplay
+    of these two sets of conditions, together forming what Dewey calls a "situation."
+    Traditional education violated this principle by overemphasizing external conditions;
+    progressive education risks violating it from the opposite side by subordinating
+    objective conditions to the immediate inclinations of the learner.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Chapter 3
+    quote: The word "interaction" expresses the second chief principle for interpreting
+      an experience in its educational function and force
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:c4
+  statement_type: claim
+  modality: theoretical
+  text: 'Continuity and interaction are not separate principles but intercept and unite
+    as the longitudinal and lateral aspects of experience. Together they provide the
+    measure of the educative significance and value of an experience. A fully integrated
+    personality exists only when successive experiences are integrated with one another.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Chapter 3
+    quote: They are, so to speak, the longitudinal and lateral aspects of experience
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:c5
+  statement_type: claim
+  modality: theoretical
+  text: 'The only freedom of enduring importance is freedom of intelligence — freedom
+    of observation and of judgment exercised in behalf of purposes that are intrinsically
+    worthwhile. Physical freedom of movement is a means, not an end. True self-control
+    is achieved through the individual''s own reflection and judgment (inhibition of
+    impulse through thinking), not through mere removal of external constraints.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Chapter 5
+    quote: The only freedom that is of enduring importance is freedom of intelligence
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:c6
+  statement_type: claim
+  modality: theoretical
+  text: 'A genuine purpose is not mere impulse or desire. It requires foresight of
+    consequences through intelligent observation, knowledge of the past, and judgment.
+    The teacher''s guidance of the pupil''s intelligence in forming purposes is an
+    aid to freedom, not a restriction upon it. Plans should be co-operative enterprises
+    developed through reciprocal give-and-take, not dictations.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Chapter 6
+    quote: A purpose is an end-view. That is, it involves foresight of the consequences
+      which will result from acting upon impulse
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:c7
+  statement_type: claim
+  modality: theoretical
+  text: 'Subject-matter must be derived from materials within the scope of ordinary
+    life-experience and then progressively organized toward more refined, richer forms
+    that approximate the knowledge of the mature specialist. The scientific method —
+    forming hypotheses, testing them through observed consequences, and keeping reflective
+    records — provides the authentic pattern for this progressive organization.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Chapter 7
+    quote: scientific method provides a working pattern of the way in which and the
+      conditions under which experiences are used to lead ever onward and outward
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:m1
+  statement_type: method
+  modality: descriptive
+  text: 'Dewey''s argumentative method proceeds by dialectical critique: he presents
+    the principles and practices of traditional education, then the reactive principles
+    of progressive education, and demonstrates that both fail when they operate as
+    Either-Or extremes. He then constructs a positive philosophy of experience from
+    two foundational criteria (continuity and interaction) and applies them to concrete
+    educational problems — social control, freedom, purpose, and subject-matter organization.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Preface and Chapters 1-8
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+evidence:
+- id: ev:either-or-critique
+  evidence_type: observation
+  summary: 'Dewey systematically contrasts the principles of traditional and progressive
+    education to show that each fails by taking an extreme position. Traditional education
+    is characterized by imposition from above, static subject-matter, docility, and
+    preparation for the future at the expense of the present. Progressive education
+    reacts by exalting individuality, free activity, learning through experience, and
+    the present — but does so negatively, by rejection rather than constructive development.
+
+    '
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Chapter 1
+  observations:
+  - metric: traditional_education_characteristics
+    qualitative_value: 'Imposition from above and outside; adult standards imposed
+      on immature learners; static subject-matter taught as finished product; docility
+      and obedience expected; school sharply separated from other social institutions'
+    qualifiers:
+      type: critique
+  - metric: progressive_education_characteristics
+    qualitative_value: 'Expression and cultivation of individuality; free activity;
+      learning through experience; making the most of present life; acquaintance with
+      a changing world'
+    qualifiers:
+      type: reactive_principles
+  - metric: dewey_diagnosis
+    qualitative_value: 'Both are miseducative because neither applies principles of
+      a carefully developed philosophy of experience. Progressive education develops
+      its principles by reaction rather than constructive development.'
+    qualifiers:
+      type: synthesis
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: ev:continuity-examples
+  evidence_type: observation
+  summary: 'Dewey illustrates the continuity principle through multiple concrete examples:
+    a child learning to speak widens the external conditions of subsequent learning;
+    a spoiled child develops attitudes that demand future catering to whims; a burglar
+    may "grow" in skill but forecloses avenues for growth in other directions; students
+    in traditional schools may acquire skills through drill that limit judgment and
+    intelligent action in new situations.
+
+    '
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Chapters 2-3
+  observations:
+  - metric: positive_continuity
+    qualitative_value: 'Learning to speak opens new environment for further learning;
+      curiosity and initiative carry a person over dead places in the future'
+    qualifiers:
+      direction: growth-promoting
+  - metric: negative_continuity
+    qualitative_value: 'Spoiling a child creates attitudes demanding future catering;
+      drill-acquired skills limit judgment; disconnected experiences produce scatter-brained
+      habits'
+    qualifiers:
+      direction: growth-arresting
+  - metric: burglar_growth_example
+    qualitative_value: 'A burglar may grow in efficiency, but this growth shuts off
+      occasions for growth in other directions — fails the criterion of education as
+      growing'
+    qualifiers:
+      direction: miseducative
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: ev:social-control-games
+  evidence_type: observation
+  summary: 'Dewey uses children''s games as a paradigm case of social control without
+    violation of freedom. Rules are part of the game (not imposed from outside); players
+    submit willingly; disputes concern violations of rules rather than rejection of
+    them. The general principle is that control of individual actions is effected by
+    the whole situation in which individuals share, not by external authority.
+
+    '
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Chapter 4
+  observations:
+  - metric: game_rules_principle
+    qualitative_value: 'Rules are part of the game, not external impositions. No rules,
+      then no game; different rules, then a different game.'
+    qualifiers:
+      type: social_control_paradigm
+  - metric: classroom_implication
+    qualitative_value: 'In progressive schools, social control resides in the nature
+      of the work done as a social enterprise. The teacher reduces occasions for personal
+      authority to a minimum.'
+    qualifiers:
+      type: application
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: ev:purpose-formation
+  evidence_type: observation
+  summary: 'Dewey analyzes the formation of a genuine purpose as a complex intellectual
+    operation involving three steps: (1) observation of surrounding conditions, (2)
+    knowledge of what has happened in similar situations in the past (from recollection
+    and wider experience), and (3) judgment that puts together observation and recollection
+    to see what they signify. He illustrates with the analogy of building a house:
+    desire alone is insufficient without considering funds, sites, family needs, and
+    other objective facts.
+
+    '
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Chapter 6
+  observations:
+  - metric: purpose_formation_steps
+    qualitative_value: '(1) Observation of surrounding conditions; (2) Knowledge of
+      past similar situations; (3) Judgment synthesizing observation and recollection'
+    qualifiers:
+      type: intellectual_operation
+  - metric: purpose_vs_impulse
+    qualitative_value: 'A purpose differs from impulse and desire through its translation
+      into a plan and method of action based upon foresight of consequences'
+    qualifiers:
+      type: distinction
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: ev:scientific-method-education
+  evidence_type: observation
+  summary: 'Dewey argues that the scientific method — hypothesis formation, testing
+    through observed consequences, and reflective summarizing — provides the only authentic
+    pattern for organizing educational experience. Three features are emphasized: (1)
+    ideas as hypotheses must be continuously tested, not accepted as final truths;
+    (2) consequences of acting on ideas must be carefully observed; (3) reflective
+    review and record-keeping of significant features enables intellectual organization.
+
+    '
+  source_anchors:
+  - representation_ref: rep:book
+    locator_type: section
+    locator: Chapter 7
+  observations:
+  - metric: scientific_method_feature_1
+    qualitative_value: 'Ideas are hypotheses to be continuously tested and revised,
+      not fixed truths to be accepted'
+    qualifiers:
+      feature: hypothesis_testing
+  - metric: scientific_method_feature_2
+    qualitative_value: 'Consequences of action must be carefully and discriminatingly
+      observed'
+    qualifiers:
+      feature: observation
+  - metric: scientific_method_feature_3
+    qualitative_value: 'Reflective review and summarizing extracts net meanings — the
+      heart of intellectual organization and the disciplined mind'
+    qualifiers:
+      feature: reflection
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+relations:
+- id: rel:1
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:either-or-critique
+- id: rel:2
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:continuity-examples
+- id: rel:3
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:either-or-critique
+- id: rel:4
+  subject_ref: stmt:c4
+  predicate: depends_on
+  object_ref: stmt:c2
+- id: rel:5
+  subject_ref: stmt:c4
+  predicate: depends_on
+  object_ref: stmt:c3
+- id: rel:6
+  subject_ref: stmt:c5
+  predicate: supported_by
+  object_ref: ev:social-control-games
+- id: rel:7
+  subject_ref: stmt:c6
+  predicate: supported_by
+  object_ref: ev:purpose-formation
+- id: rel:8
+  subject_ref: stmt:c7
+  predicate: supported_by
+  object_ref: ev:scientific-method-education
+- id: rel:9
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:10
+  subject_ref: stmt:c5
+  predicate: depends_on
+  object_ref: stmt:c2
+- id: rel:11
+  subject_ref: stmt:c6
+  predicate: depends_on
+  object_ref: stmt:c5
+- id: rel:12
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:democracy-education
+  citation_intent: other
+- id: rel:13
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:how-we-think
+  citation_intent: other
+- id: rel:14
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:hogben-mathematics
+  citation_intent: other
+- id: rel:15
+  subject_ref: stmt:c7
+  predicate: depends_on
+  object_ref: stmt:c4
+actions: []
+extensions:
+  paper:
+    venue: Kappa Delta Pi Lecture Series (book)
+    year: 1938
+    discipline: Education / Philosophy of Education
+    sections:
+      preface: Business of philosophy of education is to transcend Either-Or conflicts
+      chapter_1: Traditional vs. progressive education — critique of both
+      chapter_2: The need of a theory of experience
+      chapter_3: Criteria of experience — continuity and interaction
+      chapter_4: Social control — games analogy, teacher as group leader
+      chapter_5: The nature of freedom — intellectual vs. physical freedom
+      chapter_6: The meaning of purpose — impulse, desire, and intelligent planning
+      chapter_7: Progressive organization of subject-matter — scientific method
+      chapter_8: Experience as the means and goal of education
+    methodology_type: philosophical_argument
+    evidence_type_distribution:
+      quantitative: 0
+      qualitative: 10
+      note: 'Dewey''s work is entirely philosophical argument illustrated by concrete
+        examples and analogies. There are no empirical experiments, statistical data,
+        or quantitative benchmarks. Evidence consists of dialectical critique, illustrative
+        cases (children''s games, spoiled child, burglar growth, house-building analogy),
+        and reasoned argument from principles of continuity and interaction.
+
+        '
+abstract: 'In this concise monograph, Dewey argues that both traditional and progressive
+  education fail because neither applies a sound philosophy of experience. He proposes
+  two foundational criteria — continuity (every experience modifies future ones) and
+  interaction (experience arises from the interplay of internal and objective conditions)
+  — and applies them to problems of social control, freedom, purpose formation, and
+  subject-matter organization, arguing that the scientific method provides the authentic
+  pattern for educative experience.'
+venue: Kappa Delta Pi (book)
+year: 1938
+keywords:
+- experience
+- education
+- continuity
+- interaction
+- progressive education
+- traditional education
+- freedom
+- self-control
+- purpose
+- scientific method
+- growth
+- subject-matter organization
+- social control
+- philosophy of education
+authors:
+- name: John Dewey
+  affiliation: Columbia University
+  role: first
+venue_type: published
+resources:
+  human:
+    annotators: 34
+language: en
+access: open
+record_status: active

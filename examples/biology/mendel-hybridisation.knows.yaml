@@ -1,0 +1,626 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:examples/mendel/1.0.0
+profile: paper@1
+subject_ref: art:paper
+title: Experiments on Plant Hybridisation (Versuche über Pflanzenhybriden)
+summary: 'Agent-facing sidecar for Gregor Mendel''s 1866 paper reporting eight years
+  of systematic crossing experiments with Pisum sativum (garden peas). The paper establishes
+  the 3:1 segregation ratio for seven differentiating characters, introduces the concepts
+  of dominant and recessive traits, derives the 1:2:1 genotypic ratio in F2, and demonstrates
+  that characters assort independently when multiple traits are crossed simultaneously.
+  These results later became known as Mendel''s First Law (Law of Segregation) and
+  Second Law (Law of Independent Assortment).
+
+  '
+coverage:
+  statements: main_claims_only
+  evidence: key_evidence_only
+license: CC-BY-4.0
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: verhandlungen-bruenn-1866
+freshness:
+  as_of: '2026-03-25T00:00:00Z'
+  update_policy: immutable
+provenance:
+  origin: author
+  actor:
+    name: Knows Example Authors
+    type: org
+  generated_at: '2026-03-25T00:00:00Z'
+  method: manual_curation
+artifacts:
+- id: art:paper
+  artifact_type: paper
+  role: subject
+  title: Experiments on Plant Hybridisation (Versuche über Pflanzenhybriden)
+  identifiers:
+    custom:
+      reference: Mendel 1866
+  representations:
+  - id: rep:fulltext
+    media_type: text/markdown
+    locator:
+      type: path
+      value: examples/biology/mendel-fulltext.md
+- id: art:gaertner
+  artifact_type: paper
+  role: cited
+  title: Die Bastarderzeugung im Pflanzenreiche (The Production of Hybrids in the
+    Vegetable Kingdom)
+  identifiers:
+    custom:
+      reference: Gärtner 1849
+  representations: []
+- id: art:koelreuter
+  artifact_type: paper
+  role: cited
+  title: Kölreuter's observations on plant hybridization
+  identifiers:
+    custom:
+      reference: Kölreuter 1761-1766
+  representations: []
+statements:
+- id: stmt:c1
+  statement_type: claim
+  modality: empirical
+  text: 'In the first hybrid generation (F2), dominant and recessive characters reappear
+    in a definite average proportion of 3:1. Among each four plants of this generation
+    three display the dominant character and one the recessive. The overall average
+    across all seven experiments was 2.98:1.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: THE FIRST GENERATION FROM THE HYBRIDS
+    quote: the definitely expressed average proportion of three to one, so that among
+      each four plants of this generation three display the dominant character and
+      one the recessive
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:c2
+  statement_type: claim
+  modality: empirical
+  text: 'Of F2 individuals showing the dominant character, one-third breed true (constant)
+    and two-thirds are hybrids that again segregate 3:1 in the next generation. The
+    F2 genotypic ratio is therefore 1:2:1 (homozygous dominant : heterozygous : homozygous
+    recessive), which Mendel expresses as A + 2Aa + a.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: THE SECOND GENERATION FROM THE HYBRIDS
+    quote: of those forms which possess the dominant character in the first generation,
+      two-thirds have the hybrid-character, while one-third remains constant with
+      the dominant character
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:c3
+  statement_type: claim
+  modality: empirical
+  text: 'When two or more differentiating characters are combined in a hybrid, each
+    pair of characters segregates independently. The offspring form the terms of a
+    combination series (e.g., 9:3:3:1 for a dihybrid cross). For n differentiating
+    characters, 3^n phenotypic classes, 4^n individuals, and 2^n constant forms result.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: THE OFFSPRING OF HYBRIDS IN WHICH SEVERAL DIFFERENTIATING CHARACTERS
+      ARE ASSOCIATED
+    quote: the relation of each pair of different characters in hybrid union is independent
+      of the other differences in the two original parental stocks
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:c4
+  statement_type: claim
+  modality: theoretical
+  text: 'Hybrids produce egg and pollen cells that represent, in equal numbers, all
+    constant combination forms possible from the united characters. The observed segregation
+    ratios can be explained by the random union of these equally frequent reproductive
+    cells.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: THE REPRODUCTIVE CELLS OF THE HYBRIDS
+    quote: the pea hybrids form egg and pollen cells which, in their constitution,
+      represent in equal numbers all constant forms which result from the combination
+      of the characters united in fertilization
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:m1
+  statement_type: method
+  modality: descriptive
+  text: 'Mendel selected Pisum sativum (garden peas) for their self-fertilizing floral
+    structure, short generation time, and availability of constant differentiating
+    varieties. 34 varieties were obtained and tested over two years; 22 were selected
+    for the experiments. Seven binary differentiating characters were identified covering
+    seed form, seed color, seed-coat color, pod form, pod color, flower position,
+    and stem length. Reciprocal crosses were performed for each character pair, with
+    60 to 23 fertilizations per experiment across 5 to 15 plants.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: SELECTION OF THE EXPERIMENTAL PLANTS
+    quote: In all, thirty-four more or less distinct varieties of Peas were obtained
+      from several seedsmen and subjected to a two year's trial
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:a1
+  statement_type: assumption
+  modality: descriptive
+  text: 'The experiments assume that foreign pollen contamination was negligible due
+    to the self-fertilizing structure of pea flowers (anthers burst within the bud
+    before the flower opens). Among more than 10,000 plants examined, only very few
+    cases of indubitable false impregnation were observed.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: SELECTION OF THE EXPERIMENTAL PLANTS
+    quote: The risk of false impregnation by foreign pollen is, however, a very slight
+      one with Pisum, and is quite incapable of disturbing the general result
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:l1
+  statement_type: limitation
+  modality: descriptive
+  text: 'The experiments were practically confined to a single plant group (Pisum).
+    Mendel acknowledges that confirmation from other species is needed. Experiments
+    with Phaseolus multiflorus showed reduced fertility and complex color inheritance
+    that did not straightforwardly follow the simple ratios observed in Pisum.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: EXPERIMENTS WITH HYBRIDS OF OTHER SPECIES OF PLANTS
+    quote: Whether the variable hybrids of other plant species observe an entire agreement
+      must also be first decided experimentally
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: stmt:c5
+  statement_type: claim
+  modality: empirical
+  text: 'In each of the seven crosses, the hybrid resembles one parental form so closely
+    that the other escapes observation. These transmitted characters are termed "dominant"
+    and those that become latent are termed "recessive". It is immaterial whether
+    the dominant character belongs to the seed parent or the pollen parent.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: THE FORMS OF THE HYBRIDS
+    quote: those characters which are transmitted entire, or almost unchanged in the
+      hybridization, and therefore in themselves constitute the characters of the
+      hybrid, are termed the dominant, and those which become latent in the process
+      recessive
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+evidence:
+- id: ev:f2-ratios
+  evidence_type: observation
+  summary: 'F2 segregation ratios from all seven monohybrid experiments, each showing
+    approximately 3:1 dominant to recessive, with an overall average of 2.98:1.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: THE FIRST GENERATION FROM THE HYBRIDS
+  observations:
+  - metric: expt1_seed_form_ratio
+    value: 2.96
+    unit: dominant:recessive
+    qualifiers:
+      total_seeds: 7324
+      round: 5474
+      wrinkled: 1850
+      from_hybrids: 253
+  - metric: expt2_albumen_color_ratio
+    value: 3.01
+    unit: dominant:recessive
+    qualifiers:
+      total_seeds: 8023
+      yellow: 6022
+      green: 2001
+      from_plants: 258
+  - metric: expt3_seed_coat_ratio
+    value: 3.15
+    unit: dominant:recessive
+    qualifiers:
+      total_plants: 929
+      violet_red: 705
+      white: 224
+  - metric: expt4_pod_form_ratio
+    value: 2.95
+    unit: dominant:recessive
+    qualifiers:
+      total_plants: 1181
+      inflated: 882
+      constricted: 299
+  - metric: expt5_pod_color_ratio
+    value: 2.82
+    unit: dominant:recessive
+    qualifiers:
+      total_plants: 580
+      green: 428
+      yellow: 152
+  - metric: expt6_flower_position_ratio
+    value: 3.14
+    unit: dominant:recessive
+    qualifiers:
+      total_plants: 858
+      axial: 651
+      terminal: 207
+  - metric: expt7_stem_length_ratio
+    value: 2.84
+    unit: dominant:recessive
+    qualifiers:
+      total_plants: 1064
+      long: 787
+      short: 277
+  - metric: overall_average_ratio
+    value: 2.98
+    unit: dominant:recessive
+    qualifiers:
+      note: average across all seven experiments
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: ev:f3-genotypic
+  evidence_type: observation
+  summary: 'F3 breeding tests showing that among F2 dominants, approximately one-third
+    breed true and two-thirds segregate again, establishing the 1:2:1 genotypic ratio.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: THE SECOND GENERATION FROM THE HYBRIDS
+  observations:
+  - metric: expt1_hybrid_to_constant_ratio
+    value: 1.93
+    unit: hybrid:constant
+    qualifiers:
+      total_F2_dominant: 565
+      constant: 193
+      segregating: 372
+  - metric: expt2_hybrid_to_constant_ratio
+    value: 2.13
+    unit: hybrid:constant
+    qualifiers:
+      total_F2_dominant: 519
+      constant: 166
+      segregating: 353
+  - metric: average_hybrid_to_constant
+    value: 2.0
+    unit: hybrid:constant
+    qualifiers:
+      note: average of experiments 1 and 2; confirms 1:2:1 genotypic ratio
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: ev:dihybrid
+  evidence_type: observation
+  summary: 'Dihybrid cross (seed form x albumen color) producing 556 F2 seeds in approximately
+    9:3:3:1 ratio, confirming independent assortment. F3 breeding confirmed nine genotypic
+    classes in ratio 1:2:4.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: THE OFFSPRING OF HYBRIDS IN WHICH SEVERAL DIFFERENTIATING CHARACTERS
+      ARE ASSOCIATED
+  observations:
+  - metric: dihybrid_round_yellow
+    value: 315
+    qualifiers:
+      phenotype: AB (round yellow)
+  - metric: dihybrid_wrinkled_yellow
+    value: 101
+    qualifiers:
+      phenotype: aB (wrinkled yellow)
+  - metric: dihybrid_round_green
+    value: 108
+    qualifiers:
+      phenotype: Ab (round green)
+  - metric: dihybrid_wrinkled_green
+    value: 32
+    qualifiers:
+      phenotype: ab (wrinkled green)
+  - metric: dihybrid_total
+    value: 556
+    unit: seeds
+    qualifiers:
+      from_hybrids: 15
+      expected_ratio: '9:3:3:1'
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: ev:trihybrid
+  evidence_type: observation
+  summary: 'Trihybrid cross (seed form x albumen color x seed-coat color) from 24
+    hybrids producing 687 seeds and 639 fruiting plants. The 27 expected genotypic
+    classes appeared in ratios closely matching the theoretical 1:2:4:8.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: THE OFFSPRING OF HYBRIDS IN WHICH SEVERAL DIFFERENTIATING CHARACTERS
+      ARE ASSOCIATED
+  observations:
+  - metric: trihybrid_constant_classes
+    value: 8
+    qualifiers:
+      avg_per_class: 10
+      note: constant in all three characters
+  - metric: trihybrid_hybrid_one_classes
+    value: 12
+    qualifiers:
+      avg_per_class: 19
+      note: constant in two, hybrid in one
+  - metric: trihybrid_hybrid_two_classes
+    value: 6
+    qualifiers:
+      avg_per_class: 43
+      note: constant in one, hybrid in two
+  - metric: trihybrid_fully_hybrid
+    value: 78
+    qualifiers:
+      note: hybrid in all three characters (AaBbCc)
+  - metric: observed_class_ratio
+    qualitative_value: 10:19:43:78 closely approximates 10:20:40:80 = 1:2:4:8
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+- id: ev:backcross
+  evidence_type: observation
+  summary: 'Backcross (test cross) experiments validating that hybrids produce four
+    types of gametes in equal numbers. Crosses of dihybrid AaBb with homozygous ab
+    produced four phenotypic classes in approximately equal numbers.
+
+    '
+  source_anchors:
+  - representation_ref: rep:fulltext
+    locator_type: section
+    locator: THE REPRODUCTIVE CELLS OF THE HYBRIDS
+  observations:
+  - metric: backcross_2nd_expt
+    qualitative_value: 31 round-yellow, 26 round-green, 22 wrinkled-yellow, 26 wrinkled-green
+      (approximately 1:1:1:1)
+  - metric: backcross_4th_expt
+    qualitative_value: 24 round-yellow, 25 round-green, 22 wrinkled-yellow, 27 wrinkled-green
+      (approximately 1:1:1:1)
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-25T00:00:00Z'
+relations:
+- id: rel:1
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:f2-ratios
+- id: rel:2
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:f3-genotypic
+- id: rel:3
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:dihybrid
+- id: rel:4
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:trihybrid
+- id: rel:5
+  subject_ref: stmt:c4
+  predicate: supported_by
+  object_ref: ev:backcross
+- id: rel:6
+  subject_ref: stmt:c4
+  predicate: depends_on
+  object_ref: stmt:c3
+- id: rel:7
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:c5
+- id: rel:8
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:9
+  subject_ref: stmt:c1
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:10
+  subject_ref: stmt:c1
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:11
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:gaertner
+  citation_intent: supports
+- id: rel:12
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:koelreuter
+  citation_intent: supports
+- id: rel:13
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:14
+  subject_ref: stmt:c5
+  predicate: supported_by
+  object_ref: ev:f2-ratios
+- id: rel:15
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:backcross
+actions: []
+extensions:
+  paper:
+    venue: Verhandlungen des naturforschenden Vereines in Brünn
+    year: 1866
+    discipline: Genetics / Plant Biology
+    sections:
+      introductory_remarks: Motivation and prior work survey
+      selection_of_experimental_plants: Why Pisum sativum was chosen
+      division_and_arrangement: Seven differentiating characters defined
+      forms_of_hybrids: Dominance observed in F1
+      first_generation: F2 segregation ratios (3:1)
+      second_generation: F3 genotypic ratios (1:2:1)
+      subsequent_generations: Continued segregation 2:1:1
+      several_differentiating_characters: Dihybrid and trihybrid crosses
+      reproductive_cells: Backcross experiments and gamete theory
+      other_species: Phaseolus experiments
+      concluding_remarks: Comparison with Gärtner and Kölreuter
+    methodology_type: experimental_crossing
+    evidence_type_distribution:
+      quantitative: 20
+      qualitative: 3
+      note: 'This paper is richly quantitative. Mendel meticulously counted thousands
+        of offspring across seven character pairs over eight years. The sidecar captures
+        all seven F2 ratios, the F3 genotypic ratio, dihybrid counts (315:101:108:32),
+        trihybrid class frequencies, and backcross results as numeric observations.
+
+        '
+abstract: This paper reports the results of detailed hybridization experiments with
+  Pisum sativum (garden peas) conducted over eight years. Crossing varieties differing
+  in seven distinct characters revealed that hybrid offspring consistently segregate
+  in a 3:1 ratio of dominant to recessive forms. Among dominant F2 individuals, one-third
+  breed true while two-thirds are hybrids, yielding a genotypic ratio of 1:2:1. When
+  multiple characters are combined, each pair segregates independently, producing
+  combination series whose terms follow predictable mathematical ratios. These regularities
+  are explained by the hypothesis that hybrids form equal numbers of all possible
+  gametic types.
+venue: Verhandlungen des naturforschenden Vereines in Brünn
+year: 1866
+keywords:
+- Pisum sativum
+- plant hybridization
+- dominant character
+- recessive character
+- segregation ratio
+- 3:1 ratio
+- independent assortment
+- monohybrid cross
+- dihybrid cross
+- trihybrid cross
+- gamete formation
+- Mendel
+- genetics
+- inheritance
+authors:
+- name: Gregor Mendel
+  affiliation: Augustinian Abbey of St Thomas, Brünn (Brno)
+  role: first
+venue_type: published
+resources:
+  facilities:
+  - Augustinian Abbey garden, Brünn
+  - Greenhouse at the Abbey
+language: de
+access: open
+record_status: active

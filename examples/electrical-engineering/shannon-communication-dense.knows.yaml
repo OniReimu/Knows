@@ -1,0 +1,960 @@
+$schema: https://knows.dev/schema/record-0.9.json
+knows_version: 0.9.0
+record_id: knows:examples/shannon-communication-dense/1.0.0
+profile: paper@1
+subject_ref: art:paper
+title: A Mathematical Theory of Communication
+summary: 'Dense agent-facing sidecar for Shannon''s 1948 landmark paper founding information
+  theory. Covers the five-component communication system model, entropy definition
+  and axiomatic uniqueness, source coding theorem, channel capacity theorem, noisy
+  channel coding theorem, Shannon-Hartley formula for AWGN, BSC capacity, English
+  redundancy (~50%), the term "bit" (coined by J.W. Tukey), Markov source models,
+  successive approximations to English, rate-distortion, and the separation theorem.
+  All results are proof-based.
+
+  '
+coverage:
+  statements: exhaustive
+  evidence: exhaustive
+license: CC-BY-4.0
+version:
+  spec: 0.1.0
+  record: 1.0.0
+  source: bell-system-technical-journal-1948
+freshness:
+  as_of: '2026-03-19T00:00:00Z'
+  update_policy: immutable
+provenance:
+  origin: author
+  actor:
+    name: Knows Example Authors
+    type: org
+  generated_at: '2026-03-27T00:00:00Z'
+  method: manual_curation
+artifacts:
+- id: art:paper
+  artifact_type: paper
+  role: subject
+  title: A Mathematical Theory of Communication
+  identifiers:
+    doi: 10.1002/j.1538-7305.1948.tb01338.x
+  representations:
+  - id: rep:pdf
+    media_type: application/pdf
+    locator:
+      type: url
+      value: https://ieeexplore.ieee.org/document/6773024
+- id: art:nyquist-telegraph
+  artifact_type: paper
+  role: cited
+  title: Certain Topics in Telegraph Transmission Theory (Nyquist)
+  identifiers:
+    doi: 10.1109/T-AIEE.1928.5055024
+  representations: []
+- id: art:hartley-information
+  artifact_type: paper
+  role: cited
+  title: Transmission of Information (Hartley)
+  identifiers:
+    custom:
+      reference: Hartley 1928, Bell System Technical Journal
+  representations: []
+- id: art:boltzmann-entropy
+  artifact_type: paper
+  role: cited
+  title: Boltzmann's statistical mechanics and the H-theorem
+  identifiers:
+    custom:
+      reference: Boltzmann 1872, Weitere Studien
+  representations: []
+- id: art:markov-chains
+  artifact_type: paper
+  role: cited
+  title: Markov chain theory for stochastic processes
+  identifiers:
+    custom:
+      reference: Markov 1906
+  representations: []
+statements:
+- id: stmt:c1
+  statement_type: claim
+  modality: theoretical
+  text: 'Information can be quantified using entropy: H(X) = -sum_x p(x) log p(x),
+    measured in bits when using logarithm base 2. This quantity represents the average
+    uncertainty or information content of a random variable X. Entropy is maximized
+    when all outcomes are equally likely (uniform distribution), yielding H = log(n),
+    and equals zero only when the outcome is certain. The logarithmic measure is the
+    unique function (up to a positive constant K) satisfying three axioms: (1) H is
+    continuous in the p_i; (2) for equiprobable outcomes H is monotonically increasing
+    in n; (3) the composition/grouping property.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Part I, Section 6, Theorem 2
+    quote: H = -K sum p_i log p_i
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c2
+  statement_type: claim
+  modality: theoretical
+  text: 'The channel capacity C = max_{p(x)} I(X;Y) defines the fundamental upper
+    limit on the rate of reliable communication through a noisy channel. Here I(X;Y)
+    = H(X) - H(X|Y) = H(Y) - H(Y|X) is the mutual information between input X and
+    output Y. For the binary symmetric channel with crossover probability p, C = 1
+    - H(p) = 1 + p*log(p) + (1-p)*log(1-p) bits per channel use. For a continuous
+    channel with bandwidth W and signal-to-noise ratio S/N, C = W * log_2(1 + S/N)
+    bits per second (the Shannon-Hartley theorem).
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Part III, Section 16; Part IV, Section 24
+    quote: the capacity of a noisy channel
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c3
+  statement_type: claim
+  modality: theoretical
+  text: 'The noisy channel coding theorem (Shannon''s second theorem): for any communication
+    rate R < C, there exists a coding scheme such that the probability of decoding
+    error can be made arbitrarily small as block length increases. Conversely, for
+    R > C, the error probability is bounded away from zero regardless of the coding
+    scheme. This is an existence proof via random coding — Shannon shows random codes
+    achieve capacity with high probability but does not provide explicit constructive
+    coding schemes.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Part III, Theorems 11-12
+    quote: it is possible to send information at the rate C through the channel with
+      as small a frequency of errors... as desired
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c4
+  statement_type: claim
+  modality: theoretical
+  text: 'The noiseless source coding theorem (Shannon''s first theorem, Theorem 3):
+    a discrete memoryless source with entropy H can be encoded with an average of H
+    bits per symbol, and no lossless encoding can achieve fewer than H bits per symbol.
+    This establishes entropy as the fundamental compression limit and provides the
+    theoretical basis for all data compression algorithms.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Part I, Theorem 3
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c5
+  statement_type: claim
+  modality: theoretical
+  text: 'The five-component communication system model consists of: (1) an information
+    source producing messages; (2) a transmitter encoding messages into signals; (3)
+    the channel, the medium for signal transmission; (4) a receiver performing the
+    inverse of the transmitter to reconstruct the message; (5) the destination, the
+    person or thing for whom the message is intended. This model abstracts away
+    semantic content to focus on the statistical structure of communication.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Introduction, Fig. 1
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c6
+  statement_type: claim
+  modality: theoretical
+  text: 'The redundancy of ordinary English is roughly 50%, considering statistical
+    structure over distances of about eight letters. This means half of what we write
+    is determined by the structure of the language and half is chosen freely. Shannon
+    verified this figure by calculating entropy of successive approximations to English,
+    deletion/restoration experiments, and results from cryptography.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Part I, Section 7
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c7
+  statement_type: claim
+  modality: descriptive
+  text: 'The unit "bit" (binary digit) was suggested by J. W. Tukey. Using base-2
+    logarithm, one bit is the information content of a choice between two equally
+    likely alternatives. A device with two stable positions (relay, flip-flop) stores
+    one bit. N such devices store N bits, since total states = 2^N and log_2(2^N) =
+    N. Base-10 gives decimal digits (1 decimal digit = 3.32 bits). Base-e gives
+    natural units.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Introduction
+    quote: a word suggested by J. W. Tukey
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c8
+  statement_type: claim
+  modality: theoretical
+  text: 'Communication systems are classified into three categories: discrete (both
+    message and signal are sequences of discrete symbols, e.g., telegraphy), continuous
+    (both treated as continuous functions, e.g., radio/television), and mixed (both
+    discrete and continuous variables, e.g., PCM speech). The discrete case forms
+    the foundation for the continuous and mixed cases.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Introduction
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c9
+  statement_type: claim
+  modality: theoretical
+  text: 'Discrete information sources are modeled as Markov processes. Shannon constructs
+    successive approximations to English text: zero-order (equiprobable independent
+    letters), first-order (letter frequencies of English), second-order (digram
+    structure), third-order (trigram structure), first-order word approximation,
+    second-order word approximation. The resemblance to ordinary English increases
+    noticeably at each step.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Part I, Sections 2-3
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c10
+  statement_type: claim
+  modality: theoretical
+  text: 'Entropy has six key properties: (1) H=0 iff outcome is certain; (2) H is
+    maximized at log(n) for uniform distribution; (3) H(x,y) <= H(x)+H(y) with
+    equality iff x,y independent; (4) equalization of probabilities increases H; (5)
+    H(x,y) = H(x) + H_x(y) where H_x(y) is conditional entropy; (6) H(y) >= H_x(y)
+    — knowledge never increases uncertainty. The form H = -sum p_i log p_i is
+    recognized as Boltzmann entropy from statistical mechanics.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Part I, Section 6
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c11
+  statement_type: claim
+  modality: theoretical
+  text: 'The discrete noiseless channel capacity C = lim_{T->inf} log N(T) / T, where
+    N(T) is the number of allowed signals of duration T. For the telegraphy case
+    with constraints on allowed sequences, C can be computed from the characteristic
+    equation of a difference equation. Shannon derives the telegraphy channel
+    capacity as C = 0.539 bits per symbol time.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Part I, Section 1, Theorem 1
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c12
+  statement_type: claim
+  modality: theoretical
+  text: 'The fundamental problem of communication is reproducing at one point either
+    exactly or approximately a message selected at another point. Semantic aspects
+    of communication are irrelevant to the engineering problem. The significant aspect
+    is that the actual message is one selected from a set of possible messages.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Introduction
+    quote: The fundamental problem of communication is that of reproducing at one
+      point either exactly or approximately a message selected at another point
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c13
+  statement_type: claim
+  modality: theoretical
+  text: 'The separation theorem: source coding and channel coding can be performed
+    separately without loss of optimality (asymptotically). Source coding compresses
+    the message to its entropy rate; channel coding adds redundancy for error protection
+    up to channel capacity. This separation holds asymptotically but can be suboptimal
+    for finite block lengths or delay-constrained systems.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Part III
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:c14
+  statement_type: claim
+  modality: theoretical
+  text: 'Three reasons the logarithmic measure of information is natural: (1) engineering
+    parameters (time, bandwidth, relays) vary linearly with logarithm of number of
+    possibilities; (2) it matches intuition — two channels should have twice the
+    capacity of one; (3) it is mathematically suitable — limiting operations are
+    simple in terms of logarithms.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Introduction
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:m1
+  statement_type: method
+  modality: descriptive
+  text: 'Shannon employs a mathematical framework combining probability theory,
+    stochastic processes (Markov chains, ergodic theory), and logarithmic information
+    measures. The key methodological innovation is treating messages as random variables
+    drawn from probability distributions, abstracting away semantic content. The
+    communication system is modeled as a chain: source -> encoder -> channel -> decoder
+    -> destination (Fig. 1). Random coding arguments (selecting codewords randomly)
+    prove achievability of channel capacity. The asymptotic equipartition property
+    (AEP) and joint typicality decoding are used for the channel coding theorem.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Part I, Section 1; Part III, Section 16
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:a1
+  statement_type: assumption
+  modality: descriptive
+  text: 'Core results assume a stationary ergodic source (statistical properties
+    do not change over time, ensemble averages equal time averages) and a discrete
+    memoryless channel (each transmitted symbol corrupted independently). These are
+    relaxed in later sections for continuous sources and channels with memory, but
+    fundamental theorems are proved under these idealized conditions.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Part I, Section 4; Part III, Section 16
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: stmt:l1
+  statement_type: limitation
+  modality: descriptive
+  text: 'The noisy channel coding theorem is a pure existence proof via random coding.
+    Shannon demonstrates capacity-achieving codes exist but provides no constructive
+    method. Practical capacity-approaching codes: turbo codes (1993), LDPC codes
+    (1960/2001), polar codes (2008). The separation theorem holds asymptotically but
+    can be suboptimal for finite block lengths or delay-constrained systems.
+
+    '
+  about_ref: art:paper
+  status: asserted
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Part III, Theorems 11-12
+  confidence:
+    claim_strength: high
+    extraction_fidelity: high
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+evidence:
+- id: ev:entropy-uniqueness
+  evidence_type: proof
+  summary: 'Shannon proves (Theorem 2) that H = -K sum p_i log p_i is the unique
+    measure satisfying three axioms: (1) continuity in p_i; (2) monotonically increasing
+    in n for equiprobable outcomes; (3) composition/grouping law. Example: H(1/2,
+    1/3, 1/6) = H(1/2, 1/2) + 1/2 * H(2/3, 1/3). Maximum entropy is log(n) for
+    uniform distribution.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Part I, Section 6, Theorem 2
+  observations:
+  - metric: entropy_formula
+    qualitative_value: H = -K * sum p_i log p_i, K positive constant; K=1 with log
+      base 2 gives bits
+    qualifiers:
+      type: axiomatic derivation
+  - metric: maximum_entropy
+    qualitative_value: H = log(n) when all p_i = 1/n (uniform distribution)
+  - metric: grouping_example
+    qualitative_value: H(1/2, 1/3, 1/6) = H(1/2, 1/2) + 1/2 * H(2/3, 1/3)
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:channel-coding-proof
+  evidence_type: proof
+  summary: 'Shannon proves the noisy channel coding theorem (Theorems 11-12) using
+    random coding. For a discrete memoryless channel with capacity C, he constructs
+    a random codebook of 2^(nR) codewords of length n. Using AEP and joint typicality
+    decoding, the average error probability goes to zero as n -> infinity for R < C.
+    The converse (Fano''s inequality): for R > C, error probability is bounded away
+    from zero.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Part III, Theorems 11-12
+  observations:
+  - metric: achievability
+    qualitative_value: For R < C, codes exist with P_error -> 0 as block length n
+      -> infinity
+    qualifiers:
+      method: random coding argument
+  - metric: converse
+    qualitative_value: For R > C, P_error bounded away from zero for all codes
+    qualifiers:
+      method: Fano's inequality
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:bsc-capacity
+  evidence_type: proof
+  summary: 'Capacity of the binary symmetric channel (BSC) with crossover probability
+    p: C = 1 - H(p) = 1 + p*log_2(p) + (1-p)*log_2(1-p) bits per channel use. For
+    the AWGN channel with bandwidth W and signal-to-noise ratio S/N: C = W * log_2(1
+    + S/N) bits per second (Shannon-Hartley theorem). Both computed as explicit evaluations
+    of C = max I(X;Y) for specific channel models.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Part III, Sections 16-17; Part IV, Section 24
+  observations:
+  - metric: bsc_capacity
+    qualitative_value: C_BSC = 1 - H(p) = 1 + p*log(p) + (1-p)*log(1-p) bits/use
+    qualifiers:
+      channel: binary symmetric
+  - metric: awgn_capacity
+    qualitative_value: C_AWGN = W * log_2(1 + S/N) bits/second
+    qualifiers:
+      channel: additive white Gaussian noise
+      parameters: bandwidth W, signal-to-noise ratio S/N
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:source-coding
+  evidence_type: proof
+  summary: 'Source coding theorem (Theorem 3): output of a discrete memoryless source
+    with entropy H can be encoded at rate approaching H bits per symbol, and no
+    lossless code achieves fewer. Proof uses the typical set: for long sequences of
+    length n, roughly 2^(nH) sequences have non-negligible probability and can be
+    indexed with approximately nH bits.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Part I, Theorem 3
+  observations:
+  - metric: source_coding_bound
+    qualitative_value: Optimal code rate approaches H bits per symbol as block length
+      -> infinity
+    qualifiers:
+      source_type: discrete memoryless
+  - metric: typical_set_size
+    qualitative_value: '|typical set| ~ 2^(nH) for source sequences of length n'
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:english-redundancy
+  evidence_type: observation
+  summary: 'Shannon estimates English redundancy at roughly 50%, considering statistical
+    structure over about eight letters. Half of written English is determined by
+    language structure, half is freely chosen. Verified by three independent methods:
+    entropy of successive approximations, deletion/restoration experiments, and
+    cryptographic analysis. The six levels of approximation to English text demonstrate
+    increasing resemblance with higher-order statistical models.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Part I, Section 7
+  observations:
+  - metric: english_redundancy
+    value: 50
+    unit: percent
+    qualifiers:
+      scope: statistical structure over ~8 letters
+      verification: three independent methods
+  - metric: approximation_levels
+    qualitative_value: 'Six levels: zero-order (random), first-order (letter freq),
+      second-order (digram), third-order (trigram), first-order word, second-order
+      word — each increasingly resembles English'
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:five-component-model
+  evidence_type: observation
+  summary: 'Shannon''s general communication system (Fig. 1) consists of five parts:
+    (1) information source producing messages; (2) transmitter encoding messages into
+    signals (e.g., sound to electrical current in telephony, letters to dots/dashes
+    in telegraphy); (3) channel (wire, cable, radio band, light beam); (4) receiver
+    reconstructing message from signal; (5) destination. The model handles discrete,
+    continuous, and mixed systems.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Introduction, Fig. 1
+  observations:
+  - metric: system_components
+    qualitative_value: 'Five components: source, transmitter, channel, receiver, destination'
+    qualifiers:
+      figure: Fig. 1
+  - metric: system_types
+    qualitative_value: 'Three categories: discrete (telegraphy), continuous (radio),
+      mixed (PCM speech)'
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:bit-definition
+  evidence_type: observation
+  summary: 'The term "bit" (binary digit) was suggested by J. W. Tukey. Using base
+    2 logarithm: 1 bit = information from one binary choice. A decimal digit = 3.32
+    bits (since log_2(10) = 3.32). N binary devices store N bits (2^N states). Natural
+    units use base e.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Introduction
+  observations:
+  - metric: bit_origin
+    qualitative_value: Term "bit" suggested by J. W. Tukey
+  - metric: decimal_digit_equivalent
+    value: 3.32
+    unit: bits per decimal digit
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:telegraphy-capacity
+  evidence_type: proof
+  summary: 'Shannon computes the capacity of a telegraphy channel with symbol constraints
+    (dots, dashes, letter/word spaces with no consecutive spaces) as C = 0.539 bits
+    per symbol time, obtained from the characteristic equation of the difference
+    equation N(t) = N(t-2) + N(t-4) + N(t-5) + N(t-7) + N(t-8) + N(t-10).
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Part I, Section 1
+  observations:
+  - metric: telegraphy_capacity
+    value: 0.539
+    unit: bits per symbol time
+    qualifiers:
+      channel: telegraphy with constraints
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+- id: ev:entropy-properties
+  evidence_type: proof
+  summary: 'Six properties of entropy proved in Section 6: (1) H=0 iff one p_i=1;
+    (2) max H = log(n) for uniform; (3) H(x,y) <= H(x)+H(y); (4) equalization
+    increases H; (5) chain rule H(x,y) = H(x) + H_x(y); (6) conditioning reduces
+    entropy H(y) >= H_x(y). The form is recognized as Boltzmann entropy from
+    statistical mechanics.
+
+    '
+  source_anchors:
+  - representation_ref: rep:pdf
+    locator_type: section
+    locator: Part I, Section 6
+  observations:
+  - metric: boltzmann_connection
+    qualitative_value: H = -sum p_i log p_i recognized as Boltzmann's H from statistical
+      mechanics
+  - metric: chain_rule
+    qualitative_value: H(x,y) = H(x) + H_x(y), where H_x(y) = -sum p(i,j) log p_i(j)
+  provenance:
+    origin: author
+    actor:
+      name: Knows Example Authors
+      type: org
+    generated_at: '2026-03-27T00:00:00Z'
+relations:
+- id: rel:1
+  subject_ref: stmt:c1
+  predicate: supported_by
+  object_ref: ev:entropy-uniqueness
+- id: rel:2
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:bsc-capacity
+- id: rel:3
+  subject_ref: stmt:c3
+  predicate: supported_by
+  object_ref: ev:channel-coding-proof
+- id: rel:4
+  subject_ref: stmt:c4
+  predicate: supported_by
+  object_ref: ev:source-coding
+- id: rel:5
+  subject_ref: stmt:c5
+  predicate: supported_by
+  object_ref: ev:five-component-model
+- id: rel:6
+  subject_ref: stmt:c6
+  predicate: supported_by
+  object_ref: ev:english-redundancy
+- id: rel:7
+  subject_ref: stmt:c7
+  predicate: supported_by
+  object_ref: ev:bit-definition
+- id: rel:8
+  subject_ref: stmt:c9
+  predicate: supported_by
+  object_ref: ev:english-redundancy
+- id: rel:9
+  subject_ref: stmt:c10
+  predicate: supported_by
+  object_ref: ev:entropy-properties
+- id: rel:10
+  subject_ref: stmt:c11
+  predicate: supported_by
+  object_ref: ev:telegraphy-capacity
+- id: rel:11
+  subject_ref: stmt:c2
+  predicate: supported_by
+  object_ref: ev:channel-coding-proof
+- id: rel:12
+  subject_ref: stmt:c1
+  predicate: uses
+  object_ref: stmt:m1
+- id: rel:13
+  subject_ref: stmt:c2
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:14
+  subject_ref: stmt:c3
+  predicate: depends_on
+  object_ref: stmt:c2
+- id: rel:15
+  subject_ref: stmt:c4
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:16
+  subject_ref: stmt:c3
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:17
+  subject_ref: stmt:c4
+  predicate: depends_on
+  object_ref: stmt:a1
+- id: rel:18
+  subject_ref: stmt:c3
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:19
+  subject_ref: stmt:c2
+  predicate: limited_by
+  object_ref: stmt:a1
+- id: rel:20
+  subject_ref: stmt:c5
+  predicate: depends_on
+  object_ref: stmt:m1
+- id: rel:21
+  subject_ref: stmt:c6
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:22
+  subject_ref: stmt:c9
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:23
+  subject_ref: stmt:c10
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:24
+  subject_ref: stmt:c13
+  predicate: depends_on
+  object_ref: stmt:c3
+- id: rel:25
+  subject_ref: stmt:c13
+  predicate: depends_on
+  object_ref: stmt:c4
+- id: rel:26
+  subject_ref: stmt:c13
+  predicate: limited_by
+  object_ref: stmt:l1
+- id: rel:27
+  subject_ref: stmt:c14
+  predicate: depends_on
+  object_ref: stmt:c1
+- id: rel:28
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:nyquist-telegraph
+  citation_intent: extends
+- id: rel:29
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:hartley-information
+  citation_intent: extends
+- id: rel:30
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:boltzmann-entropy
+  citation_intent: uses_method
+- id: rel:31
+  subject_ref: art:paper
+  predicate: cites
+  object_ref: art:markov-chains
+  citation_intent: uses_method
+actions: []
+extensions:
+  paper:
+    venue: Bell System Technical Journal, Volume 27, pp. 379-423, 623-656
+    year: 1948
+    discipline: Electrical Engineering / Information Theory
+    sections:
+      part_I: 'Discrete Noiseless Systems (Sections 1-5: source model, entropy)'
+      part_II: 'The Discrete Channel with Noise (Sections 6-15: channel capacity,
+        coding theorem)'
+      part_III: Mathematical Preliminaries for Continuous Case (Sections 16-19)
+      part_IV: 'The Continuous Channel (Sections 20-24: bandwidth, AWGN, Shannon-Hartley)'
+      part_V: 'The Rate for a Continuous Source (Section 25: rate-distortion)'
+    methodology_type: mathematical_framework
+    evidence_type_distribution:
+      proofs: 6
+      quantitative: 3
+      qualitative: 8
+      note: 'Dense sidecar covering the five-component model, entropy axioms and properties,
+        source/channel coding theorems, BSC and AWGN capacity formulas, English
+        redundancy (~50%), bit definition (J.W. Tukey), Markov source approximations,
+        separation theorem, and telegraphy capacity computation.
+
+        '
+abstract: The recent development of various methods of modulation such as PCM and
+  PPM which exchange bandwidth for signal-to-noise ratio has intensified the interest
+  in a general theory of communication. A basis for such a theory is contained in
+  the important papers of Nyquist and Hartley. In the present paper we will extend
+  the theory to include a number of new factors, in particular the effect of noise
+  in the channel.
+venue: Bell System Technical Journal
+year: 1948
+keywords:
+- information theory
+- entropy
+- channel capacity
+- noisy channel
+- coding theorem
+- source coding
+- bits
+- communication
+- signal processing
+- Shannon limit
+- Shannon-Hartley
+- redundancy
+- Markov source
+- binary symmetric channel
+- AWGN
+- separation theorem
+authors:
+- name: Claude E. Shannon
+  affiliation: Bell Telephone Laboratories
+  role: first
+venue_type: published
+resources:
+  facilities:
+  - Bell Telephone Laboratories
+language: en
+access: open
+record_status: active
