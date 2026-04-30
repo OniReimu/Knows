@@ -218,7 +218,7 @@ def fetch_search(query: str, *, cursor: str | None = None,
                   sort: str | None = None) -> dict:
     """GET /api/proxy/search — returns JSON dict with results, total, next_cursor.
 
-    Server filter support (verified per knows.academy /api/v1/search spec):
+    Server filter support (verified per knows.academy /api/proxy/search spec):
       - limit: int, default 20, MAX 100 server-side
       - offset: int, default 0 (alternative to cursor; both supported)
       - cursor: opaque pagination token (server returns next_cursor as offset string)
