@@ -279,3 +279,44 @@ curl -s "$BASE/partial?record_id=$ENC&section=citation"   # raw BibTeX
 - Whether `next_cursor` ever returns as int instead of string.
 
 Update this file when an unverified endpoint is probed against a live deployment.
+
+---
+
+## v0.10 prerequisite — cross-profile relation filter (NOT YET SHIPPED)
+
+`next-step-advisor` v0.10 widens its evidence pool to include `commentary@1` sidecars whose `relations[*].predicate==reflects_on AND object_ref` resolves to a paper@1 RID in the working set. **The hub `/search` API does not currently support filtering by relation-typed cross-references.** Today's `/search` accepts only the params listed above (`q`, `discipline`, `venue_type`, `year_min`/`max`, `sort`, `limit`, `offset`/`cursor`); `profile` is ignored, and there is no `?relation=` filter.
+
+### Today's fallback — two-phase fetch
+
+`next-step-advisor` works around this with a two-phase keyword-fallback:
+
+1. **Phase 1**: search `/search?q=<topic>` → keep `profile==paper@1` results, derive seed RIDs.
+2. **Phase 2**: for each seed paper, search `/search?q=<paper.title>` → keep `profile==commentary@1` results → fetch their `/partial?section=relations` → in-memory filter for `predicate==reflects_on AND object_ref starts with <seed_rid>`.
+
+This works because the tsvector ranking weights titles as Weight A (highest), so a paper title query reliably surfaces commentary@1 sidecars whose `title` field references the paper. It pulls some noise that gets filtered in-memory; cost is acceptable until the hub adds a relation filter.
+
+### Server-side feature requested (proposed)
+
+When the hub team is ready, the cleanest server-side support would be **either** of:
+
+**Option A — relation-typed param on `/search`:**
+
+```
+GET /search?relation=reflects_on&target_rid=<encoded_rid>
+  → returns SearchResult[] for sidecars whose relations[*] include
+    {predicate: "reflects_on", object_ref: "<target_rid>#..."}
+```
+
+**Option B — dedicated `/relations` endpoint:**
+
+```
+GET /relations?predicate=reflects_on&object_rid=<encoded_rid>
+  → returns minimal records: {record_id, profile, predicate, subject_ref, object_ref}
+    suitable for a follow-up batch fetch via /sidecars/<rid> if needed
+```
+
+Option A reuses the existing search infrastructure and pagination; Option B is more flexible for future predicates (e.g. cross-paper `cites` traversal) but requires a new endpoint. We do not have a strong preference — either lets `next-step-advisor` collapse Phase 2 into a single targeted call per seed.
+
+### Server-side data dependency
+
+The fallback assumes `commentary@1` sidecars are **uploaded to the hub** (POST `/sidecars`, currently unverified — see above). Until upload is wired up, commentary@1 sidecars stay local and `next-step-advisor` Phase 2 returns zero results. The skill's manifest emits a coverage note in this case, so the user knows the brief is paper@1-only and recommends running `commentary-builder` locally on the seed papers.

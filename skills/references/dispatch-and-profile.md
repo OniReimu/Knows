@@ -10,8 +10,12 @@ unless you can prove otherwise.**
 > Companion docs:
 > - `api-schema.md` — verified knows.academy API endpoints + response shapes
 > - `remote-modes.md` — workflow patterns + natural-language routing examples
-> - `knows-record-0.9.json` — canonical sidecar schema (the source of truth for
->   `profile`, `record_status`, `replaces`, `coverage`, `provenance` enums)
+> - `knows-record-0.10.json` — canonical sidecar schema (the source of truth for
+>   `profile`, `record_status`, `replaces`, `coverage`, `provenance` enums, and
+>   the **profile-conditioned `Statement.statement_type` partition** that gates
+>   paper@1 / review@1 / commentary@1)
+> - `knows-record-0.9.json` — kept for backward READ compatibility only; new
+>   sidecars MUST emit 0.10
 
 ---
 
@@ -44,6 +48,7 @@ keyword matching. Routing is deterministic given the tuple.
 | `critique_generate` | Produce a fresh peer review of a paper record |
 | `critique_respond` | Draft a response to reviewer comments on a paper |
 | `brief_next_steps` | Produce an evidence-backed next-step brief |
+| `reflection_generate` | Produce a `commentary@1` sidecar of reader/agent reflections (gap_spotted, scenario_extrapolation, method_transfer_idea, lesson) on a paper |
 | `contribute` | Generate a new sidecar from a source artifact |
 | `inspect_lineage` | Walk one record's declared `replaces` chain backward |
 | `revise_local` | Patch whitelisted fields of an existing sidecar locally |
@@ -73,7 +78,8 @@ Slot keys are typed. Validation runs in two phases:
 | `rid` | string (record_id) | `extract`, `inspect_lineage` |
 | `rid_set` | list[string] | `synthesize_prose`, `synthesize_table` |
 | `rid_pair` | tuple[string, string] | `diff` (canonical; `rid_set` is NOT a valid `diff` input) |
-| `paper_rid` | string | `critique_generate`, `critique_respond` |
+| `paper_rid` | string | `critique_generate`, `critique_respond`, `reflection_generate` |
+| `brainstorm_summary` | string (fenced YAML, schema: `brainstorm-v1`) | `reflection_generate` (paper-brainstorm → commentary-builder), `critique_generate` (review-prep → review-sidecar), `critique_respond` (rebuttal-prep → rebuttal-builder), `contribute` (pitch-grill → sidecar-author from-idea), `synthesize_prose` (survey-shape → survey-narrative), `synthesize_table` (survey-shape → survey-table). All consume-mode chains from Type B stances per `../stances/README.md`. |
 | `reviewer_text_or_rid` | string \| record_id | `critique_respond` |
 | `comparison_axes` | list[string] | `synthesize_table` |
 | `latex_dir` | path | `contribute` |
@@ -99,6 +105,7 @@ Slot keys are typed. Validation runs in two phases:
 | `review_sidecar` | YAML file conforming to `profile: review@1` |
 | `rebuttal_doc` | Per-comment Markdown response with citations |
 | `next_step_brief` | Markdown brief with N candidate questions + supporting refs |
+| `commentary_sidecar` | YAML file conforming to `profile: commentary@1` (reader/agent reflections on a paper) |
 | `knows_yaml` | YAML file conforming to declared `profile` (default `paper@1`) |
 | `lint_report` | Lint pass/fail summary |
 | `version_chain_report` | Backward ancestry chain for one record |
@@ -119,15 +126,22 @@ Tuples matching >1 row → §4 clarification.
 | `discover` | `query_text` | `bibtex` | `paper-finder` |
 | `extract` | `rid`, `q` | `answer_json` | `sidecar-reader` (hub-fetch mode) |
 | `extract` | `local_path`, `q` | `answer_json` | `sidecar-reader` (local-file mode) |
-| `synthesize_prose` | `query_text` OR `rid_set` | `related_work_paragraph` | `survey-narrative` |
-| `synthesize_table` | `rid_set`, `comparison_axes` | `comparison_table` | `survey-table` |
+| `synthesize_prose` | `query_text` OR `rid_set` | `related_work_paragraph` | `survey-narrative` (solo mode) |
+| `synthesize_prose` | `brainstorm_summary` (carries arc + centerpieces) | `related_work_paragraph` | `survey-narrative` (consume mode — survey-shape stance handoff) |
+| `synthesize_table` | `rid_set`, `comparison_axes` | `comparison_table` | `survey-table` (solo mode) |
+| `synthesize_table` | `brainstorm_summary` (carries axes + centerpieces + row_inclusion_rule) | `comparison_table` | `survey-table` (consume mode — survey-shape stance handoff) |
 | `diff` | `rid_pair` | `diff_report` | `paper-compare` (both-hub mode) |
 | `diff` | `local_path_a`, `local_path_b` | `diff_report` | `paper-compare` (both-local mode) |
 | `diff` | `rid`, `local_path_b` | `diff_report` | `paper-compare` (mixed: hub + local) |
-| `critique_generate` | `paper_rid` | `review_sidecar` | `review-sidecar` |
-| `critique_respond` | `paper_rid`, `reviewer_text_or_rid` | `rebuttal_doc` | `rebuttal-builder` |
+| `critique_generate` | `paper_rid` | `review_sidecar` | `review-sidecar` (solo mode — agent generates the review itself) |
+| `critique_generate` | `paper_rid`, `brainstorm_summary` | `review_sidecar` | `review-sidecar` (consume mode — mechanical translation of review-prep stance's structured weaknesses/strengths) |
+| `critique_respond` | `paper_rid`, `reviewer_text_or_rid` | `rebuttal_doc` | `rebuttal-builder` (solo mode — agent classifies + drafts) |
+| `critique_respond` | `paper_rid`, `reviewer_text_or_rid`, `brainstorm_summary` | `rebuttal_doc` | `rebuttal-builder` (consume mode — mechanical translation of rebuttal-prep stance's classified comments) |
 | `brief_next_steps` | `query_text` | `next_step_brief` | `next-step-advisor` |
-| `contribute` | `latex_dir` OR `text_blob` OR `pdf_path` | `knows_yaml` | `sidecar-author` |
+| `reflection_generate` | `paper_rid` | `commentary_sidecar` | `commentary-builder` (solo mode — agent brainstorms reflections itself) |
+| `reflection_generate` | `paper_rid`, `brainstorm_summary` | `commentary_sidecar` | `commentary-builder` (consume mode — mechanically translates a paper-brainstorm stance's structured summary, fail-closed grounding verification) |
+| `contribute` | `latex_dir` OR `text_blob` OR `pdf_path` | `knows_yaml` | `sidecar-author` (paper-extraction paths A/B/E/F) |
+| `contribute` | `brainstorm_summary` | `knows_yaml` | `sidecar-author` (from-idea path C, consume mode — pitch-grill stance handoff) |
 | `contribute` | `latex_dir` OR `text_blob` OR `pdf_path` | `lint_report` | `sidecar-author` (lint-only branch) |
 | `inspect_lineage` | `rid` | `version_chain_report` | `version-inspector` |
 | `revise_local` | `target_rid`, `field_patches` | `diff_and_yaml` | `sidecar-reviser` |
@@ -370,9 +384,9 @@ emits_profile: paper@1        # profile@version, REQUIRED whenever ANY row in §
 **Cross-section invariants:**
 
 - `quality_policy.allowed_coverage` enum values are tied to the canonical
-  schema (`knows-record-0.9.json`'s `coverage.statements` enum). Any value
-  not in that enum is a registration error — orchestrator does not invent
-  coverage levels.
+  schema (`knows-record-0.10.json`'s `coverage.statements` enum, unchanged
+  from 0.9). Any value not in that enum is a registration error —
+  orchestrator does not invent coverage levels.
 - `requires_full_record: true` triggers a manifest field
   `fetch_mode_per_rid` (per §6.2) where every entry is `"full"` for that
   skill's working set. With default false, entries are `"partial:<section>"`.
@@ -419,6 +433,26 @@ quality_policy:
 requires_full_record: false
 # emits_profile omitted — every routed artifact (rebuttal_doc) is non-sidecar
 ```
+
+**Worked example — `commentary-builder` (consumes `paper@1`, emits `commentary@1` — new in v0.10):**
+
+```yaml
+accepts_profiles: [paper@1]
+quality_policy:
+  require_lint_passed: true
+  allowed_coverage: [exhaustive, main_claims_only, key_claims_and_limitations]
+  min_statements: 5
+requires_full_record: true            # reflection grounding wants relations + evidence, not just statements
+emits_profile: commentary@1           # required because the routed artifact (commentary_sidecar) is sidecar-typed
+```
+
+> **Profile-conditioned validation reminder.** Records emitted under `commentary@1`
+> can carry ONLY the four reflection-typology statement_types (`gap_spotted`,
+> `lesson`, `scenario_extrapolation`, `method_transfer_idea`) per `knows-record-0.10.json`'s
+> top-level `allOf` rule. A commentary record carrying `claim` or `limitation` fails
+> schema validation by design — this enforces voice separation at the schema layer
+> rather than relying on downstream G7 sub-filters. See `knows-record-0.10.json`
+> description for the per-profile statement_type partition.
 
 ---
 

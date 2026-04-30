@@ -128,7 +128,7 @@ User intent → dispatch tuple → sub-skill → artifact
 | `sidecar-reader` | "what dataset did Vaswani use?" | JSON answer (consume-prompt v1.1) |
 | `sidecar-author` | "make a sidecar from this PDF/LaTeX" | `paper.knows.yaml` (lint-pass + verify-pass) |
 
-**v1.1+ planned** — paper-compare / review-sidecar / survey-narrative / survey-table / next-step-advisor / rebuttal-builder / version-inspector / sidecar-reviser. See [`skills/sub-skills/README.md`](skills/sub-skills/README.md) for the full 11-skill catalog and rollout schedule.
+**v1.1+ planned** — paper-compare / review-sidecar / survey-narrative / survey-table / next-step-advisor / rebuttal-builder / version-inspector / sidecar-reviser / commentary-builder (v0.10). See [`skills/sub-skills/README.md`](skills/sub-skills/README.md) for the full 12-skill catalog and rollout schedule.
 
 **7 orchestrator guards** (G1–G7) protect against prompt injection, quality leakage, untyped routing, profile contamination, and unbounded fetches. Full contract: [`skills/references/dispatch-and-profile.md`](skills/references/dispatch-and-profile.md).
 

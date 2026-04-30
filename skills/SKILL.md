@@ -5,17 +5,25 @@ description: "Knows orchestrator + sidecar toolkit — routes researcher workflo
 
 # Knows Orchestrator + Sidecar Toolkit
 
-Knows is a companion specification for research artifacts. A KnowsRecord is a YAML sidecar that sits next to a PDF, binding structured claims, evidence, typed relations, and provenance in a schema-validated format that agents can consume directly.
+> **Knows is a sidecar standard PLUS a researcher-workflow catalog.** The sidecar (`paper.knows.yaml`) is a structured companion to a PDF — every claim, every number, every connection, agent-readable in one file. This directory is the **workflow surface**: a catalog of skills you invoke ON those sidecars (find / generate / review / brainstorm gaps / draft rebuttals) plus stance-based dialogue postures (grill an idea / question yourself / play devil's advocate). For "what is the sidecar format and why does it exist", see [`../README.md`](../README.md). For "what can I DO with a sidecar today", read on.
+
+A KnowsRecord is a YAML sidecar that sits next to a PDF, binding structured claims, evidence, typed relations, and provenance in a schema-validated format that agents can consume directly.
 
 This SKILL.md serves two roles:
-1. **Orchestrator** for the 11-skill researcher-workflow library (see §Orchestrator Architecture below). Routes user intent to sub-skills based on a typed dispatch tuple defined in `references/dispatch-and-profile.md`.
+1. **Orchestrator** for the 12-skill researcher-workflow library + 11 interaction stances (see §Orchestrator Architecture below). Routes user intent to sub-skills based on a typed dispatch tuple defined in `references/dispatch-and-profile.md`.
 2. **Foundational toolkit** for KnowsRecord operations: generate / validate / review / analyze / cli-query / consume / compare / remote (see §Mode Selection).
 
-**v1.0 ships the full 11-skill catalog**: all 11 sub-skills now have dedicated `sub-skills/<name>/SKILL.md` files + `references/<name>.md` contracts. 6 of them are wired into `scripts/orchestrator.py` as Python runners (`run_paper_finder` / `run_sidecar_reader` / `run_sidecar_author_pdf` / `run_sidecar_author_postgen` / `run_paper_compare` / `run_version_inspector` / `run_sidecar_reviser`); the remaining 5 (`run_review_sidecar` / `run_survey_narrative` / `run_survey_table` / `run_next_step_advisor` / `run_rebuttal_builder`) are agent-mediated only because their bodies are LLM-heavy synthesis where wrappers add little value.
+**v1.0 ships the full 12-skill catalog** (was 11; +`commentary-builder` in v0.10): all sub-skills have dedicated `sub-skills/<name>/SKILL.md` files + `references/<name>.md` contracts. 6 of them are wired into `scripts/orchestrator.py` as Python runners (`run_paper_finder` / `run_sidecar_reader` / `run_sidecar_author_pdf` / `run_sidecar_author_postgen` / `run_paper_compare` / `run_version_inspector` / `run_sidecar_reviser`); the remaining 6 (`run_review_sidecar` / `run_survey_narrative` / `run_survey_table` / `run_next_step_advisor` / `run_rebuttal_builder` / `run_commentary_builder`) are agent-mediated only because their bodies are LLM-heavy synthesis where wrappers add little value.
+
+**v0.11.1 adds 9 Type B interaction stances** under `skills/stances/` (was 0): `paper-brainstorm` / `review-prep` / `rebuttal-prep` / `pitch-grill` / `survey-shape` (5 paired with Type A emitters) + `devils-advocate` / `executive-summary` / `socratic` / `red-team` (4 standalone, compose with anything). All 6 Type A emitters that pair with a stance now have CONSUME MODE contract (mechanical translation of fenced `brainstorm_summary` YAML, fail-closed on grounding verification). See `stances/README.md` for activation precedence + composition rules.
+
+**v0.11.2 adds `stance-mix` meta-stance + `draft-grill` stance** — `stance-mix` is a 1-turn dispatcher that interprets abstract use-case statements ("self-review my paper", "respond to reviewers") and proposes the right primary chain + standalone overlays for the user to explicitly activate (fills Q5 gap between Rule 1 and Rule 2). `draft-grill` is the self-review stance for grilling YOUR OWN paper draft (different cognitive framing from review-prep, which preps a peer review of someone ELSE's paper). Total Type B catalog: **11** (6 paired + 4 standalone + 1 meta).
 
 ## TL;DR — routing table for agents
 
 If you're an agent triaging a user request, **skip to §Mode Selection below for the full user-language → sub-skill mapping**. The condensed map is:
+
+### Type A — artifact emitters (sub-skills, dispatch-routed)
 
 | User asks for... | Sub-skill | Where |
 |---|---|---|
@@ -26,10 +34,31 @@ If you're an agent triaging a user request, **skip to §Mode Selection below for
 | Related-work paragraph (prose) | `survey-narrative` | `sub-skills/survey-narrative/SKILL.md` |
 | Comparison table across N papers | `survey-table` | `sub-skills/survey-table/SKILL.md` |
 | Next-step research questions / open gaps | `next-step-advisor` | `sub-skills/next-step-advisor/SKILL.md` |
+| Reader/agent reflection on a paper (gaps the author didn't disclose) | `commentary-builder` | `sub-skills/commentary-builder/SKILL.md` |
 | Draft a peer review of a paper | `review-sidecar` | `sub-skills/review-sidecar/SKILL.md` |
 | Draft response to reviewer comments | `rebuttal-builder` | `sub-skills/rebuttal-builder/SKILL.md` |
 | Walk a sidecar's version history | `version-inspector` | `sub-skills/version-inspector/SKILL.md` |
 | Patch sidecar metadata (version, status, replaces) | `sidecar-reviser` | `sub-skills/sidecar-reviser/SKILL.md` |
+
+### Type B — interaction stances (v0.11+, stance-triggered, NOT dispatch-routed)
+
+Stances are short mattpocock-style sub-skills that trigger thinking/dialogue postures rather than emitting artifacts. They activate via `description` matching or `/<name>` slash command, and chain into Type A emitters via fenced `brainstorm_summary` handoff. See `stances/README.md` for the full catalog + activation precedence rule + canonical handoff schema.
+
+| User asks for... | Stance | Pairs with (Type A) |
+|---|---|---|
+| "Let's brainstorm gaps in paper X" | `paper-brainstorm` | `commentary-builder` |
+| "Help me prep a review of paper X" (someone else's paper) | `review-prep` | `review-sidecar` |
+| "Grill my own paper before submission" / "find weak spots in my draft" | `draft-grill` *(v0.11.2)* | `review-sidecar` |
+| "Categorize these reviewer comments" | `rebuttal-prep` | `rebuttal-builder` |
+| "Grill my paper idea" | `pitch-grill` | `sidecar-author` (from-idea) |
+| "Help me shape this survey" | `survey-shape` | `survey-narrative` / `survey-table` |
+| "Argue against my plan" / "Steelman the opposite" | `devils-advocate` | (standalone, composes) |
+| "Compress this to 3 bullets" / "TL;DR" | `executive-summary` | (standalone, composes) |
+| "Ask me questions instead", "Socratic mode" | `socratic` | (standalone, composes) — v0.11.1 |
+| "Find the attack surface", "red-team my plan" | `red-team` | (standalone, composes) — v0.11.1 |
+| Abstract use case w/o specific stance ("self-review my paper", "respond to reviewers", "publish a community commentary") | `stance-mix` | (meta — dispatches other stances) — v0.11.2 |
+
+**Activation precedence**: explicit Type A artifact requests ("give me", "generate", "produce") bypass auto-activated stances. Type B activates only on explore/brainstorm intent ("let's brainstorm", "help me think", "/<stance-name>"). Slash commands always win. Full rule in `stances/README.md`.
 
 Pre-flight utilities (called directly): `coverage-check` (is this topic on the hub?), `disciplines` (browse hub structure), `health` (is the hub up?). Run via `python3 scripts/orchestrator.py <subcommand>`.
 
@@ -38,6 +67,8 @@ For deeper orchestrator internals (G1-G7 guards, dispatch tuple grammar, profile
 ## Recipes — common cross-skill chains
 
 Many real research workflows take more than one sub-skill. Below are the canonical chains. Use these as templates — running them in the listed order saves an LLM call (or saves a wasted one when the upstream step would have abstained anyway).
+
+> **v0.11+ chain pattern (Type B → Type A)**: stance skills under `stances/` chain into Type A emitters via fenced `brainstorm_summary` handoff. Stance does free dialogue + opinion + multi-turn convergence; emitter does mechanical translation + grounding verification + YAML emit. The stance fails closed (`status: needs_rework`) when grounding can't be verified. Recipe 9 below demonstrates the canonical case (`paper-brainstorm` → `commentary-builder`); the same shape applies to `review-prep` → `review-sidecar`, `rebuttal-prep` → `rebuttal-builder`, `pitch-grill` → `sidecar-author`, `survey-shape` → `survey-narrative`/`survey-table`. See `stances/README.md` § "How a stance hands off to its paired emitter" for the full schema.
 
 ### Recipe 1: `coverage-check → next-step-advisor`
 
@@ -144,7 +175,47 @@ python3 scripts/orchestrator.py sidecar-reader "knows:<b>/<slug>/1.0.0" "<questi
 
 **Why this chain**: for "what does the recent literature on X say about Y" workflows where the user wants per-paper answers (not synthesized prose). Different from `survey-narrative` (Recipe 4), which produces ONE prose paragraph; this gives N independent answers the user can compare or quote individually. Useful for lit-review note-taking and "did anyone already report Z?" sanity checks.
 
-### Recipe 7: `sidecar-author → sidecar-reader` (own-paper Q&A)
+### Recipe 7: `commentary-builder → next-step-advisor` (gaps when authors are silent) — NEW v0.10
+
+User asks "what's next in `<topic>`" but the seed papers are publication-pressured (no honest gap disclosure in their `limitation`/`question` statements). Default `next-step-advisor` runs surface only author-stated gaps, missing the much larger pool of gaps a careful reader/agent would spot.
+
+```python
+# Step 1 — identify seed papers (skip if user supplied them)
+hits = fetch_search(TOPIC, sort="trending", limit=12)["results"]
+seed_rids = [h["record_id"] for h in hits if h.get("profile") == "paper@1"][:5]
+
+# Step 2 — generate commentary@1 sidecars for each seed (one call per paper)
+# Use the canonical prompt at references/commentary-builder-prompt.md.
+# Output: <paper>_commentary.knows.yaml conforming to profile: commentary@1.
+# Each commentary record has 3-6 reflections (gap_spotted / scenario_extrapolation /
+# method_transfer_idea / lesson) anchored via `reflects_on` to paper stmt:* IDs.
+# Lint each commentary YAML before publishing — schema enforces commentary@1's
+# 4-type statement_type partition.
+
+# Step 2.5 — PUBLISH PREREQUISITE (load-bearing).
+# `next-step-advisor` Phase 2 retrieves commentary records via the hub's `/search` endpoint.
+# That means the commentary YAML produced in Step 2 MUST be uploaded to the hub before
+# Step 3 can consume it. POST `/sidecars` is currently UNVERIFIED (api-schema.md §"Unverified"),
+# so commentary@1 sidecars STAY LOCAL until the upload path is wired. In the local-only state,
+# Step 3 silently runs paper@1-only and emits the coverage-gap note. To unblock end-to-end
+# automation, EITHER (a) wait for hub upload to ship, OR (b) manually upload via the future
+# `knows publish <commentary>.knows.yaml` CLI when it lands, OR (c) point next-step-advisor at
+# a local-only commentary directory via a future `--local-commentary <dir>` flag (not yet
+# implemented in v0.10).
+
+# Step 3 — run next-step-advisor. Its v0.10 retrieval pulls in commentary@1 sidecars via
+# the two-phase fetch (Quick Start §3 in next-step-advisor/SKILL.md), BUT only if those
+# sidecars are present on the hub. With local-only commentary (the v0.10 default), Phase 2
+# yields zero hits and the advisor emits a manifest coverage-gap note recommending publication.
+# Evidence pool grows from N (paper@1 only) to N + N×k (k ≈ 3-6 reflections per paper)
+# ONLY AFTER commentary upload is wired.
+```
+
+**Why this chain**: the value of `commentary-builder` only materializes when consumed downstream. Running it without immediately consuming the output via `next-step-advisor` is academically interesting but operationally wasted work. The chain also respects publication pressure — authors don't have to disclose anything; the reader-side reflection layer fills in. Caveat: commentary@1 sidecars carry the agent's grounding, not the author's authority — `next-step-advisor` weighs them via `provenance.actor.type == "tool"` so they don't masquerade as author-stated questions.
+
+**Honest scope statement (v0.10)**: this recipe describes the INTENDED end-to-end chain. In v0.10 the chain is partially blocked at Step 2.5 because hub upload is UNVERIFIED. Treat this recipe as a forward-looking design pattern; for actual gap-finding workflows today, prefer Recipe 1 (`coverage-check → next-step-advisor` over paper@1 alone) until the hub-upload prerequisite lands.
+
+### Recipe 8: `sidecar-author → sidecar-reader` (own-paper Q&A)
 
 User has a paper PDF, generates a sidecar, then asks questions about their own paper — typical self-review / rebuttal-prep pattern before the paper has any hub presence.
 
@@ -164,6 +235,47 @@ python3 scripts/orchestrator.py sidecar-reader --local my-paper.knows.yaml "<que
 
 **Why this chain**: closes the "I have a paper but no hub presence" gap for self-review tasks. Local mode (`--local`) keeps the sidecar off the hub during the draft phase — useful when the paper is under double-blind review or simply not ready to publish. Once the paper is accepted/posted, the same sidecar can be uploaded and the chain switches to hub mode (Recipe 6).
 
+### Recipe 9: `paper-brainstorm → commentary-builder` (Type B → Type A canonical chain) — NEW v0.11
+
+User wants to publish a `commentary@1` sidecar to the public hub but a solo-agent commentary has limited community-resource value. The brainstorm-derived chain produces a higher-trust artifact that consumers can distinguish via `provenance.workflow_chain`.
+
+```
+# Step 1 — user activates the paper-brainstorm stance
+# User: "let's brainstorm gaps in <paper title>" or "/paper-brainstorm <paper_rid>"
+# The stance auto-activates per its description (or via slash command).
+# It reads the paper@1 sidecar, enumerates already-conceded ground (limitation/question/assumption),
+# then surfaces 1-3 candidate reflections per turn with opinion + proposed anchor.
+
+# Step 2 — multi-turn dialogue
+# User keeps/refines/drops candidates each turn. Stance integrates user judgment.
+# Anti-overreach check runs continuously: nothing that overlaps a paper-conceded limitation
+# survives as a fresh gap_spotted reflection.
+
+# Step 3 — convergence + handoff
+# User signals convergence ("ok, ship those").
+# Stance emits a fenced brainstorm_summary YAML block per stances/README.md schema.
+# status: ready iff every reflection has grounded: true AND user explicitly confirmed at least one.
+# Otherwise status: needs_rework, hand back to user for another round.
+```
+
+```python
+# Step 4 — orchestrator routes the consume-mode tuple
+# Dispatch tuple: (reflection_generate, {paper_rid, brainstorm_summary}, commentary_sidecar)
+# This matches the SECOND row in dispatch-and-profile.md §1.5 (consume mode), not the solo row.
+# commentary-builder body switches to CONSUME MODE per its SKILL.md §"Consume mode":
+#   - Validates schema: brainstorm-v1
+#   - Refuses if status != ready
+#   - Verifies each reflection's grounding (anchor_id exists, verbatim_quote substring check, user-confirmed)
+#   - Mechanical YAML translation — NO new reflections, NO LLM rewriting of arguments
+#   - Sets provenance.workflow_chain: ["paper-brainstorm", "commentary-builder"]
+#   - Skips the post-LLM banned-phrase check on argument text (stance already enforced it)
+#   - Lints + emits commentary@1 sidecar
+```
+
+**Why this chain**: solo `commentary-builder` produces "what one LLM thought after reading paper X" — anyone running Claude can produce similar. Brainstorm-derived `commentary-builder` produces "what an agent and a careful reader agreed on after multi-turn refinement, with grounding verified twice (stance + emitter)." Public hub consumers see `provenance.workflow_chain: [paper-brainstorm, commentary-builder]` and can weigh accordingly. The same shape pattern applies to other Type B → Type A chains: `review-prep` → `review-sidecar`, `rebuttal-prep` → `rebuttal-builder`, `pitch-grill` → `sidecar-author`, `survey-shape` → `survey-narrative`/`survey-table`.
+
+**Stance composition** (mattpocock-style): standalone stances (`devils-advocate`, `executive-summary`) compose with task-bound stances. `paper-brainstorm + devils-advocate` → for each candidate gap, also argue why it's NOT actually a gap; sharpens anti-overreach. `<any chain> + executive-summary` → after handoff, produce a 3-bullet TL;DR of the agreed reflections for the busy reader. The standalone stance overrides verbosity but defers to the host stance's handoff format.
+
 ---
 
 ## Orchestrator Architecture (v1.0)
@@ -179,11 +291,11 @@ Every user query is resolved into a typed tuple before routing:
 (intent_class, required_inputs, requested_artifact) → sub-skill
 ```
 
-- `intent_class`: enum of 11 values — `discover` / `extract` / `synthesize_prose` / `synthesize_table` / `diff` / `critique_generate` / `critique_respond` / `brief_next_steps` / `contribute` / `inspect_lineage` / `revise_local`
+- `intent_class`: enum of 12 values — `discover` / `extract` / `synthesize_prose` / `synthesize_table` / `diff` / `critique_generate` / `critique_respond` / `brief_next_steps` / `reflection_generate` / `contribute` / `inspect_lineage` / `revise_local`
 - `required_inputs`: typed slot map (`query_text`, `rid`, `rid_set`, `rid_pair`, `paper_rid`, `reviewer_text_or_rid`, `comparison_axes`, `latex_dir`, `text_blob`, `field_patches`, `target_rid`, `q`)
-- `requested_artifact`: enum of 13 values — see dispatch-and-profile.md §1.4
+- `requested_artifact`: enum of 14 values — see dispatch-and-profile.md §1.4
 
-The canonical 13-row routing table is in `references/dispatch-and-profile.md` §1.5.
+The canonical 14-row routing table is in `references/dispatch-and-profile.md` §1.5.
 
 ### intent_class → existing mode → sub-skill mapping
 
@@ -198,7 +310,8 @@ For continuity with the existing toolkit modes, here is how each `intent_class` 
 | `critique_generate` | `review` | `review-sidecar` | v1.1 |
 | `synthesize_prose` | (new) | `survey-narrative` | v1.1 |
 | `synthesize_table` | (new) | `survey-table` | v1.2 |
-| `brief_next_steps` | (new) | `next-step-advisor` | v1.2 (highest single-skill risk — needs ref doc first) |
+| `brief_next_steps` | (new) | `next-step-advisor` | v1.2 (v0.10: retrieval expanded to also pull commentary@1) |
+| `reflection_generate` | (new) | `commentary-builder` | **v0.10** (new sub-skill; produces commentary@1 sidecars consumed by next-step-advisor) |
 | `critique_respond` | (new) | `rebuttal-builder` | v1.2 |
 | `inspect_lineage` | (utility) | `version-inspector` | v1.2 (ancestry-tracer only — no forward discovery) |
 | `revise_local` | (utility) | `sidecar-reviser` | v1.2 (whitelist-only patcher) |
@@ -325,10 +438,13 @@ This skill is **self-contained** — no `pip install` required for most operatio
 - `references/dispatch-and-profile.md` — **Orchestrator contract** (dispatch tuple grammar, G1-G7 guards, profile filter pipeline, abstain conditions, manifest schema, MVP scope). Load-bearing — required reading before extending the orchestrator.
 - `references/api-schema.md` — knows.academy API field-level reference (endpoints + response shapes)
 - `references/yaml-template.yaml` — Complete YAML template (MUST read before generating)
-- `references/knows-record-0.9.json` — JSON Schema v0.9 (used for validation)
-- `references/gen-prompt.md` — Canonical LLM generation prompt (schema rules, field enums, self-check)
+- `references/knows-record-0.10.json` — **JSON Schema v0.10 (canonical for new sidecars)** — adds commentary@1 profile, profile-conditioned statement_type partition, `reflects_on` relation predicate
+- `references/knows-record-0.9.json` — JSON Schema v0.9 (kept for backward READ compat with the existing 21 examples)
+- `references/gen-prompt.md` — Canonical LLM generation prompt for paper@1 sidecars (schema rules, field enums, self-check). v0.10: bumped to emit 0.10 records and advertises the 8 paper@1-admissible statement_types (incl. reflection / lesson). For commentary@1 sidecars, use `commentary-builder-prompt.md` instead — `gen-prompt.md` is paper@1 only.
 - `references/consume-prompt.md` — Canonical LLM consumption prompt (v1.0 base + v1.1 matched-output) — referenced by `sidecar-reader` sub-skill
 - `references/review-mode.md` — Review-as-sidecar workflow — referenced by `review-sidecar` sub-skill
+- `references/commentary-builder-prompt.md` — **NEW v0.10**: canonical LLM prompt for `commentary-builder`; shares the 9-phrase banned list with `next-step-advisor` and the `paper-brainstorm` stance
+- `stances/` — **NEW v0.11+**: 7 mattpocock-style interaction-stance sub-skills (`paper-brainstorm`, `review-prep`, `rebuttal-prep`, `pitch-grill`, `survey-shape`, `devils-advocate`, `executive-summary`). NOT in dispatch contract — activated via description match or `/<name>` slash command. Chain into Type A emitters via fenced `brainstorm_summary` handoff. See `stances/README.md` for the full catalog + activation precedence rule + canonical schema.
 - `references/remote-modes.md` — knows.academy remote API workflow patterns
 
 **Bundled scripts** (run directly, no `pip install` needed):

@@ -218,8 +218,8 @@ def build_scaffold(
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
     record: dict[str, Any] = {
-        "$schema": "https://knows.dev/schema/record-0.9.json",
-        "knows_version": "0.9.0",
+        "$schema": "https://knows.dev/schema/record-0.10.json",
+        "knows_version": "0.10.0",
         "record_id": f"knows:generated/{tex_path.stem}/1.0.0",
         "profile": "paper@1",
         "subject_ref": "art:paper",
@@ -228,11 +228,11 @@ def build_scaffold(
         "TODO: Complete statements, evidence, and relations manually.",
         "coverage": {"statements": "partial", "evidence": "partial"},
         "license": "CC-BY-4.0",
-        "version": {"spec": "0.9.0", "record": "1.0.0", "source": "latex-draft"},
+        "version": {"spec": "0.10.0", "record": "1.0.0", "source": "latex-draft"},
         "freshness": {"as_of": now, "update_policy": "versioned"},
         "provenance": {
             "origin": "machine",
-            "actor": {"name": "knows-gen", "type": "tool", "version": "0.9.0"},
+            "actor": {"name": "knows-gen", "type": "tool", "version": "0.10.0"},
             "generated_at": now,
             "method": "extraction",
         },
@@ -516,8 +516,8 @@ Given the following paper content, generate a complete KnowsRecord YAML sidecar 
 
 The following root-level fields are ALL REQUIRED. Omitting any one will cause lint failure:
 
-- $schema: "https://knows.dev/schema/record-0.9.json"
-- knows_version: "0.9.0"
+- $schema: "https://knows.dev/schema/record-0.10.json"
+- knows_version: "0.10.0"
 - record_id: "knows:generated/<paper-stem>/1.0.0"
 - profile: "paper@1"
 - subject_ref: "art:paper"
@@ -525,19 +525,23 @@ The following root-level fields are ALL REQUIRED. Omitting any one will cause li
 - summary: REQUIRED — 1-2 sentence description (NEVER omit)
 - coverage: REQUIRED — {{statements: "exhaustive", evidence: "key_evidence_only"}}
 - license: "CC-BY-4.0"
-- version: {{spec: "0.9.0", record: "1.0.0", source: "original"}}
+- version: {{spec: "0.10.0", record: "1.0.0", source: "original"}}
 - freshness: {{as_of: "<ISO datetime>", update_policy: "versioned"}}
-- provenance: {{origin: "machine", actor: {{name: "knows-gen", type: "tool", version: "0.9.0"}}, \
+- provenance: {{origin: "machine", actor: {{name: "knows-gen", type: "tool", version: "0.10.0"}}, \
 generated_at: "<ISO datetime>", method: "extraction"}}
 - artifacts: REQUIRED — list (at minimum art:paper with role "subject" + cited works)
-- statements: list of claims/assumptions/limitations
+- statements: list of claims/assumptions/limitations (and optionally reflection / lesson when the author voices interpretive remarks or generalizable take-aways)
 - evidence: list of evidence items
 - relations: list connecting statements to evidence
 - actions: [] (empty list)
 
 ## Statement fields — EVERY statement MUST have ALL of these (EXACT enum values)
 - id: "stmt:c1", "stmt:a1", "stmt:l1", "stmt:m1" etc.
-- statement_type: ONLY one of: claim, assumption, limitation, method, question, definition
+- statement_type: ONLY one of (paper@1 admits 8 types in v0.10): claim, assumption, limitation, method, question, definition, reflection, lesson
+  - "reflection" = the author's interpretive remark on what the work means or what they noticed in retrospect
+  - "lesson" = generalizable take-away the author endorses
+  - Use reflection / lesson sparingly — only when the paper genuinely surfaces such content (typical of tech reports / position papers, rare in conference papers)
+  - DO NOT use: gap_spotted / scenario_extrapolation / method_transfer_idea — those are commentary@1 only and produced by the commentary-builder sub-skill, NOT by gen.py
 - modality: ONLY one of: empirical, theoretical, descriptive, normative
 - text: concise 1-2 sentence text from the paper
 - about_ref: "art:paper"

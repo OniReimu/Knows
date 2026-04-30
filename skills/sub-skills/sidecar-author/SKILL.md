@@ -5,11 +5,12 @@ description: "Generate a KnowsRecord sidecar from a PDF (multimodal LLM read), a
 # Orchestrator dispatch contract — see ../../references/dispatch-and-profile.md §1.5 + §3.4
 intent_class: contribute
 required_inputs:
-  # Exactly one of the three must be supplied (3-way OR per §1.5 contribute rows).
+  # Exactly one of the four must be supplied (4-way OR per §1.5 contribute rows).
   # Supplying any two is invalid_slot_type per §5.
   - pdf_path          # most common real-world input — multimodal LLM reads PDF directly (Path F)
   - latex_dir         # full deterministic pipeline via gen.py (Paths A / B)
   - text_blob         # pre-extracted text — wrapped in synthetic .tex for gen.py (Path E)
+  - brainstorm_summary  # NEW v0.11+: from-idea path (Path C) via the `pitch-grill` stance. Fenced YAML block (schema: brainstorm-v1) carrying headline_claim / closest_related_work / falsifying_experiment / load_bearing_assumption / out_of_scope_disclaimer / target_venue. Switches the skill to CONSUME MODE — mechanical translation of the structured pitch into a `paper@1` from-idea sidecar with `venue_type: in_preparation`. See ../../stances/pitch-grill/SKILL.md for the canonical brainstorm_summary format.
 requested_artifacts:
   - knows_yaml        # primary route — produces a sidecar YAML file
   - lint_report       # secondary route — runs lint without producing the full sidecar (validation-only branch)
@@ -244,6 +245,96 @@ print('OK: scaffold generated, %d statements, %d artifacts' % (len(rec['statemen
 ```
 
 If gen.py crashes or emits unparseable YAML, the regression is in the underlying script, not this sub-skill wrapper. For lint-passing fixtures, see the 21 published sidecars under `../../../examples/` (PDF + sidecar pairs across 14 disciplines) — those exercise consume-mode (sidecar-reader), not contribute-mode, but they are the canonical "what a finished, lint-clean sidecar looks like" reference.
+
+## Consume mode — `brainstorm_summary` chain (v0.11+, Type B → Type A, from-idea path)
+
+When invoked downstream of the `pitch-grill` stance (Type B), sidecar-author receives a `brainstorm_summary` input INSTEAD OF pdf_path/latex_dir/text_blob. This is the canonical Path C (from-idea) entry point in v0.11. The skill switches to CONSUME MODE — mechanical translation of the structured pitch fields into a `paper@1` from-idea sidecar.
+
+### Why CONSUME MODE matters for from-idea
+
+Path C in v0.10 was natural-language-ingested: the user describes their idea, the agent constructs the YAML. This is fine for casual use but produces uneven quality — the agent fills in placeholders for closest_related_work, hypothesizes the falsifying experiment, etc. The `pitch-grill` stance (v0.11) collects those fields explicitly through 3-axis interrogation (originality / feasibility / scope), so the brainstorm_summary carries user-confirmed answers. Consume mode preserves this — the emitter does not re-hypothesize.
+
+### CONSUME MODE flow
+
+```python
+if pdf_path or latex_dir or text_blob:
+    # PAPER-EXTRACTION PATH (A / B / E / F) — current v0.10 behavior
+    ...
+elif brainstorm_summary is not None:
+    # FROM-IDEA PATH (C) via pitch-grill chain — fail-closed verification + mechanical translation
+    summary = parse_brainstorm_summary(brainstorm_summary)
+    if summary["status"] == "abandon":
+        manifest.abstained = True
+        manifest.abstained_reason = "brainstorm_abandoned"
+        raise SystemExit
+    if summary["status"] == "needs_rework":
+        return {"action": "return_to_stance", "rework_needed": summary["rework_needed"]}
+    assert summary["status"] == "ready"
+    assert summary["emit_chain"][-1] == "sidecar-author"
+
+    # Verify required fields are present and confirmed
+    pitch = summary["pitch"]
+    required_fields = ["headline_claim", "load_bearing_assumption", "falsifying_experiment",
+                       "out_of_scope_disclaimer"]
+    rework_needed = []
+    for f in required_fields:
+        conf = next((c for c in summary["human_confirmations"] if c.get("field") == f), None)
+        if conf is None or conf.get("decision") == "drop":
+            rework_needed.append({"field": f, "reason": "user did not confirm"})
+        if not pitch.get(f):
+            rework_needed.append({"field": f, "reason": "missing or empty"})
+    if not pitch.get("closest_related_work"):
+        rework_needed.append({"field": "closest_related_work",
+                              "reason": "originality unverified — empty list"})
+    if rework_needed:
+        return {"action": "return_to_stance", "rework_needed": rework_needed}
+
+    yaml_record = translate_pitch_to_paper_yaml(summary)
+    # CONSUME MODE outputs MUST set $schema to 0.10 — workflow_chain is a first-class
+    # field on Provenance only in 0.10. Emitting from-idea sidecars with $schema=0.9
+    # would force workflow_chain into provenance.x_extensions, weakening the contract.
+    yaml_record["$schema"] = "https://knows.dev/schema/record-0.10.json"
+    yaml_record["knows_version"] = "0.10.0"
+    yaml_record["provenance"]["workflow_chain"] = summary["emit_chain"]   # ["pitch-grill", "sidecar-author"]
+    yaml_record["provenance"]["method"] = "manual_curation"               # from-idea convention
+    yaml_record["venue_type"] = pitch.get("target_venue_type", "in_preparation")
+else:
+    # Neither extraction input nor brainstorm_summary — abstain
+    raise abstain("missing_required_input.<one of pdf_path|latex_dir|text_blob|brainstorm_summary>")
+```
+
+### Field mapping (brainstorm_summary → paper@1 from-idea YAML)
+
+| brainstorm_summary field | paper@1 YAML location |
+|---|---|
+| `pitch.headline_claim` | a `claim`-typed `stmt:headline-*` with `modality: theoretical` (idea not yet measured) |
+| `pitch.load_bearing_assumption` | an `assumption`-typed `stmt:load-bearing-*` |
+| `pitch.falsifying_experiment` | a `method`-typed `stmt:falsifying-experiment` describing the experiment |
+| `pitch.out_of_scope_disclaimer` | a `limitation`-typed `stmt:scope-*` (pre-emptive disclaimer) |
+| `pitch.closest_related_work[*]` | `artifacts[*]` with `role: cited`, identifiers populated when arxiv/doi inferable |
+| `pitch.target_venue` | top-level `venue` (when set; omit if "TBD") |
+| `pitch.target_venue_type` | top-level `venue_type` (default `in_preparation`) |
+| `emit_chain` | `provenance.workflow_chain` |
+| (always) | `provenance.method: manual_curation`, `coverage: {statements: main_claims_only, evidence: partial}` |
+
+### Hard abstain in consume mode
+
+| Condition | `abstained_reason` |
+|---|---|
+| brainstorm_summary `schema` field is not `brainstorm-v1` | `invalid_slot_type.brainstorm_summary` |
+| brainstorm_summary `status` is `abandon` | `brainstorm_abandoned` |
+| brainstorm_summary `status` is `needs_rework` (pass control back to stance) | NOT abstain — return `action: return_to_stance` instead |
+| `pitch.closest_related_work` is empty AND user did not explicitly confirm "I checked, nothing is close" | `action: return_to_stance` (originality unverified) |
+| Any required pitch field missing or unconfirmed | `action: return_to_stance` |
+| brainstorm_summary `emit_chain` does NOT end with `sidecar-author` | `invalid_slot_type.brainstorm_summary` |
+
+### `provenance.workflow_chain` (REQUIRED in consume mode)
+
+The output sidecar's `provenance.workflow_chain` MUST be set to the `emit_chain` from brainstorm_summary (typically `["pitch-grill", "sidecar-author"]`). Solo-mode records (PDF/LaTeX/text-blob input) do NOT set workflow_chain.
+
+### When NOT to use consume mode
+
+If the user has an actual paper PDF or LaTeX project, the paper-extraction paths (A/B/E/F) are correct — they extract real claims grounded in real text. Consume mode is for when the paper does not yet exist (idea stage). Routing the wrong way produces a from-idea sidecar where the headline claim is just the user's brainstorm conjecture instead of a measured-and-cited paper claim.
 
 ## Out of scope
 

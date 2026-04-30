@@ -1,12 +1,12 @@
-# Knows Sidecar YAML Template (v0.9)
+# Knows Sidecar YAML Template (v0.10)
 # COPY THIS STRUCTURE EXACTLY. Only change values after colons.
 # Skip entire blocks the paper does not have.
 # IDs MUST be descriptive kebab-case (e.g., stmt:privacy-budget-tradeoff), NOT numbered (e.g., stmt:c1).
 
-$schema: "https://knows.dev/schema/record-0.9.json"
-knows_version: "0.9.0"
+$schema: "https://knows.dev/schema/record-0.10.json"
+knows_version: "0.10.0"
 record_id: "knows:generated/PAPER_NAME/1.0.0"
-profile: "paper@1"  # Common profiles: paper@1, repo@1, dataset@1, model@1, benchmark@1, review@1
+profile: "paper@1"  # Canonical profiles: paper@1, repo@1, dataset@1, model@1, benchmark@1, review@1, commentary@1 (NEW v0.10 — reader/agent reflections, see commentary-builder)
 subject_ref: "art:paper"
 title: "FILL: Paper Title"
 authors:
@@ -86,8 +86,11 @@ artifacts:
     identifiers:
       url: "FILL: actual URL, or omit identifiers block if unknown"
 
-# --- STATEMENTS (all 6 types — skip types not in the paper) ---
-# statement_type: claim | assumption | limitation | method | question | definition
+# --- STATEMENTS (paper@1 admits 8 types as of v0.10 — skip types not in the paper) ---
+# statement_type: claim | assumption | limitation | method | question | definition | reflection | lesson
+#   - reflection (NEW v0.10): author's interpretive remark on what the work means in retrospect; rare in conference papers, common in tech reports
+#   - lesson (NEW v0.10): generalizable take-away the author endorses; use sparingly
+#   - DO NOT use gap_spotted / scenario_extrapolation / method_transfer_idea on paper@1 — those are commentary@1 only and produced by commentary-builder
 # modality: empirical | theoretical | descriptive | normative  ← ONLY these 4, no others
 # status: asserted | retracted | superseded | under_review  ← ONLY these 4, no others
 statements:
@@ -199,6 +202,47 @@ statements:
     confidence:
       claim_strength: high
       extraction_fidelity: high
+    provenance:
+      origin: machine
+      actor:
+        name: "knows-gen"
+        type: tool
+      generated_at: "2026-01-01T00:00:00Z"
+  # NEW v0.10 — paper@1-only types. Use ONLY when the paper genuinely surfaces interpretive
+  # remarks or take-aways (typical of tech reports, position papers, retrospectives).
+  # Skip these blocks entirely for ordinary conference papers that don't surface lessons.
+  - id: "stmt:reflection-on-scaling-plateau"
+    statement_type: reflection
+    modality: descriptive
+    text: "FILL: Author's interpretive remark — e.g., 'we were surprised that scaling plateaued past 65K virtual entries'"
+    about_ref: "art:paper"
+    status: asserted
+    source_anchors:
+      - representation_ref: "rep:paper-pdf"
+        locator_type: section
+        locator: "Section 7 / Discussion"
+    confidence:
+      claim_strength: medium
+      extraction_fidelity: high
+    provenance:
+      origin: machine
+      actor:
+        name: "knows-gen"
+        type: tool
+      generated_at: "2026-01-01T00:00:00Z"
+  - id: "stmt:lesson-domain-structure-dominates-corpus-size"
+    statement_type: lesson
+    modality: normative
+    text: "FILL: Generalizable take-away the author endorses — e.g., 'domain structure dominates corpus size in memory transfer'"
+    about_ref: "art:paper"
+    status: asserted
+    source_anchors:
+      - representation_ref: "rep:paper-pdf"
+        locator_type: section
+        locator: "Section 7 / Conclusion"
+    confidence:
+      claim_strength: medium
+      extraction_fidelity: medium
     provenance:
       origin: machine
       actor:
@@ -442,11 +486,11 @@ provenance:
   actor:
     name: "knows-gen"
     type: tool  # ONLY: person, org, tool
-    version: "0.9.0"
+    version: "0.10.0"
   generated_at: "2026-01-01T00:00:00Z"
   method: extraction  # ONLY: extraction, manual_curation, conversion, import — use 'extraction' for existing papers, 'manual_curation' for from-idea sidecars
 version:
-  spec: "0.9.0"
+  spec: "0.10.0"
   record: "1.0.0"
   source: "original"
 freshness:

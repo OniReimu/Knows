@@ -14,8 +14,8 @@ Given the following paper content, generate a complete KnowsRecord YAML sidecar 
 
 The following root-level fields are ALL REQUIRED. Omitting any one will cause lint failure:
 
-- `$schema`: `"https://knows.dev/schema/record-0.9.json"`
-- `knows_version`: `"0.9.0"`
+- `$schema`: `"https://knows.dev/schema/record-0.10.json"`
+- `knows_version`: `"0.10.0"`
 - `record_id`: `"knows:generated/<paper-stem>/1.0.0"`
 - `profile`: `"paper@1"`
 - `subject_ref`: `"art:paper"`
@@ -23,11 +23,11 @@ The following root-level fields are ALL REQUIRED. Omitting any one will cause li
 - `summary`: REQUIRED — 1-2 sentence description (NEVER omit)
 - `coverage`: REQUIRED — `{statements: "exhaustive", evidence: "key_evidence_only"}`
 - `license`: `"CC-BY-4.0"`
-- `version`: `{spec: "0.9.0", record: "1.0.0", source: "original"}`
+- `version`: `{spec: "0.10.0", record: "1.0.0", source: "original"}`
 - `freshness`: `{as_of: "<ISO datetime>", update_policy: "versioned"}`
-- `provenance`: `{origin: "machine", actor: {name: "knows-gen", type: "tool", version: "0.9.0"}, generated_at: "<ISO datetime>", method: "extraction"}`
+- `provenance`: `{origin: "machine", actor: {name: "knows-gen", type: "tool", version: "0.10.0"}, generated_at: "<ISO datetime>", method: "extraction"}`
 - `artifacts`: REQUIRED — list (at minimum art:paper with role "subject" + cited works)
-- `statements`: list of claims/assumptions/limitations
+- `statements`: list of claims/assumptions/limitations (and optionally reflections / lessons when the author voices interpretive remarks or generalizable take-aways — most common in tech reports / position papers)
 - `evidence`: list of evidence items
 - `relations`: list connecting statements to evidence
 - `actions`: `[]` (empty list)
@@ -35,7 +35,16 @@ The following root-level fields are ALL REQUIRED. Omitting any one will cause li
 ## Statement fields — EVERY statement MUST have ALL of these (EXACT enum values)
 
 - `id`: `"stmt:descriptive-name"` (kebab-case, descriptive — NOT `stmt:c1`)
-- `statement_type`: ONLY one of: `claim`, `assumption`, `limitation`, `method`, `question`, `definition`
+- `statement_type`: ONLY one of (paper@1 admits 8 types as of v0.10):
+  - `claim` — empirical or theoretical assertion the paper proves
+  - `assumption` — premise the paper rests on
+  - `limitation` — known scope/methodology constraint
+  - `method` — how something is done
+  - `question` — open question the paper raises
+  - `definition` — terminology/concept the paper introduces
+  - `reflection` — author's interpretive remark on what the work means or what they noticed in retrospect (NEW in v0.10; rare in conference papers, more common in tech reports / position papers)
+  - `lesson` — generalizable take-away the author endorses (NEW in v0.10; use sparingly — most academic papers don't surface lessons; tech reports and retrospectives do)
+- DO NOT use: `gap_spotted`, `scenario_extrapolation`, `method_transfer_idea` — those are commentary@1 only and produced by the `commentary-builder` sub-skill, NOT by gen.py. Schema lint will reject them under profile=paper@1.
 - `modality`: ONLY one of: `empirical`, `theoretical`, `descriptive`, `normative`
 - `text`: concise 1-2 sentence text from the paper
 - `about_ref`: `"art:paper"`

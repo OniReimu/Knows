@@ -1,0 +1,923 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://knows.dev/schema/record-0.10.json",
+  "title": "KnowsRecord",
+  "description": "A minimal, verifiable companion sidecar record for research artifacts. v0.10 introduces profile-conditioned statement_type validation: the `profile` field discriminates which statement_types are admissible. Backward-readable with v0.9 records (paper@1 and review@1 unchanged); new commentary@1 profile carries reader/agent reflections (gap_spotted, scenario_extrapolation, method_transfer_idea, lesson). Diff vs 0.9: (1) Statement.statement_type union extended with reflection, lesson, gap_spotted, scenario_extrapolation, method_transfer_idea; (2) Relation.predicate union extended with reflects_on; (3) top-level allOf conditional rules restrict each profile to its own statement_type subset.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "knows_version",
+    "record_id",
+    "profile",
+    "subject_ref",
+    "title",
+    "authors",
+    "summary",
+    "coverage",
+    "license",
+    "artifacts",
+    "statements",
+    "evidence",
+    "relations",
+    "provenance",
+    "version",
+    "freshness"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "enum": [
+        "https://knows.dev/schema/record-0.10.json",
+        "https://knows.dev/schema/record-0.9.json"
+      ],
+      "description": "JSON Schema URI for this record. v0.10 readers accept both 0.9 and 0.10 records to support read-compat during migration; v0.10 writers MUST emit 0.10."
+    },
+    "knows_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Knows spec version this record conforms to (semver)."
+    },
+    "record_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Globally unique identifier for this sidecar record. Recommended format: DOI-based or URL-based."
+    },
+    "profile": {
+      "type": "string",
+      "pattern": "^[a-z_]+@\\d+$",
+      "description": "Domain-specific extension profile and version. Canonical values: 'paper@1' (author sidecar), 'review@1' (peer-review sidecar), 'commentary@1' (reader/agent reflection sidecar; new in 0.10). Per-profile statement_type restrictions are enforced via top-level allOf rules."
+    },
+    "subject_ref": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Local ID referencing the primary artifact this record describes. MUST reference an id from the artifacts array. JSON Schema cannot enforce this cross-reference; use knows-lint for validation."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable title for this sidecar record."
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Brief description of what this sidecar covers."
+    },
+    "coverage": {
+      "$ref": "#/$defs/Coverage",
+      "description": "Declares the scope of this record's coverage."
+    },
+    "license": {
+      "type": "string",
+      "minLength": 1,
+      "description": "SPDX license identifier for this sidecar record. E.g., 'CC-BY-4.0'."
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Artifact"
+      },
+      "description": "The things being described: paper, repo, dataset, model, benchmark, cited work. Present even if empty."
+    },
+    "statements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Statement"
+      },
+      "description": "Claims, assumptions, limitations, methods, questions, definitions, reflections, lessons, gap_spotted, scenario_extrapolations, method_transfer_ideas. Present even if empty. Per-profile restrictions on statement_type are enforced by the top-level allOf conditional rules — see schema description."
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Evidence"
+      },
+      "description": "Table cells, figures, experiment results, citation-backed support. Present even if empty."
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Relation"
+      },
+      "description": "Typed edges across artifacts, statements, and evidence. Present even if empty."
+    },
+    "abstract": {
+      "type": "string",
+      "description": "Full abstract of the paper. Agents use this for L0 discovery (decide whether to read further). Complements 'summary' which describes the sidecar; 'abstract' describes the paper itself."
+    },
+    "venue": {
+      "type": "string",
+      "description": "Publication venue. E.g., 'CVPR 2016', 'Nature', 'arXiv preprint', 'ACM CCS 2016'. Agents use this to assess credibility and domain. Common values for non-published work: 'arXiv preprint', 'under review', 'submitted to [venue]', 'in preparation', 'technical report'."
+    },
+    "venue_type": {
+      "type": "string",
+      "enum": [
+        "published",
+        "preprint",
+        "under_review",
+        "in_preparation",
+        "technical_report",
+        "thesis",
+        "book",
+        "other"
+      ],
+      "description": "Publication status. Agents use this to calibrate trust: 'published' > 'preprint' > 'under_review' > 'in_preparation'."
+    },
+    "year": {
+      "type": "integer",
+      "minimum": 1800,
+      "maximum": 2100,
+      "description": "Publication year of the primary artifact. Distinct from freshness.as_of (sidecar creation time)."
+    },
+    "language": {
+      "type": "string",
+      "pattern": "^[a-z]{2}$",
+      "description": "Primary language of the artifact. ISO 639-1 code. Defaults to 'en' if omitted. Agents use this for multilingual filtering."
+    },
+    "access": {
+      "type": "string",
+      "enum": [
+        "open",
+        "embargoed",
+        "closed",
+        "login_required",
+        "subscription"
+      ],
+      "description": "Access level of the primary artifact. Distinct from license: a CC-BY paper may still be behind a paywall. Agents use this to determine if they can retrieve the full text."
+    },
+    "record_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "retracted",
+        "superseded",
+        "deprecated"
+      ],
+      "description": "Lifecycle status of THIS SIDECAR RECORD. 'retracted' = the described artifact has been retracted. 'superseded' = a newer sidecar version exists. Agents should check this before trusting the record. Distinct from Statement.status which is per-claim."
+    },
+    "replaces": {
+      "type": "string",
+      "description": "record_id of the previous version this record supersedes. Forms a singly-linked version chain: agents follow replaces pointers to traverse history. The referenced record SHOULD set record_status to 'superseded'."
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Search keywords for agent discovery. Include: domain terms, method names, dataset names, task names. Agents use these for L0 (discovery) tasks. Aim for 5-15 terms covering topic, method, and application."
+    },
+    "authors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Author"
+      },
+      "description": "Authors of the primary artifact. Includes name, affiliation, and optional identifiers (ORCID, email, homepage). For commentary@1 records this is the reader/agent author of the commentary, NOT the original paper's author."
+    },
+    "funding": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/FundingSource"
+      },
+      "description": "Funding sources. Agents use this for conflict-of-interest assessment and grant tracking."
+    },
+    "resources": {
+      "$ref": "#/$defs/Resources",
+      "description": "Computational, human, and material resources used. Critical for reproducibility assessment."
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Action"
+      },
+      "description": "Optional machine-invokable affordances. A valid record may have zero actions."
+    },
+    "provenance": {
+      "$ref": "#/$defs/Provenance",
+      "description": "Who/what produced this sidecar record. Serves as DEFAULT provenance for all statements and evidence that do not specify their own. Per-item provenance overrides this when present."
+    },
+    "version": {
+      "$ref": "#/$defs/VersionInfo",
+      "description": "Three-layer version: spec, record, source."
+    },
+    "freshness": {
+      "$ref": "#/$defs/Freshness",
+      "description": "Temporal validity metadata."
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Domain-specific extension data. Structure depends on profile.",
+      "additionalProperties": true
+    }
+  },
+  "allOf": [
+    {
+      "$comment": "Profile-conditioned statement_type rules. Each branch restricts the type union to the subset legal for that profile. Records with unrecognized profiles are not constrained here (they pass the union check in $defs/Statement and downstream skill-side filters can decide).",
+      "if": {
+        "required": ["profile"],
+        "properties": {
+          "profile": { "const": "paper@1" }
+        }
+      },
+      "then": {
+        "properties": {
+          "statements": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "statement_type": {
+                  "enum": [
+                    "claim",
+                    "assumption",
+                    "limitation",
+                    "method",
+                    "question",
+                    "definition",
+                    "reflection",
+                    "lesson"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["profile"],
+        "properties": {
+          "profile": { "const": "review@1" }
+        }
+      },
+      "then": {
+        "properties": {
+          "statements": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "statement_type": {
+                  "enum": [
+                    "claim",
+                    "assumption",
+                    "limitation",
+                    "method",
+                    "question",
+                    "definition"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["profile"],
+        "properties": {
+          "profile": { "const": "commentary@1" }
+        }
+      },
+      "then": {
+        "properties": {
+          "statements": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "statement_type": {
+                  "enum": [
+                    "gap_spotted",
+                    "lesson",
+                    "scenario_extrapolation",
+                    "method_transfer_idea"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "$comment": "Version contract — when a record declares $schema = record-0.9.json (legacy read-compat), restrict to 0.9-era features: profile cannot be commentary@1; statement_type cannot include the 5 v0.10 additions; predicate cannot include reflects_on. This makes $schema a first-class version contract even for validators that load 0.10 directly. Records that intend 0.10 features MUST set $schema = record-0.10.json.",
+      "if": {
+        "required": ["$schema"],
+        "properties": {
+          "$schema": { "const": "https://knows.dev/schema/record-0.9.json" }
+        }
+      },
+      "then": {
+        "properties": {
+          "profile": {
+            "not": { "const": "commentary@1" }
+          },
+          "statements": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "statement_type": {
+                  "enum": [
+                    "claim",
+                    "assumption",
+                    "limitation",
+                    "method",
+                    "question",
+                    "definition"
+                  ]
+                }
+              }
+            }
+          },
+          "relations": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "predicate": {
+                  "enum": [
+                    "supported_by",
+                    "challenged_by",
+                    "depends_on",
+                    "limited_by",
+                    "uses",
+                    "evaluates_on",
+                    "implements",
+                    "documents",
+                    "cites",
+                    "same_as",
+                    "supersedes",
+                    "retracts"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "Coverage": {
+      "type": "object",
+      "required": [
+        "statements",
+        "evidence"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "statements": {
+          "type": "string",
+          "enum": [
+            "exhaustive",
+            "main_claims_only",
+            "key_claims_and_limitations",
+            "partial"
+          ],
+          "description": "How complete. exhaustive='every claim in the paper', main_claims_only='top-level claims', key_claims_and_limitations='claims + known limitations', partial='selected subset'."
+        },
+        "evidence": {
+          "type": "string",
+          "enum": [
+            "exhaustive",
+            "key_evidence_only",
+            "partial"
+          ],
+          "description": "How complete. exhaustive='all evidence', key_evidence_only='main tables/figures', partial='selected subset'."
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Extension point for forward-compatible custom fields."
+        }
+      }
+    },
+    "Artifact": {
+      "type": "object",
+      "required": [
+        "id",
+        "artifact_type",
+        "role",
+        "title"
+      ],
+      "additionalProperties": false,
+      "description": "A research artifact being described. Must have at least one of identifiers, locators, or representations to be discoverable. Cited external works (role='cited') may have only identifiers.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^art:",
+          "description": "Local ID prefixed with 'art:'."
+        },
+        "artifact_type": {
+          "type": "string",
+          "enum": [
+            "paper",
+            "repository",
+            "dataset",
+            "model",
+            "benchmark",
+            "software",
+            "website",
+            "other"
+          ],
+          "description": "Type of research artifact."
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "subject",
+            "supporting",
+            "cited"
+          ],
+          "description": "Role relative to this sidecar. subject='the main artifact described', supporting='used by the main artifact', cited='referenced but external'."
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "identifiers": {
+          "$ref": "#/$defs/Identifiers"
+        },
+        "locators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Locator"
+          }
+        },
+        "representations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Representation"
+          }
+        },
+        "external_metadata_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ExternalMetadataRef"
+          }
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "Identifiers": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "doi":   { "type": "string" },
+        "arxiv": { "type": "string" },
+        "isbn":  { "type": "string" },
+        "url":   { "type": "string", "format": "uri" },
+        "custom": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "x_extensions": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "Locator": {
+      "type": "object",
+      "required": ["type", "value"],
+      "additionalProperties": false,
+      "properties": {
+        "type":  { "type": "string", "enum": ["url", "git", "path", "doi", "other"] },
+        "value": { "type": "string", "minLength": 1 },
+        "version": { "type": "string" },
+        "x_extensions": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "Representation": {
+      "type": "object",
+      "required": ["id", "media_type", "locator"],
+      "additionalProperties": false,
+      "properties": {
+        "id":         { "type": "string", "pattern": "^rep:" },
+        "media_type": { "type": "string" },
+        "locator":    { "$ref": "#/$defs/Locator" },
+        "hash":       { "type": "string", "pattern": "^(sha256|sha1|md5):" },
+        "x_extensions": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "ExternalMetadataRef": {
+      "type": "object",
+      "required": ["standard", "locator"],
+      "additionalProperties": false,
+      "properties": {
+        "standard": {
+          "type": "string",
+          "enum": ["codemeta", "citation_cff", "croissant", "model_card", "datacite", "ro_crate", "other"]
+        },
+        "locator": { "$ref": "#/$defs/Locator" },
+        "x_extensions": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "Statement": {
+      "type": "object",
+      "required": [
+        "id",
+        "statement_type",
+        "text",
+        "about_ref",
+        "status"
+      ],
+      "additionalProperties": false,
+      "description": "A typed proposition recorded in the sidecar. The set of admissible statement_type values is restricted by profile via the top-level allOf rules; the union below is the full set across all profiles for backward read-compat.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^stmt:"
+        },
+        "statement_type": {
+          "type": "string",
+          "enum": [
+            "claim",
+            "assumption",
+            "limitation",
+            "method",
+            "question",
+            "definition",
+            "reflection",
+            "lesson",
+            "gap_spotted",
+            "scenario_extrapolation",
+            "method_transfer_idea"
+          ],
+          "description": "What kind of statement. PAPER@1 admits the original 6 (claim, assumption, limitation, method, question, definition) PLUS reflection (author's interpretive remark), lesson (generalizable take-away author endorses). REVIEW@1 admits the original 6 only (peer-review path unchanged). COMMENTARY@1 admits ONLY: gap_spotted (reader spots a gap the author did not disclose), scenario_extrapolation (a new application scenario the paper enables but does not address), method_transfer_idea (the paper's method could be ported to a different domain), lesson (reader-distilled take-away). The top-level allOf rules enforce the per-profile subset; this enum is the union for read-compat."
+        },
+        "modality": {
+          "type": "string",
+          "enum": ["empirical", "theoretical", "descriptive", "normative"]
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "about_ref": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["asserted", "retracted", "superseded", "under_review"]
+        },
+        "source_anchors": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Anchor" }
+        },
+        "confidence": { "$ref": "#/$defs/Confidence" },
+        "provenance": { "$ref": "#/$defs/Provenance" },
+        "citation_refs": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "x_extensions": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "Evidence": {
+      "type": "object",
+      "required": ["id", "evidence_type", "summary"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^ev:" },
+        "evidence_type": {
+          "type": "string",
+          "enum": [
+            "table_result",
+            "figure",
+            "experiment_run",
+            "citation_backed",
+            "artifact_run",
+            "proof",
+            "case_study",
+            "clinical_trial",
+            "survey_result",
+            "qualitative_analysis",
+            "statistical_test",
+            "observation",
+            "simulation",
+            "other"
+          ]
+        },
+        "summary": { "type": "string", "minLength": 1 },
+        "source_anchors": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Anchor" }
+        },
+        "observations": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Observation" }
+        },
+        "provenance": { "$ref": "#/$defs/Provenance" },
+        "x_extensions": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "Observation": {
+      "type": "object",
+      "required": ["metric"],
+      "additionalProperties": false,
+      "properties": {
+        "metric": { "type": "string", "minLength": 1 },
+        "value": { "type": "number" },
+        "qualitative_value": { "type": "string" },
+        "unit": { "type": "string" },
+        "error": { "type": "number" },
+        "error_type": {
+          "type": "string",
+          "enum": ["std", "stderr", "ci95", "ci99"]
+        },
+        "n_runs": { "type": "integer", "minimum": 1 },
+        "qualifiers": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "Relation": {
+      "type": "object",
+      "required": ["id", "subject_ref", "predicate", "object_ref"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^rel:" },
+        "subject_ref": { "type": "string" },
+        "predicate": {
+          "type": "string",
+          "enum": [
+            "supported_by",
+            "challenged_by",
+            "depends_on",
+            "limited_by",
+            "uses",
+            "evaluates_on",
+            "implements",
+            "documents",
+            "cites",
+            "same_as",
+            "supersedes",
+            "retracts",
+            "reflects_on"
+          ],
+          "description": "Relationship type. The 12 original predicates carry their 0.9 semantics. NEW IN 0.10: 'reflects_on' is a non-adversarial cross-record predicate parallel to 'challenged_by' — it points from a commentary statement (gap_spotted, scenario_extrapolation, method_transfer_idea, lesson) to a paper@1 stmt:* anchor, recording 'this commentary statement was prompted by reading that anchor'. Any profile may use 'reflects_on'; in practice commentary@1 is the primary user."
+        },
+        "object_ref": { "type": "string" },
+        "citation_intent": {
+          "type": "string",
+          "enum": [
+            "supports",
+            "extends",
+            "uses_method",
+            "compares_to",
+            "contradicts",
+            "reviews",
+            "cites_data",
+            "background",
+            "other"
+          ]
+        },
+        "x_extensions": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "Action": {
+      "type": "object",
+      "required": ["id", "action_type", "label", "target_ref", "interface", "safety"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^act:" },
+        "action_type": {
+          "type": "string",
+          "enum": ["download", "run", "query", "deploy", "other"]
+        },
+        "label": { "type": "string", "minLength": 1 },
+        "target_ref": { "type": "string" },
+        "interface": { "$ref": "#/$defs/ActionInterface" },
+        "safety": { "$ref": "#/$defs/SafetyPolicy" },
+        "x_extensions": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "ActionInterface": {
+      "type": "object",
+      "required": ["kind"],
+      "additionalProperties": true,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["mcp_tool", "git", "http", "shell", "openapi", "other"]
+        },
+        "server":     { "type": "string" },
+        "tool_name":  { "type": "string" },
+        "locator":    { "type": "string" },
+        "input_schema":  { "type": "object" },
+        "output_schema": { "type": "object" }
+      }
+    },
+    "SafetyPolicy": {
+      "type": "object",
+      "required": ["side_effects"],
+      "additionalProperties": false,
+      "properties": {
+        "sandbox_required": { "type": "boolean", "default": false },
+        "network":          { "type": "boolean", "default": false },
+        "secrets_required": { "type": "boolean", "default": false },
+        "side_effects": {
+          "type": "string",
+          "enum": ["none", "temporary_files_only", "persistent", "external"]
+        },
+        "x_extensions": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "Anchor": {
+      "type": "object",
+      "required": ["representation_ref", "locator_type", "locator"],
+      "additionalProperties": false,
+      "properties": {
+        "representation_ref": { "type": "string" },
+        "locator_type": {
+          "type": "string",
+          "enum": ["fragment", "xpath", "css", "line_range", "page_range", "table", "figure", "section", "paragraph", "other"]
+        },
+        "locator": { "type": "string" },
+        "quote":   { "type": "string" },
+        "x_extensions": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "Provenance": {
+      "type": "object",
+      "required": ["origin", "actor", "generated_at"],
+      "additionalProperties": false,
+      "properties": {
+        "origin": {
+          "type": "string",
+          "enum": ["author", "machine", "imported"]
+        },
+        "actor": { "$ref": "#/$defs/Actor" },
+        "generated_at": { "type": "string", "format": "date-time" },
+        "method": {
+          "type": "string",
+          "enum": ["manual_curation", "extraction", "conversion", "import"]
+        },
+        "derived_from": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "attested_by": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "verification": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/VerificationCheck" }
+        },
+        "workflow_chain": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Ordered list of skill names that contributed to this artifact's generation. Optional. When present, indicates a multi-skill chain produced this record (e.g., ['paper-brainstorm', 'commentary-builder']). When absent, the record was produced by a single skill in solo mode. Consumers use this to weigh epistemic provenance — a brainstorm-derived artifact carries human + agent collaborative refinement, while a solo artifact is a single LLM's output. Added in v0.10 for the v0.11 stance catalog rollout."
+        },
+        "x_extensions": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "Actor": {
+      "type": "object",
+      "required": ["name", "type"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "type": { "type": "string", "enum": ["person", "org", "tool"] },
+        "version": { "type": "string" },
+        "orcid": { "type": "string" },
+        "x_extensions": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "Author": {
+      "type": "object",
+      "required": ["name", "affiliation"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "anonymous": { "type": "boolean", "default": false },
+        "affiliation": { "type": "string" },
+        "orcid": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{4}-\\d{4}-\\d{3}[\\dX]$"
+        },
+        "email": { "type": "string", "format": "email" },
+        "homepage": { "type": "string", "format": "uri" },
+        "scholar_id": { "type": "string" },
+        "role": {
+          "type": "string",
+          "enum": ["first", "corresponding", "senior", "contributor"]
+        },
+        "x_extensions": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "VerificationCheck": {
+      "type": "object",
+      "required": ["check", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "check": {
+          "type": "string",
+          "enum": ["schema", "anchor_resolves", "link_liveness", "identifier_resolves", "semantic_consistency", "executable_runs"]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pass", "fail", "warning", "skipped"]
+        },
+        "by": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "details": { "type": "string" },
+        "x_extensions": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "FundingSource": {
+      "type": "object",
+      "required": ["funder"],
+      "additionalProperties": false,
+      "properties": {
+        "funder": { "type": "string", "minLength": 1 },
+        "grant_id": { "type": "string" },
+        "program": { "type": "string" },
+        "x_extensions": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "Resources": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "compute": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "type":     { "type": "string" },
+              "model":    { "type": "string" },
+              "count":    { "type": "integer" },
+              "hours":    { "type": "number" },
+              "provider": { "type": "string" }
+            }
+          }
+        },
+        "software": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "name":    { "type": "string" },
+              "version": { "type": "string" },
+              "url":     { "type": "string", "format": "uri" }
+            }
+          }
+        },
+        "human": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "annotators":         { "type": "integer" },
+            "annotation_hours":   { "type": "number" },
+            "participants":       { "type": "integer" },
+            "irb_approved":       { "type": "boolean" }
+          }
+        },
+        "facilities": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "estimated_cost": { "type": "string" }
+      }
+    },
+    "Confidence": {
+      "type": "object",
+      "required": ["claim_strength", "extraction_fidelity"],
+      "additionalProperties": false,
+      "properties": {
+        "claim_strength":      { "type": "string", "enum": ["high", "medium", "low"] },
+        "extraction_fidelity": { "type": "string", "enum": ["high", "medium", "low"] },
+        "x_extensions": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "VersionInfo": {
+      "type": "object",
+      "required": ["spec", "record", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "spec":   { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+        "record": { "type": "string" },
+        "source": { "type": "string" },
+        "x_extensions": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "Freshness": {
+      "type": "object",
+      "required": ["as_of", "update_policy"],
+      "additionalProperties": false,
+      "properties": {
+        "as_of":         { "type": "string", "format": "date-time" },
+        "update_policy": {
+          "type": "string",
+          "enum": ["immutable", "versioned", "rolling"]
+        },
+        "review_after": { "type": "string", "format": "date-time" },
+        "stale_after":  { "type": "string", "format": "date-time" },
+        "x_extensions": { "type": "object", "additionalProperties": true }
+      }
+    }
+  }
+}

@@ -7,6 +7,8 @@ intent_class: synthesize_table
 required_inputs:
   - rid_set                         # list of record_ids to tabulate (3-12 typical, hard cap at 20)
   - comparison_axes                 # list[string] — user-supplied column headers (e.g. ["dataset", "metric", "method"])
+optional_inputs:
+  - brainstorm_summary              # OPTIONAL fenced YAML block produced by the `survey-shape` stance (Type B, v0.11+). When present, the skill switches to CONSUME MODE — uses stance-locked comparison_axes + row_inclusion_rule + centerpieces instead of taking them from required_inputs. If brainstorm_summary is supplied, the rid_set + comparison_axes required_inputs are derived from it (the user no longer needs to pass them separately). Schema: `brainstorm-v1` with `emit_chain: [survey-shape, survey-table]`.
 
 requested_artifacts:
   - comparison_table                # Markdown table + LaTeX tabular block
@@ -120,6 +122,91 @@ The orchestrator will NOT invent comparison axes. If user says "make a table" wi
 ## Manifest emission
 
 Per G6: `skill: survey-table`, `intent_class: synthesize_table`, `dispatch_tuple`, `queries: []` (this skill takes rid_set, not query_text), `returned_rids: <RIDS>`, `applied_profile_filters: [paper@1]`, `applied_quality_policy`, `fetch_mode_per_rid: {<rid>: "full"}` (G3 requires full), `model`, plus skill-specific `axis_misses` field listing (rid, axis) pairs where value was N/A.
+
+## Consume mode — `brainstorm_summary` chain (v0.11+, Type B → Type A)
+
+When invoked downstream of the `survey-shape` stance (Type B), survey-table receives a `brainstorm_summary` carrying user-locked `comparison_axes` + `row_inclusion_rule` + `centerpieces`. CONSUME MODE replaces the user-typed `rid_set` + `comparison_axes` inputs with the stance-locked versions.
+
+### Why CONSUME MODE matters here
+
+Solo survey-table makes the user supply both the rid_set AND the comparison_axes upfront — but the user often doesn't know yet which axes are discriminative or which papers belong in scope. survey-shape negotiates these decisions through dialogue, with the discriminative + auditable axis tests applied in real-time. Consume mode preserves the negotiated outcome.
+
+### CONSUME MODE flow
+
+```python
+if brainstorm_summary is None:
+    # SOLO MODE — current v0.10 path. User supplied rid_set + comparison_axes directly.
+    ...
+else:
+    summary = parse_brainstorm_summary(brainstorm_summary)
+    if summary["status"] == "abandon":
+        manifest.abstained = True
+        manifest.abstained_reason = "brainstorm_abandoned"
+        raise SystemExit
+    if summary["status"] == "needs_rework":
+        return {"action": "return_to_stance", "rework_needed": summary["rework_needed"]}
+    assert summary["status"] == "ready"
+    assert summary["emit_chain"][-1] == "survey-table"
+
+    rework_needed = []
+    # Verify comparison_axes (4-7 per stance contract)
+    axes = summary.get("comparison_axes", [])
+    if not (4 <= len(axes) <= 7):
+        rework_needed.append({"reason": f"comparison_axes count must be 4-7; got {len(axes)}"})
+    for ax in axes:
+        if not ax.get("auditable"):
+            rework_needed.append({"reason": f"axis {ax.get('name')!r} marked NOT auditable — cannot fill from sidecars"})
+        if ax.get("type") not in {"categorical", "numeric", "boolean", "string"}:
+            rework_needed.append({"reason": f"axis {ax.get('name')!r} has invalid type"})
+    # Verify centerpieces present + row_inclusion_rule stated
+    if not summary.get("row_inclusion_rule"):
+        rework_needed.append({"reason": "row_inclusion_rule MUST be explicit (no implicit reading-list dumps)"})
+    if not summary.get("centerpieces") or len(summary["centerpieces"]) < 3:
+        rework_needed.append({"reason": "need ≥3 centerpieces (a 2-row table is degenerate)"})
+
+    if rework_needed:
+        return {"action": "return_to_stance", "rework_needed": rework_needed}
+
+    # Override skill inputs with stance-locked versions
+    centerpiece_rids = [cp["rid"] for cp in summary["centerpieces"]]
+    comparison_axes_names = [ax["name"] for ax in summary["comparison_axes"]]
+    kept = filter_records(fetch_sidecars_by_rids(centerpiece_rids), "survey-table", manifest)
+    table_md, table_tex = render_comparison_table(kept, axes=summary["comparison_axes"],
+                                                   row_inclusion_rule=summary["row_inclusion_rule"])
+    manifest["workflow_chain"] = summary["emit_chain"]   # ["survey-shape", "survey-table"]
+```
+
+### Field mapping (brainstorm_summary → comparison_table)
+
+| brainstorm_summary field | survey-table use |
+|---|---|
+| `comparison_axes[*].name` | column header |
+| `comparison_axes[*].type` | cell-extraction strategy (numeric / categorical / boolean / string) |
+| `comparison_axes[*].auditable` | gate — non-auditable axes are rejected at consume-mode entry |
+| `comparison_axes[*].values_seen` | seed for cell extraction (LLM matches sidecar content against expected values) |
+| `comparison_axes[*].unit` | added to numeric cells (e.g. "GPU-hours") |
+| `row_inclusion_rule` | added as a Markdown footnote: "Rows: ${rule}" — explicit scope statement |
+| `centerpieces[*].rid` | rid_set for the table |
+| `centerpieces[*].load_bearing_reason` | available as tooltip / footnote per row (optional rendering) |
+| `expected_row_count` | sanity check vs actual centerpiece count; mismatch → warn |
+| `emit_chain` | manifest workflow_chain |
+
+### Discriminative-axis post-check (v0.11 invariant)
+
+Before emitting, verify each axis actually discriminates: for the `kept` rid_set, every column must have ≥2 distinct values. If a column has all identical values, it's not a discriminator — emit a warning and recommend dropping the axis. (survey-shape was supposed to enforce this, but the stance only saw `values_seen` from the user; the actual sidecar content may differ. Emitter double-checks.)
+
+### Hard abstain in consume mode
+
+| Condition | `abstained_reason` |
+|---|---|
+| brainstorm_summary `schema` is not `brainstorm-v1` | `invalid_slot_type.brainstorm_summary` |
+| brainstorm_summary `status` is `abandon` | `brainstorm_abandoned` |
+| `status: needs_rework` | `action: return_to_stance` |
+| `comparison_axes` count outside 4-7 | `action: return_to_stance` |
+| Any axis `auditable: false` | `action: return_to_stance` |
+| Missing `row_inclusion_rule` | `action: return_to_stance` |
+| `< 3` centerpieces | `action: return_to_stance` (degenerate table) |
+| `emit_chain` does NOT end with `survey-table` | `invalid_slot_type.brainstorm_summary` (likely meant survey-narrative) |
 
 ## Out of scope (v1.2)
 

@@ -5,7 +5,13 @@ Usage:
   python3 lint.py <sidecar.knows.yaml>
   python3 lint.py <sidecar1.yaml> <sidecar2.yaml> ...
 
-The JSON Schema is resolved relative to this script's location at ../references/knows-record-0.9.json.
+Schema dispatch (v0.10):
+  Each record's `$schema` field selects the schema to validate against.
+  Records claiming `record-0.10.json` are validated against the 0.10 schema,
+  records claiming `record-0.9.json` (or omitting `$schema` entirely) fall
+  back to 0.9. Both schemas are resolved relative to this script's location
+  at ../references/. The 21 existing 0.9 examples + the new commentary@1
+  example all lint cleanly under this dispatcher.
 """
 
 import json
@@ -25,18 +31,46 @@ except ImportError:
     sys.exit(1)
 
 
-def find_schema() -> Path:
-    """Resolve schema path relative to this script."""
+# Map of $schema URI → schema filename. Update when a new spec version ships.
+_SCHEMA_VERSIONS = {
+    "https://knows.dev/schema/record-0.10.json": "knows-record-0.10.json",
+    "https://knows.dev/schema/record-0.9.json": "knows-record-0.9.json",
+}
+# Default version when a record omits $schema. Picks the newest known schema —
+# but a 0.10 schema accepts both 0.10 and 0.9 $schema URIs at the field level,
+# so a record that genuinely targets 0.9 should set $schema explicitly.
+_DEFAULT_SCHEMA_VERSION = "https://knows.dev/schema/record-0.10.json"
+
+
+def find_schema_file(schema_filename: str) -> Path:
+    """Resolve a schema filename to a path relative to this script."""
     candidates = [
-        Path(__file__).parent.parent / "references" / "knows-record-0.9.json",
-        Path("references/knows-record-0.9.json"),
-        Path("skills/references/knows-record-0.9.json"),
+        Path(__file__).parent.parent / "references" / schema_filename,
+        Path("references") / schema_filename,
+        Path("skills/references") / schema_filename,
     ]
     for p in candidates:
         if p.exists():
             return p
-    print("ERROR: knows-record-0.9.json not found. Expected in references/ directory.")
+    print(f"ERROR: {schema_filename} not found. Expected in references/ directory.")
     sys.exit(1)
+
+
+def load_schema_for_record(sidecar: dict, schema_cache: dict[str, dict]) -> tuple[dict, str]:
+    """Pick + load the schema appropriate for this record. Cached across calls.
+
+    Returns (schema_dict, schema_uri_used). If the record's $schema URI is
+    unknown to the dispatcher, falls back to the default and prints a warning
+    so the operator notices.
+    """
+    declared = sidecar.get("$schema") or _DEFAULT_SCHEMA_VERSION
+    if declared not in _SCHEMA_VERSIONS:
+        print(f"  WARN: unknown $schema URI '{declared}'; falling back to {_DEFAULT_SCHEMA_VERSION}")
+        declared = _DEFAULT_SCHEMA_VERSION
+    if declared not in schema_cache:
+        path = find_schema_file(_SCHEMA_VERSIONS[declared])
+        schema_cache[declared] = json.loads(path.read_text())
+    return schema_cache[declared], declared
 
 
 def lint(sidecar: dict, schema: dict) -> tuple[int, int]:
@@ -174,7 +208,7 @@ def main() -> None:
         print("Usage: python3 lint.py <sidecar.knows.yaml> [...]")
         sys.exit(1)
 
-    schema = json.loads(find_schema().read_text())
+    schema_cache: dict[str, dict] = {}
     all_passed = True
 
     for filepath in sys.argv[1:]:
@@ -197,6 +231,8 @@ def main() -> None:
             all_passed = False
             continue
 
+        schema, schema_uri = load_schema_for_record(sidecar, schema_cache)
+        print(f"  schema: {schema_uri.rsplit('/', 1)[-1]}")
         n_err, n_warn = lint(sidecar, schema)
         status = "PASS" if n_err == 0 else "FAIL"
         print(f"{status}: {n_err} errors, {n_warn} warnings")
