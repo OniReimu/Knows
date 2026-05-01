@@ -1,5 +1,7 @@
 # Knows Skills — What You Can Do
 
+English | [中文](./README.zh.md)
+
 Knows skills give you a catalog of workflows for reading, writing, reviewing, and brainstorming research papers. Pick a workflow below by what you're trying to accomplish, not by which skill it uses.
 
 Every workflow runs locally. For "what is the sidecar format and why", see [`../README.md`](../README.md). For technical details on any single skill, browse [`sub-skills/`](sub-skills/) (artifact emitters) and [`stances/`](stances/) (dialogue postures).

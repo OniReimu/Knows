@@ -1,5 +1,7 @@
 # Knows: Make Any Paper Agent-Ready in Minutes
 
+English | [中文](./README.zh.md)
+
 > **One YAML file. Every claim, every number, every connection — structured, validated, and ready for your AI agent.**
 
 [![Schema](https://img.shields.io/badge/Schema-v0.9-blue)](src/knows_sidecar/schema/knows-record-0.9.json)
