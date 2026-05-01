@@ -1,5 +1,7 @@
 # Sub-skills — Type A artifact emitters (Knows Orchestrator v1.0+)
 
+English | [中文](./README.zh.md)
+
 Each subdirectory hosts one **Type A** sub-skill that the Knows orchestrator dispatches to via the typed tuple `(intent_class, required_inputs, requested_artifact)` defined in `../references/dispatch-and-profile.md` §1.
 
 > **v0.11+ alongside this catalog**: Knows also has [`Type B interaction stances`](../stances/README.md) — short, mattpocock-style sub-skills (5-50 line SKILL.md, no schema) that trigger thinking/dialogue postures and chain into Type A emitters via `brainstorm_summary` handoff. See [`../../docs/skill-catalog-evolution-2026-04-30.md`](../../docs/skill-catalog-evolution-2026-04-30.md) for the full architecture. The activation precedence rule (Type A wins on artifact requests; Type B activates only on explicit explore/brainstorm intent) is documented in the stances README.

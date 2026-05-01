@@ -1,5 +1,7 @@
 # Knows Orchestrator Demos (v1.0)
 
+English | [中文](./README.zh.md)
+
 Three demo transcripts showing each MVP sub-skill in action — input, dispatch, what happens under the hood, the artifact produced, and manifest emission.
 
 | Demo | What it does | When to use |
