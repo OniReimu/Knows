@@ -1,5 +1,7 @@
 # Knows Orchestrator Integration Tests
 
+English | [中文](./README.zh.md)
+
 Three fixtures exercise orchestration plumbing that the v1.0 public sub-skills don't touch directly. **CI green on all three is a hard prerequisite for v1 release** per `../references/dispatch-and-profile.md` §7.5.
 
 ## Fixtures
