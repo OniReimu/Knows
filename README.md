@@ -138,6 +138,8 @@ User intent → dispatch tuple → sub-skill → artifact
 
 ## Installation
 
+### Python CLI (`knows lint` / `knows gen` / `knows query` / ...)
+
 ```bash
 pip install knows-sidecar
 ```
@@ -146,6 +148,29 @@ Or with uv:
 ```bash
 uv add knows-sidecar
 ```
+
+### Agent skills (Claude Code, Codex CLI, ...)
+
+The orchestrator + 23 sub-skills under [`skills/`](skills/) install via [`vercel-labs/skills`](https://github.com/vercel-labs/skills), a universal CLI that supports 50+ agents. The flags below skip the interactive agent/skill picker:
+
+```bash
+# Claude Code, project-level (recommended for paper repos)
+npx skills add OniReimu/Knows -a claude-code -s '*' -y
+
+# Claude Code, global (available across all projects)
+npx skills add OniReimu/Knows -g -a claude-code -s '*' -y
+
+# Codex CLI
+npx skills add OniReimu/Knows -a codex -s '*' -y
+
+# Both Claude Code and Codex CLI at once
+npx skills add OniReimu/Knows -a claude-code -a codex -s '*' -y
+
+# Install to every supported agent
+npx skills add OniReimu/Knows --all
+```
+
+Without the `-a` and `-s` flags, the CLI opens an interactive picker that lists all 50+ supported agents and all 24 skills in this repo — use `--all` or the explicit flags above to skip it.
 
 ## CLI Usage
 
