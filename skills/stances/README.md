@@ -1,5 +1,7 @@
 # Interaction Stances — Catalog (v0.11.2)
 
+English | [中文](./README.zh.md)
+
 Knows has two kinds of sub-skill: **emitters** (in `../sub-skills/`) produce schema-validated artifacts; **stances** (this directory) trigger thinking/dialogue postures. Stances are short, mattpocock-style — pick one, the agent flips into that mode of working with you.
 
 Stances optionally chain into emitters: free dialogue with the stance, then the emitter mechanically translates the agreed output into a strict YAML/Markdown artifact. **For depth on contracts, composition, frontmatter conventions, and how to author a new stance, see [`REFERENCE.md`](REFERENCE.md).** This README is just the user-facing catalog.
