@@ -151,7 +151,7 @@ uv add knows-sidecar
 
 ### Agent skills (Claude Code, Codex CLI, ...)
 
-The orchestrator + 23 sub-skills under [`skills/`](skills/) install via [`vercel-labs/skills`](https://github.com/vercel-labs/skills), a universal CLI that supports 50+ agents. The flags below skip the interactive agent/skill picker:
+The orchestrator + 12 sub-skills + 11 interaction stances under [`skills/`](skills/) install via [`vercel-labs/skills`](https://github.com/vercel-labs/skills), a universal CLI that supports 50+ agents. The flags below skip the interactive agent/skill picker:
 
 ```bash
 # Claude Code, project-level (recommended for paper repos)
