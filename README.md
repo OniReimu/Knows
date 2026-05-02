@@ -1,4 +1,4 @@
-# Knows: Make Any Paper Agent-Ready in Minutes
+# <img src="./artifacts/icon.svg" width="40" /> Knows: Make Any Paper Agent-Ready in Minutes
 
 English | [中文](./README.zh.md)
 
