@@ -12,6 +12,16 @@ English | [中文](./README.zh.md)
 
 ---
 
+```bash
+npx skills add OniReimu/Knows -a claude-code -s '*' -y
+```
+
+Then ask your agent: *"find papers about transformers"*, *"summarize this paper"*, *"what's the main contribution?"*
+
+<p align="center">
+  <img src="./artifacts/why_knows.png" alt="Why Knows: agents waste effort reconstructing what authors already know — sidecar fixes it" width="600" />
+</p>
+
 ## Why Knows Exists
 
 Academic publishing is an ivory tower still pretending it's 1995.
@@ -25,48 +35,6 @@ Meanwhile, agents are already the primary interface for consuming research. They
 That's why we built **Knows**.
 
 Not another paper-writing tool. Not another PDF parser. A **companion standard** that puts structured knowledge first and lets the format serve whoever — or whatever — is reading it.
-
----
-
-## Key Results
-
-<table>
-<tr>
-<td width="50%">
-
-### Weak Models: +29 to +42pp Accuracy
-
-| Model | PDF | Knows | Improvement |
-|:------|----:|------:|:-----------:|
-| Qwen3.5-0.8B | 19% | **47%** | **+29pp** |
-| Qwen3.5-2B | 25% | **67%** | **+42pp** |
-
-An LLM-as-judge (Claude Sonnet 4) confirms weak models reading sidecars reach **75-77%** accuracy, approaching medium models reading PDFs (78-83%).
-
-</td>
-<td width="50%">
-
-### 55% Fewer Tokens, Same Accuracy
-
-| Condition | Accuracy | Tokens | Efficiency |
-|:----------|:--------:|-------:|:----------:|
-| PDF | 59% | 9,955 | 5.9%/1Ktok |
-| **Full Sidecar** | **59%** | **4,463** | 13.2%/1Ktok |
-| Stmts-only | 52% | 693 | **75.0%/1Ktok** |
-
-Full sidecar matches PDF accuracy. Statements-only retains 88% accuracy at **93% fewer tokens** (12.7x more efficient).
-
-</td>
-</tr>
-</table>
-
-### Traceability: 0% (PDF) → 64-91% (Knows)
-
-Agent-generated reviews with Knows reference specific claim/evidence IDs in their weakness sections. PDF reviews contain **zero** per-weakness ID references across all four models tested.
-
-### Cross-Discipline Coverage
-
-Evaluated on **20 papers** across **14 disciplines** (CS, Biology, Chemistry, Physics, Economics, Psychology, Medicine, Education, Philosophy, Mathematics, Civil/Mechanical/Electrical Engineering, Semiconductor). On length-controlled papers (2K-20K words), Knows improves accuracy in **6 of 10 disciplines** for weak models.
 
 ---
 
@@ -112,136 +80,99 @@ relations:
     object_ref: ev:imagenet
 ```
 
----
-
-## Orchestrator + Researcher Workflows (v1.0+)
-
-Beyond the sidecar spec itself, Knows ships an **orchestrator skill** that routes researcher intent to specialized sub-skills — a ready-made workflow library on top of the [knows.academy](https://knows.academy) hub.
-
-```
-User intent → dispatch tuple → sub-skill → artifact
-```
-
-**MVP v1.0 (3 sub-skills)** — read-only discovery, downstream Q&A, upstream contribution covered:
-
-| Sub-skill | User says... | Artifact |
-|---|---|---|
-| `paper-finder` | "find 10 papers on diffusion + privacy" | Ranked table + optional `papers.bib` |
-| `sidecar-reader` | "what dataset did Vaswani use?" | JSON answer (consume-prompt v1.1) |
-| `sidecar-author` | "make a sidecar from this PDF/LaTeX" | `paper.knows.yaml` (lint-pass + verify-pass) |
-
-**v1.1+ planned** — paper-compare / review-sidecar / survey-narrative / survey-table / next-step-advisor / rebuttal-builder / version-inspector / sidecar-reviser / commentary-builder (v0.10). See [`skills/sub-skills/README.md`](skills/sub-skills/README.md) for the full 12-skill catalog and rollout schedule.
-
-**7 orchestrator guards** (G1–G7) protect against prompt injection, quality leakage, untyped routing, profile contamination, and unbounded fetches. Full contract: [`skills/references/dispatch-and-profile.md`](skills/references/dispatch-and-profile.md).
-
-**Try it** (3 demos) → [`docs/demos/`](docs/demos/) — `paper-finder.md` / `sidecar-reader.md` / `sidecar-author.md`.
+<p align="center">
+  <img src="./artifacts/expected_knows.png" alt="Example KnowsRecord sidecar — claims, evidence, relations" width="700" />
+</p>
 
 ---
 
 ## Installation
 
-### Python CLI (`knows lint` / `knows gen` / `knows query` / ...)
+### For agent users (recommended)
 
 ```bash
-pip install knows-sidecar
-```
-
-Or with uv:
-```bash
-uv add knows-sidecar
-```
-
-### Agent skills (Claude Code, Codex CLI, ...)
-
-The orchestrator + 12 sub-skills + 11 interaction stances under [`skills/`](skills/) install via [`vercel-labs/skills`](https://github.com/vercel-labs/skills), a universal CLI that supports 50+ agents. The flags below skip the interactive agent/skill picker:
-
-```bash
-# Claude Code, project-level (recommended for paper repos)
+# Claude Code, project-level
 npx skills add OniReimu/Knows -a claude-code -s '*' -y
 
-# Claude Code, global (available across all projects)
+# Claude Code, global (across all projects)
 npx skills add OniReimu/Knows -g -a claude-code -s '*' -y
 
 # Codex CLI
 npx skills add OniReimu/Knows -a codex -s '*' -y
 
-# Both Claude Code and Codex CLI at once
+# Both Claude Code and Codex
 npx skills add OniReimu/Knows -a claude-code -a codex -s '*' -y
 
-# Install to every supported agent
+# Every supported agent (50+)
 npx skills add OniReimu/Knows --all
 ```
 
-Without the `-a` and `-s` flags, the CLI opens an interactive picker that lists all 50+ supported agents and all 24 skills in this repo — use `--all` or the explicit flags above to skip it.
+The `npx skills` CLI is provided by [vercel-labs/skills](https://github.com/vercel-labs/skills) and supports 50+ agents. The flags above target a specific agent and skip the interactive picker.
 
-## CLI Usage
+### For sidecar authors (Python CLI)
+
+If you're a paper author writing your own sidecar, install the Python package:
 
 ```bash
-# Validate a sidecar
-knows lint paper.knows.yaml
-
-# Generate a scaffold from LaTeX
-knows gen paper/main.tex -o paper.knows.yaml
-
-# Analyze a sidecar
-knows analyze paper.knows.yaml
-
-# Query a paper using only its sidecar
-knows query paper.knows.yaml "What is the main contribution?"
-
-# Generate a structured review
-knows review paper.knows.yaml -o review.knows.yaml
-
-# Compare two papers
-knows compare paper1.knows.yaml paper2.knows.yaml
+pip install knows-sidecar
+# or
+uv add knows-sidecar
 ```
 
----
-
-## Evaluation Summary
-
-Eleven experiments (E1-E10) across 20 papers, 14 disciplines, 8+ LLM agents:
-
-| Experiment | Scope | Key Finding |
-|:-----------|:------|:------------|
-| **E1** Task Accuracy | 140Q x 20p x 6m x 3 cond | Weak: +29 to +42pp; Strong: -1pp but 64-83% fewer tokens |
-| **E2** Token Efficiency | From E1 | 29-83% reduction (MiMO-V2-Flash: 2,856K → 401K) |
-| **E3** Latency | From E1 | 3.4-4.6x speedup for local weak models |
-| **E4** Review Traceability | 15p x 4m x 2 cond | Per-weakness traceability: 64-91% (Knows) vs 0% (PDF) |
-| **E5** Consistency | 15p x 3 injections | Structural: 100% detected; Semantic: 0% (clean boundary) |
-| **E6** Cross-Paper | 15p x 4m x 4Q | 4-17x more ID references with Knows |
-| **E7** LLM Generation | 5p x 7m | Lint pass: Claude 100%, non-Claude <20%. Haiku 4.5 = Opus quality at 15x less cost |
-| **E8** Ablation | 15p x 5 cond x 4m | Full sidecar = PDF accuracy (59%) with 55% fewer tokens |
-| **E9** Granularity | 8p x 4 tiers x 2 cond | Dense sidecars (+2.5x stmts): medium +27pp, strong +29pp avg |
-| **E9b** Dense+Fallback | 8p x 2m x 2 cond | Fallback marginal for dense sidecars; dense-only is optimal |
-| **E10a** Cross-Eval (one-shot) | 5p x 4gen x 2cons | Non-Claude one-shot: 21-50% consumption accuracy |
-| **E10b** Cross-Eval (agent) | 20p x 3gen | Opus 88.6%, Haiku-dense 72.9%, Haiku 64.3%. Opus remains quality leader |
-
-### Length Effect
-
-Knows advantage scales with paper length:
-
-| Paper Length | Weak Δ | Medium Δ | Strong Δ |
-|:-------------|:------:|:--------:|:--------:|
-| SHORT (<2K words) | +8pp | +8pp | +14pp |
-| MEDIUM (2-8K) | **+29pp** | -6pp | -5pp |
-| STANDARD (8-20K) | **+40pp** | -19pp | -9pp |
-| LONG (>20K) | **+57pp** | +13pp | **+17pp** |
-
-### Scoring Robustness
-
-| Model | Keyword Knows | LLM-Judge Knows | PDF (LLM) |
-|:------|:------------:|:---------------:|:---------:|
-| Qwen3.5-0.8B | 47% | **75%** | 24% |
-| Qwen3.5-2B | 67% | **77%** | 25% |
-
-**Weak model + Knows (75-77%) ≈ Medium model + PDF (78-83%)**
+This gives you `knows gen` (LaTeX → sidecar scaffold), `knows lint` (validate), `knows query` (ask a question grounded in the sidecar), and a few more. See [Quick Start](#quick-start) for the author workflow.
 
 ---
 
-## KnowsRecord Schema (v0.9)
+## Quick Start
 
-30 root-level fields, 23 entity definitions, extensible via `x_extensions`.
+### As an agent user
+
+After installing the skill (above), just talk to your agent in natural language:
+
+- **Find papers**: *"find me 5 papers on diffusion models"*
+- **Summarize**: *"summarize this paper for me"* (paste a `paper.knows.yaml` or PDF)
+- **Compare**: *"compare these two papers — what's different?"*
+- **Brainstorm gaps**: *"what's underexplored in side-channel ML attacks?"*
+- **Draft a review**: *"help me prep a review of this paper"*
+
+The agent picks the right Knows sub-skill from your phrasing. See [What Your Agent Can Do](#what-your-agent-can-do) for the full menu.
+
+### As a sidecar author
+
+If you're publishing a paper and want to ship a sidecar with it:
+
+```bash
+# 1. Generate scaffold from your LaTeX source
+knows gen paper/main.tex -o paper.knows.yaml
+
+# 2. Fill in TODOs (about 15 minutes for an experienced user)
+
+# 3. Validate
+knows lint paper.knows.yaml
+
+# 4. (Optional) Test by querying it
+knows query paper.knows.yaml "What is the main contribution?"
+```
+
+For full CLI reference, run `knows --help`.
+
+---
+
+## What Your Agent Can Do
+
+Knows ships **12 sub-skills** (find / read / write / compare / review / brainstorm / draft rebuttal / generate sidecar / inspect versions / advise next steps / build commentary / patch metadata) and **11 interaction stances** (devil's advocate, socratic, red-team, executive summary, paper brainstorm, draft grill, ...).
+
+Sub-skills emit schema-validated artifacts (a sidecar, a ranked paper list, a peer review, etc.). Stances trigger thinking postures (let's debate this, ask me questions, find weak spots) and chain into sub-skills via fenced YAML handoff.
+
+→ **See [the full skills catalog](./skills/README.md)** for what each one does, when it activates, and how they compose.
+
+---
+
+## How It Works
+
+### KnowsRecord schema (v0.9)
+
+A KnowsRecord is a YAML file living next to a paper PDF. It binds **statements** (claims / methods / limitations / questions / reflections / lessons), **evidence** (numbers, sources, supports), **typed relations** (one statement supports / refutes / extends another), **artifacts** (datasets, code, models referenced), and **provenance** (who wrote each part, when, and how).
 
 ```
 KnowsRecord
@@ -259,86 +190,37 @@ KnowsRecord
   └─ freshness          as_of, update_policy, stale_after
 ```
 
-### Review-as-Sidecar
+30 root-level fields, 23 entity definitions, extensible via `x_extensions`. For full examples, see the [examples directory](./examples/).
 
-Reviews are also KnowsRecords (`profile: review@1`). Each weakness links to specific original claims via cross-record references:
+### Orchestrator + dispatch
 
-```yaml
-relations:
-  - subject_ref: "knows:examples/resnet/1.0.0#stmt:a1"
-    predicate: challenged_by
-    object_ref: "stmt:w1"  # this review's weakness
-```
+The orchestrator routes user intent through a typed tuple `(intent_class, required_inputs, requested_artifact)` to one of the 12 sub-skills. **7 guards (G1-G7)** protect against prompt injection, profile contamination, quality leakage, and unbounded fetches. The full contract lives in [skills/references/dispatch-and-profile.md](./skills/references/dispatch-and-profile.md).
 
----
+<p align="center">
+  <img src="./artifacts/how_knows.png" alt="How Knows works — orchestrator routes intent through guards to sub-skills" width="700" />
+</p>
 
-## Examples
+### Two operating modes
 
-21 example sidecars across 14 disciplines in [`examples/`](examples/):
+| Mode | When to use | What happens |
+|---|---|---|
+| **Knows-only** (agent-native) | You have the sidecar | Agent reads only the YAML — fast, deterministic, low-token |
+| **Knows + PDF fallback** (hybrid) | Cold start, sidecar incomplete | Agent reads the YAML AND falls back to the PDF when the sidecar lacks coverage |
 
-| Discipline | Papers | Key Feature |
-|:-----------|:-------|:------------|
-| CS | ResNet, DP-SGD | Quantitative benchmarks, privacy analysis |
-| Biology | Watson-Crick, Mendel | Qualitative evidence, genetic ratios |
-| Chemistry | Mendeleev, Pauling | Pattern recognition, bond theory |
-| Physics | Einstein | Theoretical predictions |
-| Economics | Akerlof | Theoretical model |
-| Psychology | Kahneman | Behavioral experiments |
-| Medicine | Semmelweis | Clinical observation |
-| Education | Bloom, Dewey | Expert classification |
-| Philosophy | Gettier, Turing | Thought experiments |
-| Mathematics | Godel | Pure proof |
-| Civil Eng. | Terzaghi | Lab tests + theory |
-| Mech. Eng. | Reynolds | Dye experiments |
-| EE | Shannon | Mathematical proofs |
-| Semiconductor | Moore, Dennard | Empirical extrapolation |
+The default is Knows-only. Fallback activates automatically when the sidecar reports `coverage_statements: partial` or when the agent's query requires evidence the sidecar doesn't bind.
 
 ---
 
-## Tooling
+## Evaluation
 
-### `knows-lint` — 7 validation checks
-1. JSON Schema validation
-2. Cross-reference integrity
-3. ID uniqueness
-4. ID prefix conventions (`art:`, `stmt:`, `ev:`, `rel:`)
-5. Relation predicate constraints
-6. Artifact discoverability
-7. Optional URL liveness
+Across 11 experiments (E1-E10) on 20 papers, 14 disciplines, and 8+ LLM agents:
 
-Catches **100% of structural corruption**. Semantic corruption (wrong values) requires future LLM-based verification.
+- **+29 to +42 percentage points** accuracy for weak models (Qwen-0.8B, Gemma-2B) when given a sidecar vs PDF alone
+- **55% fewer tokens** to reach the same accuracy as full-PDF reading
+- **0% → 64-91% traceability** — sidecars bind every claim to evidence; PDFs bind nothing
+- **14 disciplines covered** — from CS / ML to economics, biology, civil engineering
 
-### `knows-gen` — LaTeX to scaffold
-- Handles nested `\input{}` (recursive, up to 10 levels)
-- Multi-format author parsing (acmart, NeurIPS, IEEEtran)
-- Extended citation commands
-- ~15 minutes to complete a scaffold for a typical conference paper
-
----
-
-## Two Operating Modes
-
-| Mode | When | How |
-|:-----|:-----|:----|
-| **Knows-only** | Agent-native workflow | Agent reads sidecar only. 29-83% fewer tokens. |
-| **Knows+Fallback** | Retrofit existing papers | Sidecar first, PDF if insufficient. Best accuracy for 5/6 models. |
-
----
-
-## Quick Start
-
-```bash
-pip install knows-sidecar
-
-# Generate sidecar from LaTeX
-knows gen paper/main.tex -o paper.knows.yaml
-
-# Fill in TODOs (~15 min)
-# Validate
-knows lint paper.knows.yaml
-
-# Your paper is now agent-ready.
-```
+→ **See [docs/evaluation.md](./docs/evaluation.md)** for the full results table, length-effect breakdown, scoring robustness, and per-experiment details.
 
 ---
 
