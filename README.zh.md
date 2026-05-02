@@ -12,6 +12,16 @@
 
 ---
 
+```bash
+npx skills add OniReimu/Knows -a claude-code -s '*' -y
+```
+
+然后跟你的 agent 说：*"find papers about transformers"*、*"summarize this paper"*、*"what's the main contribution?"*
+
+<p align="center">
+  <img src="./artifacts/why_knows.png" alt="为什么需要 Knows：agents 重复重建作者已经知道的东西 — sidecar 解决这个问题" width="600" />
+</p>
+
 ## Knows 的由来
 
 学术出版仍是一座象牙塔，还在假装自己活在 1995 年。
@@ -25,48 +35,6 @@
 这就是我们构建 **Knows** 的原因。
 
 不是另一个论文写作工具。不是另一个 PDF 解析器。而是一套**伴侣标准**，将结构化知识置于首位，让格式服务于任何阅读它的人——或事物。
-
----
-
-## 核心结果
-
-<table>
-<tr>
-<td width="50%">
-
-### 弱模型：准确率提升 +29 到 +42pp
-
-| 模型 | PDF | Knows | 提升幅度 |
-|:------|----:|------:|:-----------:|
-| Qwen3.5-0.8B | 19% | **47%** | **+29pp** |
-| Qwen3.5-2B | 25% | **67%** | **+42pp** |
-
-以 LLM 作为评判者（Claude Sonnet 4）的验证表明，弱模型读取 sidecar 的准确率达到 **75–77%**，接近中等模型读取 PDF 的水平（78–83%）。
-
-</td>
-<td width="50%">
-
-### token 减少 55%，准确率不变
-
-| 条件 | 准确率 | Token 数 | 效率 |
-|:----------|:--------:|-------:|:----------:|
-| PDF | 59% | 9,955 | 5.9%/1Ktok |
-| **Full Sidecar** | **59%** | **4,463** | 13.2%/1Ktok |
-| Stmts-only | 52% | 693 | **75.0%/1Ktok** |
-
-Full sidecar 与 PDF 准确率持平。仅使用 statement 时，在 **token 减少 93%** 的情况下保留 88% 准确率（效率提升 12.7 倍）。
-
-</td>
-</tr>
-</table>
-
-### 可追溯性：0%（PDF）→ 64–91%（Knows）
-
-使用 Knows 生成的 agent 评审，在弱点描述部分引用了具体的 claim/evidence ID。PDF 评审在测试的四个模型中，每条弱点描述中的 ID 引用数均为**零**。
-
-### 跨学科覆盖
-
-在 **14 个学科**的 **20 篇论文**上进行评测（计算机科学、生物学、化学、物理学、经济学、心理学、医学、教育学、哲学、数学、土木工程、机械工程、电气工程、半导体）。在长度受控的论文（2K–20K 词）上，Knows 在弱模型的 **10 个学科中有 6 个**提升了准确率。
 
 ---
 
@@ -112,51 +80,18 @@ relations:
     object_ref: ev:imagenet
 ```
 
----
-
-## Orchestrator + 研究者工作流（v1.0+）
-
-在 sidecar 规范之上，Knows 还提供一套 **orchestrator skill**，将研究者意图路由到专门的 sub-skill——这是构建在 [knows.academy](https://knows.academy) hub 之上的即用型工作流库。
-
-```
-User intent → dispatch tuple → sub-skill → artifact
-```
-
-**MVP v1.0（3 个 sub-skill）**——涵盖只读发现、下游 Q&A 和上游贡献：
-
-| Sub-skill | 用户说… | 产出 Artifact |
-|---|---|---|
-| `paper-finder` | "找 10 篇关于 diffusion + 隐私的论文" | 排序表格 + 可选 `papers.bib` |
-| `sidecar-reader` | "Vaswani 用了什么数据集？" | JSON 答案（consume-prompt v1.1） |
-| `sidecar-author` | "为这个 PDF/LaTeX 生成 sidecar" | `paper.knows.yaml`（lint-pass + verify-pass） |
-
-**v1.1+ 计划中**——paper-compare / review-sidecar / survey-narrative / survey-table / next-step-advisor / rebuttal-builder / version-inspector / sidecar-reviser / commentary-builder（v0.10）。完整 12 个 skill 的目录和发布计划见 [`skills/sub-skills/README.md`](skills/sub-skills/README.md)。
-
-**7 个 orchestrator 守卫**（G1–G7）防范 prompt 注入、质量泄漏、无类型路由、profile 污染和无界 fetch。完整合约：[`skills/references/dispatch-and-profile.md`](skills/references/dispatch-and-profile.md)。
-
-**试用**（3 个演示）→ [`docs/demos/`](docs/demos/) — `paper-finder.md` / `sidecar-reader.md` / `sidecar-author.md`。
+<p align="center">
+  <img src="./artifacts/expected_knows.png" alt="Example KnowsRecord sidecar — claims, evidence, relations" width="700" />
+</p>
 
 ---
 
 ## 安装
 
-### Python CLI（`knows lint` / `knows gen` / `knows query` / …）
+### 面向 agent 用户（推荐）
 
 ```bash
-pip install knows-sidecar
-```
-
-或使用 uv：
-```bash
-uv add knows-sidecar
-```
-
-### Agent skills（Claude Code、Codex CLI 等）
-
-[`skills/`](skills/) 下的 orchestrator + 12 个 sub-skill + 11 个 interaction stance，通过 [`vercel-labs/skills`](https://github.com/vercel-labs/skills) 安装，该通用 CLI 支持 50+ 个 agent。以下命令跳过交互式 agent/skill 选择器：
-
-```bash
-# Claude Code，项目级（推荐用于论文仓库）
+# Claude Code，项目级
 npx skills add OniReimu/Knows -a claude-code -s '*' -y
 
 # Claude Code，全局安装（在所有项目中可用）
@@ -165,83 +100,79 @@ npx skills add OniReimu/Knows -g -a claude-code -s '*' -y
 # Codex CLI
 npx skills add OniReimu/Knows -a codex -s '*' -y
 
-# 同时安装到 Claude Code 和 Codex CLI
+# 同时安装到 Claude Code 和 Codex
 npx skills add OniReimu/Knows -a claude-code -a codex -s '*' -y
 
-# 安装到所有支持的 agent
+# 安装到所有支持的 agent（50+）
 npx skills add OniReimu/Knows --all
 ```
 
-不加 `-a` 和 `-s` 参数时，CLI 会打开交互式选择器，列出所有 50+ 个支持的 agent 和本仓库中全部 24 个 skill——如需跳过，使用 `--all` 或上面的显式参数。
+`npx skills` CLI 由 [vercel-labs/skills](https://github.com/vercel-labs/skills) 提供，支持 50+ 个 agent。上面的参数指定特定 agent 并跳过交互式选择器。
 
-## CLI 用法
+### 面向 sidecar 作者（Python CLI）
+
+如果你是论文作者，需要为自己的论文编写 sidecar，请安装 Python 包：
 
 ```bash
-# 验证 sidecar
-knows lint paper.knows.yaml
-
-# 从 LaTeX 生成 scaffold
-knows gen paper/main.tex -o paper.knows.yaml
-
-# 分析 sidecar
-knows analyze paper.knows.yaml
-
-# 仅使用 sidecar 查询论文
-knows query paper.knows.yaml "What is the main contribution?"
-
-# 生成结构化评审
-knows review paper.knows.yaml -o review.knows.yaml
-
-# 比较两篇论文
-knows compare paper1.knows.yaml paper2.knows.yaml
+pip install knows-sidecar
+# 或
+uv add knows-sidecar
 ```
 
----
-
-## 评估摘要
-
-11 个实验（E1–E10），覆盖 20 篇论文、14 个学科、8 个以上 LLM agent：
-
-| 实验 | 范围 | 关键发现 |
-|:-----------|:------|:------------|
-| **E1** 任务准确率 | 140Q × 20p × 6m × 3 条件 | 弱模型：+29 到 +42pp；强模型：-1pp，但 token 减少 64–83% |
-| **E2** Token 效率 | 来自 E1 | 减少 29–83%（MiMO-V2-Flash：2,856K → 401K） |
-| **E3** 延迟 | 来自 E1 | 本地弱模型提速 3.4–4.6 倍 |
-| **E4** 评审可追溯性 | 15p × 4m × 2 条件 | 逐条弱点可追溯性：64–91%（Knows）vs 0%（PDF） |
-| **E5** 一致性 | 15p × 3 次注入 | 结构性：100% 检出；语义性：0%（边界清晰） |
-| **E6** 跨论文 | 15p × 4m × 4Q | 使用 Knows 的 ID 引用数提升 4–17 倍 |
-| **E7** LLM 生成 | 5p × 7m | Lint 通过率：Claude 100%，非 Claude <20%。Haiku 4.5 = Opus 质量，成本仅 1/15 |
-| **E8** 消融实验 | 15p × 5 条件 × 4m | Full sidecar = PDF 准确率（59%），token 减少 55% |
-| **E9** 粒度 | 8p × 4 层级 × 2 条件 | Dense sidecar（statements 增 2.5×）：中等模型 +27pp，强模型 +29pp（均值） |
-| **E9b** Dense+Fallback | 8p × 2m × 2 条件 | 对 dense sidecar 而言 fallback 边际效益极小；仅用 dense 是最优选择 |
-| **E10a** 跨评估（one-shot） | 5p × 4gen × 2cons | 非 Claude one-shot：消费准确率 21–50% |
-| **E10b** 跨评估（agent） | 20p × 3gen | Opus 88.6%，Haiku-dense 72.9%，Haiku 64.3%。Opus 仍是质量标杆 |
-
-### 长度效应
-
-Knows 的优势随论文长度增加而增大：
-
-| 论文长度 | 弱模型 Δ | 中等模型 Δ | 强模型 Δ |
-|:-------------|:------:|:--------:|:--------:|
-| SHORT（<2K 词） | +8pp | +8pp | +14pp |
-| MEDIUM（2–8K） | **+29pp** | -6pp | -5pp |
-| STANDARD（8–20K） | **+40pp** | -19pp | -9pp |
-| LONG（>20K） | **+57pp** | +13pp | **+17pp** |
-
-### 评分鲁棒性
-
-| 模型 | 关键词评分 Knows | LLM 评判 Knows | PDF（LLM） |
-|:------|:------------:|:---------------:|:---------:|
-| Qwen3.5-0.8B | 47% | **75%** | 24% |
-| Qwen3.5-2B | 67% | **77%** | 25% |
-
-**弱模型 + Knows（75–77%）≈ 中等模型 + PDF（78–83%）**
+这会提供 `knows gen`（LaTeX → sidecar scaffold）、`knows lint`（验证）、`knows query`（基于 sidecar 提问）等命令。作者工作流见[快速开始](#快速开始)。
 
 ---
 
-## KnowsRecord Schema（v0.9）
+## 快速开始
 
-30 个根级字段，23 个实体定义，可通过 `x_extensions` 扩展。
+### 作为 agent 用户
+
+安装 skill 之后（见上），直接用自然语言和你的 agent 对话：
+
+- **查找论文**：*"find me 5 papers on diffusion models"*
+- **总结**：*"summarize this paper for me"*（粘贴 `paper.knows.yaml` 或 PDF）
+- **对比**：*"compare these two papers — what's different?"*
+- **头脑风暴**：*"what's underexplored in side-channel ML attacks?"*
+- **起草评审**：*"help me prep a review of this paper"*
+
+agent 会根据你的表达自动选择合适的 Knows sub-skill。完整菜单见[你的 agent 能做什么](#你的-agent-能做什么)。
+
+### 作为 sidecar 作者
+
+如果你在发表论文，想随论文附上 sidecar：
+
+```bash
+# 1. 从 LaTeX 源文件生成 scaffold
+knows gen paper/main.tex -o paper.knows.yaml
+
+# 2. 填写 TODO（有经验的用户约 15 分钟）
+
+# 3. 验证
+knows lint paper.knows.yaml
+
+# 4.（可选）测试查询
+knows query paper.knows.yaml "What is the main contribution?"
+```
+
+完整 CLI 参考，运行 `knows --help`。
+
+---
+
+## 你的 agent 能做什么
+
+Knows 提供 **12 个 sub-skill**（查找 / 阅读 / 写作 / 对比 / 评审 / 头脑风暴 / 起草 rebuttal / 生成 sidecar / 检视版本 / 建议下一步 / 构建 commentary / 修补元数据），以及 **11 个交互 stance**（devil's advocate, socratic, red-team, executive summary, paper brainstorm, draft grill, ...）。
+
+Sub-skills 产出 schema 验证过的产物（一个 sidecar、一份排序后的论文列表、一篇同行评审等）。Stances 触发思考姿态（让我们辩论、向我提问、找漏洞），并通过 fenced YAML 握手与 sub-skills 串联。
+
+→ **查看 [完整 skill 目录](./skills/README.md)** 了解每个 skill 做什么、何时激活、如何组合。
+
+---
+
+## 工作原理
+
+### KnowsRecord schema（v0.9）
+
+KnowsRecord 是一个放在论文 PDF 旁边的 YAML 文件。它绑定 **statements**（claim / method / limitation / question / reflection / lesson）、**evidence**（数字、来源、支撑）、**typed relations**（一条 statement 支持/反驳/扩展另一条）、**artifacts**（引用的数据集、代码、模型）和 **provenance**（谁写了每个部分、何时、如何写的）。
 
 ```
 KnowsRecord
@@ -259,86 +190,37 @@ KnowsRecord
   └─ freshness          as_of, update_policy, stale_after
 ```
 
-### 评审即 Sidecar
+30 个根级字段，23 个实体定义，可通过 `x_extensions` 扩展。完整示例见 [examples 目录](./examples/)。
 
-评审也是 KnowsRecord（`profile: review@1`）。每条弱点通过跨记录引用链接到原论文的具体论断：
+### Orchestrator + dispatch
 
-```yaml
-relations:
-  - subject_ref: "knows:examples/resnet/1.0.0#stmt:a1"
-    predicate: challenged_by
-    object_ref: "stmt:w1"  # 本评审的该条弱点
-```
+Orchestrator 通过类型化元组 `(intent_class, required_inputs, requested_artifact)` 将用户意图路由到 12 个 sub-skill 之一。**7 个守卫（G1-G7）** 防范 prompt 注入、profile 污染、质量泄漏和无界 fetch。完整合约见 [skills/references/dispatch-and-profile.md](./skills/references/dispatch-and-profile.md)。
 
----
+<p align="center">
+  <img src="./artifacts/how_knows.png" alt="How Knows works — orchestrator routes intent through guards to sub-skills" width="700" />
+</p>
 
-## 示例
+### 两种使用模式
 
-[`examples/`](examples/) 目录下，14 个学科共 21 份示例 sidecar：
+| 模式 | 适用场景 | 发生了什么 |
+|---|---|---|
+| **Knows-only**（agent 原生） | 你有 sidecar | agent 只读 YAML——快速、确定性、低 token |
+| **Knows + PDF fallback**（混合） | 冷启动，sidecar 不完整 | agent 读 YAML，并在 sidecar 覆盖不足时回退到 PDF |
 
-| 学科 | 论文 | 主要特征 |
-|:-----------|:-------|:------------|
-| 计算机科学 | ResNet, DP-SGD | 定量 benchmark，隐私分析 |
-| 生物学 | Watson-Crick, Mendel | 定性证据，遗传比率 |
-| 化学 | Mendeleev, Pauling | 规律识别，键理论 |
-| 物理学 | Einstein | 理论预测 |
-| 经济学 | Akerlof | 理论模型 |
-| 心理学 | Kahneman | 行为实验 |
-| 医学 | Semmelweis | 临床观察 |
-| 教育学 | Bloom, Dewey | 专家分类 |
-| 哲学 | Gettier, Turing | 思想实验 |
-| 数学 | Godel | 纯证明 |
-| 土木工程 | Terzaghi | 实验室测试 + 理论 |
-| 机械工程 | Reynolds | 染料实验 |
-| 电气工程 | Shannon | 数学证明 |
-| 半导体 | Moore, Dennard | 实证外推 |
+默认为 Knows-only。当 sidecar 报告 `coverage_statements: partial`，或 agent 的查询需要 sidecar 未绑定的证据时，fallback 自动激活。
 
 ---
 
-## 工具链
+## 评估
 
-### `knows-lint` — 7 项验证检查
-1. JSON Schema 验证
-2. 交叉引用完整性
-3. ID 唯一性
-4. ID 前缀规范（`art:`、`stmt:`、`ev:`、`rel:`）
-5. 关系谓词约束
-6. Artifact 可发现性
-7. 可选的 URL 存活检查
+横跨 11 项实验（E1-E10），覆盖 20 篇论文、14 个学科、8+ 个 LLM agent：
 
-可捕获 **100% 的结构性损坏**。语义性损坏（值错误）需要未来基于 LLM 的验证。
+- **+29 到 +42 个百分点** 的准确率提升 — 弱模型（Qwen-0.8B、Gemma-2B）在拿到 sidecar 后 vs 仅看 PDF
+- **节省 55% token** 即可达到与读完整 PDF 相同的准确率
+- **可追溯性 0% → 64-91%** — sidecar 把每个论断绑定到证据；PDF 不绑定任何东西
+- **覆盖 14 个学科** — 从 CS / ML 到经济学、生物学、土木工程
 
-### `knows-gen` — LaTeX 转 scaffold
-- 处理嵌套 `\input{}`（递归，最多 10 层）
-- 多格式作者解析（acmart, NeurIPS, IEEEtran）
-- 扩展引用命令
-- 典型会议论文的 scaffold 生成约需 15 分钟
-
----
-
-## 两种使用模式
-
-| 模式 | 适用场景 | 方式 |
-|:-----|:-----|:----|
-| **Knows-only** | Agent 原生工作流 | Agent 仅读取 sidecar，token 减少 29–83%。 |
-| **Knows+Fallback** | 改造既有论文 | sidecar 优先，不足时回退到 PDF。6 个模型中有 5 个准确率最佳。 |
-
----
-
-## 快速开始
-
-```bash
-pip install knows-sidecar
-
-# 从 LaTeX 生成 sidecar
-knows gen paper/main.tex -o paper.knows.yaml
-
-# 填写 TODO（约 15 分钟）
-# 验证
-knows lint paper.knows.yaml
-
-# 你的论文现在对 agent 可用了。
-```
+→ **完整结果表、length-effect 分析、评分稳健性、每个实验细节请见 [docs/evaluation.zh.md](./docs/evaluation.zh.md)**
 
 ---
 
