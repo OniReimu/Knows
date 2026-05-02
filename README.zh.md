@@ -1,4 +1,4 @@
-# Knows：让任意论文在几分钟内对 AI agent 可用
+# <img src="./artifacts/icon.svg" width="40" /> Knows：让任意论文在几分钟内对 AI agent 可用
 
 [English](./README.md) | 中文
 
