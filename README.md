@@ -19,7 +19,7 @@ npx skills add OniReimu/Knows
 Then ask your agent: *"find papers about transformers"*, *"summarize this paper"*, *"what's the main contribution?"*
 
 <p align="center">
-  <img src="./artifacts/why_knows.png" alt="Why Knows: agents waste effort reconstructing what authors already know — sidecar fixes it" width="600" />
+  <img src="./artifacts/why_knows.png" alt="Why Knows: agents waste effort reconstructing what authors already know — sidecar fixes it" width="450" />
 </p>
 
 ## Why Knows Exists
