@@ -1,4 +1,4 @@
-# Sub-skills — Type A artifact emitters (Knows Orchestrator v1.0+)
+# <img src="../../artifacts/icon.svg" width="40" /> Sub-skills — Type A artifact emitters (Knows Orchestrator v1.0+)
 
 English | [中文](./README.zh.md)
 
