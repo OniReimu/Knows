@@ -1,4 +1,4 @@
-# Interaction Stances — 目录（v0.11.2）
+# <img src="../../artifacts/icon.svg" width="40" /> Interaction Stances — 目录（v0.11.2）
 
 [English](./README.md) | 中文
 
