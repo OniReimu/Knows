@@ -1,4 +1,4 @@
-# Knows Orchestrator Integration Tests
+# <img src="../../artifacts/icon.svg" width="40" /> Knows Orchestrator Integration Tests
 
 English | [中文](./README.zh.md)
 
