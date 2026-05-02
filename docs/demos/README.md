@@ -1,4 +1,4 @@
-# Knows Orchestrator Demos (v1.0)
+# <img src="../../artifacts/icon.svg" width="40" /> Knows Orchestrator Demos (v1.0)
 
 English | [中文](./README.zh.md)
 
