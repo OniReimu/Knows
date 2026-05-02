@@ -13,7 +13,7 @@ English | [中文](./README.zh.md)
 ---
 
 ```bash
-npx skills add OniReimu/Knows -a claude-code -s '*' -y
+npx skills add OniReimu/Knows
 ```
 
 Then ask your agent: *"find papers about transformers"*, *"summarize this paper"*, *"what's the main contribution?"*
