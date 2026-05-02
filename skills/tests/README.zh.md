@@ -1,4 +1,4 @@
-# Knows Orchestrator 集成测试
+# <img src="../../artifacts/icon.svg" width="40" /> Knows Orchestrator 集成测试
 
 [English](./README.md) | 中文
 
