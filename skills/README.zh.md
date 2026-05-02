@@ -1,4 +1,4 @@
-# Knows Skills — 你能用它做什么
+# <img src="../artifacts/icon.svg" width="40" /> Knows Skills — 你能用它做什么
 
 [English](./README.md) | 中文
 
