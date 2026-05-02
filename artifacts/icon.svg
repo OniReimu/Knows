@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1254" height="1254" viewBox="0 0 1254 1254" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Knows Academy logo">
+  <title>Knows Academy</title>
+  <rect width="1254" height="1254" rx="220" fill="#FFFFFF"/>
+
+  <path
+    d="M 311 324 V 886 L 813 384"
+    fill="none"
+    stroke="#01285E"
+    stroke-width="176"
+    stroke-linecap="round"
+    stroke-linejoin="round"/>
+
+  <path
+    d="M 720 777 L 854 911"
+    fill="none"
+    stroke="#1D5DCC"
+    stroke-width="144"
+    stroke-linecap="round"/>
+
+  <circle cx="980" cy="602" r="95" fill="#1D5DCC"/>
+</svg>
