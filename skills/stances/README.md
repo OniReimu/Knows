@@ -1,4 +1,4 @@
-# Interaction Stances — Catalog (v0.11.2)
+# <img src="../../artifacts/icon.svg" width="40" /> Interaction Stances — Catalog (v0.11.2)
 
 English | [中文](./README.zh.md)
 
