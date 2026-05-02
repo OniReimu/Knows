@@ -81,7 +81,7 @@ relations:
 ```
 
 <p align="center">
-  <img src="./artifacts/expected_knows.png" alt="Example KnowsRecord sidecar — claims, evidence, relations" width="700" />
+  <img src="./artifacts/expected_knows.png" alt="Example KnowsRecord sidecar — claims, evidence, relations" width="500" />
 </p>
 
 ---
