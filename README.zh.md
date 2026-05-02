@@ -19,7 +19,7 @@ npx skills add OniReimu/Knows
 然后跟你的 agent 说：*"find papers about transformers"*、*"summarize this paper"*、*"what's the main contribution?"*
 
 <p align="center">
-  <img src="./artifacts/why_knows.png" alt="为什么需要 Knows：agents 重复重建作者已经知道的东西 — sidecar 解决这个问题" width="600" />
+  <img src="./artifacts/why_knows.png" alt="为什么需要 Knows：agents 重复重建作者已经知道的东西 — sidecar 解决这个问题" width="450" />
 </p>
 
 ## Knows 的由来
