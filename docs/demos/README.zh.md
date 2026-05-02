@@ -1,4 +1,4 @@
-# Knows Orchestrator 演示（v1.0）
+# <img src="../../artifacts/icon.svg" width="40" /> Knows Orchestrator 演示（v1.0）
 
 [English](./README.md) | 中文
 
