@@ -1,4 +1,4 @@
-# Knows Skills — What You Can Do
+# <img src="../artifacts/icon.svg" width="40" /> Knows Skills — What You Can Do
 
 English | [中文](./README.zh.md)
 
