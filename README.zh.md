@@ -13,7 +13,7 @@
 ---
 
 ```bash
-npx skills add OniReimu/Knows -a claude-code -s '*' -y
+npx skills add OniReimu/Knows
 ```
 
 然后跟你的 agent 说：*"find papers about transformers"*、*"summarize this paper"*、*"what's the main contribution?"*
