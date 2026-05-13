@@ -1819,7 +1819,8 @@ def _cli() -> int:
         f = out["filters_applied"]
         flt = ", ".join(f"{k}={v}" for k, v in f.items() if v is not None) or "none"
         print(f"  filters: {flt}")
-        print(f"  hub total: {out['hub_total_papers']} papers")
+        print(f"  hub total: {out['hub_total_papers']} papers"
+              f" (trending-view subset: {out.get('trending_view_total', 'n/a')})")
         print(f"  topic hits hub-wide: {out['topic_total_hits']}")
         print(f"  verdict: **{out['verdict'].upper()}**")
         print(f"  advice: {out['advice']}\n")
