@@ -227,11 +227,19 @@ class NotFoundError(Exception):
 
 
 def _http_get(url: str, *, timeout: int = 15, max_retries: int = 3) -> tuple[bytes, str]:
-    """GET with exponential backoff on 429/5xx. Returns (body_bytes, content_type)."""
+    """GET with exponential backoff on 429/5xx. Returns (body_bytes, content_type).
+
+    Injects X-API-Key header when available (see _get_knows_api_key for resolution
+    order). Anonymous mode (no key) still works but is rate-limited by the hub.
+    """
     last_err: Exception | None = None
+    headers = {"User-Agent": USER_AGENT}
+    api_key = _get_knows_api_key()
+    if api_key:
+        headers["X-API-Key"] = api_key
     for attempt in range(max_retries):
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+            req = urllib.request.Request(url, headers=headers)
             with urllib.request.urlopen(req, timeout=timeout) as r:
                 return r.read(), r.headers.get("Content-Type", "")
         except urllib.error.HTTPError as e:
