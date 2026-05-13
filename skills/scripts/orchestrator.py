@@ -32,6 +32,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import sys
 import time
@@ -39,12 +40,63 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any
 
 # ---------------- Constants -----------------
 
 API_BASE = "https://knows.academy/api/proxy"
 USER_AGENT = "knows-orchestrator/0.1 (+https://knows.academy)"
+
+# ---------------- API key resolution -----------------
+# knows.academy supports anonymous access (rate-limited) and authenticated
+# access via the X-API-Key header. Resolution order:
+#   1. os.environ["KNOWS_API_KEY"]   (conventional)
+#   2. os.environ["X-API-Key"]       (matches the literal .env name in some setups)
+#   3. ~/.claude/.env                (KNOWS_API_KEY then X-API-Key)
+#   4. ./.env                        (KNOWS_API_KEY then X-API-Key)
+# Anonymous mode still works if no key found.
+
+_API_KEY_CACHE: str | None | object = None  # sentinel: object() = not yet resolved
+_API_KEY_UNRESOLVED = object()
+
+
+def _load_env_file(path: Path) -> dict:
+    """Parse a .env file without external dependencies. Returns {} on missing file."""
+    env: dict[str, str] = {}
+    try:
+        for line in path.read_text().splitlines():
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                k, _, v = line.partition("=")
+                env[k.strip()] = v.strip().strip("\"'")
+    except FileNotFoundError:
+        pass
+    return env
+
+
+def _get_knows_api_key() -> str | None:
+    """Resolve the knows.academy X-API-Key from env or .env files (lazy + cached)."""
+    global _API_KEY_CACHE
+    if _API_KEY_CACHE is not _API_KEY_UNRESOLVED:
+        return _API_KEY_CACHE  # type: ignore[return-value]
+    for name in ("KNOWS_API_KEY", "X-API-Key"):
+        v = os.environ.get(name)
+        if v:
+            _API_KEY_CACHE = v
+            return v
+    for env_path in (Path.home() / ".claude" / ".env", Path(".env")):
+        env = _load_env_file(env_path)
+        for name in ("KNOWS_API_KEY", "X-API-Key"):
+            v = env.get(name)
+            if v:
+                _API_KEY_CACHE = v
+                return v
+    _API_KEY_CACHE = None
+    return None
+
+
+_API_KEY_CACHE = _API_KEY_UNRESOLVED
 
 PROFILE_RE = re.compile(r"^[a-z_]+@\d+$")
 
