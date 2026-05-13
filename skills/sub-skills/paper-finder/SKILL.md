@@ -32,6 +32,20 @@ requires_full_record: false
 
 This sub-skill exercises the verified `GET /api/proxy/search` + `GET /api/proxy/partial?section=citation` endpoints. It is the simplest v1 sub-skill: read-only, paginated, well-bounded artifact, no LLM call required for ranking (LLM is optional for query reformulation).
 
+## Use cases & flag presets
+
+**READ THIS FIRST.** The server default is `--sort latest`, which buries published conference papers under arXiv preprints. For most non-trivial use cases the default is the wrong choice. Pick the preset matching your goal:
+
+| Use case | Recommended flags | Why |
+|---|---|---|
+| Latest arXiv pulse on a topic | (defaults: `--sort latest`) | OK to surface preprints first |
+| **Prior-art / collision check** | `--venue-type published --sort claims --top-k 8+` | Reaches conference + journal papers, sorts by sidecar richness |
+| Survey / related-work prep | `--venue-type published --sort claims --top-k 10` | Same — feeds `survey-narrative` / `survey-table` recipes |
+| Specific-venue subset | add `--venue "NeurIPS"` (client-side substring) | Note: hub mostly tags as `published`, not `conference`; substring filter on venue field |
+| Foundational / pre-2024 papers | hub coverage is thin pre-2024 → **fall back to WebSearch / arXiv** | Hub indexing horizon ~2024+; cite-from-elsewhere |
+
+> ⚠️ **Common failure**: calling `paper-finder` with default flags for a prior-art search, getting back only arXiv preprints, and concluding "the foundational paper is not on hub." Switch to `--venue-type published --sort claims` first; foundational pre-2024 misses are a real hub gap, not a search-flag gap.
+
 ## Quick Start (agent-mediated mode, v1.0)
 
 Per `../../SKILL.md` "v1.0 Agent-Mediated Mode" — you (the agent) ARE the orchestrator. End-to-end for "find me 5 papers on X":
