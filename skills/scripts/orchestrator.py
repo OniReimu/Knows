@@ -295,6 +295,19 @@ def run_hub_coverage_check(query: str, *, year_min: int | None = None,
         topic_total = topic_resp.get("total", 0)
     except TransportError as e:
         return {"error": "upstream_unavailable_retries_exhausted", "detail": str(e)}
+    # Hub-total probe: disciplines.total_papers is restricted to the view subset
+    # (trending/claims/arxiv), not the full hub. Use a broad-term search as a
+    # lower-bound probe and take the max. Failure is non-fatal.
+    hub_total_probe = None
+    for probe_q in ("learning", "model", "paper"):
+        try:
+            hub_total_probe = fetch_search(probe_q, limit=1).get("total")
+            if hub_total_probe:
+                break
+        except TransportError:
+            continue
+    disciplines_total = d.get("total_papers") or 0
+    hub_total_papers = max(hub_total_probe or 0, disciplines_total)
 
     by_discipline = []
     # For each subfield, probe how many of its papers match the topic
