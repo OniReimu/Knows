@@ -352,7 +352,8 @@ def run_hub_coverage_check(query: str, *, year_min: int | None = None,
 
     return {
         "query": query,
-        "hub_total_papers": d.get("total_papers"),
+        "hub_total_papers": hub_total_papers,
+        "trending_view_total": disciplines_total,
         "topic_total_hits": topic_total,
         "filters_applied": {"year_min": year_min, "venue_type": venue_type},
         "top_subfields_by_topic_hits": top_by_discipline,
