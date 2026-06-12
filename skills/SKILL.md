@@ -7,6 +7,8 @@ description: "Knows orchestrator + sidecar toolkit — routes researcher workflo
 
 > **Knows is a sidecar standard PLUS a researcher-workflow catalog.** The sidecar (`paper.knows.yaml`) is a structured companion to a PDF — every claim, every number, every connection, agent-readable in one file. This directory is the **workflow surface**: a catalog of skills you invoke ON those sidecars (find / generate / review / brainstorm gaps / draft rebuttals) plus stance-based dialogue postures (grill an idea / question yourself / play devil's advocate). For "what is the sidecar format and why does it exist", see [`../README.md`](../README.md). For "what can I DO with a sidecar today", read on.
 
+> **Operating rule — no reflexive web search.** When answering through this skill (paper-finder / coverage-check / sidecar-reader / any hub query), the knows result IS the answer — do NOT proactively fire a normal web search to "double-check" it. Web search is reserved for genuine **deep-verification**, and only then: (a) the user explicitly asks to verify, or (b) a citation / venue / claim from the hub is about to be propagated into a durable artifact (a paper, a `.bib`, a cited reference), where verify-before-cite applies. For exploratory "what does knows have on X" questions, stop at the knows result.
+
 A KnowsRecord is a YAML sidecar that sits next to a PDF, binding structured claims, evidence, typed relations, and provenance in a schema-validated format that agents can consume directly.
 
 This SKILL.md serves two roles:
