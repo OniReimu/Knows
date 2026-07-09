@@ -350,7 +350,7 @@ def run_hub_coverage_check(query: str, *, year_min: int | None = None,
         }
     """
     try:
-        d = fetch_disciplines("trending")
+        d = fetch_disciplines()
     except TransportError as e:
         return {"error": "upstream_unavailable_retries_exhausted", "detail": str(e)}
     try:
@@ -1728,7 +1728,8 @@ def _cli() -> int:
     vi.add_argument("--max-depth", type=int, default=20)
 
     dx = sub.add_parser("disciplines", help="Browse hub by discipline (trending/claims/arxiv)")
-    dx.add_argument("--view", default="trending", choices=["trending", "claims", "arxiv"])
+    dx.add_argument("--view", default=None, choices=["discipline", "arxiv"],
+                    help="server grouping (default: discipline; 'arxiv' groups by arXiv archive)")
 
     hl = sub.add_parser("health", help="Pre-flight hub availability check")
 
