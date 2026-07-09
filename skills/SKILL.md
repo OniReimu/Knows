@@ -210,7 +210,7 @@ This skill is **self-contained** — no `pip install` required for most operatio
 - `stances/` — **NEW v0.11+**: 7 mattpocock-style interaction-stance sub-skills (`paper-brainstorm`, `review-prep`, `rebuttal-prep`, `pitch-grill`, `survey-shape`, `devils-advocate`, `executive-summary`). NOT in dispatch contract — activated via description match or `/<name>` slash command. Chain into Type A emitters via fenced `brainstorm_summary` handoff. See `stances/README.md` for the full catalog + activation precedence rule + canonical schema.
 - `references/remote-modes.md` — knows.academy remote API workflow patterns
 - `references/recipes.md` — the 9 canonical cross-skill chains in full (commands + rationale); the SKILL.md §Recipes table is only the index
-- `references/generation-rules.md` — full schema quick-reference tree + the ~40-row common-lint-failure table; read before hand-generating or debugging a sidecar
+- `references/generation-rules.md` — full schema quick-reference tree + the ~30-row common-lint-failure table; read before hand-generating or debugging a sidecar
 
 **Bundled scripts** (run directly, no `pip install` needed):
 - `scripts/gen.py` — LaTeX scaffold generator + LLM-powered generation (`--model haiku/sonnet/opus`)
@@ -400,7 +400,7 @@ knows lint paper.knows.yaml
 knows lint --check-links paper.knows.yaml     # also verify URLs
 ```
 
-The script auto-resolves the JSON Schema from `references/knows-record-0.9.json`.
+The script resolves the JSON Schema from the record's own `$schema` field (`references/knows-record-0.10.json` or `-0.9.json`), defaulting to 0.10 when `$schema` is omitted.
 
 **7 validation checks (6 in bundled script, 7th requires CLI):**
 1. JSON Schema validation (31 root fields, 23 entity definitions — also catches invalid predicate values via enum)
@@ -453,7 +453,7 @@ Compares two papers by their structured metadata — shared citations, overlappi
 
 ## Schema Quick Reference + Common Lint Failures
 
-The full schema tree (31 root fields, every enum) and the ~40-row "common mistakes that
+The full schema tree (31 root fields, every enum) and the ~30-row "common mistakes that
 cause lint failure" table live in `references/generation-rules.md` — **read it whenever you
 generate a sidecar without `gen.py` or debug a lint error**. The five YAML rules that cause
 most failures:

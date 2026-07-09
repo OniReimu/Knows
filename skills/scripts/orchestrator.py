@@ -30,6 +30,7 @@ Quick examples:
 """
 from __future__ import annotations
 
+import concurrent.futures
 import hashlib
 import json
 import os
@@ -374,24 +375,37 @@ def run_hub_coverage_check(query: str, *, year_min: int | None = None,
     disciplines_total = d.get("total_papers") or 0
     hub_total_papers = max(hub_total_probe or 0, disciplines_total)
 
-    by_discipline = []
-    # For each subfield, probe how many of its papers match the topic
+    # Collect (group, subfield, full_path, paper_count) specs first, then probe
+    # concurrently — G5 caps client concurrency at 4 (see SKILL.md G5 row), so a
+    # bounded ThreadPoolExecutor keeps this within the same transport discipline
+    # while cutting wall time on hubs with many subfields (~20-40 serial GETs otherwise).
+    subfield_specs = []
     for group in d.get("groups", []):
         for sub in group.get("subfields", []):
             full_path = sub.get("full_discipline") or f"{group['name']} / {sub['name']}"
-            try:
-                sub_resp = fetch_search(query, limit=1, discipline=full_path,
-                                         year_min=year_min, venue_type=venue_type)
-                topic_hits = sub_resp.get("total", 0)
-            except TransportError:
-                topic_hits = None
-            by_discipline.append({
-                "group": group["name"],
-                "subfield": sub["name"],
-                "full_path": full_path,
-                "papers_in_subfield": sub.get("paper_count", 0),
-                "topic_hits_in_subfield": topic_hits,
-            })
+            subfield_specs.append((group["name"], sub["name"], full_path, sub.get("paper_count", 0)))
+
+    def _probe_subfield(full_path: str) -> int | None:
+        try:
+            sub_resp = fetch_search(query, limit=1, discipline=full_path,
+                                     year_min=year_min, venue_type=venue_type)
+            return sub_resp.get("total", 0)
+        except TransportError:
+            return None
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as ex:
+        topic_hits_list = list(ex.map(_probe_subfield, [spec[2] for spec in subfield_specs]))
+
+    by_discipline = [
+        {
+            "group": gname,
+            "subfield": sname,
+            "full_path": full_path,
+            "papers_in_subfield": paper_count,
+            "topic_hits_in_subfield": topic_hits,
+        }
+        for (gname, sname, full_path, paper_count), topic_hits in zip(subfield_specs, topic_hits_list)
+    ]
 
     # Sort by topic hits descending; keep top 10 + zero-hit ones for visibility
     by_discipline.sort(key=lambda x: -(x["topic_hits_in_subfield"] or 0))
@@ -1728,10 +1742,11 @@ def _cli() -> int:
                     help="server-side limit per page (default: max(top_k, 20), capped at 100)")
 
     sr = sub.add_parser("sidecar-reader", help="prepare sidecar-reader LLM payload")
-    sr.add_argument("rid_or_q",
+    sr.add_argument("rid_or_q", metavar="RID_OR_QUESTION",
                     help="hub RID (starts with 'knows:') OR question (when --local supplied)")
-    sr.add_argument("q_or_unused", nargs="?", default=None,
-                    help="question (when first arg is RID); ignored when --local mode")
+    sr.add_argument("q_or_unused", metavar="QUESTION", nargs="?", default=None,
+                    help="question (when first arg is RID); omit when --local mode "
+                         "(the question is then the single positional arg)")
     sr.add_argument("--local", default=None,
                     help="path to local .knows.yaml (P0: ask Qs about your own freshly-generated sidecar)")
 
@@ -1760,7 +1775,7 @@ def _cli() -> int:
     vi.add_argument("rid")
     vi.add_argument("--max-depth", type=int, default=20)
 
-    dx = sub.add_parser("disciplines", help="Browse hub by discipline (trending/claims/arxiv)")
+    dx = sub.add_parser("disciplines", help="Browse hub by discipline (discipline/arxiv grouping)")
     dx.add_argument("--view", default=None, choices=["discipline", "arxiv"],
                     help="server grouping (default: discipline; 'arxiv' groups by arXiv archive)")
 

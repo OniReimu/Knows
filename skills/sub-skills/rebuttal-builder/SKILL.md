@@ -1,6 +1,6 @@
 ---
 name: knows-rebuttal-builder
-description: "Draft per-comment response to reviewer comments on your paper, citing supporting sidecars from your corpus. Triggers: 'rebut Reviewer 2's comment about X', 'help me respond to this review', 'draft rebuttal for paper P given review R', 'write my response letter'."
+description: "Draft per-comment response to reviewer comments on a paper, citing supporting sidecars from the user's corpus. Triggers: 'rebut Reviewer 2's comment about X', 'help me respond to this review', 'draft rebuttal for paper P given review R', 'write my response letter'."
 
 # Orchestrator dispatch contract — see ../../references/dispatch-and-profile.md §1.5 + §3.4
 intent_class: critique_respond

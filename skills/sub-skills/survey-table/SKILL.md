@@ -213,6 +213,6 @@ Before emitting, verify each axis actually discriminates: for the `kept` rid_set
 - LLM-suggested axes — explicit user input required (anti-hallucination guard).
 - Heatmap / chart rendering — output is text table only; visualization is a separate concern.
 - Cross-discipline normalization (e.g. converting "f1" and "accuracy" into a common metric) — N/A reported.
-- Automatic axis-value extraction from PDF if sidecar lacks it — Path F upstream (sidecar-author).
+- Automatic axis-value extraction from PDF if sidecar lacks it — Path D upstream (sidecar-author).
 
 Related: [`../../SKILL.md`](../../SKILL.md) | [`../../references/dispatch-and-profile.md`](../../references/dispatch-and-profile.md) §1.5 + §3.4

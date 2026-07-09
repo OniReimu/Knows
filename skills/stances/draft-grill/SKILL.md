@@ -1,14 +1,14 @@
 ---
 name: draft-grill
 description: >
-  Self-review posture for your OWN paper draft, not someone else's. Use when
+  Self-review posture for the user's OWN paper draft, not someone else's. Use when
   user says "grill my own paper before submission", "find weak spots in my
   draft", "self-review my paper", "what will reviewers attack in my
   manuscript", "stress-test my own paper", or invokes /draft-grill. Different
   from review-prep (which preps a peer review of someone else's paper).
   Different from pitch-grill (which is for an idea, before there's a draft).
-  This is for a complete or near-complete draft you've written yourself,
-  where the cognitive challenge is overcoming author defensiveness. Stays
+  This is for a complete or near-complete draft the user has written
+  themselves, where the cognitive challenge is overcoming author defensiveness. Stays
   active across turns; exits when brainstorm_summary is emitted with
   emit_chain=[draft-grill, review-sidecar].
 ---

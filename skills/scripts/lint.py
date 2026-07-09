@@ -8,8 +8,9 @@ Usage:
 Schema dispatch (v0.10):
   Each record's `$schema` field selects the schema to validate against.
   Records claiming `record-0.10.json` are validated against the 0.10 schema,
-  records claiming `record-0.9.json` (or omitting `$schema` entirely) fall
-  back to 0.9. Both schemas are resolved relative to this script's location
+  records claiming `record-0.9.json` are validated against 0.9; records
+  omitting `$schema` default to 0.10 (newest — see _DEFAULT_SCHEMA_VERSION).
+  Both schemas are resolved relative to this script's location
   at ../references/. The 21 existing 0.9 examples + the new commentary@1
   example all lint cleanly under this dispatcher.
 """

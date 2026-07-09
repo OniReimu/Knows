@@ -7,7 +7,7 @@ intent_class: contribute
 required_inputs:
   # Exactly one of the four must be supplied (4-way OR per §1.5 contribute rows).
   # Supplying any two is invalid_slot_type per §5.
-  - pdf_path          # most common real-world input — multimodal LLM reads PDF directly (Path F)
+  - pdf_path          # most common real-world input — multimodal LLM reads PDF directly (Path D)
   - latex_dir         # full deterministic pipeline via gen.py (Paths A / B)
   - text_blob         # pre-extracted text — wrapped in synthetic .tex for gen.py (Path E)
   - brainstorm_summary  # NEW v0.11+: from-idea path (Path C) via the `pitch-grill` stance. Fenced YAML block (schema: brainstorm-v1) carrying headline_claim / closest_related_work / falsifying_experiment / load_bearing_assumption / out_of_scope_disclaimer / target_venue. Switches the skill to CONSUME MODE — mechanical translation of the structured pitch into a `paper@1` from-idea sidecar with `venue_type: in_preparation`. See ../../stances/pitch-grill/SKILL.md for the canonical brainstorm_summary format.
@@ -39,7 +39,7 @@ This sub-skill wraps the foundational generation pipeline (`scripts/gen.py` + `s
 
 Per `../../SKILL.md` "v1.0 Agent-Mediated Mode" — you (the agent) execute. Two most common cases:
 
-### Case 1: User has a PDF (Path F — most common in real world)
+### Case 1: User has a PDF (Path D — most common in real world)
 
 ```bash
 # 1. Dispatch tuple: (contribute, {pdf_path: "/papers/x.pdf"}, knows_yaml)
@@ -91,7 +91,7 @@ This sub-skill owns 2 rows in `dispatch-and-profile.md` §1.5:
 
 | `requested_artifact` | What user gets | Implementation |
 |---|---|---|
-| `knows_yaml` | `paper.knows.yaml` file (lint-pass + verify-pass) | LaTeX/text input → `gen.py` → `sanitize.py` → `lint.py` → `verify_metadata.py`. PDF input (Path F) → multimodal LLM read + `gen-prompt.md` → `sanitize.py` → `lint.py` → `verify_metadata.py` |
+| `knows_yaml` | `paper.knows.yaml` file (lint-pass + verify-pass) | LaTeX/text input → `gen.py` → `sanitize.py` → `lint.py` → `verify_metadata.py`. PDF input (Path D) → multimodal LLM read + `gen-prompt.md` → `sanitize.py` → `lint.py` → `verify_metadata.py` |
 | `lint_report` | Lint pass/fail summary (no sidecar persisted) | Same as `knows_yaml` route to a tmp path → `lint.py` → return only the summary, discard the YAML |
 
 > **Standalone lint of a pre-existing user-supplied YAML** is NOT this route — that would require a `yaml_path` slot not declared in §1.3. For ad-hoc validation of a YAML you already have on disk, call `python3 ../../scripts/lint.py <path>` directly (Foundational Utility per parent SKILL.md), bypassing the orchestrator. A future v1.x contract addition could add `(validate, {yaml_path}, lint_report)` as its own intent_class+slot.
@@ -100,20 +100,20 @@ The orchestrator routes based on `requested_artifact`. The sub-skill body branch
 
 ## Workflow (knows_yaml route)
 
-Per `../../SKILL.md` "Mode: generate" section, choose one of 4 paths based on input:
+Choose one of 5 paths based on input — Paths A-D per `../../SKILL.md` "Mode: generate" section, plus sub-skill-local Path E (text_blob):
 
 - **Path A** (deterministic LaTeX scaffold): `latex_dir` slot → `python3 ../../scripts/gen.py paper/main.tex -o paper.knows.yaml`
 - **Path B** (LLM from LaTeX, requires `ANTHROPIC_API_KEY`): `latex_dir` slot → `python3 ../../scripts/gen.py paper/main.tex --model opus -o paper.knows.yaml`
 - **Path C** (from-idea, no paper yet): manual generation following `../../references/yaml-template.yaml`; set `provenance.method: manual_curation`, `venue_type: in_preparation`. (No specific slot — this is a curation flow the agent runs without `gen.py`.)
 - **Path E** (text_blob input): `text_blob` slot → write the blob to `mktemp -t knows_input_XXXXX.tex`, then proceed as Path A (scaffold) or Path B (LLM). The synthetic .tex wrapper allows `gen.py`'s LaTeX-input pipeline to run on pre-extracted text. Discard the tmp .tex after generation.
-- **Path F** (PDF input — first-class, primary real-world route): `pdf_path` slot → multimodal LLM (Claude / GPT-4o+ / Gemini) reads the PDF natively + applies `../../references/gen-prompt.md` verbatim to produce YAML. Most users only have PDFs (papers downloaded from arXiv / publisher sites), so this is the primary contribute route. Implementation:
+- **Path D** (PDF input — first-class, primary real-world route): `pdf_path` slot → multimodal LLM (Claude / GPT-4o+ / Gemini) reads the PDF natively + applies `../../references/gen-prompt.md` verbatim to produce YAML. Most users only have PDFs (papers downloaded from arXiv / publisher sites), so this is the primary contribute route. Implementation:
   1. Sub-skill body opens the PDF via the agent's multimodal capability (the exact API call differs per platform — Anthropic `messages.create` with `document` content block, OpenAI `responses.create` with file input, Gemini `generate_content` with `Part.from_data`)
   2. System message + user template come from `../../references/gen-prompt.md` — load verbatim, do not rewrite
   3. LLM produces a complete KnowsRecord YAML in one pass
   4. Sub-skill body parses the response, runs the same post-gen pipeline as Path A/B (sanitize → lint → verify_metadata)
   5. `provenance.method: extraction` (extracted from PDF, not hand-curated)
 
-  Path F does NOT use `gen.py` (which requires LaTeX input). The dogfood example in the Knows v0.9 paper Appendix D was generated this way — Opus subagent reading the paper PDF + applying gen-prompt.md.
+  Path D does NOT use `gen.py` (which requires LaTeX input). The dogfood example in the Knows v0.9 paper Appendix D was generated this way — Opus subagent reading the paper PDF + applying gen-prompt.md.
 
 After generation, **always run the post-gen checklist**:
 
@@ -141,7 +141,7 @@ elif [ -n "${text_blob:-}" ]; then  # Path E
   printf '%s' "$text_blob" > "$TEX_TMP"
   python3 ../../scripts/gen.py "$TEX_TMP" -o "$TMP"
   rm "$TEX_TMP"
-elif [ -n "${pdf_path:-}" ]; then   # Path F — multimodal LLM read PDF + apply gen-prompt.md
+elif [ -n "${pdf_path:-}" ]; then   # Path D — multimodal LLM read PDF + apply gen-prompt.md
   # Agent reads $pdf_path multimodally + applies references/gen-prompt.md verbatim,
   # writes resulting YAML to "$TMP". (No bash one-liner — this is a multi-step LLM call.)
   : run-multimodal-pdf-to-yaml "$pdf_path" > "$TMP"
@@ -258,7 +258,7 @@ Path C in v0.10 was natural-language-ingested: the user describes their idea, th
 
 ```python
 if pdf_path or latex_dir or text_blob:
-    # PAPER-EXTRACTION PATH (A / B / E / F) — current v0.10 behavior
+    # PAPER-EXTRACTION PATH (A / B / E / D) — current v0.10 behavior
     ...
 elif brainstorm_summary is not None:
     # FROM-IDEA PATH (C) via pitch-grill chain — fail-closed verification + mechanical translation
@@ -334,12 +334,12 @@ The output sidecar's `provenance.workflow_chain` MUST be set to the `emit_chain`
 
 ### When NOT to use consume mode
 
-If the user has an actual paper PDF or LaTeX project, the paper-extraction paths (A/B/E/F) are correct — they extract real claims grounded in real text. Consume mode is for when the paper does not yet exist (idea stage). Routing the wrong way produces a from-idea sidecar where the headline claim is just the user's brainstorm conjecture instead of a measured-and-cited paper claim.
+If the user has an actual paper PDF or LaTeX project, the paper-extraction paths (A/B/E/D) are correct — they extract real claims grounded in real text. Consume mode is for when the paper does not yet exist (idea stage). Routing the wrong way produces a from-idea sidecar where the headline claim is just the user's brainstorm conjecture instead of a measured-and-cited paper claim.
 
 ## Out of scope
 
 - Generic Markdown/HTML intake — DEFERRED. Currently `text_blob` accepts pre-extracted plain text but there's no first-class `md_path` or `html_path` slot. Workaround: pre-extract to text and use `text_blob`.
-- Remote PDF generation via hub `POST /generate/pdf` — DEFERRED, endpoint UNVERIFIED. Local PDF intake (Path F) is supported; only remote-side PDF→sidecar conversion is gated.
+- Remote PDF generation via hub `POST /generate/pdf` — DEFERRED, endpoint UNVERIFIED. Local PDF intake (Path D) is supported; only remote-side PDF→sidecar conversion is gated.
 - Remote upload (`POST /sidecars`) — UNVERIFIED endpoint.
 - Remote PDF generation (`POST /generate/pdf`) — UNVERIFIED endpoint.
 - Multi-paper batch generation in a single dispatch call — multi-artifact composition is OUT OF SCOPE per `dispatch-and-profile.md` §7.
