@@ -1791,7 +1791,9 @@ def _cli() -> int:
                                 discipline=args.discipline, sort=args.sort,
                                 or_fallback=not args.no_or_fallback,
                                 page_limit=args.page_limit)
-        if "table" in out:
+        if getattr(args, "as_json", False):
+            print(json.dumps(out, indent=2, ensure_ascii=False))
+        elif "table" in out:
             print(out["table"])
         elif "bibtex" in out:
             print(out["bibtex"])
