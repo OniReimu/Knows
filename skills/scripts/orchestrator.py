@@ -1722,6 +1722,8 @@ def _cli() -> int:
                     help="server-side sort (server default: latest)")
     pf.add_argument("--no-or-fallback", action="store_true",
                     help="disable OR-fallback when AND-logic returns 0 hits")
+    pf.add_argument("--json", action="store_true", dest="as_json",
+                    help="print full JSON (table + kept_rids + manifest) instead of the markdown table")
     pf.add_argument("--page-limit", type=int, default=None,
                     help="server-side limit per page (default: max(top_k, 20), capped at 100)")
 
