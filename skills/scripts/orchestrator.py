@@ -317,13 +317,17 @@ def fetch_search(query: str, *, cursor: str | None = None,
     return json.loads(body)
 
 
-def fetch_disciplines(view: str = "trending") -> dict:
+def fetch_disciplines(view: str | None = None) -> dict:
     """GET /api/proxy/disciplines — browse hub by discipline.
 
     Returns {groups: [{name, total_papers, total_stmts, subfields: [...]}], total_papers, view}.
-    `view` ∈ {'trending', 'claims', 'arxiv'}. Useful as a hub-coverage diagnostic
-    before issuing a topic search ("how much is on hub in my area?")."""
-    url = f"{API_BASE}/disciplines?view={urllib.parse.quote(view)}"
+    `view` ∈ {'discipline', 'arxiv'} or None (server default = discipline grouping).
+    Server rejects any other value with 422 (live-probed 2026-07-09; the old
+    'trending'/'claims' views were removed server-side). Useful as a hub-coverage
+    diagnostic before issuing a topic search ("how much is on hub in my area?")."""
+    url = f"{API_BASE}/disciplines"
+    if view:
+        url += f"?view={urllib.parse.quote(view)}"
     body, _ = _http_get(url)
     return json.loads(body)
 
