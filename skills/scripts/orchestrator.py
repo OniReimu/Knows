@@ -359,9 +359,9 @@ def run_hub_coverage_check(query: str, *, year_min: int | None = None,
         topic_total = topic_resp.get("total", 0)
     except TransportError as e:
         return {"error": "upstream_unavailable_retries_exhausted", "detail": str(e)}
-    # Hub-total probe: disciplines.total_papers is restricted to the view subset
-    # (trending/claims/arxiv), not the full hub. Use a broad-term search as a
-    # lower-bound probe and take the max. Failure is non-fatal.
+    # Hub-total probe: disciplines.total_papers only counts discipline-classified
+    # records, not the full hub. Use a broad-term search as a lower-bound probe
+    # and take the max. Failure is non-fatal.
     hub_total_probe = None
     for probe_q in ("learning", "model", "paper"):
         try:
