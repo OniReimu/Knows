@@ -9,7 +9,7 @@ Base URL: `https://knows.academy/api/proxy`
 |---|---|---|---|
 | `/jobs/stats` | GET | ✅ verified | none |
 | `/search` | GET | ✅ verified | none |
-| `/disciplines` | GET | ✅ verified | none — browse hub by discipline |
+| `/disciplines` | GET | ✅ verified | none — browse hub by discipline. Optional `view` ∈ `discipline` \| `arxiv` (default `discipline`); any other value → 422. The old `trending`/`claims` views were REMOVED server-side (live-probed 2026-07-09) |
 | `/sidecars/<rid>` | GET | ✅ verified | none — default Accept is YAML; send `Accept: application/json` for JSON |
 | `/partial?section=statements` | GET | ✅ verified | none |
 | `/partial?section=evidence` | GET | ✅ verified | none |
