@@ -873,8 +873,11 @@ def run_paper_finder(query: str, *, top_k: int = 20,
                 "manifest": manifest.finish()}
     if artifact == "ranked_paper_list":
         # P1b: include RID column so users don't have to drop into Python to extract them
-        lines = ["| # | RID | Title | Venue | Year | Stmts | Lint |",
-                 "|---|---|---|---|---|---|---|"]
+        lines = []
+        if fallback_note:
+            lines.append(f"⚠ {fallback_note}\n")
+        lines += ["| # | RID | Title | Venue | Year | Stmts | Lint |",
+                  "|---|---|---|---|---|---|---|"]
         kept_rids = []
         for i, r in enumerate(kept, 1):
             rid = r.get("record_id", "?")
@@ -885,7 +888,10 @@ def run_paper_finder(query: str, *, top_k: int = 20,
             stmts = r.get("stats", {}).get("stmt_count", 0)
             lint = "✓" if r.get("lint_passed") else "✗"
             lines.append(f"| {i} | `{rid}` | {title} | {venue} | {year} | {stmts} | {lint} |")
-        return {"table": "\n".join(lines), "manifest": manifest.finish(), "kept_rids": kept_rids}
+        out = {"table": "\n".join(lines), "manifest": manifest.finish(), "kept_rids": kept_rids}
+        if fallback_note:
+            out["or_fallback_note"] = fallback_note
+        return out
     if artifact == "bibtex":
         bibs = []
         for r in kept:
