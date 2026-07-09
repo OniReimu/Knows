@@ -207,6 +207,7 @@ class Manifest:
     cache_hits: list[str] = field(default_factory=list)
     abstained: bool = False
     abstained_reason: str | None = None
+    notes: list[str] = field(default_factory=list)
     knows_api_version: str | None = None
     dispatch_tuple: str | None = None
     model: str | None = None
