@@ -15,11 +15,15 @@ This SKILL.md serves two roles:
 1. **Orchestrator** for the 12-skill researcher-workflow library + 11 interaction stances (see §Orchestrator Architecture below). Routes user intent to sub-skills based on a typed dispatch tuple defined in `references/dispatch-and-profile.md`.
 2. **Foundational toolkit** for KnowsRecord operations: generate / validate / review / analyze / cli-query / consume / compare / remote (see §Mode Selection).
 
-**v1.0 ships the full 12-skill catalog** (was 11; +`commentary-builder` in v0.10): all sub-skills have dedicated `sub-skills/<name>/SKILL.md` files + `references/<name>.md` contracts. 6 of them are wired into `scripts/orchestrator.py` as Python runners (`run_paper_finder` / `run_sidecar_reader` / `run_sidecar_author_pdf` / `run_sidecar_author_postgen` / `run_paper_compare` / `run_version_inspector` / `run_sidecar_reviser`); the remaining 6 (`run_review_sidecar` / `run_survey_narrative` / `run_survey_table` / `run_next_step_advisor` / `run_rebuttal_builder` / `run_commentary_builder`) are agent-mediated only because their bodies are LLM-heavy synthesis where wrappers add little value.
-
-**v0.11.1 adds 9 Type B interaction stances** under `skills/stances/` (was 0): `paper-brainstorm` / `review-prep` / `rebuttal-prep` / `pitch-grill` / `survey-shape` (5 paired with Type A emitters) + `devils-advocate` / `executive-summary` / `socratic` / `red-team` (4 standalone, compose with anything). All 6 Type A emitters that pair with a stance now have CONSUME MODE contract (mechanical translation of fenced `brainstorm_summary` YAML, fail-closed on grounding verification). See `stances/README.md` for activation precedence + composition rules.
-
-**v0.11.2 adds `stance-mix` meta-stance + `draft-grill` stance** — `stance-mix` is a 1-turn dispatcher that interprets abstract use-case statements ("self-review my paper", "respond to reviewers") and proposes the right primary chain + standalone overlays for the user to explicitly activate (fills Q5 gap between Rule 1 and Rule 2). `draft-grill` is the self-review stance for grilling YOUR OWN paper draft (different cognitive framing from review-prep, which preps a peer review of someone ELSE's paper). Total Type B catalog: **11** (6 paired + 4 standalone + 1 meta).
+**Catalog at a glance (v1.0 + v0.11.x)**: 12 Type A sub-skills (each with
+`sub-skills/<name>/SKILL.md` + `references/<name>.md` contract; 6 wired as Python runners
+in `scripts/orchestrator.py`, 6 agent-mediated because their bodies are LLM-heavy
+synthesis) + 11 Type B interaction stances under `stances/` (6 paired with Type A
+emitters incl. `draft-grill` for grilling your OWN draft, 4 standalone that compose with
+anything, 1 `stance-mix` meta-dispatcher for abstract use-case statements like
+"self-review my paper"). Type A emitters that pair with a stance have a CONSUME MODE
+contract — mechanical translation of the fenced `brainstorm_summary` YAML, fail-closed on
+grounding verification. Catalog details: `sub-skills/README.md` + `stances/README.md`.
 
 ## TL;DR — routing table for agents
 
@@ -68,265 +72,60 @@ For deeper orchestrator internals (G1-G7 guards, dispatch tuple grammar, profile
 
 ## Recipes — common cross-skill chains
 
-Many real research workflows take more than one sub-skill. Below are the canonical chains. Use these as templates — running them in the listed order saves an LLM call (or saves a wasted one when the upstream step would have abstained anyway).
+Real research workflows usually chain 2+ sub-skills. The 9 canonical chains live in
+`references/recipes.md` — **read that file before executing any chain** (each recipe has
+exact commands, why-this-order rationale, and failure-mode caveats):
 
-> **v0.11+ chain pattern (Type B → Type A)**: stance skills under `stances/` chain into Type A emitters via fenced `brainstorm_summary` handoff. Stance does free dialogue + opinion + multi-turn convergence; emitter does mechanical translation + grounding verification + YAML emit. The stance fails closed (`status: needs_rework`) when grounding can't be verified. Recipe 9 below demonstrates the canonical case (`paper-brainstorm` → `commentary-builder`); the same shape applies to `review-prep` → `review-sidecar`, `rebuttal-prep` → `rebuttal-builder`, `pitch-grill` → `sidecar-author`, `survey-shape` → `survey-narrative`/`survey-table`. See `stances/README.md` § "How a stance hands off to its paired emitter" for the full schema.
+| # | Chain | Use when the user wants... |
+|---|---|---|
+| 1 | `coverage-check → next-step-advisor` | "what should I work on next in <topic>?" — 2s pre-flight prevents polished-but-ungrounded briefs |
+| 2 | `sidecar-author Path D → rebuttal-builder` | a rebuttal from a PDF that has no sidecar yet |
+| 3 | `paper-finder → paper-compare` | "how do papers A and B differ?" (discover RIDs first) |
+| 4 | `paper-finder → survey-narrative` | a related-work paragraph on a topic |
+| 5 | `paper-finder → survey-table` | an N-paper comparison table |
+| 6 | `paper-finder → sidecar-reader` | per-paper answers to one question across a topic |
+| 7 | `commentary-builder → next-step-advisor` | gap-finding when authors don't disclose gaps (partially blocked — hub upload UNVERIFIED) |
+| 8 | `sidecar-author → sidecar-reader --local` | Q&A over your own freshly-generated sidecar, pre-publication |
+| 9 | `paper-brainstorm → commentary-builder` | canonical Type B → Type A chain: multi-turn brainstorm → grounded commentary@1 emit |
 
-### Recipe 1: `coverage-check → next-step-advisor`
-
-User asks "what should I work on next in `<topic>`?" or "where are the open gaps in `<topic>`?"
-
-```bash
-# Step 1 — pre-flight: is the hub rich enough to ground a brief?
-python3 scripts/orchestrator.py coverage-check "<topic>"
-#   verdict ∈ {RICH, MODERATE} → proceed to Step 2
-#   verdict ∈ {THIN, ABSENT}   → recommend pivoting (Scholar / arXiv) before committing
-#                                 — do NOT call next-step-advisor on thin coverage; output will be honestly empty
-```
-
-```python
-# Step 2 — agent-mediated next-step-advisor (Quick Start in sub-skills/next-step-advisor/SKILL.md)
-# Use the canonical prompt: references/next-step-advisor-prompt.md
-# It enforces banned phrases + grounding trace + heuristic disclaimer + (for intersection
-# topics like "DP × code-LLMs") the §4.1 topical-relevance precheck.
-```
-
-**Why this chain**: a 2-second `coverage-check` saves a 30-second LLM call when the topic is off-corpus. Bigger win: prevents the "polished-sounding ungrounded brief" failure mode the contract was designed to catch.
-
-### Recipe 2: `sidecar-author Path D → rebuttal-builder` (no-sidecar fallback)
-
-User has a paper PDF but no `.knows.yaml` sidecar yet — the modal junior-PI case under deadline pressure.
-
-```bash
-# Step 1 — generate the paper sidecar from PDF (Path D = multimodal LLM read)
-python3 scripts/orchestrator.py sidecar-author-pdf my-paper.pdf -o my-paper.knows.yaml
-#   The wrapper sanitizes + lints + verifies metadata. Re-run with --no-cited if you want
-#   to skip cited-corpus enrichment.
-```
-
-```python
-# Step 2 — agent-mediated rebuttal-builder using the freshly-generated sidecar + reviewer text
-# Use the canonical prompt: references/rebuttal-builder-prompt.md
-# It enforces fabrication-tell banned phrases + response-type taxonomy + grounding trace.
-# The rebuttal-builder-prompt.md also has a no-sidecar fallback policy if Step 1 isn't viable
-# (opt-in unverified-anchors mode with [Sec. X — verify] placeholders).
-```
-
-**Why this chain**: the rebuttal contract requires every "we did X" claim to cite a `stmt:*`/`ev:*` anchor in the paper. Without a sidecar, every claim is unverifiable. Step 1 closes that gap with one extra hop.
-
-### Recipe 3: `paper-finder → paper-compare`
-
-User asks "how do `<paper A>` and `<paper B>` differ?" — typical Slack/email-thread question.
-
-```bash
-# Step 1 — discover the two RIDs (skip if user already supplied them)
-python3 scripts/orchestrator.py paper-finder "<paper A name or topic>" --top-k 3
-python3 scripts/orchestrator.py paper-finder "<paper B name or topic>" --top-k 3
-#   Pick the right RID from each output. Title-rerank surfaces canonical names at the top.
-
-# Step 2 — pairwise diff (default: llm_judge mode with top-3 candidate-pair preview)
-python3 scripts/orchestrator.py paper-compare "knows:<a>/<slug>/1.0.0" "knows:<b>/<slug>/1.0.0"
-#   Returns: candidate pairs, divergent claims, contradictions, shared citations.
-#   Use --text-overlap if you want a deterministic Jaccard answer (CI smoke or one-shot).
-```
-
-**Why this chain**: paper-compare is RID-typed; users almost always have paper names, not RIDs. Rolling the discovery step into the workflow eliminates one round of "what's the RID for X?" friction.
-
-### Recipe 4: `paper-finder → survey-narrative`
-
-User asks "draft me a related-work paragraph on `<topic>`" — typical paper-writing prep.
-
-```bash
-# Step 1 — discover candidate sidecars (use --sort claims for richer sidecars in lit-map quality)
-python3 scripts/orchestrator.py paper-finder "<topic>" --top-k 8 --sort claims
-#   Auto-applies --venue-type published with --sort claims; pass --venue-type preprint to override.
-```
-
-```python
-# Step 2 — agent-mediated survey-narrative (Quick Start in sub-skills/survey-narrative/SKILL.md)
-# Use the cite_key() helper to derive {lastname}{year} keys cleanly:
-from orchestrator import cite_key
-keys = {h["record_id"]: cite_key(h["record_id"]) for h in hits}
-# Synthesize 1-3 paragraphs of academic prose with \cite{key} citations, grounded in retrieved
-# statements. Wrap context in <UNTRUSTED_SIDECAR>...</UNTRUSTED_SIDECAR> per G1.
-```
-
-**Why this chain**: survey-narrative accepts either `query_text` or pre-supplied `rid_set`. Doing paper-finder first lets the human vet the candidate set before paying for prose synthesis — and surfaces hub coverage gaps explicitly.
-
-### Recipe 5: `paper-finder → survey-table`
-
-User asks "compare these N papers in a table by `<axes>`" — typical lab-meeting / reading-group prep.
-
-This chain is documented in detail at `sub-skills/survey-table/SKILL.md` Quick Start §0. The pattern is the same as Recipe 4: discover RIDs first, abstain explicitly with `hub_missing_canonical_papers` when the canonical reading list isn't on the hub (rather than substituting random hub neighbors). For canonical pre-2024 papers (FlashAttention, PagedAttention, etc.), expect to ground citations outside the hub.
-
-### Recipe 6: `paper-finder → sidecar-reader`
-
-User asks "find papers on `<topic>` and tell me what they say about `<question>`" — high-traffic researcher Q&A pattern, e.g. "what does the recent literature on diffusion guidance say about CFG scale tradeoffs?"
-
-```bash
-# Step 1 — discover candidate RIDs on the hub
-python3 scripts/orchestrator.py paper-finder "<topic>" --top-k 5
-#   Pick the RIDs you want to interrogate. Title-rerank surfaces canonical names at the top.
-
-# Step 2 — ask the same question against each retrieved sidecar (hub mode)
-python3 scripts/orchestrator.py sidecar-reader "knows:<a>/<slug>/1.0.0" "<question>"
-python3 scripts/orchestrator.py sidecar-reader "knows:<b>/<slug>/1.0.0" "<question>"
-#   Repeat per RID. Each call returns a per-paper grounded answer with stmt:*/ev:* anchors.
-#   sidecar-reader fetches the sidecar from the hub via G5 transport — no local file required.
-```
-
-**Why this chain**: for "what does the recent literature on X say about Y" workflows where the user wants per-paper answers (not synthesized prose). Different from `survey-narrative` (Recipe 4), which produces ONE prose paragraph; this gives N independent answers the user can compare or quote individually. Useful for lit-review note-taking and "did anyone already report Z?" sanity checks.
-
-### Recipe 7: `commentary-builder → next-step-advisor` (gaps when authors are silent) — NEW v0.10
-
-User asks "what's next in `<topic>`" but the seed papers are publication-pressured (no honest gap disclosure in their `limitation`/`question` statements). Default `next-step-advisor` runs surface only author-stated gaps, missing the much larger pool of gaps a careful reader/agent would spot.
-
-```python
-# Step 1 — identify seed papers (skip if user supplied them)
-hits = fetch_search(TOPIC, sort="trending", limit=12)["results"]
-seed_rids = [h["record_id"] for h in hits if h.get("profile") == "paper@1"][:5]
-
-# Step 2 — generate commentary@1 sidecars for each seed (one call per paper)
-# Use the canonical prompt at references/commentary-builder-prompt.md.
-# Output: <paper>_commentary.knows.yaml conforming to profile: commentary@1.
-# Each commentary record has 3-6 reflections (gap_spotted / scenario_extrapolation /
-# method_transfer_idea / lesson) anchored via `reflects_on` to paper stmt:* IDs.
-# Lint each commentary YAML before publishing — schema enforces commentary@1's
-# 4-type statement_type partition.
-
-# Step 2.5 — PUBLISH PREREQUISITE (load-bearing).
-# `next-step-advisor` Phase 2 retrieves commentary records via the hub's `/search` endpoint.
-# That means the commentary YAML produced in Step 2 MUST be uploaded to the hub before
-# Step 3 can consume it. POST `/sidecars` is currently UNVERIFIED (api-schema.md §"Unverified"),
-# so commentary@1 sidecars STAY LOCAL until the upload path is wired. In the local-only state,
-# Step 3 silently runs paper@1-only and emits the coverage-gap note. To unblock end-to-end
-# automation, EITHER (a) wait for hub upload to ship, OR (b) manually upload via the future
-# `knows publish <commentary>.knows.yaml` CLI when it lands, OR (c) point next-step-advisor at
-# a local-only commentary directory via a future `--local-commentary <dir>` flag (not yet
-# implemented in v0.10).
-
-# Step 3 — run next-step-advisor. Its v0.10 retrieval pulls in commentary@1 sidecars via
-# the two-phase fetch (Quick Start §3 in next-step-advisor/SKILL.md), BUT only if those
-# sidecars are present on the hub. With local-only commentary (the v0.10 default), Phase 2
-# yields zero hits and the advisor emits a manifest coverage-gap note recommending publication.
-# Evidence pool grows from N (paper@1 only) to N + N×k (k ≈ 3-6 reflections per paper)
-# ONLY AFTER commentary upload is wired.
-```
-
-**Why this chain**: the value of `commentary-builder` only materializes when consumed downstream. Running it without immediately consuming the output via `next-step-advisor` is academically interesting but operationally wasted work. The chain also respects publication pressure — authors don't have to disclose anything; the reader-side reflection layer fills in. Caveat: commentary@1 sidecars carry the agent's grounding, not the author's authority — `next-step-advisor` weighs them via `provenance.actor.type == "tool"` so they don't masquerade as author-stated questions.
-
-**Honest scope statement (v0.10)**: this recipe describes the INTENDED end-to-end chain. In v0.10 the chain is partially blocked at Step 2.5 because hub upload is UNVERIFIED. Treat this recipe as a forward-looking design pattern; for actual gap-finding workflows today, prefer Recipe 1 (`coverage-check → next-step-advisor` over paper@1 alone) until the hub-upload prerequisite lands.
-
-### Recipe 8: `sidecar-author → sidecar-reader` (own-paper Q&A)
-
-User has a paper PDF, generates a sidecar, then asks questions about their own paper — typical self-review / rebuttal-prep pattern before the paper has any hub presence.
-
-```bash
-# Step 1 — generate the sidecar from PDF (Path D, multimodal LLM read)
-python3 scripts/orchestrator.py sidecar-author-pdf my-paper.pdf -o my-paper.knows.yaml
-#   Wrapper sanitizes + lints + verifies metadata. Output stays local (no upload).
-```
-
-```bash
-# Step 2 — sidecar-reader in LOCAL MODE against the freshly-generated YAML
-python3 scripts/orchestrator.py sidecar-reader --local my-paper.knows.yaml "<question>"
-#   --local reads the sidecar off disk; no hub fetch, no upload. Same grounding/anchor contract
-#   as hub mode. Use for "what assumption am I leaning on for Theorem 3?" / "where do I claim
-#   beating SOTA?" / "find every limitation I admit" — drives rebuttal anchor prep.
-```
-
-**Why this chain**: closes the "I have a paper but no hub presence" gap for self-review tasks. Local mode (`--local`) keeps the sidecar off the hub during the draft phase — useful when the paper is under double-blind review or simply not ready to publish. Once the paper is accepted/posted, the same sidecar can be uploaded and the chain switches to hub mode (Recipe 6).
-
-### Recipe 9: `paper-brainstorm → commentary-builder` (Type B → Type A canonical chain) — NEW v0.11
-
-User wants to publish a `commentary@1` sidecar to the public hub but a solo-agent commentary has limited community-resource value. The brainstorm-derived chain produces a higher-trust artifact that consumers can distinguish via `provenance.workflow_chain`.
-
-```
-# Step 1 — user activates the paper-brainstorm stance
-# User: "let's brainstorm gaps in <paper title>" or "/paper-brainstorm <paper_rid>"
-# The stance auto-activates per its description (or via slash command).
-# It reads the paper@1 sidecar, enumerates already-conceded ground (limitation/question/assumption),
-# then surfaces 1-3 candidate reflections per turn with opinion + proposed anchor.
-
-# Step 2 — multi-turn dialogue
-# User keeps/refines/drops candidates each turn. Stance integrates user judgment.
-# Anti-overreach check runs continuously: nothing that overlaps a paper-conceded limitation
-# survives as a fresh gap_spotted reflection.
-
-# Step 3 — convergence + handoff
-# User signals convergence ("ok, ship those").
-# Stance emits a fenced brainstorm_summary YAML block per stances/README.md schema.
-# status: ready iff every reflection has grounded: true AND user explicitly confirmed at least one.
-# Otherwise status: needs_rework, hand back to user for another round.
-```
-
-```python
-# Step 4 — orchestrator routes the consume-mode tuple
-# Dispatch tuple: (reflection_generate, {paper_rid, brainstorm_summary}, commentary_sidecar)
-# This matches the SECOND row in dispatch-and-profile.md §1.5 (consume mode), not the solo row.
-# commentary-builder body switches to CONSUME MODE per its SKILL.md §"Consume mode":
-#   - Validates schema: brainstorm-v1
-#   - Refuses if status != ready
-#   - Verifies each reflection's grounding (anchor_id exists, verbatim_quote substring check, user-confirmed)
-#   - Mechanical YAML translation — NO new reflections, NO LLM rewriting of arguments
-#   - Sets provenance.workflow_chain: ["paper-brainstorm", "commentary-builder"]
-#   - Skips the post-LLM banned-phrase check on argument text (stance already enforced it)
-#   - Lints + emits commentary@1 sidecar
-```
-
-**Why this chain**: solo `commentary-builder` produces "what one LLM thought after reading paper X" — anyone running Claude can produce similar. Brainstorm-derived `commentary-builder` produces "what an agent and a careful reader agreed on after multi-turn refinement, with grounding verified twice (stance + emitter)." Public hub consumers see `provenance.workflow_chain: [paper-brainstorm, commentary-builder]` and can weigh accordingly. The same shape pattern applies to other Type B → Type A chains: `review-prep` → `review-sidecar`, `rebuttal-prep` → `rebuttal-builder`, `pitch-grill` → `sidecar-author`, `survey-shape` → `survey-narrative`/`survey-table`.
-
-**Stance composition** (mattpocock-style): standalone stances (`devils-advocate`, `executive-summary`) compose with task-bound stances. `paper-brainstorm + devils-advocate` → for each candidate gap, also argue why it's NOT actually a gap; sharpens anti-overreach. `<any chain> + executive-summary` → after handoff, produce a 3-bullet TL;DR of the agreed reflections for the busy reader. The standalone stance overrides verbosity but defers to the host stance's handoff format.
+**Type B → Type A chain pattern (v0.11+)**: a stance does free dialogue + opinion +
+multi-turn convergence, then hands a fenced `brainstorm_summary` YAML block to its paired
+Type A emitter, which does mechanical translation + grounding verification + YAML emit —
+failing closed (`status: needs_rework`) when grounding can't be verified. The same shape
+applies to `review-prep → review-sidecar`, `rebuttal-prep → rebuttal-builder`,
+`pitch-grill → sidecar-author`, `survey-shape → survey-narrative`/`survey-table`.
+Full handoff schema + activation precedence in `stances/README.md`.
 
 ---
 
 ## Orchestrator Architecture (v1.0)
 
-> **Authoritative contract**: `references/dispatch-and-profile.md`.
-> This section is a one-page summary; the contract document is load-bearing.
+> **Authoritative contract**: `references/dispatch-and-profile.md` — dispatch tuple grammar
+> (§1), the canonical 14-row routing table (§1.5), guard semantics with pseudocode (§2-§6),
+> sub-skill frontmatter registration schema + worked examples (§3.4), abstain conditions
+> (§4), MVP scope (§7). Read it before extending the orchestrator or debugging a routing
+> decision; this section is the operational summary.
 
 ### Dispatch tuple
 
-Every user query is resolved into a typed tuple before routing:
+Every user query resolves into a typed tuple before routing:
 
 ```
 (intent_class, required_inputs, requested_artifact) → sub-skill
 ```
 
-- `intent_class`: enum of 12 values — `discover` / `extract` / `synthesize_prose` / `synthesize_table` / `diff` / `critique_generate` / `critique_respond` / `brief_next_steps` / `reflection_generate` / `contribute` / `inspect_lineage` / `revise_local`
-- `required_inputs`: typed slot map (`query_text`, `rid`, `rid_set`, `rid_pair`, `paper_rid`, `reviewer_text_or_rid`, `comparison_axes`, `latex_dir`, `text_blob`, `field_patches`, `target_rid`, `q`)
-- `requested_artifact`: enum of 14 values — see dispatch-and-profile.md §1.4
+- `intent_class`: 12 values — `discover` / `extract` / `synthesize_prose` / `synthesize_table` / `diff` / `critique_generate` / `critique_respond` / `brief_next_steps` / `reflection_generate` / `contribute` / `inspect_lineage` / `revise_local` (the TL;DR table above maps each to its sub-skill)
+- `required_inputs`: typed slot map (`query_text`, `rid`, `rid_set`, `rid_pair`, `paper_rid`, `reviewer_text_or_rid`, `comparison_axes`, `latex_dir`, `text_blob`, `pdf_path`, `field_patches`, `target_rid`, `q`)
+- `requested_artifact`: 14 values — see dispatch-and-profile.md §1.4
 
-The canonical 14-row routing table is in `references/dispatch-and-profile.md` §1.5.
-
-### intent_class → existing mode → sub-skill mapping
-
-For continuity with the existing toolkit modes, here is how each `intent_class` maps:
-
-| intent_class | Existing mode (legacy) | Sub-skill (v1.0+) | Status |
-|---|---|---|---|
-| `discover` | (new) | `paper-finder` | **MVP v1** |
-| `extract` | `consume` | `sidecar-reader` | **MVP v1** |
-| `contribute` | `generate` | `sidecar-author` | **MVP v1** (local-only; upload UNVERIFIED) |
-| `diff` | `compare` | `paper-compare` | v1.1 |
-| `critique_generate` | `review` | `review-sidecar` | v1.1 |
-| `synthesize_prose` | (new) | `survey-narrative` | v1.1 |
-| `synthesize_table` | (new) | `survey-table` | v1.2 |
-| `brief_next_steps` | (new) | `next-step-advisor` | v1.2 (v0.10: retrieval expanded to also pull commentary@1) |
-| `reflection_generate` | (new) | `commentary-builder` | **v0.10** (new sub-skill; produces commentary@1 sidecars consumed by next-step-advisor) |
-| `critique_respond` | (new) | `rebuttal-builder` | v1.2 |
-| `inspect_lineage` | (utility) | `version-inspector` | v1.2 (ancestry-tracer only — no forward discovery) |
-| `revise_local` | (utility) | `sidecar-reviser` | v1.2 (whitelist-only patcher) |
-
-Utility modes (`validate` / `analyze` / `cli-query` / `remote`) are not sub-skills — they are foundational operations called by sub-skills as needed. `validate` is invoked by `sidecar-author` as part of its lint gate; `remote` is the transport layer (G5) used by every sub-skill.
-
-### Clarify-or-abstain protocol
-
-If a user query maps to no row in §1.5 (`unknown_dispatch_tuple`) or to >1 row, the orchestrator MUST emit exactly **one** clarification turn enumerating candidates. If the reply does not resolve to a single row, the orchestrator **abstains** with a structured refusal. There is no silent default — ambiguity is a refusal condition, not a routing condition. See `references/dispatch-and-profile.md` §4.
+**Clarify-or-abstain**: exactly one §1.5 row matches → invoke. Zero rows → abstain
+`unknown_dispatch_tuple`. More than one → emit exactly ONE clarification turn enumerating
+candidates, then invoke or abstain. There is no silent default — ambiguity is a refusal
+condition, not a routing condition.
 
 ### Orchestrator Guards (G1-G7)
 
-These invariants apply to every dispatch the orchestrator makes. Sub-skill bodies inherit them; sub-skills that violate any guard are unregisterable.
+These invariants apply to every dispatch. Sub-skill bodies inherit them; sub-skills that violate any guard are unregisterable.
 
 | ID | Name | Scope | One-line behavior |
 |---|---|---|---|
@@ -338,47 +137,9 @@ These invariants apply to every dispatch the orchestrator makes. Sub-skill bodie
 | **G6** | Working-set provenance manifest | Orchestrator | Every multi-record run emits `manifest.json` with queries, returned RIDs, profile filters, quality exclusions, fetch modes, abstain reason |
 | **G7** | Profile discipline | Orchestrator (first-class) | Records tagged into typed slots by `record.profile` BEFORE skill body sees working set; skills declare `accepts_profiles: [profile@ver, …]`; no silent profile coercion |
 
-Full guard semantics (including edge-case defaults, pseudocode, and abstain integration) are in `references/dispatch-and-profile.md` §2-§6.
-
-### Sub-skill frontmatter contract
-
-> Schema authority: full field-by-field spec lives in `references/dispatch-and-profile.md`. The summary below is for orientation; if it ever drifts from the contract doc, the contract doc wins.
-
-Every sub-skill's `SKILL.md` frontmatter declares (required vs conditional vs optional flagged inline):
-
-```yaml
-# REQUIRED: profile contract — exactly one of accepts_profiles OR co_inputs
-accepts_profiles: [paper@1]              # single-input skill — list of profile@version (literal `unknown` allowed as opt-in for unprofiled records)
-# OR
-co_inputs:                                # multi-input skill — typed slot map; each slot filtered independently
-  paper: paper@1
-  review: review@1
-
-# REQUIRED: G2' quality policy
-quality_policy:
-  require_lint_passed: true               # REQUIRED bool
-  allowed_coverage: [exhaustive, main_claims_only, key_claims_and_limitations]   # REQUIRED list (values from canonical schema's coverage.statements enum)
-  min_statements: 5                       # REQUIRED int (≥0)
-
-# OPTIONAL: G3 fetch-planner override
-requires_full_record: false               # OPTIONAL bool, default false (when true, orchestrator fetches full /sidecars/<rid> instead of partial)
-
-# CONDITIONAL: required iff ANY of the skill's §1.5 routes emits a sidecar artifact (knows_yaml, review_sidecar, diff_and_yaml)
-emits_profile: paper@1                    # profile@version that this skill's sidecar route produces; literal `unknown` is NOT permitted here. Read-only skills MUST omit.
-```
-
-Failure to declare valid frontmatter is a registration-time error per `references/dispatch-and-profile.md` §1.3 + §3.4 — orchestrator refuses to load the skill at startup. The full registration schema (validation rules + 3 worked examples) is in `dispatch-and-profile.md` §3.4.
-
-### MVP scope boundary (v1)
-
-v1 supports **exactly one atomic artifact per request**. Compound requests
-(e.g. "find papers AND give me a related-work paragraph AND a comparison
-table") need a planner/decomposer layer and are **OUT OF SCOPE for v1** —
-orchestrator emits `multi_artifact_request_rejected` per `dispatch-and-profile.md` §7.
-
-What v1 validates: dispatch routing, profile filtering, quality enforcement, manifest emission, single-skill artifact production. What v1 does NOT validate: multi-artifact composition, cross-skill working-set propagation, long-running async dispatch, POST endpoints (UNVERIFIED upstream).
-
-The 3 integration test fixtures in `tests/` (mixed_profile_retrieval / quality_exclusion_logging / dispatch_clarify_and_abstain) cover orchestration risk that v1 public skills don't exercise. CI green on all three is a hard prerequisite for v1 release.
+Sub-skill frontmatter (accepts_profiles / co_inputs, quality_policy, requires_full_record,
+emits_profile) is a registration-time contract — invalid frontmatter refuses to load.
+Field-by-field spec + validation rules + 3 worked examples: `dispatch-and-profile.md` §3.4.
 
 ### v1.0 Execution Mode (READ THIS FIRST)
 
@@ -389,26 +150,26 @@ The 3 integration test fixtures in `tests/` (mixed_profile_retrieval / quality_e
    from orchestrator import run_paper_finder, run_sidecar_reader, run_paper_compare, ...
    result = run_paper_finder("multi-path CoT", top_k=5)
    ```
-   Wrappers handle dispatch + G5 transport + G6 manifest + G7/G2' filters automatically. Available for: `paper-finder`, `sidecar-reader`, `sidecar-author` (pdf + postgen), `paper-compare`, `version-inspector`, `sidecar-reviser`. Also CLI: `python3 scripts/orchestrator.py paper-finder "query" --top-k 5`.
+   Wrappers handle dispatch + G5 transport + G6 manifest + G7/G2' filters automatically. Available for: `paper-finder`, `sidecar-reader`, `sidecar-author` (pdf + postgen), `paper-compare`, `version-inspector`, `sidecar-reviser`. Also CLI: `python3 scripts/orchestrator.py paper-finder "query" --top-k 5` (add `--json` for machine-readable output).
 
-2. **Agent-mediated mode (LLM-heavy sub-skills)** — for `review-sidecar` / `survey-narrative` / `survey-table` / `next-step-advisor` / `rebuttal-builder`, no Python wrapper exists because the body is dominated by LLM synthesis (system prompt design, grounding checks, banned-phrase enforcement). Read the sub-skill's SKILL.md Quick Start + reference doc, then:
-   - **Construct the dispatch tuple** by mapping user query to `(intent_class, required_inputs, requested_artifact)` per §Mode Selection.
+2. **Agent-mediated mode (LLM-heavy sub-skills)** — for `review-sidecar` / `survey-narrative` / `survey-table` / `next-step-advisor` / `rebuttal-builder` / `commentary-builder`, no Python wrapper exists because the body is dominated by LLM synthesis. Read the sub-skill's SKILL.md Quick Start + reference doc, then:
+   - **Construct the dispatch tuple** per §Mode Selection.
    - **Reuse orchestrator building blocks**: `from orchestrator import dispatch, fetch_search, fetch_sidecar, fetch_partial, filter_records, Manifest, NotFoundError, TransportError`.
-   - **Apply guards**: G1 wrap sidecar content in `<UNTRUSTED_SIDECAR>...</UNTRUSTED_SIDECAR>`; G7 profile + G2' quality via `filter_records(records, "<skill-name>", manifest)`; G6 manifest accumulation via `Manifest` dataclass.
+   - **Apply guards**: G1 wrap sidecar content in `<UNTRUSTED_SIDECAR>...</UNTRUSTED_SIDECAR>`; G7 profile + G2' quality via `filter_records(records, "<skill-name>", manifest)`; G6 manifest accumulation via `Manifest`.
    - **Output**: artifact + manifest inline OR write artifact to disk + reference manifest.json path.
 
-**When to use which**: if a wrapper exists for your intent_class, prefer wrapper mode (it's pre-validated and enforces invariants automatically). For LLM-heavy synthesis, agent-mediated mode is the contract — but you still use orchestrator's helpers.
+**When to use which**: if a wrapper exists for your intent_class, prefer it (pre-validated, enforces invariants automatically). For LLM-heavy synthesis, agent-mediated mode is the contract — but still use orchestrator's helpers.
 
-**`orchestrator.py` is stdlib-only** (uses `urllib`, `dataclasses`); no `pip install requests` required. `pyyaml` only needed for `run_sidecar_reviser` (YAML write).
+**`orchestrator.py` is stdlib-only** (`urllib`, `dataclasses`); no `pip install requests`. `pyyaml` only needed for `run_sidecar_reviser` (YAML write).
 
 ### Known v1.0 limitations (canonical deferrals)
 
-The architecture intentionally accepts the following limitations in v1.0; they are out of scope for this release:
+1. **One atomic artifact per request.** Compound requests ("find papers AND a paragraph AND a table") emit `multi_artifact_request_rejected` with a decomposition suggestion; planner layer deferred to v2 (§7).
+2. **6 sub-skills agent-mediated only** (no Python wrapper): the LLM-synthesis-dominated ones listed above — wrappers wouldn't reduce the cost dominator.
+3. **Per-sub-skill loadability deferred** — conformance to §3.4 trusted by inspection, not validated at runtime; a machine-readable `skill-registry.yaml` is planned.
+4. **POST endpoints UNVERIFIED** (`POST /sidecars` upload, `POST /generate/pdf`) — upload gate ships disabled by default.
 
-1. **5 sub-skills are agent-mediated only** (no Python wrapper): `review-sidecar`, `survey-narrative`, `survey-table`, `next-step-advisor`, `rebuttal-builder`. Each has SKILL.md + reference doc + uses orchestrator building blocks (`dispatch`, `fetch_*`, `filter_records`, `Manifest`), but the body's LLM call must be agent-driven. Wrappers for these are deferred — they wouldn't reduce the LLM-cost dominator anyway.
-2. **Per-sub-skill loadability deferred.** Sub-skill SKILL.md files exist as standalone files but are not yet validated as separately loadable units (the orchestrator currently trusts that all 11 conform to §3.4 by inspection, not at runtime). A `references/skill-registry.yaml` machine-readable registry is planned to enforce this without code changes.
-3. **Multi-artifact composition is out of scope.** Compound user requests ("find papers AND give me a paragraph AND a table") need a planner/decomposer layer above the orchestrator. Deferred to v2 per `references/dispatch-and-profile.md` §7. v1 emits `multi_artifact_request_rejected` and suggests decomposition.
-4. **POST endpoints UNVERIFIED.** Remote upload (`POST /sidecars`) and remote PDF generation (`POST /generate/pdf`) are documented but not probed against the live hub. Sub-skills depending on them (`sidecar-author` upload step) ship with the upload gate disabled by default.
+The 3 integration test fixtures in `tests/` (mixed_profile_retrieval / quality_exclusion_logging / dispatch_clarify_and_abstain) cover orchestration risk the public skills don't exercise; keep them green (`bash tests/run_all.sh`).
 
 ---
 
@@ -448,6 +209,8 @@ This skill is **self-contained** — no `pip install` required for most operatio
 - `references/commentary-builder-prompt.md` — **NEW v0.10**: canonical LLM prompt for `commentary-builder`; shares the 9-phrase banned list with `next-step-advisor` and the `paper-brainstorm` stance
 - `stances/` — **NEW v0.11+**: 7 mattpocock-style interaction-stance sub-skills (`paper-brainstorm`, `review-prep`, `rebuttal-prep`, `pitch-grill`, `survey-shape`, `devils-advocate`, `executive-summary`). NOT in dispatch contract — activated via description match or `/<name>` slash command. Chain into Type A emitters via fenced `brainstorm_summary` handoff. See `stances/README.md` for the full catalog + activation precedence rule + canonical schema.
 - `references/remote-modes.md` — knows.academy remote API workflow patterns
+- `references/recipes.md` — the 9 canonical cross-skill chains in full (commands + rationale); the SKILL.md §Recipes table is only the index
+- `references/generation-rules.md` — full schema quick-reference tree + the ~40-row common-lint-failure table; read before hand-generating or debugging a sidecar
 
 **Bundled scripts** (run directly, no `pip install` needed):
 - `scripts/gen.py` — LaTeX scaffold generator + LLM-powered generation (`--model haiku/sonnet/opus`)
@@ -688,85 +451,21 @@ Compares two papers by their structured metadata — shared citations, overlappi
 
 ---
 
-## Schema Quick Reference (v0.9)
+## Schema Quick Reference + Common Lint Failures
 
-```
-KnowsRecord (31 root fields)
-  +- authors[]          name (required), affiliation (required), role: first|corresponding|senior|contributor
-  |                     optional: orcid, email, homepage, scholar_id, anonymous
-  +- artifacts[]        artifact_type: paper|repository|dataset|model|benchmark|software|website|other
-  |                     role: subject|supporting|cited
-  +- statements[]       statement_type: claim|assumption|limitation|method|question|definition
-  |   modality:         empirical|theoretical|descriptive|normative
-  |   status:           asserted|retracted|superseded|under_review
-  |   confidence:       claim_strength (high|medium|low) x extraction_fidelity (high|medium|low)
-  |   locator_type:     fragment|xpath|css|line_range|page_range|table|figure|section|paragraph|other
-  +- evidence[]         evidence_type: table_result|figure|experiment_run|proof|case_study|observation|survey_result|citation_backed|qualitative_analysis|statistical_test|simulation|artifact_run|clinical_trial|other
-  |   observations[]:   metric (required) + value (number) OR qualitative_value (string)
-  +- relations[]        predicate: supported_by|challenged_by|depends_on|limited_by|cites|uses|evaluates_on|implements|documents|same_as|supersedes|retracts
-  |   citation_intent:  supports|extends|uses_method|compares_to|contradicts|reviews|cites_data|background|other
-  +- actions[]          action_type: download|run|query|deploy|other
-  +- replaces           record_id of previous version (singly-linked version chain)
-  +- record_status      active|retracted|superseded|deprecated
-  +- venue_type         published|preprint|under_review|in_preparation|technical_report|thesis|book|other
-  +- access             open|embargoed|closed|login_required|subscription
-  +- coverage           statements (exhaustive|main_claims_only|key_claims_and_limitations|partial) x evidence (exhaustive|key_evidence_only|partial)
-  +- provenance         origin (author|machine|imported), actor.type (person|org|tool), method (extraction|manual_curation|conversion|import)
-  +- version            spec x record x source (three-layer versioning)
-  +- freshness          as_of, update_policy (immutable|versioned|rolling), stale_after
-  +- Locator.type       url|git|path|doi|other
-```
+The full schema tree (31 root fields, every enum) and the ~40-row "common mistakes that
+cause lint failure" table live in `references/generation-rules.md` — **read it whenever you
+generate a sidecar without `gen.py` or debug a lint error**. The five YAML rules that cause
+most failures:
 
-**Version chain:** When updating a sidecar, set `replaces: <old_record_id>` in the new record. The old record should set `record_status: superseded`.
+- Numbers MUST be unquoted: `value: 22` not `value: '22'`; percentages split as `value: 75.8` + `unit: "%"`
+- `actor.type` is ONLY `person`, `org`, or `tool` — NEVER `ai`, `llm`, `model`, `agent`
+- Nested quotes: if text contains `"`, wrap the string in single quotes — never nest double quotes
+- No extra fields on any entity (`additionalProperties: false`); every statement/evidence needs full provenance (origin, actor name+type, generated_at)
+- Output ONLY raw YAML — no markdown fences, no XML tags, no preamble (run `scripts/sanitize.py` if violated)
 
----
-
-## Common Mistakes That Cause Lint Failure
-
-These are the most frequent errors LLMs make when generating sidecars. AVOID ALL OF THESE:
-
-| Mistake | Wrong | Correct |
-|---|---|---|
-| actor.type | `type: ai` | `type: tool` (ONLY: person, org, tool) |
-| observation.value | `value: '22'` (quoted string) | `value: 22` (unquoted number) |
-| observation.value | `value: "75.8%"` | `value: 75.8` + `unit: "%"` |
-| artifact field name | `type: paper` | `artifact_type: paper` |
-| statement field name | `claim: "text..."` | `text: "text..."` + `statement_type: claim` |
-| evidence field name | `type: table_result` | `evidence_type: table_result` |
-| relation field name | `type: supported_by` | `predicate: supported_by` |
-| relation source | `statement: "stmt:c1"` | `subject_ref: "stmt:c1"` |
-| relation target | `evidence: "ev:e1"` | `object_ref: "ev:e1"` |
-| wrong predicate tense | `evaluated_on` | `evaluates_on` (present tense, no 'd') |
-| wrong predicate | `supports` | `supported_by` (passive form) |
-| wrong predicate | `challenges` | `challenged_by` (passive form) |
-| extra fields | `description: "..."` on any entity | NOT ALLOWED (additionalProperties: false) |
-| missing provenance | No provenance on sub-entities | Every statement/evidence MUST have provenance with origin, actor (name + type), generated_at |
-| origin field | `origin: author` (for AI-generated) | `origin: machine` (use `author` ONLY for human-curated sidecars) |
-| artifact role | `role: evaluated_on` | `role: supporting` (ONLY: subject, supporting, cited) |
-| missing metric | `qualitative_value: "..."` alone | MUST also include `metric: "name"` — every observation requires a metric |
-| documents target | `stmt:m1 documents stmt:c1` | `documents` object_ref MUST be an artifact (`art:*`), not a statement |
-| invented modality | `modality: conditional` | ONLY: `empirical`, `theoretical`, `descriptive`, `normative` — no other values exist |
-| invented status | `status: assumed` | ONLY: `asserted`, `retracted`, `superseded`, `under_review` — no other values exist |
-| invented claim_strength | `claim_strength: strong` | ONLY: `high`, `medium`, `low` |
-| invented extraction_fidelity | `extraction_fidelity: exact` | ONLY: `high`, `medium`, `low` |
-| invented locator_type | `locator_type: abstract` | ONLY: `fragment`, `xpath`, `css`, `line_range`, `page_range`, `table`, `figure`, `section`, `paragraph`, `other` |
-| invented coverage.statements | `statements: complete` | ONLY: `exhaustive`, `main_claims_only`, `key_claims_and_limitations`, `partial` |
-| invented coverage.evidence | `evidence: full` | ONLY: `exhaustive`, `key_evidence_only`, `partial` |
-| invented update_policy | `update_policy: static` | ONLY: `immutable`, `versioned`, `rolling` |
-| invented origin | `origin: generated` | ONLY: `author`, `machine`, `imported` |
-| invented provenance.method | `method: auto` | ONLY: `extraction`, `manual_curation`, `conversion`, `import` |
-| invented Locator.type | `type: file` | ONLY: `url`, `git`, `path`, `doi`, `other` |
-| invented record_status | `record_status: draft` | ONLY: `active`, `retracted`, `superseded`, `deprecated` |
-| invented venue_type | `venue_type: journal` | ONLY: `published`, `preprint`, `under_review`, `in_preparation`, `technical_report`, `thesis`, `book`, `other` |
-| invented citation_intent | `citation_intent: references` | ONLY: `supports`, `extends`, `uses_method`, `compares_to`, `contradicts`, `reviews`, `cites_data`, `background`, `other` |
-
-**CRITICAL YAML rules:**
-- Numbers MUST be unquoted: `value: 22` not `value: '22'` or `value: "22"`
-- Strings with special chars need quotes: `text: "The 3:1 ratio"`
-- **Nested quotes**: If text contains `"`, use single-quote wrapping: `title: 'Why "money" matters'` — NEVER nest double quotes inside double quotes
-- actor.type is ONLY `person`, `org`, or `tool` — NEVER `ai`, `llm`, `model`, `agent`
-- **Output ONLY raw YAML** — no markdown fences (` ``` `), no XML tags, no preamble text, no explanation before or after
-- If sanitization is needed after generation, run `python3 scripts/sanitize.py`
+**Version chain:** when updating a sidecar, set `replaces: <old_record_id>` in the new
+record and flip the old record to `record_status: superseded`.
 
 ---
 
