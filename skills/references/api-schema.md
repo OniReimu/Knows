@@ -214,8 +214,10 @@ slice — saves ~93% tokens per the E8 ablation.
 ```
 
 Fields included: `title`, `author`, `journal` / `booktitle`, `year`, `note` (always
-contains the sidecar `record_id` for traceability). Do not call `.json()` —
-parse as text or shell-redirect to a `.bib` file.
+contains the sidecar `record_id` for traceability). When the record has arXiv
+identifiers, the entry also carries `doi`, `eprint`, and `archiveprefix`
+(live-probed 2026-07-09). Do not call `.json()` — parse as text or
+shell-redirect to a `.bib` file.
 
 ---
 
