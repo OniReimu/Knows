@@ -772,8 +772,9 @@ def run_paper_finder(query: str, *, top_k: int = 20,
 
     # OR-fallback: if AND-logic returned 0 and query is multi-token, fan out.
     # Exhaust ALL tokens before concluding empty (don't break on first hit).
+    fallback_note = None
     if not raw_hits and or_fallback:
-        tokens = [t for t in query.split() if len(t) > 2]
+        tokens = sorted(_tokenize(query))  # stopword-filtered content tokens
         if len(tokens) > 1:
             manifest.queries.extend(tokens)
             for tok in tokens:
@@ -787,6 +788,29 @@ def run_paper_finder(query: str, *, top_k: int = 20,
                         seen_rids.add(rid)
                         raw_hits.append(hit)
                 # Don't break early — exhaust all tokens so post-filter set has headroom
+            if raw_hits:
+                # Each fan-out hit matched only ONE token. Without re-ranking, arrival
+                # order presents single-token strays as if they were real topic matches
+                # — a silent quality failure downstream agents can't detect. Rank by
+                # how many query tokens the record covers and drop 1-token strays.
+                qtoks = set(tokens)
+
+                def _overlap(rec: dict) -> int:
+                    hay = " ".join([rec.get("title") or "", rec.get("summary") or "",
+                                    " ".join(rec.get("keywords") or [])])
+                    return len(qtoks & _tokenize(hay))
+
+                scored = [(_overlap(r), i, r) for i, r in enumerate(raw_hits)]
+                kept_scored = [t for t in scored if t[0] >= 2]
+                dropped_strays = len(scored) - len(kept_scored)
+                kept_scored.sort(key=lambda t: (-t[0], t[1]))
+                raw_hits = [r for _, _, r in kept_scored]
+                fallback_note = (
+                    f"OR-FALLBACK: AND-logic search returned 0 hits for {query!r}; "
+                    f"results are per-token fan-out re-ranked by query-token overlap "
+                    f"(dropped {dropped_strays} single-token strays). Treat as tangential "
+                    f"candidates, NOT exact topic matches.")
+                manifest.notes.append(fallback_note)
 
     # Client-side venue filter (substring match — server doesn't support exact venue name filter)
     venue_filter_dropped = 0
