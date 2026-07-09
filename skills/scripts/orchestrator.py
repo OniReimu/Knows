@@ -1007,7 +1007,7 @@ def run_sidecar_reader(rid: str | None = None, q: str | None = None, *,
 
 def run_sidecar_author_pdf(pdf_path: str, *, output_path: str | None = None,
                             include_cited: bool = True) -> dict:
-    """Prepare the sidecar-author Path F (PDF) workflow for the agent.
+    """Prepare the sidecar-author Path D (PDF) workflow for the agent.
 
     Returns a dict the agent uses to: (1) read the PDF multimodally + apply
     gen-prompt.md verbatim → produce raw YAML, (2) call run_sidecar_author_postgen()
@@ -1733,7 +1733,7 @@ def _cli() -> int:
     sr.add_argument("--local", default=None,
                     help="path to local .knows.yaml (P0: ask Qs about your own freshly-generated sidecar)")
 
-    sa = sub.add_parser("sidecar-author-pdf", help="prepare sidecar-author Path F (PDF) workflow")
+    sa = sub.add_parser("sidecar-author-pdf", help="prepare sidecar-author Path D (PDF) workflow")
     sa.add_argument("pdf_path")
     sa.add_argument("-o", "--output", default=None)
     sa.add_argument("--no-cited", action="store_true", help="Skip --include-cited enrichment")
