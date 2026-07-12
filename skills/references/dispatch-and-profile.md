@@ -141,6 +141,7 @@ Tuples matching >1 row → §4 clarification.
 | `critique_respond` | `paper_rid`, `reviewer_text_or_rid` | `rebuttal_doc` | `rebuttal-builder` (solo mode — agent classifies + drafts) |
 | `critique_respond` | `paper_rid`, `reviewer_text_or_rid`, `brainstorm_summary` | `rebuttal_doc` | `rebuttal-builder` (consume mode — mechanical translation of rebuttal-prep stance's classified comments) |
 | `brief_next_steps` | `query_text` | `next_step_brief` | `next-step-advisor` |
+| `check_novelty` | `idea_text` | `novelty_report` | `scoop-check` |
 | `reflection_generate` | `paper_rid` | `commentary_sidecar` | `commentary-builder` (solo mode — agent brainstorms reflections itself) |
 | `reflection_generate` | `paper_rid`, `brainstorm_summary` | `commentary_sidecar` | `commentary-builder` (consume mode — mechanically translates a paper-brainstorm stance's structured summary, fail-closed grounding verification) |
 | `contribute` | `latex_dir` OR `text_blob` OR `pdf_path` | `knows_yaml` | `sidecar-author` (paper-extraction paths A/B/E/F) |
