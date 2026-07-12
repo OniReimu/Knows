@@ -42,8 +42,8 @@ The following root-level fields are ALL REQUIRED. Omitting any one will cause li
   - `method` — how something is done
   - `question` — open question the paper raises
   - `definition` — terminology/concept the paper introduces
-  - `reflection` — author's interpretive remark on what the work means or what they noticed in retrospect (NEW in v0.10; rare in conference papers, more common in tech reports / position papers)
-  - `lesson` — generalizable take-away the author endorses (NEW in v0.10; use sparingly — most academic papers don't surface lessons; tech reports and retrospectives do)
+  - `reflection` — author's interpretive remark on what the work means or what they noticed in retrospect (rare in conference papers, more common in tech reports / position papers)
+  - `lesson` — generalizable take-away the author endorses (use sparingly — most academic papers don't surface lessons; tech reports and retrospectives do)
 - DO NOT use: `gap_spotted`, `scenario_extrapolation`, `method_transfer_idea` — those are commentary@1 only and produced by the `commentary-builder` sub-skill, NOT by gen.py. Schema lint will reject them under profile=paper@1.
 - `modality`: ONLY one of: `empirical`, `theoretical`, `descriptive`, `normative`
 - `text`: concise 1-2 sentence text from the paper
