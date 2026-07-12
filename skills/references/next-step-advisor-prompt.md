@@ -48,7 +48,9 @@ Schema:
           "statement_type": "question | limitation",
           "verbatim_quote": "<≤ 30-word substring of the cited statement's text, exact substring after whitespace normalization>"
         }
-      ]
+      ],
+      "gap_type": "additive | subtractive | regression",
+      "move_type": "audit-assumption | operator-substitution | unify-representation | reframe-as-solvable | manufacture-supervision | decompose-and-delegate | relax-to-continuous | characterize-then-surpass | other"
     }
   ],
   "evidence_inventory": {
