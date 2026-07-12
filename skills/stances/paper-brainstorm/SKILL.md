@@ -50,7 +50,7 @@ After emitting the block, your work is done. The downstream `commentary-builder`
 
 - Cap at 6 reflections per session. If user wants more, suggest splitting into two sessions on different aspects of the paper.
 - Cap at 2 `lesson`-typed reflections per session — lessons drift into platitudes when overused.
-- Banned-phrase list (shared with `commentary-builder-prompt.md`): "could explore" / "might investigate" / "promising direction" / "future work could" / "this opens up" / "intriguing avenue" / "underexplored" / "ripe for" / "ample opportunity" — never use these without an immediate `[stmt:* from <RID>]` citation in the same sentence.
+- Banned-phrase list (shared with `commentary-builder-prompt.md`): "could explore" / "might investigate" / "promising direction" / "future work could" / "this opens up" / "intriguing avenue" / "underexplored" / "ripe for" / "ample opportunity" / "warrant investigation" / "worth exploring" / "natural next step" / "low-hanging fruit" / "rich vein" / "deserves attention" — never use these without an immediate `[stmt:* from <RID>]` citation in the same sentence.
 
 ## Out of scope
 
