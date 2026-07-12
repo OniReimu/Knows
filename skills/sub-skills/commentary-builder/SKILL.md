@@ -123,6 +123,8 @@ If the LLM output contains any of these without a `[stmt:* from <RID>]` citation
 - "could explore" / "might investigate" / "promising direction"
 - "future work could" / "this opens up" / "intriguing avenue"
 - "underexplored" / "ripe for" / "ample opportunity"
+- "warrant investigation" / "worth exploring" / "natural next step"
+- "low-hanging fruit" / "rich vein" / "deserves attention"
 
 These are the speculation tells. Either back the claim with a paper anchor or remove the sentence.
 
