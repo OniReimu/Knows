@@ -114,7 +114,7 @@ python3 scripts/orchestrator.py sidecar-reader "knows:<b>/<slug>/1.0.0" "<questi
 
 **Why this chain**: for "what does the recent literature on X say about Y" workflows where the user wants per-paper answers (not synthesized prose). Different from `survey-narrative` (Recipe 4), which produces ONE prose paragraph; this gives N independent answers the user can compare or quote individually. Useful for lit-review note-taking and "did anyone already report Z?" sanity checks.
 
-### Recipe 7: `commentary-builder → next-step-advisor` (gaps when authors are silent) — NEW v0.10
+### Recipe 7: `commentary-builder → next-step-advisor` (gaps when authors are silent)
 
 User asks "what's next in `<topic>`" but the seed papers are publication-pressured (no honest gap disclosure in their `limitation`/`question` statements). Default `next-step-advisor` runs surface only author-stated gaps, missing the much larger pool of gaps a careful reader/agent would spot.
 
@@ -174,7 +174,7 @@ python3 scripts/orchestrator.py sidecar-reader --local my-paper.knows.yaml "<que
 
 **Why this chain**: closes the "I have a paper but no hub presence" gap for self-review tasks. Local mode (`--local`) keeps the sidecar off the hub during the draft phase — useful when the paper is under double-blind review or simply not ready to publish. Once the paper is accepted/posted, the same sidecar can be uploaded and the chain switches to hub mode (Recipe 6).
 
-### Recipe 9: `paper-brainstorm → commentary-builder` (Type B → Type A canonical chain) — NEW v0.11
+### Recipe 9: `paper-brainstorm → commentary-builder` (Type B → Type A canonical chain)
 
 User wants to publish a `commentary@1` sidecar to the public hub but a solo-agent commentary has limited community-resource value. The brainstorm-derived chain produces a higher-trust artifact that consumers can distinguish via `provenance.workflow_chain`.
 
