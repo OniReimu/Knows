@@ -289,7 +289,7 @@ def test_or_slot_collision_invalid_slot_type():
         decision = dispatch("contribute", slots, "knows_yaml")
         assert decision["action"] == "abstain", f"Expected abstain for {slots}, got {decision}"
         assert decision["reason"].startswith("invalid_slot_type."), f"Wrong reason: {decision}"
-    print("PASS: 3-way OR-slot collisions (all pairs of latex_dir/text_blob/pdf_path) → invalid_slot_type (Fix C1)")
+    print("PASS: 3-way OR-slot collisions (all pairs of latex_dir/text_blob/pdf_path) → invalid_slot_type")
 
 
 def test_pdf_path_routes_to_sidecar_author():
