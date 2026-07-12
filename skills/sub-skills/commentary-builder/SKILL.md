@@ -78,7 +78,9 @@ if not kept:
 #      - 9 banned speculation tells (shared with next-step-advisor):
 #        "could explore" / "might investigate" / "promising direction" /
 #        "future work could" / "this opens up" / "intriguing avenue" /
-#        "underexplored" / "ripe for" / "ample opportunity"
+#        "underexplored" / "ripe for" / "ample opportunity" /
+#        "warrant investigation" / "worth exploring" / "natural next step" /
+#        "low-hanging fruit" / "rich vein" / "deserves attention"
 #      - reflection typology (4 patterns matching the 4 statement_types)
 #      - grounding contract: every commentary statement verbatim-quotes a
 #        stmt:*/ev:* anchor in the paper sidecar (the thing it reflects_on)
