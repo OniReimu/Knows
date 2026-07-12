@@ -12,7 +12,7 @@ description: "Knows orchestrator + sidecar toolkit — routes researcher workflo
 A KnowsRecord is a YAML sidecar that sits next to a PDF, binding structured claims, evidence, typed relations, and provenance in a schema-validated format that agents can consume directly.
 
 This SKILL.md serves two roles:
-1. **Orchestrator** for the 12-skill researcher-workflow library + 11 interaction stances (see §Orchestrator Architecture below). Routes user intent to sub-skills based on a typed dispatch tuple defined in `references/dispatch-and-profile.md`.
+1. **Orchestrator** for the 13-skill researcher-workflow library + 11 interaction stances (see §Orchestrator Architecture below). Routes user intent to sub-skills based on a typed dispatch tuple defined in `references/dispatch-and-profile.md`.
 2. **Foundational toolkit** for KnowsRecord operations: generate / validate / review / analyze / cli-query / consume / compare / remote (see §Mode Selection).
 
 **Catalog at a glance (v1.0 + v0.11.x)**: 12 Type A sub-skills (each with
