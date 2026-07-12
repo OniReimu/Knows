@@ -117,7 +117,7 @@ For each retrieved prior paper P, mark each axis MATCHED or DISTINCT. `level(P) 
 | `idea_text` names no mechanism (undecomposable) | `skill_runtime_exception.IdeaTooVague` |
 | Working set empty after G7/G2' | `empty_working_set_after_profile_filter` / `empty_working_set_after_quality_filter` |
 | **0 relevant paper@1 sidecars** (after one broaden-retry) | `empty_working_set_after_quality_filter` (nothing to collide against; recommend Scholar/arXiv pivot) |
-| **1–2 relevant sidecars, no collision** | NOT an abstain → verdict `PURSUE (UNCONFIRMED)`. Low count never hides a found collision; it only withholds confidence from a *clear* verdict. This was corrected after a live run where a 1-hit exact scoop was being suppressed by an old `< 3` hard-abstain. |
+| **1–2 relevant sidecars, no collision** | NOT an abstain → verdict `PURSUE (UNCONFIRMED)`. Low count never hides a found collision; it only withholds confidence from a *clear* verdict. |
 | LLM output `novelty_level` ≠ min of per-paper levels after one retry | `skill_runtime_exception.WorstCaseViolation` |
 | A MATCHED axis with no substring-valid `verbatim_quote` after one retry | resolve per §5 (downgrade to uncertain), do NOT abstain unless it empties `closest_prior` |
 
