@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Runs all 3 Knows orchestrator integration test fixtures.
-# CI green on all three is a hard prerequisite for v1 release per dispatch-and-profile.md §7.5.
+# Runs all 4 Knows test fixtures (3 orchestrator integration + 1 banned-phrase-list drift guard).
+# CI green on all four is a hard prerequisite for v1 release per dispatch-and-profile.md §7.5.
 
 set -euo pipefail
 cd "$(dirname "$0")"
 
 FAILED=0
-for fixture in fixture_mixed_profile_retrieval fixture_quality_exclusion_logging fixture_dispatch_clarify_and_abstain; do
+for fixture in fixture_mixed_profile_retrieval fixture_quality_exclusion_logging fixture_dispatch_clarify_and_abstain fixture_banned_phrase_sync; do
     echo "==> $fixture"
     if python3 "$fixture/run.py"; then
         echo "    OK"
