@@ -57,6 +57,7 @@ You may also surface 2-3 candidate strengths to anchor — a credible review nee
 Same anti-fabrication list as the sibling `commentary-builder` chain plus the reviewer-specific cliché set:
 - "could explore" / "might investigate" / "promising direction" / "future work could"
 - "this opens up" / "intriguing avenue" / "underexplored" / "ripe for" / "ample opportunity"
+- "warrant investigation" / "worth exploring" / "natural next step" / "low-hanging fruit" / "rich vein" / "deserves attention"
 - "the experiments are insufficient" / "more analysis would be helpful"
 - "the writing is unclear" / "the paper is well-motivated, but"
 - "the contribution is incremental" / "lacks novelty" / "limited evaluation" / "marginal improvement"
