@@ -22,10 +22,11 @@ Each subdirectory hosts one **Type A** sub-skill that the Knows orchestrator dis
 | [`next-step-advisor`](next-step-advisor/SKILL.md) | `brief_next_steps` | `../references/next-step-advisor.md` | agent-mediated |
 | [`rebuttal-builder`](rebuttal-builder/SKILL.md) | `critique_respond` | `../references/rebuttal-builder.md` | agent-mediated |
 | [`commentary-builder`](commentary-builder/SKILL.md) | `reflection_generate` | `../references/commentary-builder-prompt.md` | agent-mediated (NEW v0.10) |
+| [`scoop-check`](scoop-check/SKILL.md) | `check_novelty` | `../references/scoop-check.md` | agent-mediated (NEW v1.1) |
 
 **Wrapper** = which sub-skills have a Python CLI wrapper in `scripts/orchestrator.py` vs which are agent-mediated (LLM-heavy body — agent reads SKILL.md Quick Start and runs the underlying API calls). See `../SKILL.md` §"v1.0 Execution Mode" for why.
 
-The catalog has **12 sub-skills** as of v0.10 (was 11; +`commentary-builder` for reader/agent reflections producing `commentary@1` sidecars consumed downstream by `next-step-advisor`).
+The catalog has **13 sub-skills** as of v1.1 (was 12; +`scoop-check` — prior-art collision check for a candidate idea, the idea-analysis counterpart to `next-step-advisor`'s idea-search, chained in Recipe 10).
 
 ## How to add a new sub-skill
 
