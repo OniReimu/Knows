@@ -10,7 +10,7 @@ required_inputs:
   - pdf_path          # most common real-world input — multimodal LLM reads PDF directly (Path D)
   - latex_dir         # full deterministic pipeline via gen.py (Paths A / B)
   - text_blob         # pre-extracted text — wrapped in synthetic .tex for gen.py (Path E)
-  - brainstorm_summary  # NEW v0.11+: from-idea path (Path C) via the `pitch-grill` stance. Fenced YAML block (schema: brainstorm-v1) carrying headline_claim / closest_related_work / falsifying_experiment / load_bearing_assumption / out_of_scope_disclaimer / target_venue. Switches the skill to CONSUME MODE — mechanical translation of the structured pitch into a `paper@1` from-idea sidecar with `venue_type: in_preparation`. See ../../stances/pitch-grill/SKILL.md for the canonical brainstorm_summary format.
+  - brainstorm_summary  # from-idea path (Path C) via the `pitch-grill` stance. Fenced YAML block (schema: brainstorm-v1) carrying headline_claim / closest_related_work / falsifying_experiment / load_bearing_assumption / out_of_scope_disclaimer / target_venue. Switches the skill to CONSUME MODE — mechanical translation of the structured pitch into a `paper@1` from-idea sidecar with `venue_type: in_preparation`. See ../../stances/pitch-grill/SKILL.md for the canonical brainstorm_summary format.
 requested_artifacts:
   - knows_yaml        # primary route — produces a sidecar YAML file
   - lint_report       # secondary route — runs lint without producing the full sidecar (validation-only branch)
