@@ -50,7 +50,9 @@ Produce an **evidence-backed brief** of N candidate research questions for a use
           "statement_type": "question | limitation",
           "verbatim_quote": "<≤30 words from the cited statement, exact substring>"
         }
-      ]
+      ],
+      "gap_type": "additive | subtractive | regression",   /* v1.1, OPTIONAL descriptive tag */
+      "move_type": "audit-assumption | operator-substitution | unify-representation | reframe-as-solvable | manufacture-supervision | decompose-and-delegate | relax-to-continuous | characterize-then-surpass | other"  /* v1.1, OPTIONAL */
     }
     /* 1-5 candidates total, never more than 5 */
   ],
