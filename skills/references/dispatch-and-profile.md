@@ -48,6 +48,7 @@ keyword matching. Routing is deterministic given the tuple.
 | `critique_generate` | Produce a fresh peer review of a paper record |
 | `critique_respond` | Draft a response to reviewer comments on a paper |
 | `brief_next_steps` | Produce an evidence-backed next-step brief |
+| `check_novelty` | Prior-art collision check for a candidate idea (four-axis, worst-case novelty level + verdict) |
 | `reflection_generate` | Produce a `commentary@1` sidecar of reader/agent reflections (gap_spotted, scenario_extrapolation, method_transfer_idea, lesson) on a paper |
 | `contribute` | Generate a new sidecar from a source artifact |
 | `inspect_lineage` | Walk one record's declared `replaces` chain backward |
