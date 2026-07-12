@@ -14,7 +14,7 @@ This document is the authoritative LLM prompt for the `scoop-check` sub-skill. T
 
 ## How to use
 
-1. The orchestrator runs dispatch + retrieve + filter (see `sub-skills/scoop-check/SKILL.md` Quick Start §1-§4). Thin coverage (<3 relevant paper@1) abstains BEFORE this prompt runs.
+1. The orchestrator runs dispatch + retrieve + filter (see `sub-skills/scoop-check/SKILL.md` Quick Start §1-§4). Only **0 hits** (after a broaden-retry) abstains before this prompt runs; **1–2 hits still run** — coverage is verdict-conditional, so a low count never suppresses a found collision, it only downgrades a would-be PURSUE to `PURSUE (UNCONFIRMED)`.
 2. The agent calls its LLM with the **System** message + the **User** template populated with `{idea_text}`, `{top_k}`, and `{prior_block}`.
 3. The agent post-processes through the **Worst-case check** (§4), the **Grounding check** (§5), and the **Banned-phrase check** (§6), with one regenerate retry.
 4. The agent emits the manifest per `scoop-check.md` §8 with the coverage disclaimer attached to the prose output.
