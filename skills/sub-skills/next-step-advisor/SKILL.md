@@ -191,6 +191,8 @@ If the LLM output contains any of these without a `[stmt:* from RID]` citation i
 - "could explore" / "might investigate" / "promising direction"
 - "future work could" / "this opens up" / "intriguing avenue"
 - "underexplored" / "ripe for" / "ample opportunity"
+- "warrant investigation" / "worth exploring" / "natural next step"
+- "low-hanging fruit" / "rich vein" / "deserves attention"
 
 These are the speculation tells that damage user trust. Either back the claim with a sidecar reference or omit it.
 
