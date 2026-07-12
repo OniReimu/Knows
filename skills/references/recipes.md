@@ -215,5 +215,50 @@ User wants to publish a `commentary@1` sidecar to the public hub but a solo-agen
 
 **Stance composition** (mattpocock-style): standalone stances (`devils-advocate`, `executive-summary`) compose with task-bound stances. `paper-brainstorm + devils-advocate` → for each candidate gap, also argue why it's NOT actually a gap; sharpens anti-overreach. `<any chain> + executive-summary` → after handoff, produce a 3-bullet TL;DR of the agreed reflections for the busy reader. The standalone stance overrides verbosity but defers to the host stance's handoff format.
 
+### Recipe 10: `paper-finder → next-step-advisor → scoop-check` (the idea-lab loop) — NEW v1.1
+
+The highest-traffic student workflow: *"I searched some papers on `<topic>`, now give me a research idea worth pursuing — and tell me if it's actually novel."* This is the find → ideate → check loop. It pairs `next-step-advisor` (idea-search — GENERATES grounded directions) with `scoop-check` (idea-analysis — COLLISION-checks each direction against prior art). Neither half alone answers the student's real question; chained, they do.
+
+```bash
+# Step 0 — pre-flight: is the hub rich enough to both ground directions AND collide against?
+python3 scripts/orchestrator.py coverage-check "<topic>"
+#   RICH / MODERATE → proceed. THIN / ABSENT → pivot to Scholar/arXiv first; do NOT trust a
+#   "novel" verdict on thin coverage (scoop-check will abstain, but the pre-flight saves the trip).
+```
+
+```python
+# Step 1 — next-step-advisor GENERATES grounded directions (Quick Start in sub-skills/next-step-advisor/SKILL.md)
+# Use references/next-step-advisor-prompt.md. Each candidate is grounded in a retrieved
+# question/limitation statement, and (v1.1) carries an optional gap_type + move_type tag.
+
+# Step 2 — for EACH generated direction, run scoop-check as an idea_text collision check.
+# Dispatch tuple per direction: (check_novelty, {idea_text: <direction restated as a 1-para idea>}, novelty_report)
+# Use references/scoop-check-prompt.md. It decomposes the direction into 4 axes, retrieves the
+# closest prior work, and returns a worst-case novelty level + verdict (PURSUE / DIFFERENTIATE /
+# ALREADY DONE) naming the scooping paper when the direction is already done.
+
+# Step 3 — rank the directions by verdict and present as idea cards:
+#   PURSUE (level 4-5)  >  DIFFERENTIATE (level 3)  >  ALREADY DONE (level 1-2, drop or flag)
+# Each card: bottleneck (from next-step-advisor grounding) / the move (move_type) /
+#   novelty level + closest paper / verdict. Fixed, readable — never a raw JSON/YAML dump.
+```
+
+**Why this chain**: a generated direction that looks exciting is worthless if it was published two years ago — and a novelty verdict is worthless without a concrete direction to check. Running them separately makes the student do the join by hand (the exact friction that made them give up). The chain also composes the two skills' opposite safety biases: `next-step-advisor` refuses to over-*generate* (banned speculation tells), `scoop-check` refuses to over-*claim novelty* (banned inflation tells). Together the loop is conservative in both directions — which is what makes its "PURSUE" trustworthy.
+
+**Honest scope (v1.1)**: both halves are hub-coverage-bounded and say so. Step 2 collides only against `paper@1` sidecars on knows.academy; for a high-stakes go/no-go, widen with Scholar/arXiv per each report's coverage disclaimer. The loop reduces — not eliminates — scoop risk.
+
+### Recipe 11: `scoop-check` standalone (own-idea check)
+
+User already has an idea (theirs, or one from Recipe 10) and only wants the collision check: *"is this novel / has anyone already done this / am I about to get scooped?"*
+
+```python
+# Single dispatch: (check_novelty, {idea_text: "<the idea, 1-2 paragraphs naming a mechanism>"}, novelty_report)
+# scoop-check decomposes → retrieves closest prior work → worst-case novelty level (1-5) + value read + verdict.
+# Requires the idea to name a MECHANISM, not just a topic — a topic-only idea abstains IdeaTooVague
+# (it would read as maximally novel for the wrong reason: it collides with nothing because it says nothing).
+```
+
+**Why standalone matters**: the modal student question is literally "is my idea any good?" — and the honest answer needs prior-art retrieval, not model opinion. This is the single most-requested capability from the student feedback; Recipe 10 is Recipe 11 applied to auto-generated directions.
+
 ---
 
