@@ -2,49 +2,56 @@
 
 You searched a pile of papers. Now you want the two things that actually matter: **what should I work on, and is my idea any good?** That's exactly what Knows is for.
 
-You do **not** need to learn any commands, flags, or "sub-skills." Just talk to your AI assistant in plain English while the Knows skill is installed. Here are the only three things you ever need to say.
+You do **not** need to learn any commands or setup jargon. Once it's installed, just talk to your AI assistant in plain English. Here are the only three things you ever need to say.
+
+---
+
+## Before you start (30 seconds)
+
+Knows is a "skill" your AI assistant loads. **If your instructor already set it up for you, skip this.** Otherwise, in your terminal:
+
+```
+npx skills add OniReimu/Knows
+```
+
+Then open your assistant (e.g. Claude Code) and just talk to it — everything below is plain English, no commands.
+
+## What Knows actually searches (read this once)
+
+Knows works off a **shared online library of research papers** (the "hub" at knows.academy), where each paper is pre-structured so your assistant can reason about it fast. You give it a **topic**; it finds the relevant papers *there*.
+
+It does **not** read the PDFs sitting in your local folder — so if you already collected papers somewhere else, you don't feed them in; you just point Knows at the same topic. And if your specific niche is thinly covered on the hub, Knows will **tell you** rather than make things up — that's your cue to also search Google Scholar / arXiv by hand.
 
 ---
 
 ## 1. Find papers
 
-> **Say:** *"find papers about diffusion model watermarking"*
+> **Say:** *"find papers about diffusion model watermarking"*  *(works for any field — use your own topic)*
 
-You get a ranked list of relevant papers, each already structured so the assistant can reason about it (claims, numbers, limitations) without re-reading the whole PDF. Grab 10–20 on your topic — they become the raw material for steps 2 and 3.
-
----
+You get a ranked list of relevant papers, each already structured (claims, numbers, limitations) so the assistant can work with them without re-reading full PDFs.
 
 ## 2. Get research directions worth pursuing
 
 > **Say:** *"what should I work on next in diffusion model watermarking?"*
 > or *"where are the open gaps in this area?"*
 
-You get a short list of candidate directions. The important part: **every direction is tied to a real paper that said this was open or unsolved** — it is not the assistant free-associating. Each one comes tagged with the kind of move it makes (e.g. *remove a load-bearing assumption*, *swap the operator*, *reframe the problem*) so you can see the shape of the idea at a glance.
-
-If a topic is too thin on the hub, it will **tell you** instead of inventing directions. That "I don't have enough here" answer is a feature — trust it and widen your search.
-
----
+You get a short list of candidate directions. The important part: **every direction is tied to a real paper that said this was open or unsolved** — not the assistant free-associating. Each is tagged with the kind of move it makes (e.g. *remove a load-bearing assumption*, *swap the operator*, *reframe the problem*) so you can see the shape of the idea at a glance.
 
 ## 3. Check whether an idea is novel ← the step most people miss
 
 > **Say:** *"is this idea novel: give per-phase credit in long-context RL instead of one score per rollout, so the training signal survives at 128K context"*
 
-This is the one your assistant couldn't really do before. It takes **your idea** (yours, or one from step 2), breaks it into four parts —
+This is the one your assistant couldn't really do before. It takes **your idea** (yours, or one from step 2), breaks it into four parts — **problem** (what you're tackling), **mechanism** (the actual technical move), **insight** (why it works), **domain** (where it applies) — finds the closest existing papers, and tells you how much of your idea is already out there:
 
-- **problem** (what you're tackling)
-- **mechanism** (the actual technical move)
-- **insight** (why it works)
-- **domain** (where it applies)
+| Verdict | Novelty level | What it means | What to do |
+|---|---|---|---|
+| **PURSUE** | 4–5 | no close prior work found | go — and it names the part that makes you novel |
+| **DIFFERENTIATE** | 3 | someone's nearby, but you're distinct | keep going, but sharpen the one part it flags |
+| **ALREADY DONE** | 1–2 | a paper already does this | it names the paper — read it; you can often still **pivot** (change the mechanism) rather than drop it |
 
-— finds the closest existing papers, and tells you how much of your idea is already out there. You get a **novelty level** and a one-word **verdict**:
+*(Level 5 = nothing like it found; level 1 = one paper matches all four parts, i.e. you'd be scooped.)*
 
-| Verdict | What it means | What to do |
-|---|---|---|
-| **PURSUE** | no close prior work found | go — and it names the part that makes you novel |
-| **DIFFERENTIATE** | someone's nearby, but you're distinct | keep going, but sharpen the one part it flags |
-| **ALREADY DONE** | a paper already does this | it names the paper — read it before you spend a month |
-
-**Novelty level 1–5**: 5 = nothing like it found, 3 = same area but your mechanism is distinct (the common "defensible" zone), 1 = a single paper matches all four parts (you're scooped).
+Two things PURSUE does **not** mean: it doesn't mean your idea is automatically **important or publishable** — it's a green light to dig, not a guarantee. And **checking an idea doesn't publish it anywhere** — it's just a search, so your unpublished idea stays yours.
 
 ---
 
@@ -65,14 +72,14 @@ Students often ask *"is **this paper** novel enough?"* — but a published paper
 
 ## The one rule that makes it work
 
-Describe a **mechanism**, not just a topic. The tool needs something concrete to check.
+Describe a **mechanism** (the concrete technical move you'd make), not just a topic. The tool needs something specific to check against prior work.
 
-- ❌ *"something about long-context RL"* → too vague; it collides with nothing because it says nothing, so it will ask you to be specific.
-- ✅ *"reweight the RL advantage per reasoning phase instead of one score per rollout"* → a real mechanism it can check against prior work.
+- ❌ *"something about long-context RL"* → too vague; Knows will tell you it can't check a topic and ask for the actual mechanism.
+- ✅ *"reweight the RL advantage per reasoning phase instead of one score per rollout"* → a real mechanism it can collide against prior work.
 
 ## An honest caveat (read this once)
 
-Knows checks your idea against the papers **it can see** on the hub. A "novel / PURSUE" verdict means *no scoop was found in that coverage* — not a guarantee that none exists anywhere. For a high-stakes go/no-go (your thesis topic, a paper you're about to write), do one more manual pass on Google Scholar / arXiv before you commit. Knows narrows the risk; it doesn't erase it.
+Knows checks your idea against the papers **it can see** on the hub. A "novel / PURSUE" verdict means *no scoop was found in that coverage* — not a guarantee that none exists anywhere. For a high-stakes decision (your thesis topic, a paper you're about to write), do one more manual pass on Google Scholar / arXiv before you commit. Knows narrows the risk; it doesn't erase it.
 
 ---
 
