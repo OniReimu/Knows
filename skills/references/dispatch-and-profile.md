@@ -76,6 +76,7 @@ Slot keys are typed. Validation runs in two phases:
 | Slot key | Type | Used by |
 |---|---|---|
 | `query_text` | string | `discover`, `synthesize_prose`, `brief_next_steps` |
+| `idea_text` | string | `check_novelty` (the candidate idea paragraph to collide against prior art) |
 | `rid` | string (record_id) | `extract`, `inspect_lineage` |
 | `rid_set` | list[string] | `synthesize_prose`, `synthesize_table` |
 | `rid_pair` | tuple[string, string] | `diff` (canonical; `rid_set` is NOT a valid `diff` input) |
@@ -106,6 +107,7 @@ Slot keys are typed. Validation runs in two phases:
 | `review_sidecar` | YAML file conforming to `profile: review@1` |
 | `rebuttal_doc` | Per-comment Markdown response with citations |
 | `next_step_brief` | Markdown brief with N candidate questions + supporting refs |
+| `novelty_report` | Four-axis prior-art collision report: worst-case novelty level (1-5), value read, verdict (PURSUE/DIFFERENTIATE/ALREADY DONE) |
 | `commentary_sidecar` | YAML file conforming to `profile: commentary@1` (reader/agent reflections on a paper) |
 | `knows_yaml` | YAML file conforming to declared `profile` (default `paper@1`) |
 | `lint_report` | Lint pass/fail summary |
