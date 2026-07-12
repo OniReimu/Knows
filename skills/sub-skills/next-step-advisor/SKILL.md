@@ -196,7 +196,7 @@ If the LLM output contains any of these without a `[stmt:* from RID]` citation i
 
 These are the speculation tells that damage user trust. Either back the claim with a sidecar reference or omit it.
 
-> **Shared list.** `commentary-builder-prompt.md` uses the same 9 phrases. Any change here MUST propagate there — they are deliberately one canonical list because both skills produce the same fabrication failure mode.
+> **Shared list.** The same phrases are enforced in `commentary-builder-prompt.md` and the `paper-brainstorm` / `review-prep` stances. `tests/fixture_banned_phrase_sync` fails if any copy drifts — keep them identical.
 
 ## Manifest emission
 
@@ -218,4 +218,4 @@ The two-phase fetch in §3 above is a workaround for a missing hub feature: cros
 
 the second fetch phase collapses to a single targeted call per seed paper. Until then, the title-keyword fallback works but pulls extra noise that gets filtered in-memory. See `api-schema.md` "v0.10 prerequisite" callout for the request schema we expect.
 
-Related: [`../../SKILL.md`](../../SKILL.md) | [`../../references/dispatch-and-profile.md`](../../references/dispatch-and-profile.md) §1.5 + §3.4 | [`../commentary-builder/SKILL.md`](../commentary-builder/SKILL.md) (upstream producer of commentary@1 sidecars consumed by this skill) | [`../../references/commentary-builder-prompt.md`](../../references/commentary-builder-prompt.md) (shared 9-phrase banned list) | [`../scoop-check/SKILL.md`](../scoop-check/SKILL.md) (idea-analysis counterpart — collision-checks a generated direction for novelty; chain via Recipe 10)
+Related: [`../../SKILL.md`](../../SKILL.md) | [`../../references/dispatch-and-profile.md`](../../references/dispatch-and-profile.md) §1.5 + §3.4 | [`../commentary-builder/SKILL.md`](../commentary-builder/SKILL.md) (upstream producer of commentary@1 sidecars consumed by this skill) | [`../../references/commentary-builder-prompt.md`](../../references/commentary-builder-prompt.md) (shared banned-phrase list) | [`../scoop-check/SKILL.md`](../scoop-check/SKILL.md) (idea-analysis counterpart — collision-checks a generated direction for novelty; chain via Recipe 10)
