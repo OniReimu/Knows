@@ -75,7 +75,7 @@ if not kept:
 
 # 4. LLM call — use the canonical prompt from `../../references/commentary-builder-prompt.md`.
 #    The prompt locks in:
-#      - 9 banned speculation tells (shared with next-step-advisor):
+#      - banned speculation tells (shared with next-step-advisor):
 #        "could explore" / "might investigate" / "promising direction" /
 #        "future work could" / "this opens up" / "intriguing avenue" /
 #        "underexplored" / "ripe for" / "ample opportunity" /

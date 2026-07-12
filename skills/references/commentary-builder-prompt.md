@@ -366,7 +366,7 @@ Consume mode does NOT use this prompt. The full mechanical-translation logic liv
 
 ## Versioning
 
-- `v1.0` — base prompt with 9-phrase banned list (shared with next-step-advisor + paper-brainstorm) + 4-pattern reflection typology + grounding contract + anti-overreach + calibration.
+- `v1.0` — base prompt with banned list (shared with next-step-advisor + paper-brainstorm) + 4-pattern reflection typology + grounding contract + anti-overreach + calibration.
 - `v1.1` (v0.11) — consume mode pointer added; existing v1.0 contract still governs solo mode end-to-end.
 
 Any change to the banned-phrase list MUST propagate to `next-step-advisor-prompt.md` AND `../stances/paper-brainstorm/SKILL.md`. Any change to the typology MUST propagate to the schema (`knows-record-0.10.json` Statement.statement_type enum + commentary@1 conditional rule) AND to the brainstorm-v1 summary spec in `../stances/README.md`.
