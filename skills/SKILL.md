@@ -40,6 +40,7 @@ If you're an agent triaging a user request, **skip to §Mode Selection below for
 | Related-work paragraph (prose) | `survey-narrative` | `sub-skills/survey-narrative/SKILL.md` |
 | Comparison table across N papers | `survey-table` | `sub-skills/survey-table/SKILL.md` |
 | Next-step research questions / open gaps | `next-step-advisor` | `sub-skills/next-step-advisor/SKILL.md` |
+| Is my idea novel / already done / worth pursuing | `scoop-check` | `sub-skills/scoop-check/SKILL.md` |
 | Reader/agent reflection on a paper (gaps the author didn't disclose) | `commentary-builder` | `sub-skills/commentary-builder/SKILL.md` |
 | Draft a peer review of a paper | `review-sidecar` | `sub-skills/review-sidecar/SKILL.md` |
 | Draft response to reviewer comments | `rebuttal-builder` | `sub-skills/rebuttal-builder/SKILL.md` |
