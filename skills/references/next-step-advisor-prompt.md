@@ -1,7 +1,7 @@
 ---
 name: next-step-advisor-prompt
-version: 1.0
-purpose: Canonical LLM prompt for the next-step-advisor sub-skill. Locks in banned-phrase enforcement, citation format, grounding contract, and heuristic disclaimer at the prompt level.
+version: 1.1
+purpose: Canonical LLM prompt for the next-step-advisor sub-skill. Locks in banned-phrase enforcement, citation format, grounding contract, and heuristic disclaimer at the prompt level. v1.1 adds optional descriptive gap_type/move_type direction tags.
 ---
 
 # Canonical LLM Prompt — next-step-advisor
