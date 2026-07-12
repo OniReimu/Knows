@@ -161,7 +161,8 @@ Fabricating a scoop paper to look rigorous is as harmful as missing a real one �
 | `idea_text` missing or empty | `missing_required_input.idea_text` |
 | `idea_text` too vague to decompose into 4 axes (LLM cannot name a core mechanism) | `skill_runtime_exception.IdeaTooVague` (ask the user to state the mechanism, not just the topic) |
 | Working set empty after G7/G2' | `empty_working_set_after_profile_filter` / `_quality_filter` |
-| **< 3 relevant paper@1 sidecars retrieved** | `empty_working_set_after_quality_filter` (thin coverage → false-novel risk) |
+| **0 relevant paper@1 sidecars** (after one broaden-retry) | `empty_working_set_after_quality_filter` (nothing to collide against) |
+| **1–2 relevant sidecars AND no collision found** (would-be PURSUE) | not an abstain → report verdict **UNCONFIRMED** (thin coverage; widen to Scholar/arXiv). A collision at any count is reported normally. |
 | LLM marks an axis MATCHED without a cited verbatim span from a retrieved statement | abort + retry; on 2nd failure drop that axis match (fail toward MORE novel is wrong here → instead drop to "uncertain" and lower confidence) |
 
 ## Banned novelty-inflation phrases (compile-time check)
