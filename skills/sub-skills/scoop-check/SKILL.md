@@ -152,6 +152,8 @@ The report ends with exactly one verdict:
 | **DIFFERENTIATE** | level 3, defensible but crowded | the closest paper (RID) + which axis must be sharpened to stay distinct |
 | **ALREADY DONE** | level 1-2 with one paper matching ≥3 axes | the scooping paper (RID) + a one-line subsumption argument |
 
+A PURSUE reached on **thin coverage** (1–2 retrieved papers, no collision) is reported as **PURSUE (UNCONFIRMED)** with the widen-search prompt — thin coverage can fail to refute novelty but cannot confirm it. A collision verdict (ALREADY DONE / DIFFERENTIATE) is never downgraded by low count, because one paper matching the idea is decisive on its own.
+
 Fabricating a scoop paper to look rigorous is as harmful as missing a real one — when no close prior work is found after honest retrieval, that clearance is a legitimate PURSUE signal, and the report says so plainly (bounded by the coverage disclaimer).
 
 ## Hard abstain rules
