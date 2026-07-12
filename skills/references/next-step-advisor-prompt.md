@@ -101,6 +101,24 @@ Hard rules — violating any of these makes the output invalid:
    statement that covers B. Cross-paper synthesis (stitching a statement about A to
    a statement about B) is forbidden — that's speculation by composition, the same
    failure mode as banned-category #4 ("Combine X and Y" without grounding).
+
+9. **Direction tags (`gap_type`, `move_type`) are DESCRIPTIVE, not load-bearing.**
+   They classify the SAME grounded candidate for readability (they feed the idea-card
+   in Recipe 10); they never relax the grounding or abstain rules above, and they must
+   be consistent with the cited statement — do not tag a move the statement does not
+   support. Definitions:
+     - `gap_type`: read the cited statement's shape.
+         · `additive`    — the gap is an unmet need (a `question`, or a limitation asking
+                           for a capability that does not yet exist).
+         · `subtractive` — the gap is a load-bearing assumption/component that could be
+                           removed or relaxed (a limitation naming a restrictive assumption).
+         · `regression`  — the cited statement shows the thing is ALREADY achieved; a
+                           direction re-doing it is not novel. Tagging `regression` is a
+                           signal to DROP or de-prioritize the candidate, not to ship it.
+     - `move_type`: the operational move the direction would make. Pick the closest from
+       the menu, or `other` if none fits. This is a recognizable-move label (borrowed from
+       recurring conference ideation patterns), not a claim that the move is novel.
+   Both fields are OPTIONAL — if you cannot tag confidently, omit them rather than guess.
 ```
 
 ---
