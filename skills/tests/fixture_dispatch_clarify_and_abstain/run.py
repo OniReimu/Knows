@@ -141,7 +141,7 @@ def resolve_with_reply(initial_decision: dict, reply: dict,
         if named not in candidates:
             return {"action": "abstain", "reason": "ambiguous_dispatch_unresolved_after_clarification"}
         if named in MULTI_ROW_SKILLS and "requested_artifact" not in reply:
-            # Multi-row skill needs name + artifact per Fix R2-#4
+            # Multi-row skill needs name + artifact to resolve
             return {"action": "abstain", "reason": "ambiguous_dispatch_unresolved_after_clarification"}
         return {"action": "route", "skill": named,
                 "route": ("from_clarification", named, reply.get("requested_artifact"))}

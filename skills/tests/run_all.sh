@@ -18,7 +18,7 @@ for fixture in fixture_mixed_profile_retrieval fixture_quality_exclusion_logging
 done
 
 if [ $FAILED -eq 0 ]; then
-    echo "ALL 3 FIXTURES GREEN — v1 orchestration plumbing prerequisite met"
+    echo "ALL 4 FIXTURES GREEN — v1 prerequisite met"
     exit 0
 else
     echo "$FAILED FIXTURE(S) FAILED — v1 release blocked"
