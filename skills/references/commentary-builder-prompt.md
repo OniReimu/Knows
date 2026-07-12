@@ -129,6 +129,12 @@ Hard rules — violating any of these makes the output invalid:
      "underexplored"
      "ripe for"
      "ample opportunity"
+     "warrant investigation"
+     "worth exploring"
+     "natural next step"
+     "low-hanging fruit"
+     "rich vein"
+     "deserves attention"
 
    If a sentence contains any of these without a `[stmt:*/ev:* from <RID>]`
    citation in the same sentence, rewrite to either (a) name a specific
@@ -239,6 +245,12 @@ SPECULATION_TELLS = [
     "underexplored",
     "ripe for",
     "ample opportunity",
+    "warrant investigation",
+    "worth exploring",
+    "natural next step",
+    "low-hanging fruit",
+    "rich vein",
+    "deserves attention",
 ]
 
 def speculation_violations(text: str) -> list[str]:
