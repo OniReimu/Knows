@@ -215,7 +215,7 @@ User wants to publish a `commentary@1` sidecar to the public hub but a solo-agen
 
 **Stance composition** (mattpocock-style): standalone stances (`devils-advocate`, `executive-summary`) compose with task-bound stances. `paper-brainstorm + devils-advocate` → for each candidate gap, also argue why it's NOT actually a gap; sharpens anti-overreach. `<any chain> + executive-summary` → after handoff, produce a 3-bullet TL;DR of the agreed reflections for the busy reader. The standalone stance overrides verbosity but defers to the host stance's handoff format.
 
-### Recipe 10: `paper-finder → next-step-advisor → scoop-check` (the idea-lab loop) — NEW v1.1
+### Recipe 10: `paper-finder → next-step-advisor → scoop-check` (the idea-lab loop)
 
 The highest-traffic student workflow: *"I searched some papers on `<topic>`, now give me a research idea worth pursuing — and tell me if it's actually novel."* This is the find → ideate → check loop. It pairs `next-step-advisor` (idea-search — GENERATES grounded directions) with `scoop-check` (idea-analysis — COLLISION-checks each direction against prior art). Neither half alone answers the student's real question; chained, they do.
 
