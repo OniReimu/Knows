@@ -94,8 +94,7 @@ kept = filter_records(hits, "scoop-check", manifest)
 
 # 3a. Coverage handling is VERDICT-CONDITIONAL — do NOT hard-abstain on a low hit COUNT.
 #     A precise query can return ONE paper that scoops the idea; that is the most decisive
-#     answer possible, and abstaining there would HIDE a real "ALREADY DONE" (this exact case
-#     was caught in a live hub run — a 1-hit exact scoop was being suppressed by an old <3 gate).
+#     answer possible, and abstaining there would HIDE a real "ALREADY DONE".
 #     The rule:
 #       • 0 hits, even after the broaden-retry above → abstain: nothing to match against.
 #       • >=1 hit → PROCEED to the axis-match (step 5). Coverage only qualifies the PURSUE branch:
