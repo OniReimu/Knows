@@ -10,7 +10,7 @@ This document is the authoritative LLM prompt for the `commentary-builder` sub-s
 
 **Why this exists**: reader/agent reflection has the same fabrication failure mode as peer review — the model is tempted to fall back on plausible-sounding speculation ("could explore", "promising direction") when the paper does not provide enough material to ground a reflection. Without a frozen prompt, every agent driving this skill re-derives the typology and the grounding contract, silently inviting `next-step-advisor`-style fabrication tells into the corpus. The output of this skill feeds back into `next-step-advisor`'s evidence pool — if it isn't grounded, the rot compounds.
 
-The 9-phrase banned list is deliberately shared with `next-step-advisor-prompt.md` (single canonical list). Any change here should also propagate there.
+The banned list is shared with `next-step-advisor-prompt.md` (single canonical list); `tests/fixture_banned_phrase_sync` fails if the copies drift.
 
 ---
 
@@ -115,7 +115,7 @@ Hard rules — violating any of these makes the output invalid:
    appear in the reflection's `argument` so a downstream consumer can
    verify without refetching.
 
-3. The following 9 phrases are BANNED in `summary`, every
+3. The following phrases are BANNED in `summary`, every
    `reflections[*].argument`, and `calibration.coverage_note` — they are
    speculation tells that signal the model is generating without
    grounding:
