@@ -92,17 +92,23 @@ kept = filter_records(hits, "scoop-check", manifest)
 # If 0 hits, the query was likely too specific (AND-tsquery) — broaden it (drop terms) and
 # retry ONCE before concluding thin coverage, so a phrasing artifact isn't read as "novel".
 
-# 3a. HONEST-ABSTAIN on thin coverage. A collision check over an empty/thin working set is
-#     WORSE than useless — it produces a false "novel" verdict. If < 3 relevant papers survive,
-#     refuse and tell the user to widen retrieval (Scholar/arXiv) before trusting any verdict.
-if len(kept) < 3:
+# 3a. Coverage handling is VERDICT-CONDITIONAL — do NOT hard-abstain on a low hit COUNT.
+#     A precise query can return ONE paper that scoops the idea; that is the most decisive
+#     answer possible, and abstaining there would HIDE a real "ALREADY DONE" (this exact case
+#     was caught in a live hub run — a 1-hit exact scoop was being suppressed by an old <3 gate).
+#     The rule:
+#       • 0 hits, even after the broaden-retry above → abstain: nothing to match against.
+#       • >=1 hit → PROCEED to the axis-match (step 5). Coverage only qualifies the PURSUE branch:
+#         if the match finds NO collision (would be PURSUE) AND len(kept) < MIN_COVERAGE, report
+#         "novelty UNCONFIRMED — thin coverage, widen to Scholar/arXiv" instead of a confident
+#         "novel". A collision verdict (ALREADY DONE / DIFFERENTIATE) STANDS at any hit count.
+MIN_COVERAGE = 3
+if not kept:
     manifest.abstained = True
     manifest.abstained_reason = "empty_working_set_after_quality_filter"
     print({"abstained": True,
-           "reason": ("hub coverage too thin to run a collision check (<3 relevant paper@1 "
-                      "sidecars). A 'novel' verdict here would be an artifact of missing data, "
-                      "not evidence of novelty. Pivot to Scholar/arXiv, or run coverage-check "
-                      "first.")})
+           "reason": ("0 relevant paper@1 sidecars even after broadening the query — the hub "
+                      "cannot ground a collision check here; pivot to Scholar/arXiv.")})
     raise SystemExit
 
 # 4. G3 partial fetch — claim + method statements per kept record (these carry the mechanism/insight
