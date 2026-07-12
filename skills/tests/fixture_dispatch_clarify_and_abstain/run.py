@@ -236,7 +236,7 @@ def test_unknown_dispatch_tuple():
 
 
 def test_multi_row_skill_clarification_needs_artifact():
-    """Per Fix R2-#4: naming a multi-row skill (paper-finder, sidecar-author) without artifact does NOT resolve."""
+    """Naming a multi-row skill (paper-finder, sidecar-author) without artifact does NOT resolve."""
     initial = dispatch("discover", {"query_text": "x"}, None)
     final = resolve_with_reply(initial, {"skill": "paper-finder"})  # no artifact
     assert final["action"] == "abstain", f"Multi-row skill name alone should not resolve: {final}"
