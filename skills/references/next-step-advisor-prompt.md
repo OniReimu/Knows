@@ -231,5 +231,6 @@ Provenance: manifest.json
 ## Versioning
 
 - `v1.0` — base prompt with banned-phrase + grounding + disclaimer enforcement.
+- `v1.1` — added OPTIONAL descriptive `gap_type` + `move_type` tags per candidate (feed the Recipe 10 idea-card). Additive only — grounding, banned phrases, and abstain rules are unchanged, so existing consumers that ignore the two fields are unaffected.
 
 Any change increments the minor version and is documented in the project changelog.
