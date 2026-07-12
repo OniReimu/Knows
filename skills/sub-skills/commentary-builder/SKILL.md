@@ -262,7 +262,7 @@ The output sidecar's `provenance.workflow_chain` MUST be set to the `emit_chain`
 
 ### Banned phrases in consume mode
 
-Skip the post-LLM banned-phrase regex check in consume mode — the stance's `paper-brainstorm/SKILL.md` already enforces the same 9-phrase list during brainstorm, and consume mode does no LLM rewriting that could re-introduce the phrases. Run the regex only on `summary` text (the top-level commentary record summary, derived from but not identical to the brainstorm).
+Skip the post-LLM banned-phrase regex check in consume mode — the stance's `paper-brainstorm/SKILL.md` already enforces the same banned-phrase list during brainstorm, and consume mode does no LLM rewriting that could re-introduce the phrases. Run the regex only on `summary` text (the top-level commentary record summary, derived from but not identical to the brainstorm).
 
 ### Hard abstain in consume mode
 
