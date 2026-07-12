@@ -18,6 +18,8 @@ npx skills add OniReimu/Knows
 
 Then ask your agent: *"find papers about transformers"*, *"summarize this paper"*, *"what's the main contribution?"*
 
+> 🎓 **New to research, or a student?** Start with the **[3-minute student quickstart](docs/students-quickstart.md)** — the three plain-English phrases that take you from *find papers* → *what should I work on* → *is my idea actually novel*.
+
 <p align="center">
   <img src="./artifacts/why_knows.png" alt="Why Knows: agents waste effort reconstructing what authors already know — sidecar fixes it" width="450" />
 </p>
