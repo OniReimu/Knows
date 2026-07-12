@@ -134,6 +134,7 @@ ROUTING_TABLE: list[tuple[str, frozenset[str], str, str, bool]] = [
     ("critique_generate", frozenset(["paper_rid"]), "review_sidecar", "review-sidecar", False),
     ("critique_respond", frozenset(["paper_rid", "reviewer_text_or_rid"]), "rebuttal_doc", "rebuttal-builder", False),
     ("brief_next_steps", frozenset(["query_text"]), "next_step_brief", "next-step-advisor", False),
+    ("check_novelty", frozenset(["idea_text"]), "novelty_report", "scoop-check", False),
     ("contribute", frozenset(["latex_dir"]), "knows_yaml", "sidecar-author", True),
     ("contribute", frozenset(["text_blob"]), "knows_yaml", "sidecar-author", True),
     ("contribute", frozenset(["pdf_path"]), "knows_yaml", "sidecar-author", True),
