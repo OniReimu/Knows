@@ -252,7 +252,7 @@ When invoked downstream of the `pitch-grill` stance (Type B), sidecar-author rec
 
 ### Why CONSUME MODE matters for from-idea
 
-Path C in v0.10 was natural-language-ingested: the user describes their idea, the agent constructs the YAML. This is fine for casual use but produces uneven quality — the agent fills in placeholders for closest_related_work, hypothesizes the falsifying experiment, etc. The `pitch-grill` stance (v0.11) collects those fields explicitly through 3-axis interrogation (originality / feasibility / scope), so the brainstorm_summary carries user-confirmed answers. Consume mode preserves this — the emitter does not re-hypothesize.
+Path C from a raw natural-language idea (the user describes it, the agent constructs the YAML) is fine for casual use but produces uneven quality — the agent fills in placeholders for closest_related_work, hypothesizes the falsifying experiment, etc. The `pitch-grill` stance collects those fields explicitly through 3-axis interrogation (originality / feasibility / scope), so the brainstorm_summary carries user-confirmed answers. Consume mode preserves this — the emitter does not re-hypothesize.
 
 ### CONSUME MODE flow
 

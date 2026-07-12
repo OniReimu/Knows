@@ -247,7 +247,7 @@ The rebuttal-prep stance enforces the rebuttal-cliché banlist (we appreciate / 
 ## Out of scope (v1.2)
 
 - Auto-suggest experimental additions ("you should run X to address Y") — only existing-paper defenses, not new-experiment proposals.
-- Reviewer-disposition modeling (was R2 hostile vs constructive?) — output stays neutral and factual.
+- Reviewer-disposition modeling (classifying a reviewer as hostile vs constructive) — output stays neutral and factual.
 - Multi-reviewer aggregation in one call — one `(paper, review)` pair per call; user calls multiple times for multi-reviewer rebuttals.
 
 Related: [`../../SKILL.md`](../../SKILL.md) | [`../../references/dispatch-and-profile.md`](../../references/dispatch-and-profile.md) §1.5 + §3.4
