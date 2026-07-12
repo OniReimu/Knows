@@ -15,9 +15,9 @@ This SKILL.md serves two roles:
 1. **Orchestrator** for the 13-skill researcher-workflow library + 11 interaction stances (see §Orchestrator Architecture below). Routes user intent to sub-skills based on a typed dispatch tuple defined in `references/dispatch-and-profile.md`.
 2. **Foundational toolkit** for KnowsRecord operations: generate / validate / review / analyze / cli-query / consume / compare / remote (see §Mode Selection).
 
-**Catalog at a glance (v1.0 + v0.11.x)**: 12 Type A sub-skills (each with
+**Catalog at a glance (v1.0 + v0.11.x)**: 13 Type A sub-skills (each with
 `sub-skills/<name>/SKILL.md` + `references/<name>.md` contract; 6 wired as Python runners
-in `scripts/orchestrator.py`, 6 agent-mediated because their bodies are LLM-heavy
+in `scripts/orchestrator.py`, 7 agent-mediated because their bodies are LLM-heavy
 synthesis) + 11 Type B interaction stances under `stances/` (6 paired with Type A
 emitters incl. `draft-grill` for grilling your OWN draft, 4 standalone that compose with
 anything, 1 `stance-mix` meta-dispatcher for abstract use-case statements like
@@ -102,7 +102,7 @@ Full handoff schema + activation precedence in `stances/README.md`.
 ## Orchestrator Architecture (v1.0)
 
 > **Authoritative contract**: `references/dispatch-and-profile.md` — dispatch tuple grammar
-> (§1), the canonical 14-row routing table (§1.5), guard semantics with pseudocode (§2-§6),
+> (§1), the canonical 15-row routing table (§1.5), guard semantics with pseudocode (§2-§6),
 > sub-skill frontmatter registration schema + worked examples (§3.4), abstain conditions
 > (§4), MVP scope (§7). Read it before extending the orchestrator or debugging a routing
 > decision; this section is the operational summary.
