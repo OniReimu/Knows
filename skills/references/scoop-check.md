@@ -27,7 +27,7 @@ Given a **candidate research idea** (natural-language paragraph, no paper yet), 
 |---|---|---|---|
 | `idea_text` | string | yes | The candidate idea, 1-2 paragraphs; non-empty after strip. Must be concrete enough to name a *mechanism*, not only a topic. |
 | `top_k` | int | no (default 12) | Hard cap 24. Closest prior work to collide against. |
-| `min_coverage` | int | no (default 3) | Minimum relevant paper@1 sidecars; below → abstain (thin coverage → false-novel risk). |
+| `min_coverage` | int | no (default 3) | Coverage floor for a CONFIDENT novel verdict. Below it, a would-be PURSUE is downgraded to `PURSUE (UNCONFIRMED)` — NOT a hard abstain. Only 0 hits (after a broaden-retry) hard-abstains. A collision verdict stands at any count. |
 
 An `idea_text` that names only a topic ("something about long-context RL") with no mechanism cannot be decomposed into four axes → abstain `IdeaTooVague` (§4). This is deliberate: a vague idea reads as maximally novel for the wrong reason (it collides with nothing because it says nothing), which is exactly the "novel-but-empty" trap.
 
