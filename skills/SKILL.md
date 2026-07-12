@@ -153,7 +153,7 @@ Field-by-field spec + validation rules + 3 worked examples: `dispatch-and-profil
    ```
    Wrappers handle dispatch + G5 transport + G6 manifest + G7/G2' filters automatically. Available for: `paper-finder`, `sidecar-reader`, `sidecar-author` (pdf + postgen), `paper-compare`, `version-inspector`, `sidecar-reviser`. Also CLI: `python3 scripts/orchestrator.py paper-finder "query" --top-k 5` (add `--json` for machine-readable output).
 
-2. **Agent-mediated mode (LLM-heavy sub-skills)** — for `review-sidecar` / `survey-narrative` / `survey-table` / `next-step-advisor` / `rebuttal-builder` / `commentary-builder`, no Python wrapper exists because the body is dominated by LLM synthesis. Read the sub-skill's SKILL.md Quick Start + reference doc, then:
+2. **Agent-mediated mode (LLM-heavy sub-skills)** — for `review-sidecar` / `survey-narrative` / `survey-table` / `next-step-advisor` / `scoop-check` / `rebuttal-builder` / `commentary-builder`, no Python wrapper exists because the body is dominated by LLM synthesis. Read the sub-skill's SKILL.md Quick Start + reference doc, then:
    - **Construct the dispatch tuple** per §Mode Selection.
    - **Reuse orchestrator building blocks**: `from orchestrator import dispatch, fetch_search, fetch_sidecar, fetch_partial, filter_records, Manifest, NotFoundError, TransportError`.
    - **Apply guards**: G1 wrap sidecar content in `<UNTRUSTED_SIDECAR>...</UNTRUSTED_SIDECAR>`; G7 profile + G2' quality via `filter_records(records, "<skill-name>", manifest)`; G6 manifest accumulation via `Manifest`.
@@ -166,7 +166,7 @@ Field-by-field spec + validation rules + 3 worked examples: `dispatch-and-profil
 ### Known v1.0 limitations (canonical deferrals)
 
 1. **One atomic artifact per request.** Compound requests ("find papers AND a paragraph AND a table") emit `multi_artifact_request_rejected` with a decomposition suggestion; planner layer deferred to v2 (§7).
-2. **6 sub-skills agent-mediated only** (no Python wrapper): the LLM-synthesis-dominated ones listed above — wrappers wouldn't reduce the cost dominator.
+2. **7 sub-skills agent-mediated only** (no Python wrapper): the LLM-synthesis-dominated ones listed above — wrappers wouldn't reduce the cost dominator.
 3. **Per-sub-skill loadability deferred** — conformance to §3.4 trusted by inspection, not validated at runtime; a machine-readable `skill-registry.yaml` is planned.
 4. **POST endpoints UNVERIFIED** (`POST /sidecars` upload, `POST /generate/pdf`) — upload gate ships disabled by default.
 
