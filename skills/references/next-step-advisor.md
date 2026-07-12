@@ -73,6 +73,7 @@ Produce an **evidence-backed brief** of N candidate research questions for a use
 - Every candidate's `supporting_refs` MUST be non-empty (≥ 1).
 - Every `verbatim_quote` MUST be a substring of the cited statement's `text` field (case-sensitive after whitespace normalization).
 - The `heuristic_disclaimer` field is **mandatory** — output without it is malformed and the consumer MUST treat it as an error.
+- `gap_type` and `move_type` (v1.1) are **OPTIONAL descriptive tags** — they classify the same grounded candidate for the Recipe 10 idea-card and are never load-bearing. They do not relax §4-§7; a `regression` `gap_type` is a signal to drop/de-prioritize the candidate (the cited statement shows the thing is already achieved). Omit rather than guess. Full definitions + move menu: `next-step-advisor-prompt.md` rule 9.
 
 ---
 
