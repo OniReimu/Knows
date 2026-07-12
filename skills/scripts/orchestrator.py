@@ -109,6 +109,7 @@ VALID_SLOTS = frozenset([
     "field_patches", "target_rid",
     "q", "question_id",
     "local_path", "local_path_a", "local_path_b",  # v1.0.1: local sidecar files
+    "idea_text",  # v1.1: scoop-check candidate-idea collision check
 ])
 
 OR_SLOT_PAIRS = [
