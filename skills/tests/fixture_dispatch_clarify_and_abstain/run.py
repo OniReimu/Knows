@@ -245,7 +245,7 @@ def test_multi_row_skill_clarification_needs_artifact():
     # Same but with artifact specified — should resolve
     final2 = resolve_with_reply(initial, {"skill": "paper-finder", "requested_artifact": "bibtex"})
     assert final2["action"] == "route", f"Multi-row skill name + artifact should resolve: {final2}"
-    print("PASS: multi-row skill clarification needs name + artifact (per Fix R2-#4)")
+    print("PASS: multi-row skill clarification needs name + artifact")
 
 
 def test_single_row_skill_clarification_resolves_by_name():
@@ -275,7 +275,7 @@ def test_unknown_slot_invalid_slot_type():
     assert decision["action"] == "abstain", f"Expected abstain on unknown slot, got {decision}"
     assert decision["reason"].startswith("invalid_slot_type."), f"Wrong reason: {decision}"
     assert "extraneous_key" in decision["reason"]
-    print("PASS: unknown slot key triggers invalid_slot_type abstain (Fix C1)")
+    print("PASS: unknown slot key triggers invalid_slot_type abstain")
 
 
 def test_or_slot_collision_invalid_slot_type():
