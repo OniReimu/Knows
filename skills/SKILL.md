@@ -209,7 +209,7 @@ This skill is **self-contained** — no `pip install` required for most operatio
 - `references/gen-prompt.md` — Canonical LLM generation prompt for paper@1 sidecars (schema rules, field enums, self-check). v0.10: bumped to emit 0.10 records and advertises the 8 paper@1-admissible statement_types (incl. reflection / lesson). For commentary@1 sidecars, use `commentary-builder-prompt.md` instead — `gen-prompt.md` is paper@1 only.
 - `references/consume-prompt.md` — Canonical LLM consumption prompt (v1.0 base + v1.1 matched-output) — referenced by `sidecar-reader` sub-skill
 - `references/review-mode.md` — Review-as-sidecar workflow — referenced by `review-sidecar` sub-skill
-- `references/commentary-builder-prompt.md` — canonical LLM prompt for `commentary-builder`; shares the 9-phrase banned list with `next-step-advisor` and the `paper-brainstorm` stance
+- `references/commentary-builder-prompt.md` — canonical LLM prompt for `commentary-builder`; shares the banned-phrase list with `next-step-advisor` and the `paper-brainstorm` stance
 - `stances/` — 7 mattpocock-style interaction-stance sub-skills (`paper-brainstorm`, `review-prep`, `rebuttal-prep`, `pitch-grill`, `survey-shape`, `devils-advocate`, `executive-summary`). NOT in dispatch contract — activated via description match or `/<name>` slash command. Chain into Type A emitters via fenced `brainstorm_summary` handoff. See `stances/README.md` for the full catalog + activation precedence rule + canonical schema.
 - `references/remote-modes.md` — knows.academy remote API workflow patterns
 - `references/recipes.md` — the 9 canonical cross-skill chains in full (commands + rationale); the SKILL.md §Recipes table is only the index
