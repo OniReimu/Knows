@@ -76,14 +76,21 @@ manifest = Manifest(skill="scoop-check", intent_class="check_novelty",
 #    the same "strategy not topic" lesson next-step-advisor relies on). The full four-axis
 #    decomposition is done by the LLM per scoop-check-prompt.md §"Decomposition"; this seed is
 #    just to drive retrieval.
-QUERY = "per-phase credit assignment for long-context reasoning RL"   # LLM-derived from IDEA
+#    CRITICAL — keep the query SHORT (≈2-5 content words). The hub /search is an AND-tsquery:
+#    a long, fully-specified sentence matches nothing and would trigger a FALSE thin-coverage
+#    abstain. Derive a compact key-phrase, not a restatement of the idea.
+QUERY = "minimal information requesting math"   # LLM-derived from IDEA — short, high-recall
 
-# 3. G5 + G7 + G2': retrieve the closest prior work. sort="relevance" (semantic closeness is
-#    what a collision check needs — NOT trending/latest). Over-fetch so filters have headroom.
-hits_raw = fetch_search(QUERY, sort="relevance", limit=24).get("results", [])
+# 3. G5 + G7 + G2': retrieve the closest prior work. Do NOT pass a sort — the hub's default
+#    (query-relevance / tsvector ranking) is exactly the semantic closeness a collision check
+#    needs. ('relevance' is NOT a valid sort value; valid sorts are latest/trending/claims and
+#    all three are WRONG here — they reorder away from closeness.) Over-fetch for filter headroom.
+hits_raw = fetch_search(QUERY, limit=24).get("results", [])
 hits = [h for h in hits_raw if h.get("profile") == "paper@1"][:12]
 manifest.returned_rids = [h["record_id"] for h in hits]
 kept = filter_records(hits, "scoop-check", manifest)
+# If 0 hits, the query was likely too specific (AND-tsquery) — broaden it (drop terms) and
+# retry ONCE before concluding thin coverage, so a phrasing artifact isn't read as "novel".
 
 # 3a. HONEST-ABSTAIN on thin coverage. A collision check over an empty/thin working set is
 #     WORSE than useless — it produces a false "novel" verdict. If < 3 relevant papers survive,
