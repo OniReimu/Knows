@@ -88,6 +88,8 @@ exact commands, why-this-order rationale, and failure-mode caveats):
 | 7 | `commentary-builder → next-step-advisor` | gap-finding when authors don't disclose gaps (partially blocked — hub upload UNVERIFIED) |
 | 8 | `sidecar-author → sidecar-reader --local` | Q&A over your own freshly-generated sidecar, pre-publication |
 | 9 | `paper-brainstorm → commentary-builder` | canonical Type B → Type A chain: multi-turn brainstorm → grounded commentary@1 emit |
+| 10 | `paper-finder → next-step-advisor → scoop-check` | **the student idea-lab loop**: "find me a research idea in X and check it's novel" — search papers → generate grounded directions → collision-check each and rank by novelty verdict |
+| 11 | `scoop-check` (standalone) | "is THIS idea novel / already done?" — student pastes their own idea paragraph; jumps straight to the collision check |
 
 **Type B → Type A chain pattern (v0.11+)**: a stance does free dialogue + opinion +
 multi-turn convergence, then hands a fenced `brainstorm_summary` YAML block to its paired
