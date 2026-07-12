@@ -26,7 +26,7 @@ Each subdirectory hosts one **Type A** sub-skill that the Knows orchestrator dis
 
 **Wrapper** = which sub-skills have a Python CLI wrapper in `scripts/orchestrator.py` vs which are agent-mediated (LLM-heavy body — agent reads SKILL.md Quick Start and runs the underlying API calls). See `../SKILL.md` §"v1.0 Execution Mode" for why.
 
-The catalog has **13 sub-skills** as of v1.1 (was 12; +`scoop-check` — prior-art collision check for a candidate idea, the idea-analysis counterpart to `next-step-advisor`'s idea-search, chained in Recipe 10).
+The catalog has **13 sub-skills**. `scoop-check` — a prior-art collision check for a candidate idea — is the idea-analysis counterpart to `next-step-advisor`'s idea-search (chained in Recipe 10).
 
 ## How to add a new sub-skill
 
